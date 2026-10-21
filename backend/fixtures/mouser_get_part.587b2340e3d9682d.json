@@ -1,0 +1,10 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "IP2332"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

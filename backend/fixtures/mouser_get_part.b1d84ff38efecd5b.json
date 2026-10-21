@@ -1,0 +1,135 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "nRF52833-QDAA-R"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "949-NRF52833-QDAA-R",
+    "mfr_part_number": "nRF52833-QDAA-R",
+    "manufacturer": "Nordic Semiconductor",
+    "description": "RF System on a Chip - SoC Bluetooth 5.1 2.4GHz transceiver",
+    "category": "RF System on a Chip - SoC",
+    "stock": 2767,
+    "price": 5.6,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 5.6,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 4.52,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 4.22,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 3.86,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 3.67,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 3.54,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 3.45,
+      "currency": "USD"
+     },
+     {
+      "qty": 4000,
+      "price": 3.45,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/926/1/nRF52833_SoC_Product_Brief.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Nordic-Semiconductor/nRF52833-QDAA-R?qs=xZ%2FP%252Ba9zWqYrk%252Bfy26NOZQ%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Cut Tape",
+     "Standard Pack Qty": "4000"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "949-NRF52833-QDAA-R7",
+    "mfr_part_number": "nRF52833-QDAA-R7",
+    "manufacturer": "Nordic Semiconductor",
+    "description": "RF System on a Chip - SoC Bluetooth 5.1 2.4GHz transceiver",
+    "category": "RF System on a Chip - SoC",
+    "stock": 1479,
+    "price": 5.6,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 5.6,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 4.52,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 4.22,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 3.86,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 3.67,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 3.54,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 3.1,
+      "currency": "USD"
+     },
+     {
+      "qty": 1500,
+      "price": 3.1,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/926/1/nRF52833_SoC_Product_Brief.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Nordic-Semiconductor/nRF52833-QDAA-R7?qs=xZ%2FP%252Ba9zWqaj2%2F2O%252BTK9dw%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Cut Tape",
+     "Standard Pack Qty": "1500"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 2
+ }
+}

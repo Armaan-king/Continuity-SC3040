@@ -1,0 +1,111 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "VG6328A",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C20539408",
+    "model": "VG6328A",
+    "manufacturer": "Vollgo",
+    "package": "SMD,16x13.6mm",
+    "stock": 21547,
+    "price": 1.1505,
+    "price_10": 1.0178,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "Bluetooth Modules",
+    "subcategory_id": 2282,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Sensitivity": "-92dBm",
+     "Voltage - Supply": "3.3V",
+     "Features": "BT/BLE dual mode",
+     "Wireless Standard": "Bluetooth 5.3"
+    }
+   },
+   {
+    "lcsc": "C48818398",
+    "model": "VG6328A-MS",
+    "manufacturer": "Vollgo",
+    "package": "SMD,16x13.6mm",
+    "stock": 628,
+    "price": 1.3495,
+    "price_10": 1.1294,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "Bluetooth Modules",
+    "subcategory_id": 2282,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Sensitivity": "-92dBm",
+     "Output Power(Max)": "1dBm",
+     "Voltage - Supply": "1.8V~3.6V",
+     "Features": "-",
+     "Utilized IC / Part": "AC6328A chip",
+     "Communication Distance": "20m、60m",
+     "Wireless Standard": "Bluetooth 5.3"
+    }
+   },
+   {
+    "lcsc": "C53263476",
+    "model": "VG6328A-Pro",
+    "manufacturer": "Vollgo",
+    "package": "SMD14.5x11.5mm",
+    "stock": 143,
+    "price": 0.9482,
+    "price_10": 0.7654,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "Bluetooth Modules",
+    "subcategory_id": 2282,
+    "mounting_type": "smd",
+    "specs": {}
+   },
+   {
+    "lcsc": "C53263475",
+    "model": "VG6328A-Plus",
+    "manufacturer": "Vollgo",
+    "package": "SMD,14.5x11.5mm",
+    "stock": 946,
+    "price": 1.021,
+    "price_10": 0.8253,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "Bluetooth Modules",
+    "subcategory_id": 2282,
+    "mounting_type": "smd",
+    "specs": {}
+   },
+   {
+    "lcsc": "C54780234",
+    "model": "VG6328AIP-Pro",
+    "manufacturer": "Vollgo",
+    "package": "SMD,11.5x10.5mm",
+    "stock": 54,
+    "price": 1.0275,
+    "price_10": 0.8528,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "Bluetooth Modules",
+    "subcategory_id": 2282,
+    "mounting_type": "smd",
+    "specs": {}
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 6,
+  "total_pages": 2,
+  "has_more": true
+ }
+}

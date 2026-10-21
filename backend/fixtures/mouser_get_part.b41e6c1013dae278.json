@@ -1,0 +1,43 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "KSZ8081MNXIA-TR"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "998-KSZ8081MNXIATR",
+    "mfr_part_number": "KSZ8081MNXIA-TR",
+    "manufacturer": "Microchip Technology",
+    "description": "Ethernet ICs 10/100 BASE-TX Physical Layer Transceiver",
+    "category": "Ethernet ICs",
+    "stock": 37648,
+    "price": 1.42,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 1.42,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 1.42,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/282/1/KSZ8081RNA-RND-10BASE-T-100-BASE-TX-PHY-with-RMII-Support-DS00002199F.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Microchip-Technology/KSZ8081MNXIA-TR?qs=U6T8BxXiZAXjO9k0zOJ%2FFg%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "1000"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 1
+ }
+}

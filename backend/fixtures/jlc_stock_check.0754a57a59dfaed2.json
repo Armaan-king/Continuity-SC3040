@@ -1,0 +1,46 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "HS91L02W2C01",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C5248081",
+    "model": "HS91L02W2C01",
+    "manufacturer": "HS",
+    "package": "-",
+    "stock": 1268,
+    "price": 2.3257,
+    "price_10": 1.9249,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Displays",
+    "subcategory": "OLED Display",
+    "subcategory_id": 2205,
+    "mounting_type": "not_sure",
+    "specs": {
+     "Type of Drive": "Passive (PMOLED)",
+     "Function": "-",
+     "Operating Temperature": "-",
+     "Luminance": "150cd/m2",
+     "Dot Pixels": "128x32",
+     "Size": "0.91",
+     "Controller Type": "SSD1306 chip",
+     "Voltage - Supply  For Logic": "1.65V~3.3V",
+     "Display Range": "22.384x5.584mm",
+     "Voltage - Supply  For Display": "-",
+     "Quiescent Current": "-",
+     "Interface": "I2C",
+     "Display Color": "White"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

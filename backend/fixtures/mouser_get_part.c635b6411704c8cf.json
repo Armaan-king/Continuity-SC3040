@@ -1,0 +1,112 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "AR0234CSSM28SUKA0-CP"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "863-234CSSM28SUKA0CP",
+    "mfr_part_number": "AR0234CSSM28SUKA0-CP",
+    "manufacturer": "onsemi",
+    "description": "Image Sensors 1/2.6-inch 2.3 Mp CMOS Digital Image Sensor with Global Shutter 2.3MP 1/2.6\"",
+    "category": "Image Sensors",
+    "stock": 0,
+    "price": 26.86,
+    "price_breaks": [
+     {
+      "qty": 2100,
+      "price": 26.86,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/onsemi/AR0234CSSM28SUKA0-CP?qs=DPoM0jnrROU9RVxkHGeGBg%3D%3D",
+    "rohs": "",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Tray",
+     "Standard Pack Qty": "2100"
+    },
+    "min_qty": 2100,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "863-4CSSM28SUKA0-CP2",
+    "mfr_part_number": "AR0234CSSM28SUKA0-CP2",
+    "manufacturer": "onsemi",
+    "description": "Image Sensors 1/2.6-inch 2.3 Mp CMOS Digital Image Sensor with Global Shutter 2.3MP 1/2.6\"",
+    "category": "Image Sensors",
+    "stock": 27,
+    "price": 50.39,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 50.39,
+      "currency": "USD"
+     },
+     {
+      "qty": 5,
+      "price": 42.49,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 39.5,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 35.85,
+      "currency": "USD"
+     },
+     {
+      "qty": 50,
+      "price": 32.54,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/onsemi/AR0234CSSM28SUKA0-CP2?qs=i8QVZAFTkqQftMChwbULAw%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Tray",
+     "Standard Pack Qty": "50"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "863-234CSSM28SUKA0CR",
+    "mfr_part_number": "AR0234CSSM28SUKA0-CR",
+    "manufacturer": "onsemi",
+    "description": "Image Sensors 1/2.6-inch 2.3 Mp CMOS Digital Image Sensor with Global Shutter 2.3MP 1/2.6",
+    "category": "Image Sensors",
+    "stock": 0,
+    "price": 28.11,
+    "price_breaks": [
+     {
+      "qty": 2100,
+      "price": 28.11,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/onsemi/AR0234CSSM28SUKA0-CR?qs=DPoM0jnrROWhxtsDxGbRyQ%3D%3D",
+    "rohs": "",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Tray",
+     "Standard Pack Qty": "2100"
+    },
+    "min_qty": 2100,
+    "currency": "USD"
+   }
+  ],
+  "total": 3
+ }
+}

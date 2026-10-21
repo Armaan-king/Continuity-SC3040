@@ -1,0 +1,14 @@
+{
+ "mpn": "HR911105A",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "role": "passive",
+  "temp_min": 0.0,
+  "temp_max": 70.0,
+  "interfaces": []
+ },
+ "provenance": {
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

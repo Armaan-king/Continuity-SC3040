@@ -1,0 +1,248 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "SPI NOR flash",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C97521",
+    "model": "W25Q128JVSIQ",
+    "manufacturer": "Winbond Elec",
+    "package": "SOIC-8-208mil",
+    "stock": 101805,
+    "price": 2.7294,
+    "price_10": null,
+    "library_type": "basic",
+    "preferred": true,
+    "category": "Memory",
+    "subcategory": "NOR FLASH",
+    "subcategory_id": 3018,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 100,000 cycles 120ms@(32KB) 128Mbit 133MHz 1uA 2.7V~3.6V 20 Years 3ms Power-on reset、Hardware write protection、Software write protection、Write enable latch、Absolute write protection SPI SOIC-8-208mil NOR FLASH ROHS",
+    "specs": {
+     "Data Retention - TDR (Year)": "20 Years",
+     "Operating Temperature": "-40℃~+85℃",
+     "Clock Frequency": "133MHz",
+     "Memory Size": "128Mbit",
+     "Page Programming Time (Tpp)": "3ms",
+     "Voltage - Supply": "2.7V~3.6V",
+     "Write Cycle Time (tWC)": "-",
+     "Block Erase Time(tBE)": "120ms@(32KB)",
+     "Features": "Power-on reset、Hardware write protection、Software write protection、Write enable latch、Absolute write protection",
+     "Interface": "SPI",
+     "Standby Supply Current": "1uA",
+     "Program / Erase Cycles": "100,000 cycles"
+    }
+   },
+   {
+    "lcsc": "C131025",
+    "model": "W25Q16JVSSIQ",
+    "manufacturer": "Winbond Elec",
+    "package": "SOIC-8-208mil",
+    "stock": 74800,
+    "price": 1.2927,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Memory",
+    "subcategory": "NOR FLASH",
+    "subcategory_id": 3018,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 100,000 cycles 10uA 133MHz 16Mbit 2.7V~3.6V 20 Years 3ms SPI SOIC-8-208mil NOR FLASH ROHS",
+    "specs": {
+     "Data Retention - TDR (Year)": "20 Years",
+     "Operating Temperature": "-40℃~+85℃",
+     "Clock Frequency": "133MHz",
+     "Memory Size": "16Mbit",
+     "Page Programming Time (Tpp)": "3ms",
+     "Voltage - Supply": "2.7V~3.6V",
+     "Write Cycle Time (tWC)": "-",
+     "Block Erase Time(tBE)": "-",
+     "Features": "Power-on reset、Hardware write protection、Software write protection、Write enable latch、Absolute write protection",
+     "Interface": "SPI",
+     "Standby Supply Current": "10uA",
+     "Program / Erase Cycles": "100,000 cycles"
+    }
+   },
+   {
+    "lcsc": "C2836860",
+    "model": "P25Q40SH-SSH-IT",
+    "manufacturer": "PUYA",
+    "package": "SOP-8",
+    "stock": 61289,
+    "price": 0.194,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Memory",
+    "subcategory": "NOR FLASH",
+    "subcategory_id": 3018,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 104MHz 10uA 16ms@(32KB) 2.3V~3.6V 2ms SPI SOP-8 NOR FLASH ROHS",
+    "specs": {
+     "Data Retention - TDR (Year)": "-",
+     "Clock Frequency": "104MHz",
+     "Operating Temperature": "-40℃~+85℃",
+     "Memory Size": "4Mbit",
+     "Voltage - Supply": "2.3V~3.6V",
+     "Page Programming Time (Tpp)": "2ms",
+     "Write Cycle Time (tWC)": "-",
+     "Block Erase Time(tBE)": "16ms@(32KB)",
+     "Features": "Hardware write protection、Software write protection、Write enable latch、Absolute write protection",
+     "Interface": "SPI",
+     "Standby Supply Current": "10uA",
+     "Program / Erase Cycles": "-"
+    }
+   },
+   {
+    "lcsc": "C2456211",
+    "model": "W25Q16JVSNIQ",
+    "manufacturer": "Winbond Elec",
+    "package": "SOIC-8",
+    "stock": 57124,
+    "price": 1.2814,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Memory",
+    "subcategory": "NOR FLASH",
+    "subcategory_id": 3018,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 100,000 cycles 10uA 120ms@(32KB) 133MHz 16Mbit 2.7V~3.6V 20 Years 400us SPI SOIC-8 NOR FLASH ROHS",
+    "specs": {
+     "Data Retention - TDR (Year)": "20 Years",
+     "Operating Temperature": "-40℃~+85℃",
+     "Clock Frequency": "133MHz",
+     "Memory Size": "16Mbit",
+     "Page Programming Time (Tpp)": "400us",
+     "Voltage - Supply": "2.7V~3.6V",
+     "Write Cycle Time (tWC)": "-",
+     "Block Erase Time(tBE)": "120ms@(32KB)",
+     "Features": "Power-on reset、Hardware write protection、Software write protection、Write enable latch、Absolute write protection",
+     "Interface": "SPI",
+     "Standby Supply Current": "10uA",
+     "Program / Erase Cycles": "100,000 cycles"
+    }
+   },
+   {
+    "lcsc": "C409019",
+    "model": "W25X20CLSNIG",
+    "manufacturer": "Winbond Elec",
+    "package": "SOIC-8",
+    "stock": 56333,
+    "price": 1.0355,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Memory",
+    "subcategory": "NOR FLASH",
+    "subcategory_id": 3018,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 100,000 cycles 104MHz 120ms@(32KB) 1uA 2.3V~3.6V 20 Years 2Mbit 400us SPI SOIC-8 NOR FLASH ROHS",
+    "specs": {
+     "Data Retention - TDR (Year)": "20 Years",
+     "Clock Frequency": "104MHz",
+     "Operating Temperature": "-40℃~+85℃",
+     "Memory Size": "2Mbit",
+     "Voltage - Supply": "2.3V~3.6V",
+     "Page Programming Time (Tpp)": "400us",
+     "Write Cycle Time (tWC)": "-",
+     "Block Erase Time(tBE)": "120ms@(32KB)",
+     "Features": "Hardware write protection、Software write protection、Write enable latch",
+     "Interface": "SPI",
+     "Standby Supply Current": "1uA",
+     "Program / Erase Cycles": "100,000 cycles"
+    }
+   },
+   {
+    "lcsc": "C190799",
+    "model": "MX25L25645GM2I-08G",
+    "manufacturer": "MXIC(Macronix)",
+    "package": "SOP-8-208mil",
+    "stock": 55777,
+    "price": 5.1304,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Memory",
+    "subcategory": "NOR FLASH",
+    "subcategory_id": 3018,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 100,000 cycles 120MHz 2.7V~3.6V 20 Years 256Mbit 750us SPI SOP-8-208mil NOR FLASH ROHS",
+    "specs": {
+     "Data Retention - TDR (Year)": "20 Years",
+     "Clock Frequency": "120MHz",
+     "Operating Temperature": "-40℃~+85℃",
+     "Memory Size": "256Mbit",
+     "Page Programming Time (Tpp)": "750us",
+     "Voltage - Supply": "2.7V~3.6V",
+     "Write Cycle Time (tWC)": "-",
+     "Block Erase Time(tBE)": "-",
+     "Features": "Hardware write protection、Software write protection、Write enable latch、Absolute write protection",
+     "Interface": "SPI",
+     "Program / Erase Cycles": "100,000 cycles",
+     "Standby Supply Current": "-"
+    }
+   }
+  ],
+  "total": 731,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 6
+  },
+  "filters_applied": {
+   "query": null,
+   "subcategory_id": 3018,
+   "subcategory_name": "nor flash",
+   "subcategory_resolved": "NOR FLASH",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [
+    {
+     "name": "Interface",
+     "op": "=",
+     "value": "SPI"
+    }
+   ],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 1,
+   "preferred": 0,
+   "extended": 730
+  },
+  "no_fee_available": true,
+  "parsed": {
+   "original_query": "SPI NOR flash",
+   "detected": {
+    "component_type": "nor flash",
+    "subcategory": "nor flash",
+    "semantic": [
+     "spi"
+    ]
+   },
+   "subcategory": "nor flash",
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [
+    {
+     "name": "Interface",
+     "op": "=",
+     "value": "SPI"
+    }
+   ],
+   "remaining_text": ""
+  }
+ }
+}

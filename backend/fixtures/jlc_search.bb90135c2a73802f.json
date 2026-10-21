@@ -1,0 +1,52 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "solar charge controller",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [],
+  "total": 0,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 0
+  },
+  "filters_applied": {
+   "query": "solar",
+   "subcategory_id": 3098,
+   "subcategory_name": "battery management",
+   "subcategory_resolved": "Battery Management",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 0
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "solar charge controller",
+   "detected": {
+    "component_type": "charge controller",
+    "subcategory": "battery management"
+   },
+   "subcategory": "battery management",
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "solar"
+  }
+ }
+}

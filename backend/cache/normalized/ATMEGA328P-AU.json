@@ -1,0 +1,24 @@
+{
+ "mpn": "ATMEGA328P-AU",
+ "prompt": "a3400943f200",
+ "fields": {
+  "vmin": 1.8,
+  "vmax": 5.5,
+  "role": "master",
+  "pins_available": 23,
+  "temp_min": -40.0,
+  "temp_max": 85.0,
+  "interfaces": [
+   "I2C",
+   "SPI",
+   "UART"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "pins_available": "Number of I/O",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

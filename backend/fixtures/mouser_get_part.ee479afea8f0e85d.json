@@ -1,0 +1,96 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "ESP32-WROOM-32E-N4"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "356-ESP32WRM32E132PH",
+    "mfr_part_number": "ESP32-WROOM-32E-N4",
+    "manufacturer": "Espressif Systems",
+    "description": "Multiprotocol Modules SMD Module ESP32-WROOM-32E, ESP32-D0WD-V3, 4 MB SPI flash, PCB antenna",
+    "category": "Multiprotocol Modules",
+    "stock": 27009,
+    "price": 4.99,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 4.99,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 4.32,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 4.02,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 3.76,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 3.57,
+      "currency": "USD"
+     },
+     {
+      "qty": 650,
+      "price": 3.08,
+      "currency": "USD"
+     },
+     {
+      "qty": 1300,
+      "price": 3.07,
+      "currency": "USD"
+     },
+     {
+      "qty": 1950,
+      "price": 3.04,
+      "currency": "USD"
+     },
+     {
+      "qty": 4550,
+      "price": 2.5,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/1574/1/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-WROOM-32E-N4?qs=Li%252BoUPsLEnsPzTWsi%252BRMgQ%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "650"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "N/A",
+    "mfr_part_number": "ESP32-WROOM-32E-N4",
+    "manufacturer": "Olimex Ltd.",
+    "description": "Multiprotocol Modules",
+    "category": "Multiprotocol Modules",
+    "stock": 0,
+    "price": null,
+    "price_breaks": [],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Olimex-Ltd/ESP32-WROOM-32E-N4?qs=X14clCvG9QlZlgCtECr6Cw%3D%3D",
+    "rohs": "",
+    "lifecycle": "Obsolete",
+    "parameters": {},
+    "min_qty": 0,
+    "currency": "USD"
+   }
+  ],
+  "total": 2
+ }
+}

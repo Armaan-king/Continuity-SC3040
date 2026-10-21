@@ -1,0 +1,43 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "lora1276-C1-915MHz",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C3001531",
+    "model": "lora1276-C1-915MHz",
+    "manufacturer": "G-NiceRF",
+    "package": "SMD,16x16mm",
+    "stock": 5711,
+    "price": 7.1001,
+    "price_10": 6.9399,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "LoRa Modules",
+    "subcategory_id": 2280,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Sensitivity": "-139dBm",
+     "Output Power": "20dBm",
+     "Modulation System": "FSK、LoRa、GFSK",
+     "Voltage - Supply": "3.3V",
+     "Frequency": "915MHz",
+     "Features": "LoRa frequency hopping spread spectrum、Built-in temperature sensor",
+     "Interface Type": "SPI",
+     "Send  Current": "120mA",
+     "Receive  Current": "10.8mA"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

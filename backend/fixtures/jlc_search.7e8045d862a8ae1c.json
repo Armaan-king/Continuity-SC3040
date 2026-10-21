@@ -1,0 +1,551 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "18650 battery holder",
+  "sort_by": "stock",
+  "limit": 40
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C19184084",
+    "model": "BH-18650-A6AJ012",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 4559,
+    "price": 1.3269,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "not_sure",
+    "description": "-25~85℃ Battery holder Nickel plated Stainless steel - ROHS",
+    "specs": {
+     "Operating Temperature": "-25~85℃",
+     "Type": "Battery holder",
+     "Contact material": "Stainless steel",
+     "Contact coating": "Nickel plated"
+    }
+   },
+   {
+    "lcsc": "C5290176",
+    "model": "BH-18650-A1AJ005",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 2645,
+    "price": 0.6877,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "not_sure",
+    "description": "-10~100℃ Battery holder Nickel plated - ROHS",
+    "specs": {
+     "Operating Temperature": "-10~100℃",
+     "Type": "Battery holder",
+     "Contact coating": "Nickel plated"
+    }
+   },
+   {
+    "lcsc": "C2988620",
+    "model": "BH-18650-B1BA002",
+    "manufacturer": "MYOUNG",
+    "package": "SMD",
+    "stock": 2405,
+    "price": 1.4984,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "smd",
+    "description": "-25~85℃ 18650 Battery holder Gold plating Phosphor bronze - ROHS",
+    "specs": {
+     "Operating Temperature": "-25~85℃",
+     "Type": "Battery holder",
+     "Contact material": "Phosphor bronze",
+     "Applicable battery specifications": "18650",
+     "Contact coating": "Gold plating"
+    }
+   },
+   {
+    "lcsc": "C19184086",
+    "model": "BH-18650-B5BA016",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 1351,
+    "price": 1.9094,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "not_sure",
+    "description": "-25~85℃ Battery holder Gold plating - ROHS",
+    "specs": {
+     "Operating Temperature": "-25~85℃",
+     "Type": "Battery holder",
+     "Contact coating": "Gold plating"
+    }
+   },
+   {
+    "lcsc": "C49118397",
+    "model": "BH-18650-3",
+    "manufacturer": "HanElectricity",
+    "package": "Plugin",
+    "stock": 1316,
+    "price": 0.3468,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "Button And Strip Battery Connector",
+    "subcategory_id": 2989,
+    "mounting_type": "through_hole",
+    "description": "-40℃~+80℃ 18650 Battery holder Plugin Button And Strip Battery Connector ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+80℃",
+     "Connector Type": "Battery holder",
+     "Battery Type": "18650"
+    }
+   },
+   {
+    "lcsc": "C5290175",
+    "model": "BH-18650-A1AJ006",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 877,
+    "price": 0.5114,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "not_sure",
+    "description": "-10~100℃ Battery holder Nickel plated - ROHS",
+    "specs": {
+     "Operating Temperature": "-10~100℃",
+     "Type": "Battery holder",
+     "Contact coating": "Nickel plated"
+    }
+   },
+   {
+    "lcsc": "C49118395",
+    "model": "BH-18650-1",
+    "manufacturer": "HanElectricity",
+    "package": "Plugin",
+    "stock": 606,
+    "price": 0.2649,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "Button And Strip Battery Connector",
+    "subcategory_id": 2989,
+    "mounting_type": "through_hole",
+    "description": "-10℃~+100℃ 18650 Battery holder Plugin Button And Strip Battery Connector ROHS",
+    "specs": {
+     "Operating Temperature": "-10℃~+100℃",
+     "Connector Type": "Battery holder",
+     "Battery Type": "18650"
+    }
+   },
+   {
+    "lcsc": "C19184083",
+    "model": "BH-18650-A5BJ001-2D",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 439,
+    "price": 0.7476,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "not_sure",
+    "description": "-10~100℃ Battery holder Nickel plated - ROHS",
+    "specs": {
+     "Operating Temperature": "-10~100℃",
+     "Type": "Battery holder",
+     "Contact coating": "Nickel plated"
+    }
+   },
+   {
+    "lcsc": "C5371778",
+    "model": "BH-18650-A6AJ003",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 426,
+    "price": 1.2557,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "not_sure",
+    "description": "-25~85℃ Battery holder Nickel plated Stainless steel - ROHS",
+    "specs": {
+     "Operating Temperature": "-25~85℃",
+     "Type": "Battery holder",
+     "Contact material": "Stainless steel",
+     "Contact coating": "Nickel plated"
+    }
+   },
+   {
+    "lcsc": "C6937126",
+    "model": "BH-18650-B1BA007",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 402,
+    "price": 1.7783,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "not_sure",
+    "description": "-25~85℃ Battery holder Gold plating Phosphor bronze - ROHS",
+    "specs": {
+     "Operating Temperature": "-25~85℃",
+     "Type": "Battery holder",
+     "Contact material": "Phosphor bronze",
+     "Contact coating": "Gold plating"
+    }
+   },
+   {
+    "lcsc": "C49118396",
+    "model": "BH-18650-2",
+    "manufacturer": "HanElectricity",
+    "package": "Plugin",
+    "stock": 315,
+    "price": 0.2979,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "Button And Strip Battery Connector",
+    "subcategory_id": 2989,
+    "mounting_type": "through_hole",
+    "description": "-10℃~+100℃ 18650 Battery holder Nickel Plugin Button And Strip Battery Connector ROHS",
+    "specs": {
+     "Operating Temperature": "-10℃~+100℃",
+     "Contact Plating": "Nickel",
+     "Connector Type": "Battery holder",
+     "Battery Type": "18650"
+    }
+   },
+   {
+    "lcsc": "C19184085",
+    "model": "BH-18650-A6AJ002",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 248,
+    "price": 1.2864,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "not_sure",
+    "description": "-25~85℃ Battery holder Nickel plated Stainless steel - ROHS",
+    "specs": {
+     "Operating Temperature": "-25~85℃",
+     "Type": "Battery holder",
+     "Contact material": "Stainless steel",
+     "Contact coating": "Nickel plated"
+    }
+   },
+   {
+    "lcsc": "C49215505",
+    "model": "BH-18650-A1BJ033",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 221,
+    "price": 0.5016,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "not_sure",
+    "description": "-10~80℃ 18650 Battery holder Nickel plated - ROHS",
+    "specs": {
+     "Operating Temperature": "-10~80℃",
+     "Type": "Battery holder",
+     "Applicable battery specifications": "18650",
+     "Contact coating": "Nickel plated"
+    }
+   },
+   {
+    "lcsc": "C5371777",
+    "model": "BH-18650-B5BA008",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 208,
+    "price": 1.144,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "not_sure",
+    "description": "-10~100℃ Battery holder Gold plating Phosphor bronze - ROHS",
+    "specs": {
+     "Operating Temperature": "-10~100℃",
+     "Type": "Battery holder",
+     "Contact material": "Phosphor bronze",
+     "Contact coating": "Gold plating"
+    }
+   },
+   {
+    "lcsc": "C20606804",
+    "model": "BH-18650-A1BJ021",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 205,
+    "price": 1.3608,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "not_sure",
+    "description": "-25~85℃ Battery holder Nickel plated - ROHS",
+    "specs": {
+     "Operating Temperature": "-25~85℃",
+     "Type": "Battery holder",
+     "Contact coating": "Nickel plated"
+    }
+   },
+   {
+    "lcsc": "C49215506",
+    "model": "BH-18650-A1BJ034",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 152,
+    "price": 1.4288,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "not_sure",
+    "description": "-10~80℃ 18650 Battery holder Nickel plated - ROHS",
+    "specs": {
+     "Operating Temperature": "-10~80℃",
+     "Type": "Battery holder",
+     "Applicable battery specifications": "18650",
+     "Contact coating": "Nickel plated"
+    }
+   },
+   {
+    "lcsc": "C49215507",
+    "model": "BH-18650-A1BJ035",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 149,
+    "price": 1.6003,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "not_sure",
+    "description": "-10~80℃ 18650 Battery holder Nickel plated - ROHS",
+    "specs": {
+     "Operating Temperature": "-10~80℃",
+     "Type": "Battery holder",
+     "Applicable battery specifications": "18650",
+     "Contact coating": "Nickel plated"
+    }
+   },
+   {
+    "lcsc": "C48687367",
+    "model": "BH-18650-B1BA019",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 144,
+    "price": 1.8657,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "not_sure",
+    "description": "-10~80℃ 18650 Battery holder Gold plating - ROHS",
+    "specs": {
+     "Operating Temperature": "-10~80℃",
+     "Type": "Battery holder",
+     "Applicable battery specifications": "18650",
+     "Contact coating": "Gold plating"
+    }
+   },
+   {
+    "lcsc": "C49215508",
+    "model": "BH-18650-A1BJ036",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 110,
+    "price": 1.3236,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "not_sure",
+    "description": "-10~80℃ 18650 Battery holder Nickel plated - ROHS",
+    "specs": {
+     "Operating Temperature": "-10~80℃",
+     "Type": "Battery holder",
+     "Applicable battery specifications": "18650",
+     "Contact coating": "Nickel plated"
+    }
+   },
+   {
+    "lcsc": "C49118399",
+    "model": "BH-18650-4",
+    "manufacturer": "HanElectricity",
+    "package": "SMD",
+    "stock": 104,
+    "price": 1.2961,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "Button And Strip Battery Connector",
+    "subcategory_id": 2989,
+    "mounting_type": "smd",
+    "description": "-25℃~+85℃ 18650 Battery holder Gold SMD Button And Strip Battery Connector ROHS",
+    "specs": {
+     "Operating Temperature": "-25℃~+85℃",
+     "Contact Plating": "Gold",
+     "Connector Type": "Battery holder",
+     "Battery Type": "18650"
+    }
+   },
+   {
+    "lcsc": "C49215504",
+    "model": "BH-18650-B1AJ020-150",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 75,
+    "price": 0.5114,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "not_sure",
+    "description": "-10~80℃ Battery holder Brass Nickel plated - ROHS",
+    "specs": {
+     "Operating Temperature": "-10~80℃",
+     "Contact material": "Brass",
+     "Type": "Battery holder",
+     "Contact coating": "Nickel plated"
+    }
+   },
+   {
+    "lcsc": "C48687365",
+    "model": "BH-18650-B1AJ025-150",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 29,
+    "price": 0.5647,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "not_sure",
+    "description": "-10~80℃ 18650 Battery holder Nickel plated Spring steel - ROHS",
+    "specs": {
+     "Operating Temperature": "-10~80℃",
+     "Contact material": "Spring steel",
+     "Type": "Battery holder",
+     "Applicable battery specifications": "18650",
+     "Contact coating": "Nickel plated"
+    }
+   },
+   {
+    "lcsc": "C51885781",
+    "model": "BH-18650-B6AA007",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 22,
+    "price": 1.1505,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "not_sure",
+    "description": "-10~80℃ 18650 Battery holder Gold plating - ROHS",
+    "specs": {
+     "Operating Temperature": "-10~80℃",
+     "Type": "Battery holder",
+     "Applicable battery specifications": "18650",
+     "Contact coating": "Gold plating"
+    }
+   }
+  ],
+  "total": 23,
+  "page_info": {
+   "limit": 40,
+   "offset": 0,
+   "returned": 23
+  },
+  "filters_applied": {
+   "query": "18650 battery holder",
+   "subcategory_id": null,
+   "subcategory_name": null,
+   "subcategory_resolved": null,
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 23
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "18650 battery holder",
+   "detected": {},
+   "subcategory": null,
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "18650 battery holder"
+  }
+ }
+}

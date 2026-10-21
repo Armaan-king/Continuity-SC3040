@@ -1,0 +1,272 @@
+{
+ "tool": "jlc_get_pinout",
+ "arguments": {
+  "lcsc": "C79676"
+ },
+ "response": {
+  "lcsc": "C79676",
+  "model": "W7500P",
+  "manufacturer": "WIZNET",
+  "package": "LQFP-64(7x7)",
+  "pin_count": 64,
+  "pins": [
+   {
+    "number": "1",
+    "name": "PC_08"
+   },
+   {
+    "number": "2",
+    "name": "PC_09"
+   },
+   {
+    "number": "3",
+    "name": "PC_10"
+   },
+   {
+    "number": "4",
+    "name": "PC_11"
+   },
+   {
+    "number": "5",
+    "name": "PC_12"
+   },
+   {
+    "number": "6",
+    "name": "PC_13"
+   },
+   {
+    "number": "7",
+    "name": "PC_14"
+   },
+   {
+    "number": "8",
+    "name": "PC_15"
+   },
+   {
+    "number": "9",
+    "name": "VSS"
+   },
+   {
+    "number": "10",
+    "name": "VDD"
+   },
+   {
+    "number": "11",
+    "name": "PC_06"
+   },
+   {
+    "number": "12",
+    "name": "TEST"
+   },
+   {
+    "number": "13",
+    "name": "REGIN"
+   },
+   {
+    "number": "14",
+    "name": "LEO0"
+   },
+   {
+    "number": "15",
+    "name": "DUP/PB_06"
+   },
+   {
+    "number": "16",
+    "name": "VSS"
+   },
+   {
+    "number": "17",
+    "name": "LED_3"
+   },
+   {
+    "number": "18",
+    "name": "VDD"
+   },
+   {
+    "number": "19",
+    "name": "PA_05"
+   },
+   {
+    "number": "20",
+    "name": "PA_06"
+   },
+   {
+    "number": "21",
+    "name": "PA_07"
+   },
+   {
+    "number": "22",
+    "name": "PA_08"
+   },
+   {
+    "number": "23",
+    "name": "PA_09"
+   },
+   {
+    "number": "24",
+    "name": "PA_10"
+   },
+   {
+    "number": "25",
+    "name": "VSS"
+   },
+   {
+    "number": "26",
+    "name": "RSTN"
+   },
+   {
+    "number": "27",
+    "name": "PA_00"
+   },
+   {
+    "number": "28",
+    "name": "PA_01"
+   },
+   {
+    "number": "29",
+    "name": "PA_02"
+   },
+   {
+    "number": "30",
+    "name": "PA_03"
+   },
+   {
+    "number": "31",
+    "name": "PA_04"
+   },
+   {
+    "number": "32",
+    "name": "ISET"
+   },
+   {
+    "number": "33",
+    "name": "AGND"
+   },
+   {
+    "number": "34",
+    "name": "MDI_RN"
+   },
+   {
+    "number": "35",
+    "name": "MDI_RP"
+   },
+   {
+    "number": "36",
+    "name": "REG_OUT"
+   },
+   {
+    "number": "37",
+    "name": "MDI_TN"
+   },
+   {
+    "number": "38",
+    "name": "MDI_TP"
+   },
+   {
+    "number": "39",
+    "name": "AGND"
+   },
+   {
+    "number": "40",
+    "name": "AVDD"
+   },
+   {
+    "number": "41",
+    "name": "PA_11"
+   },
+   {
+    "number": "42",
+    "name": "PA_12"
+   },
+   {
+    "number": "43",
+    "name": "PA_13"
+   },
+   {
+    "number": "44",
+    "name": "PA_14"
+   },
+   {
+    "number": "45",
+    "name": "PB_00"
+   },
+   {
+    "number": "46",
+    "name": "PB_01"
+   },
+   {
+    "number": "47",
+    "name": "PB_02"
+   },
+   {
+    "number": "48",
+    "name": "PB_03"
+   },
+   {
+    "number": "49",
+    "name": "VSS"
+   },
+   {
+    "number": "50",
+    "name": "XPHY-IN"
+   },
+   {
+    "number": "51",
+    "name": "XPHY-OUT"
+   },
+   {
+    "number": "52",
+    "name": "BOOT"
+   },
+   {
+    "number": "53",
+    "name": "PC_00"
+   },
+   {
+    "number": "54",
+    "name": "PC_01"
+   },
+   {
+    "number": "55",
+    "name": "PC_02"
+   },
+   {
+    "number": "56",
+    "name": "PC_03"
+   },
+   {
+    "number": "57",
+    "name": "PC_04"
+   },
+   {
+    "number": "58",
+    "name": "PC_05"
+   },
+   {
+    "number": "59",
+    "name": "XTAL32_IN"
+   },
+   {
+    "number": "60",
+    "name": "XTAL32_OUT"
+   },
+   {
+    "number": "61",
+    "name": "VDD"
+   },
+   {
+    "number": "62",
+    "name": "GND"
+   },
+   {
+    "number": "63",
+    "name": "XTAL_IN"
+   },
+   {
+    "number": "64",
+    "name": "XTAL_OUT"
+   }
+  ],
+  "easyeda_symbol_uuid": "07e6657fe66141758e3a9dadb1a75898"
+ }
+}

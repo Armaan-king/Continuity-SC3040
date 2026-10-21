@@ -1,0 +1,145 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "TPS563208DDCR"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "595-TPS563208DDCR",
+    "mfr_part_number": "TPS563208DDCR",
+    "manufacturer": "Texas Instruments",
+    "description": "Switching Voltage Regulators 4.5 V to 17 V input 3 A output synchro A A 595-TPS563208DDCT",
+    "category": "Switching Voltage Regulators",
+    "stock": 8861,
+    "price": 0.46,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 0.46,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 0.319,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 0.284,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 0.245,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 0.227,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 0.216,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 0.207,
+      "currency": "USD"
+     },
+     {
+      "qty": 3000,
+      "price": 0.194,
+      "currency": "USD"
+     },
+     {
+      "qty": 6000,
+      "price": 0.189,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Texas-Instruments/TPS563208DDCR?qs=G55MHhPmvtJ3GzkrrIdJMg%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "3000"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "595-TPS563208DDCT",
+    "mfr_part_number": "TPS563208DDCT",
+    "manufacturer": "Texas Instruments",
+    "description": "Switching Voltage Regulators 4.5V to 17V input 3A Output A 595-TPS563 A 595-TPS563208DDCR",
+    "category": "Switching Voltage Regulators",
+    "stock": 737,
+    "price": 1.15,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 1.15,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 0.825,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 0.744,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 0.655,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 0.612,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 0.581,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 0.56,
+      "currency": "USD"
+     },
+     {
+      "qty": 2500,
+      "price": 0.543,
+      "currency": "USD"
+     },
+     {
+      "qty": 5000,
+      "price": 0.536,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Texas-Instruments/TPS563208DDCT?qs=G55MHhPmvtISnACwbUcCuQ%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "250"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 2
+ }
+}

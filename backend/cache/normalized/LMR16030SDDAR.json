@@ -1,0 +1,26 @@
+{
+ "mpn": "LMR16030SDDAR",
+ "prompt": "a3400943f200",
+ "fields": {
+  "vmin": 4.3,
+  "vmax": 60.0,
+  "vout_min": 0.8,
+  "vout_max": 50.0,
+  "i_typ": 4e-05,
+  "i_max": 3.0,
+  "topology": "buck",
+  "temp_min": -40.0,
+  "temp_max": 125.0
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "vout_min": "Output Voltage",
+  "vout_max": "Output Voltage",
+  "i_typ": "Quiescent Current",
+  "i_max": "Output Current",
+  "topology": "Topology",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

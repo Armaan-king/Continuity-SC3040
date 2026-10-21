@@ -1,0 +1,10 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "DS18B20(UMW)"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

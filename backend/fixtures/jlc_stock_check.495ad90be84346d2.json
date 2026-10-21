@@ -1,0 +1,67 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "AHT20",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C2757850",
+    "model": "AHT20",
+    "manufacturer": "Aosong (Guangzhou) Elec",
+    "package": "SMD",
+    "stock": 42513,
+    "price": 0.7932,
+    "price_10": 0.6764,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Temperature and Humidity Sensor",
+    "subcategory_id": 3191,
+    "mounting_type": "smd",
+    "specs": {
+     "Temperature Tolerance": "±0.3℃",
+     "Voltage - Supply": "2.2V~5.5V",
+     "Humidity": "0%RH~100%RH",
+     "Temperature Range": "-40℃~+120℃",
+     "Features": "Factory calibration",
+     "Current - Supply": "570uA",
+     "Interface": "I2C",
+     "Resolution": "20bit",
+     "Humidity Tolerance": "±2%RH"
+    }
+   },
+   {
+    "lcsc": "C3012622",
+    "model": "AHT20-F",
+    "manufacturer": "Aosong (Guangzhou) Elec",
+    "package": "SMD-6P,3x3mm",
+    "stock": 21515,
+    "price": 0.8111,
+    "price_10": 0.6894,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Temperature and Humidity Sensor",
+    "subcategory_id": 3191,
+    "mounting_type": "smd",
+    "specs": {
+     "Temperature Tolerance": "±0.3℃",
+     "Voltage - Supply": "2.2V~5.5V",
+     "Humidity": "0%RH~100%RH",
+     "Temperature Range": "-40℃~+85℃",
+     "Features": "Factory calibration",
+     "Current - Supply": "980uA",
+     "Interface": "I2C",
+     "Humidity Tolerance": "±2%RH"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 2,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

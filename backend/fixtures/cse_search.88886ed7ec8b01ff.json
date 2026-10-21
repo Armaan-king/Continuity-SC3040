@@ -1,0 +1,10 @@
+{
+ "tool": "cse_search",
+ "arguments": {
+  "query": "MT3540-F23"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

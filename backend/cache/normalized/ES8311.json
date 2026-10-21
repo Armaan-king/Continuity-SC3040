@@ -1,0 +1,16 @@
+{
+ "mpn": "ES8311",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 1.8,
+  "vmax": 3.3,
+  "i_typ": 0.0,
+  "role": "peripheral",
+  "temp_min": -40.0,
+  "temp_max": 105.0,
+  "interfaces": [
+   "I2S"
+  ]
+ },
+ "provenance": {}
+}

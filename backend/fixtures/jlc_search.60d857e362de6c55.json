@@ -1,0 +1,179 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "battery holder",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C70381",
+    "model": "CR1220-2",
+    "manufacturer": "Q&J",
+    "package": "-",
+    "stock": 43328,
+    "price": 0.2414,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery holder base",
+    "subcategory_id": 3739,
+    "mounting_type": "not_sure",
+    "description": "-40~80℃ Battery base CR1220 Phosphor bronze - Battery holder base ROHS",
+    "specs": {
+     "Operating Temperature": "-40~80℃",
+     "Contact material": "Phosphor bronze",
+     "Type": "Battery base",
+     "Applicable battery specifications": "CR1220"
+    }
+   },
+   {
+    "lcsc": "C964881",
+    "model": "BH-AAA-B5AA001",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 8932,
+    "price": 1.5322,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "not_sure",
+    "description": "-25~85℃ Battery holder Gold plating No. 7 Phosphor bronze - ROHS",
+    "specs": {
+     "Operating Temperature": "-25~85℃",
+     "Type": "Battery holder",
+     "Contact material": "Phosphor bronze",
+     "Applicable battery specifications": "No. 7",
+     "Contact coating": "Gold plating"
+    }
+   },
+   {
+    "lcsc": "C19184084",
+    "model": "BH-18650-A6AJ012",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 4619,
+    "price": 1.3267,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "not_sure",
+    "description": "-25~85℃ Battery holder Nickel plated Stainless steel - ROHS",
+    "specs": {
+     "Operating Temperature": "-25~85℃",
+     "Type": "Battery holder",
+     "Contact material": "Stainless steel",
+     "Contact coating": "Nickel plated"
+    }
+   },
+   {
+    "lcsc": "C964760",
+    "model": "BS-06-B4AK001",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 4527,
+    "price": 0.2869,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery holder base",
+    "subcategory_id": 3739,
+    "mounting_type": "not_sure",
+    "description": "-25~85℃ Battery base CR2032 Phosphor bronze Tin plated - Battery holder base ROHS",
+    "specs": {
+     "Operating Temperature": "-25~85℃",
+     "Contact material": "Phosphor bronze",
+     "Type": "Battery base",
+     "Applicable battery specifications": "CR2032",
+     "Contact coating": "Tin plated"
+    }
+   },
+   {
+    "lcsc": "C964721",
+    "model": "BS-12-B2AA002",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 4449,
+    "price": 0.3684,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery holder base",
+    "subcategory_id": 3739,
+    "mounting_type": "not_sure",
+    "description": "-25~85℃ Battery base CR1220 Phosphor bronze - Battery holder base ROHS",
+    "specs": {
+     "Operating Temperature": "-25~85℃",
+     "Contact material": "Phosphor bronze",
+     "Type": "Battery base",
+     "Applicable battery specifications": "CR1220"
+    }
+   },
+   {
+    "lcsc": "C575181",
+    "model": "120591-1",
+    "manufacturer": "TE Connectivity",
+    "package": "-",
+    "stock": 3374,
+    "price": 0.4611,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery holder base",
+    "subcategory_id": 3739,
+    "mounting_type": "not_sure",
+    "description": "- Battery holder base ROHS",
+    "specs": {}
+   }
+  ],
+  "total": 184,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 6
+  },
+  "filters_applied": {
+   "query": "battery holder",
+   "subcategory_id": null,
+   "subcategory_name": null,
+   "subcategory_resolved": null,
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 184
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "battery holder",
+   "detected": {},
+   "subcategory": null,
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "battery holder"
+  }
+ }
+}

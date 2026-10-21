@@ -1,0 +1,144 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "ESP32-C3FH4"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "356-ESP32-C3FH4",
+    "mfr_part_number": "ESP32-C3FH4",
+    "manufacturer": "Espressif Systems",
+    "description": "RF System on a Chip - SoC SMD IC ESP32-C3FH4, single-core MCU, 2.4G Wi-Fi & BLE 5.0 combo, QFN 32-pin, 5*5 mm, 4 MB flash inside, -40 C - +105 C",
+    "category": "RF System on a Chip - SoC",
+    "stock": 7576,
+    "price": 2.5,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 2.5,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 2.16,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 2.04,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 1.88,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 1.78,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 1.7,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 1.63,
+      "currency": "USD"
+     },
+     {
+      "qty": 2500,
+      "price": 1.6,
+      "currency": "USD"
+     },
+     {
+      "qty": 5000,
+      "price": 1.3,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/1574/1/esp32-c3_datasheet_en.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-C3FH4?qs=iLbezkQI%252BsgL5PSvEueYlQ%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "5000"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "356-ESP32-C3FH4X",
+    "mfr_part_number": "ESP32-C3FH4X",
+    "manufacturer": "Espressif Systems",
+    "description": "RF System on a Chip - SoC ESP32-C3FH4X is an low-power and highly-integrated MCU-based solution that supports 2.4 GHz Wi-Fi and Bluetooth Low Energy (Bluetooth LE)",
+    "category": "RF System on a Chip - SoC",
+    "stock": 10582,
+    "price": 2.5,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 2.5,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 2.16,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 2.04,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 1.88,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 1.78,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 1.7,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 1.63,
+      "currency": "USD"
+     },
+     {
+      "qty": 2500,
+      "price": 1.6,
+      "currency": "USD"
+     },
+     {
+      "qty": 5000,
+      "price": 1.48,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/1574/1/esp32-c3_datasheet_en.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-C3FH4X?qs=i8QVZAFTkqTBHNQ1W71daA%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Standard Pack Qty": "5000"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 2
+ }
+}

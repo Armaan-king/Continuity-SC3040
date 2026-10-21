@@ -1,0 +1,46 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "PIC16F1939-I/PT",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C41241",
+    "model": "PIC16F1939-I/PT",
+    "manufacturer": "Microchip Tech",
+    "package": "TQFP-44(10x10)",
+    "stock": 26922,
+    "price": 2.5614,
+    "price_10": 2.1877,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Embedded Processors & Controllers",
+    "subcategory": "Microcontrollers (MCU/MPU/SOC)",
+    "subcategory_id": 2584,
+    "mounting_type": "smd",
+    "specs": {
+     "EEPROM": "256Byte",
+     "Operating Temperature": "-40℃~+85℃",
+     "CPU Maximum Speed": "32MHz",
+     "Program Memory Type": "FLASH",
+     "Program Storage Size": "28KB",
+     "Voltage - Supply": "1.8V~5.5V",
+     "RAM Size": "1KB",
+     "Core Size": "8 Bit",
+     "CPU Core": "PIC",
+     "Number of I/O": "36",
+     "Features": "Power-on reset (POR)、Undervoltage detection (BOR/LVD/LVR/LVI)、Software reset、Built-in general-purpose timer、Touch function、Stack overflow reset",
+     "ADC (Bit)": "10bit",
+     "Oscillator Type": "Built-in"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

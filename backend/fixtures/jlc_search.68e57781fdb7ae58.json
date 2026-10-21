@@ -1,0 +1,98 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "low power microcontroller",
+  "sort_by": "stock",
+  "limit": 40
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C79676",
+    "model": "W7500P",
+    "manufacturer": "WIZNET",
+    "package": "LQFP-64(7x7)",
+    "stock": 218,
+    "price": 6.4059,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Embedded Processors & Controllers",
+    "subcategory": "Microcontrollers (MCU/MPU/SOC)",
+    "subcategory_id": 2584,
+    "mounting_type": "smd",
+    "description": "2.7V~5.5V 8 Low-power mode MII LQFP-64(7x7) Microcontrollers (MCU/MPU/SOC) ROHS",
+    "specs": {
+     "Operating Temperature": "-",
+     "Type": "-",
+     "Data Rate": "-",
+     "Voltage - Supply": "2.7V~5.5V",
+     "Number of ports": "8",
+     "Features": "Low-power mode",
+     "MAC Interface": "MII",
+     "Ethernet Speed Standards": "-"
+    }
+   },
+   {
+    "lcsc": "C659969",
+    "model": "ADSP-CM408CSWZ-BF",
+    "manufacturer": "Analog Devices",
+    "package": "LQFP-176(24x24)",
+    "stock": 19,
+    "price": 25.994,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Embedded Processors & Controllers",
+    "subcategory": "Microcontrollers (MCU/MPU/SOC)",
+    "subcategory_id": 2584,
+    "mounting_type": "smd",
+    "description": "Interrupt response、Integrated ADC interface、Integrated PWM control、RTC and timer、Low-power mode、High-speed peripheral interface、Hardware MAC acceleration、DMA data transfer、Secure storage and protection LQFP-176(24x24) Microcontrollers (MCU/MPU/SOC) ROHS",
+    "specs": {
+     "Features": "Interrupt response、Integrated ADC interface、Integrated PWM control、RTC and timer、Low-power mode、High-speed peripheral interface、Hardware MAC acceleration、DMA data transfer、Secure storage and protection"
+    }
+   }
+  ],
+  "total": 2,
+  "page_info": {
+   "limit": 40,
+   "offset": 0,
+   "returned": 2
+  },
+  "filters_applied": {
+   "query": "low power",
+   "subcategory_id": 2584,
+   "subcategory_name": "microcontrollers (mcu/mpu/soc)",
+   "subcategory_resolved": "Microcontrollers (MCU/MPU/SOC)",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 2
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "low power microcontroller",
+   "detected": {
+    "component_type": "microcontroller",
+    "subcategory": "microcontrollers (mcu/mpu/soc)"
+   },
+   "subcategory": "microcontrollers (mcu/mpu/soc)",
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "low power"
+  }
+ }
+}

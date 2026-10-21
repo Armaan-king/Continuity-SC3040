@@ -1,0 +1,76 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "TPS563208DDCR",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C468250",
+    "model": "TPS563208DDCR",
+    "manufacturer": "Texas Instruments",
+    "package": "TSOT-23-6",
+    "stock": 124407,
+    "price": 0.1683,
+    "price_10": 0.1352,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃@(TJ)",
+     "Function": "Step-down type",
+     "Synchronous Rectifier": "Yes",
+     "Frequency - Switching": "580kHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "4.5V~17V",
+     "Output Current": "3A",
+     "Quiescent Current": "590uA",
+     "Features": "Overcurrent Protection、Cycle-by-cycle current limiting、Hiccup current limiting",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck",
+     "Output Voltage": "768mV~7V",
+     "Number of Outputs": "1"
+    }
+   },
+   {
+    "lcsc": "C50385430",
+    "model": "TPS563208DDCR-MS",
+    "manufacturer": "MSKSEMI",
+    "package": "SOT-23-6",
+    "stock": 2770,
+    "price": 0.1709,
+    "price_10": 0.135,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃",
+     "Function": "Step-down type",
+     "Synchronous Rectifier": "Yes",
+     "Frequency - Switching": "450kHz~750kHz",
+     "Voltage - Supply": "3.5V~18V",
+     "Output Type": "Adjustable",
+     "Output Current": "3.5A",
+     "Quiescent Current": "300uA",
+     "Features": "Overcurrent Protection、Light load efficient mode、Cycle-by-cycle current limiting、Hiccup current limiting",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck",
+     "Output Voltage": "-",
+     "Number of Outputs": "1"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 2,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

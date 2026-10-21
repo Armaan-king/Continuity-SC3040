@@ -1,0 +1,73 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "TPS61040DBVR"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "595-TPS61040DBVR",
+    "mfr_part_number": "TPS61040DBVR",
+    "manufacturer": "Texas Instruments",
+    "description": "Switching Voltage Regulators 28-V 400-mA Switch B oost Converter",
+    "category": "Switching Voltage Regulators",
+    "stock": 18797,
+    "price": 1.29,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 1.29,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 0.937,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 0.848,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 0.751,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 0.704,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 0.676,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 0.656,
+      "currency": "USD"
+     },
+     {
+      "qty": 3000,
+      "price": 0.656,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Texas-Instruments/TPS61040DBVR?qs=Gse6rAGbi78IU3cZg2VK0g%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "3000"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 1
+ }
+}

@@ -1,0 +1,40 @@
+{
+ "tool": "jlc_get_part",
+ "arguments": {
+  "mpn": "ESP32-S3-WROOM-1-N16R8"
+ },
+ "response": {
+  "mpn": "ESP32-S3-WROOM-1-N16R8",
+  "total": 1,
+  "results": [
+   {
+    "lcsc": "C2913202",
+    "model": "ESP32-S3-WROOM-1-N16R8",
+    "manufacturer": "Espressif Systems",
+    "package": "SMD,25.5x18mm",
+    "stock": 37759,
+    "price": 5.1126,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "WiFi Modules",
+    "subcategory_id": 3205,
+    "mounting_type": "smd",
+    "description": "-103.5dBm -40℃~+65℃ 2.4GHz 20.5dBm 355mA 3V~3.6V 95mA ESP32-S3R8 On-board PCB Antenna UART、SPI、I2C、GPIO、I2S、USB SMD,25.5x18mm WiFi Modules ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+65℃",
+     "Antenna Type": "On-board PCB Antenna",
+     "Sensitivity": "-103.5dBm",
+     "Output Power": "20.5dBm",
+     "Voltage - Supply": "3V~3.6V",
+     "Frequency": "2.4GHz",
+     "Utilized IC / Part": "ESP32-S3R8",
+     "Interface Type": "UART、SPI、I2C、GPIO、I2S、USB",
+     "Send  Current": "355mA",
+     "Receive  Current": "95mA"
+    }
+   }
+  ]
+ }
+}

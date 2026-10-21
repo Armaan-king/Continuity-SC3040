@@ -1,0 +1,45 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "ESP-07S",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C82895",
+    "model": "ESP-07S",
+    "manufacturer": "Ai-Thinker",
+    "package": "SMD,17x16mm",
+    "stock": 9259,
+    "price": 3.6941,
+    "price_10": 3.2556,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "WiFi Modules",
+    "subcategory_id": 3205,
+    "mounting_type": "smd",
+    "specs": {
+     "Antenna Type": "On-board PCB Antenna",
+     "Operating Temperature": "-40℃~+125℃",
+     "Sensitivity": "-98dBm",
+     "Output Power": "19.5dBm",
+     "Voltage - Supply": "3.3V",
+     "Frequency": "2.4GHz",
+     "Features": "Over-the-air (OTA) update",
+     "Utilized IC / Part": "ESP8266 Chip",
+     "Interface Type": "UART、I2C、HSPI、I2S",
+     "Wireless Standard": "802.11b/g/n、BLE5.0",
+     "Send  Current": "-",
+     "Receive  Current": "-"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

@@ -1,0 +1,226 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "T1601B"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "546-1455ZT1601BK",
+    "mfr_part_number": "1455ZT1601BK",
+    "manufacturer": "Hammond Manufacturing",
+    "description": "Enclosures, Boxes, & Cases Wallmount Aluminum 6.3x3.5x2.2\" Black",
+    "category": "Enclosures, Boxes, & Cases",
+    "stock": 0,
+    "price": 29.58,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 29.58,
+      "currency": "USD"
+     },
+     {
+      "qty": 5,
+      "price": 25.04,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 23.56,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 22.04,
+      "currency": "USD"
+     },
+     {
+      "qty": 50,
+      "price": 20.61,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 19.52,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/222/1/1455zt.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Hammond-Manufacturing/1455ZT1601BK?qs=4dK74SdgGtxPPpqBaB1W9w%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Standard Pack Qty": "1"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "546-1455T1601BU",
+    "mfr_part_number": "1455T1601BU",
+    "manufacturer": "Hammond Manufacturing",
+    "description": "Enclosures, Boxes, & Cases Metal End Panel/Blue 6.30 x 2.03 x 6.50\"",
+    "category": "Enclosures, Boxes, & Cases",
+    "stock": 91,
+    "price": 42.12,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 42.12,
+      "currency": "USD"
+     },
+     {
+      "qty": 5,
+      "price": 35.83,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 33.99,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 31.67,
+      "currency": "USD"
+     },
+     {
+      "qty": 50,
+      "price": 31.04,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 31.02,
+      "currency": "USD"
+     },
+     {
+      "qty": 200,
+      "price": 28.6,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/222/1/1455.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Hammond-Manufacturing/1455T1601BU?qs=gKf8YLbJKgj%252BDJ8D13H2yQ%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Bulk",
+     "Standard Pack Qty": "1"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "546-1455T1601BK",
+    "mfr_part_number": "1455T1601BK",
+    "manufacturer": "Hammond Manufacturing",
+    "description": "Enclosures, Boxes, & Cases MetalEndPanel, Black 6.30 x 2.03 x 6.50\"",
+    "category": "Enclosures, Boxes, & Cases",
+    "stock": 121,
+    "price": 41.71,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 41.71,
+      "currency": "USD"
+     },
+     {
+      "qty": 5,
+      "price": 36.39,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 33.99,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 31.04,
+      "currency": "USD"
+     },
+     {
+      "qty": 50,
+      "price": 28.88,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 28.6,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/222/1/1455.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Hammond-Manufacturing/1455T1601BK?qs=FExHghkmGICXKrgaz8GTwQ%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Standard Pack Qty": "1"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "546-1457T1601BK",
+    "mfr_part_number": "1457T1601BK",
+    "manufacturer": "Hammond Manufacturing",
+    "description": "Enclosures, Boxes, & Cases w/Flanged Ends 6.3x2.35x6.51 Black",
+    "category": "Enclosures, Boxes, & Cases",
+    "stock": 0,
+    "price": 51.25,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 51.25,
+      "currency": "USD"
+     },
+     {
+      "qty": 5,
+      "price": 46.36,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 44.53,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 43.3,
+      "currency": "USD"
+     },
+     {
+      "qty": 50,
+      "price": 42.14,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 41.57,
+      "currency": "USD"
+     },
+     {
+      "qty": 200,
+      "price": 41.27,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/222/1/1457.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Hammond-Manufacturing/1457T1601BK?qs=f9yNj16SXrJoUxVuawFhlQ%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Standard Pack Qty": "1"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 4
+ }
+}

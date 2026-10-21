@@ -1,0 +1,26 @@
+{
+ "mpn": "STM32WB55RGV6",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 1.71,
+  "vmax": 3.6,
+  "i_typ": 0.0045,
+  "i_peak": 0.0052,
+  "role": "master",
+  "temp_min": -40.0,
+  "temp_max": 105.0,
+  "interfaces": [
+   "SPI",
+   "USB",
+   "UART",
+   "ADC",
+   "I2C",
+   "JTAG",
+   "PDM"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply"
+ }
+}

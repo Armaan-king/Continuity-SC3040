@@ -1,0 +1,14 @@
+{
+ "mpn": "CR1220-F DIP",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 3.0,
+  "vmax": 3.0,
+  "role": "passive",
+  "interfaces": []
+ },
+ "provenance": {
+  "vmin": "nominal voltage",
+  "vmax": "nominal voltage"
+ }
+}

@@ -1,0 +1,212 @@
+{
+ "tool": "jlc_get_pinout",
+ "arguments": {
+  "lcsc": "C2653202"
+ },
+ "response": {
+  "lcsc": "C2653202",
+  "model": "MAX14830ETM+T",
+  "manufacturer": "Analog Devices Inc./Maxim Integrated",
+  "package": "TQFN-48-EP(7x7)",
+  "pin_count": 49,
+  "pins": [
+   {
+    "number": "1",
+    "name": "SPI/I2C#"
+   },
+   {
+    "number": "2",
+    "name": "LDOEN"
+   },
+   {
+    "number": "3",
+    "name": "MISO/SDA"
+   },
+   {
+    "number": "4",
+    "name": "SCLK/SCL"
+   },
+   {
+    "number": "5",
+    "name": "CS#/A0"
+   },
+   {
+    "number": "6",
+    "name": "MOSI/A1"
+   },
+   {
+    "number": "7",
+    "name": "IRQ#"
+   },
+   {
+    "number": "8",
+    "name": "RST#"
+   },
+   {
+    "number": "9",
+    "name": "VL"
+   },
+   {
+    "number": "10",
+    "name": "DGND"
+   },
+   {
+    "number": "11",
+    "name": "GPIO0"
+   },
+   {
+    "number": "12",
+    "name": "GPIO1"
+   },
+   {
+    "number": "13",
+    "name": "GPIO2"
+   },
+   {
+    "number": "14",
+    "name": "GPIO3"
+   },
+   {
+    "number": "15",
+    "name": "RTS0#"
+   },
+   {
+    "number": "16",
+    "name": "CTS0#"
+   },
+   {
+    "number": "17",
+    "name": "RX0"
+   },
+   {
+    "number": "18",
+    "name": "TX0"
+   },
+   {
+    "number": "19",
+    "name": "GPIO4"
+   },
+   {
+    "number": "20",
+    "name": "GPIO5"
+   },
+   {
+    "number": "21",
+    "name": "GPIO6"
+   },
+   {
+    "number": "22",
+    "name": "GPIO7"
+   },
+   {
+    "number": "23",
+    "name": "RTS1#"
+   },
+   {
+    "number": "24",
+    "name": "CTS1#"
+   },
+   {
+    "number": "25",
+    "name": "RX1"
+   },
+   {
+    "number": "26",
+    "name": "TX1"
+   },
+   {
+    "number": "27",
+    "name": "GPIO8"
+   },
+   {
+    "number": "28",
+    "name": "GPIO9"
+   },
+   {
+    "number": "29",
+    "name": "GPIO10"
+   },
+   {
+    "number": "30",
+    "name": "GPIO11"
+   },
+   {
+    "number": "31",
+    "name": "RTS2#"
+   },
+   {
+    "number": "32",
+    "name": "CTS2#"
+   },
+   {
+    "number": "33",
+    "name": "RX2"
+   },
+   {
+    "number": "34",
+    "name": "TX2"
+   },
+   {
+    "number": "35",
+    "name": "GPIO12"
+   },
+   {
+    "number": "36",
+    "name": "GPIO13"
+   },
+   {
+    "number": "37",
+    "name": "GPIO14"
+   },
+   {
+    "number": "38",
+    "name": "GPIO15"
+   },
+   {
+    "number": "39",
+    "name": "RTS3#"
+   },
+   {
+    "number": "40",
+    "name": "CTS3#"
+   },
+   {
+    "number": "41",
+    "name": "RX3"
+   },
+   {
+    "number": "42",
+    "name": "TX3"
+   },
+   {
+    "number": "43",
+    "name": "VEXT"
+   },
+   {
+    "number": "44",
+    "name": "XOUT"
+   },
+   {
+    "number": "45",
+    "name": "XIN"
+   },
+   {
+    "number": "46",
+    "name": "AGND"
+   },
+   {
+    "number": "47",
+    "name": "VA"
+   },
+   {
+    "number": "48",
+    "name": "V18"
+   },
+   {
+    "number": "49",
+    "name": "EP"
+   }
+  ],
+  "easyeda_symbol_uuid": "661b0be84d7a4bd0b18e54c6282f41d4"
+ }
+}

@@ -1,0 +1,81 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "TPS61040DBVR",
+  "sort_by": "stock",
+  "limit": 1
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C7722",
+    "model": "TPS61040DBVR",
+    "manufacturer": "Texas Instruments",
+    "package": "SOT-23-5",
+    "stock": 28517,
+    "price": 1.2124,
+    "price_10": null,
+    "library_type": "preferred",
+    "preferred": true,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃@(TJ) 1 1.8V~6V 1MHz 28V 28uA 400mA Adjustable Boost Boost Built-in No SOT-23-5 DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃@(TJ)",
+     "Function": "Boost",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "1MHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "1.8V~6V",
+     "Output Current": "400mA",
+     "Quiescent Current": "28uA",
+     "Features": "Overcurrent Protection、Light load efficient mode",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Boost",
+     "Output Voltage": "28V",
+     "Number of Outputs": "1"
+    }
+   }
+  ],
+  "total": 4,
+  "page_info": {
+   "limit": 1,
+   "offset": 0,
+   "returned": 1
+  },
+  "filters_applied": {
+   "query": "TPS61040DBVR",
+   "subcategory_id": null,
+   "subcategory_name": null,
+   "subcategory_resolved": null,
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 1,
+   "extended": 3
+  },
+  "no_fee_available": true,
+  "parsed": {
+   "original_query": "TPS61040DBVR",
+   "detected": {},
+   "subcategory": null,
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "TPS61040DBVR"
+  }
+ }
+}

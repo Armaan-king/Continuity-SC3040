@@ -1,0 +1,52 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "microSD card module",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [],
+  "total": 0,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 0
+  },
+  "filters_applied": {
+   "query": "card module",
+   "subcategory_id": 2589,
+   "subcategory_name": "sd card / memory card connector",
+   "subcategory_resolved": "SD Card / Memory Card Connector",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 0
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "microSD card module",
+   "detected": {
+    "component_type": "microsd",
+    "subcategory": "sd card / memory card connector"
+   },
+   "subcategory": "sd card / memory card connector",
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "card module"
+  }
+ }
+}

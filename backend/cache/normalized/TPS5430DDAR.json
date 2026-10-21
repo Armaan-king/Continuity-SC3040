@@ -1,0 +1,30 @@
+{
+ "mpn": "TPS5430DDAR",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 5.5,
+  "vmax": 36.0,
+  "vout_min": 1.221,
+  "vout_max": 32.04,
+  "i_typ": 0.0044,
+  "i_max": 3.0,
+  "role": "passive",
+  "topology": "buck",
+  "synchronous": false,
+  "temp_min": -40.0,
+  "temp_max": 125.0,
+  "interfaces": []
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "vout_min": "Output Voltage",
+  "vout_max": "Output Voltage",
+  "i_max": "Output Current",
+  "i_typ": "Quiescent Current",
+  "synchronous": "Synchronous Rectifier",
+  "topology": "Topology",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

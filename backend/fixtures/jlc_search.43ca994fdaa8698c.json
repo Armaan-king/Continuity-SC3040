@@ -1,0 +1,190 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "dc-dc converter",
+  "spec_filters": [
+   {
+    "name": "Topology",
+    "op": "=",
+    "value": "Buck-Boost"
+   }
+  ],
+  "sort_by": "stock",
+  "limit": 4
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C5219190",
+    "model": "TPS631000DRLR",
+    "manufacturer": "Texas Instruments",
+    "package": "SOT-583",
+    "stock": 14999,
+    "price": 0.5513,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃ 1.2V~5.3V 1.6V~5.5V 2.2MHz 2A 8uA Adjustable Buck-Boost Buck-Boost Built-in SOT-583 DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃",
+     "Function": "Buck-Boost",
+     "Synchronous Rectifier": "-",
+     "Frequency - Switching": "2.2MHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "1.6V~5.5V",
+     "Output Current": "2A",
+     "Quiescent Current": "8uA",
+     "Features": "Overcurrent Protection、Light load efficient mode、Load disconnect",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck-Boost",
+     "Output Voltage": "1.2V~5.3V",
+     "Number of Outputs": "-"
+    }
+   },
+   {
+    "lcsc": "C250400",
+    "model": "RT6154AGQW",
+    "manufacturer": "Richtek Tech",
+    "package": "DFN-14-EP(3x4)",
+    "stock": 11678,
+    "price": 1.0023,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃@(TJ) 1 1.8V~5.5V 1.8V~5.5V 2.4MHz 20uA 4A Adjustable Buck-Boost Buck-Boost Built-in Yes DFN-14-EP(3x4) DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃@(TJ)",
+     "Function": "Buck-Boost",
+     "Synchronous Rectifier": "Yes",
+     "Frequency - Switching": "2.4MHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "1.8V~5.5V",
+     "Output Current": "4A",
+     "Quiescent Current": "20uA",
+     "Features": "Overcurrent Protection、Light load efficient mode、Load disconnect、Operating status indication、Frequency synchronization",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck-Boost",
+     "Output Voltage": "1.8V~5.5V",
+     "Number of Outputs": "1"
+    }
+   },
+   {
+    "lcsc": "C15483",
+    "model": "TPS63020DSJR",
+    "manufacturer": "Texas Instruments",
+    "package": "VSON-14-EP(3x4)",
+    "stock": 9414,
+    "price": 0.978,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃@(TA) 1 1.2V~5.5V 1.8V~5.5V 2.4MHz 3A 50uA Adjustable Buck-Boost Buck-Boost Built-in Yes VSON-14-EP(3x4) DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃@(TA)",
+     "Function": "Buck-Boost",
+     "Synchronous Rectifier": "Yes",
+     "Frequency - Switching": "2.4MHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "1.8V~5.5V",
+     "Output Current": "3A",
+     "Quiescent Current": "50uA",
+     "Features": "Overcurrent Protection、Light load efficient mode、Load disconnect、Operating status indication、Frequency synchronization",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck-Boost",
+     "Output Voltage": "1.2V~5.5V",
+     "Number of Outputs": "1"
+    }
+   },
+   {
+    "lcsc": "C3189243",
+    "model": "ISL81601FRZ-T",
+    "manufacturer": "RENESAS",
+    "package": "QFN-32(5x5)",
+    "stock": 8456,
+    "price": 4.7816,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃ 100kHz~600kHz 4.5V~60V 800mV~60V Adjustable Buck-Boost Buck-Boost External Yes QFN-32(5x5) DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃",
+     "Function": "Buck-Boost",
+     "Synchronous Rectifier": "Yes",
+     "Frequency - Switching": "100kHz~600kHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "4.5V~60V",
+     "Output Current": "-",
+     "Quiescent Current": "4.7mA",
+     "Features": "-",
+     "Switch tube (built-in/external)": "External",
+     "Topology": "Buck-Boost",
+     "Output Voltage": "800mV~60V",
+     "Number of Outputs": "1"
+    }
+   }
+  ],
+  "total": 228,
+  "page_info": {
+   "limit": 4,
+   "offset": 0,
+   "returned": 4
+  },
+  "filters_applied": {
+   "query": null,
+   "subcategory_id": 3005,
+   "subcategory_name": "dc-dc converters",
+   "subcategory_resolved": "DC-DC Converters",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [
+    {
+     "name": "Topology",
+     "op": "=",
+     "value": "Buck-Boost"
+    }
+   ],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 228
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "dc-dc converter",
+   "detected": {
+    "component_type": "dc-dc converter",
+    "subcategory": "dc-dc converters"
+   },
+   "subcategory": "dc-dc converters",
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": ""
+  }
+ }
+}

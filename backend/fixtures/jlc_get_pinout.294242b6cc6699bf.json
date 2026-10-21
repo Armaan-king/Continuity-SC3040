@@ -1,0 +1,312 @@
+{
+ "tool": "jlc_get_pinout",
+ "arguments": {
+  "lcsc": "C190794"
+ },
+ "response": {
+  "lcsc": "C190794",
+  "model": "NRF52840-QIAA-R",
+  "manufacturer": "Nordic Semicon",
+  "package": "AQFN-73-EP(7x7)",
+  "pin_count": 74,
+  "pins": [
+   {
+    "number": "0",
+    "name": "EP"
+   },
+   {
+    "number": "A10",
+    "name": "P0.29/AIN5"
+   },
+   {
+    "number": "A12",
+    "name": "P0.02/AIN0"
+   },
+   {
+    "number": "A14",
+    "name": "P1.15"
+   },
+   {
+    "number": "A16",
+    "name": "P1.13"
+   },
+   {
+    "number": "A18",
+    "name": "DEC2"
+   },
+   {
+    "number": "A20",
+    "name": "P1.10"
+   },
+   {
+    "number": "A22",
+    "name": "VDD"
+   },
+   {
+    "number": "A23",
+    "name": "XC2"
+   },
+   {
+    "number": "A8",
+    "name": "P0.31/AIN7"
+   },
+   {
+    "number": "AA24",
+    "name": "AA24"
+   },
+   {
+    "number": "AB2",
+    "name": "AB2"
+   },
+   {
+    "number": "AC11",
+    "name": "AC11"
+   },
+   {
+    "number": "AC13",
+    "name": "AC13"
+   },
+   {
+    "number": "AC15",
+    "name": "AC15"
+   },
+   {
+    "number": "AC19",
+    "name": "AC19"
+   },
+   {
+    "number": "AC21",
+    "name": "AC21"
+   },
+   {
+    "number": "AC24",
+    "name": "AC24"
+   },
+   {
+    "number": "AC5",
+    "name": "AC5"
+   },
+   {
+    "number": "AC9",
+    "name": "AC9"
+   },
+   {
+    "number": "AD12",
+    "name": "AD12"
+   },
+   {
+    "number": "AD14",
+    "name": "AD14"
+   },
+   {
+    "number": "AD16",
+    "name": "AD16"
+   },
+   {
+    "number": "AD18",
+    "name": "AD18"
+   },
+   {
+    "number": "AD2",
+    "name": "AD2"
+   },
+   {
+    "number": "AD20",
+    "name": "AD20"
+   },
+   {
+    "number": "AD22",
+    "name": "AD22"
+   },
+   {
+    "number": "AD23",
+    "name": "AD23"
+   },
+   {
+    "number": "AD4",
+    "name": "AD4"
+   },
+   {
+    "number": "AD8",
+    "name": "AD8"
+   },
+   {
+    "number": "B1",
+    "name": "VDD"
+   },
+   {
+    "number": "B11",
+    "name": "P0.28/AIN4"
+   },
+   {
+    "number": "B13",
+    "name": "P0.03/AIN1"
+   },
+   {
+    "number": "B15",
+    "name": "P1.14"
+   },
+   {
+    "number": "B16",
+    "name": "AD6"
+   },
+   {
+    "number": "B17",
+    "name": "P1.12"
+   },
+   {
+    "number": "B17",
+    "name": "AD10"
+   },
+   {
+    "number": "B19",
+    "name": "P1.11"
+   },
+   {
+    "number": "B24",
+    "name": "XC1"
+   },
+   {
+    "number": "B3",
+    "name": "DCC"
+   },
+   {
+    "number": "B5",
+    "name": "DEC4"
+   },
+   {
+    "number": "B7",
+    "name": "VSS"
+   },
+   {
+    "number": "B9",
+    "name": "P0.30/AIN6"
+   },
+   {
+    "number": "C1",
+    "name": "DEC1"
+   },
+   {
+    "number": "D2",
+    "name": "P0.00/XL1"
+   },
+   {
+    "number": "D2",
+    "name": "AC17"
+   },
+   {
+    "number": "D23",
+    "name": "DEC3"
+   },
+   {
+    "number": "E24",
+    "name": "DEC6"
+   },
+   {
+    "number": "F2",
+    "name": "P0.01/XL2"
+   },
+   {
+    "number": "F23",
+    "name": "VSS_PA"
+   },
+   {
+    "number": "G1",
+    "name": "P0.26"
+   },
+   {
+    "number": "H2",
+    "name": "P0.27"
+   },
+   {
+    "number": "H23",
+    "name": "ANT"
+   },
+   {
+    "number": "J1",
+    "name": "P0.04/AIN2"
+   },
+   {
+    "number": "J24",
+    "name": "P0.10/NFC2"
+   },
+   {
+    "number": "K2",
+    "name": "P0.05/AIN3"
+   },
+   {
+    "number": "L1",
+    "name": "P0.06"
+   },
+   {
+    "number": "L24",
+    "name": "P0.09/NFC1"
+   },
+   {
+    "number": "M2",
+    "name": "P0.07/TRACECLK"
+   },
+   {
+    "number": "N1",
+    "name": "P0.08"
+   },
+   {
+    "number": "N24",
+    "name": "DEC5"
+   },
+   {
+    "number": "P2",
+    "name": "P2"
+   },
+   {
+    "number": "P23",
+    "name": "P23"
+   },
+   {
+    "number": "R1",
+    "name": "R1"
+   },
+   {
+    "number": "R24",
+    "name": "R24"
+   },
+   {
+    "number": "T2",
+    "name": "T2"
+   },
+   {
+    "number": "T23",
+    "name": "T23"
+   },
+   {
+    "number": "U1",
+    "name": "U1"
+   },
+   {
+    "number": "U24",
+    "name": "U24"
+   },
+   {
+    "number": "V23",
+    "name": "V23"
+   },
+   {
+    "number": "W1",
+    "name": "W1"
+   },
+   {
+    "number": "W24",
+    "name": "W24"
+   },
+   {
+    "number": "Y2",
+    "name": "Y2"
+   },
+   {
+    "number": "Y23",
+    "name": "Y23"
+   }
+  ],
+  "easyeda_symbol_uuid": "78a9dfb9f38843b1b26d6c4b7ed53db1"
+ }
+}

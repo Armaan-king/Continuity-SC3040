@@ -1,0 +1,25 @@
+{
+ "mpn": "HT7533-1",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmax": 30.0,
+  "vout_min": 3.3,
+  "vout_max": 3.3,
+  "i_typ": 2.5e-06,
+  "i_max": 0.1,
+  "role": "passive",
+  "topology": "ldo",
+  "temp_min": -40.0,
+  "temp_max": 85.0,
+  "interfaces": []
+ },
+ "provenance": {
+  "vmax": "Voltage - Supply",
+  "vout_min": "Output Voltage",
+  "vout_max": "Output Voltage",
+  "i_typ": "standby current",
+  "i_max": "Output Current",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

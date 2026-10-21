@@ -1,0 +1,323 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "TPS23754PWPR"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "595-TPS23754PWPR",
+    "mfr_part_number": "TPS23754PWPR",
+    "manufacturer": "Texas Instruments",
+    "description": "Power Switch ICs - POE / LAN Hi Pwr/Hi Eff PoE In ter & DC/DC Cntrlr A 595-TPS23754PWP",
+    "category": "Power Switch ICs - POE / LAN",
+    "stock": 86,
+    "price": 3.13,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 3.13,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 2.35,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 2.15,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 1.94,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 1.83,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 1.8,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 1.75,
+      "currency": "USD"
+     },
+     {
+      "qty": 2000,
+      "price": 1.66,
+      "currency": "USD"
+     },
+     {
+      "qty": 4000,
+      "price": 1.63,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Texas-Instruments/TPS23754PWPR?qs=XGzIaZb%2FFYKdsy7r08IcqA%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "2000"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "595-TPS23754PWPR-1",
+    "mfr_part_number": "TPS23754PWPR-1",
+    "manufacturer": "Texas Instruments",
+    "description": "Power Switch ICs - POE / LAN IEEE 802.3at PoE Int & Iso Cnvrtr Cntrlr A 595-TPS23754PWP-1",
+    "category": "Power Switch ICs - POE / LAN",
+    "stock": 1876,
+    "price": 3.13,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 3.13,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 2.35,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 2.15,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 1.94,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 1.83,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 1.8,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 1.75,
+      "currency": "USD"
+     },
+     {
+      "qty": 2000,
+      "price": 1.66,
+      "currency": "USD"
+     },
+     {
+      "qty": 4000,
+      "price": 1.6,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Texas-Instruments/TPS23754PWPR-1?qs=X4N6sOTYzkiVE6v1DBIYxQ%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "2000"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "595-TPS23754PWPR-1G4",
+    "mfr_part_number": "TPS23754PWPR-1G4",
+    "manufacturer": "Texas Instruments",
+    "description": "Power Management Specialized - PMIC IEEE 802.3at PoE int erface and isolated",
+    "category": "Power Management Specialized - PMIC",
+    "stock": 0,
+    "price": 1.9,
+    "price_breaks": [
+     {
+      "qty": 2000,
+      "price": 1.9,
+      "currency": "USD"
+     },
+     {
+      "qty": 4000,
+      "price": 1.86,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Texas-Instruments/TPS23754PWPR-1G4?qs=2FehpBK1j97BhzLXQfWW8g%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "New Product",
+    "parameters": {
+     "Packaging": "Reel",
+     "Standard Pack Qty": "2000"
+    },
+    "min_qty": 2000,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "595-TPS23754PWPRG4",
+    "mfr_part_number": "TPS23754PWPRG4",
+    "manufacturer": "Texas Instruments",
+    "description": "Power Management Specialized - PMIC IEEE 802.3at high e fficiency PoE inter",
+    "category": "Power Management Specialized - PMIC",
+    "stock": 0,
+    "price": 1.9,
+    "price_breaks": [
+     {
+      "qty": 2000,
+      "price": 1.9,
+      "currency": "USD"
+     },
+     {
+      "qty": 4000,
+      "price": 1.86,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Texas-Instruments/TPS23754PWPRG4?qs=2FehpBK1j95f4pdHep2%252B0g%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "New Product",
+    "parameters": {
+     "Packaging": "Reel",
+     "Standard Pack Qty": "2000"
+    },
+    "min_qty": 2000,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "595-TPS23754PWP-1",
+    "mfr_part_number": "TPS23754PWP-1",
+    "manufacturer": "Texas Instruments",
+    "description": "Power Switch ICs - POE / LAN IEEE 802.3at PoE Int & Iso Cnvrtr Cntrlr A 595-TPS23754PWPR-1",
+    "category": "Power Switch ICs - POE / LAN",
+    "stock": 2576,
+    "price": 3.99,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 3.99,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 3.02,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 2.56,
+      "currency": "USD"
+     },
+     {
+      "qty": 70,
+      "price": 2.44,
+      "currency": "USD"
+     },
+     {
+      "qty": 280,
+      "price": 2.2,
+      "currency": "USD"
+     },
+     {
+      "qty": 560,
+      "price": 2.18,
+      "currency": "USD"
+     },
+     {
+      "qty": 1050,
+      "price": 2.11,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Texas-Instruments/TPS23754PWP-1?qs=X4N6sOTYzkjZitP5%2FPkGOA%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Tube",
+     "Standard Pack Qty": "70"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "595-TPS23754PWP",
+    "mfr_part_number": "TPS23754PWP",
+    "manufacturer": "Texas Instruments",
+    "description": "Power Switch ICs - POE / LAN Hi Pwr/Hi Eff PoE In ter & DC/DC Cntrlr A 595-TPS23754PWPR",
+    "category": "Power Switch ICs - POE / LAN",
+    "stock": 641,
+    "price": 4.11,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 4.11,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 3.1,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 2.66,
+      "currency": "USD"
+     },
+     {
+      "qty": 70,
+      "price": 2.48,
+      "currency": "USD"
+     },
+     {
+      "qty": 280,
+      "price": 2.37,
+      "currency": "USD"
+     },
+     {
+      "qty": 1050,
+      "price": 2.28,
+      "currency": "USD"
+     },
+     {
+      "qty": 2100,
+      "price": 2.22,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Texas-Instruments/TPS23754PWP?qs=XGzIaZb%2FFYIm64IZifvviQ%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Tube",
+     "Standard Pack Qty": "70"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 6
+ }
+}

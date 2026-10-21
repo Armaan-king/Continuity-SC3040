@@ -1,0 +1,70 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "ATMEGA328P-AU"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "556-ATMEGA328P-AU",
+    "mfr_part_number": "ATMEGA328P-AU",
+    "manufacturer": "Microchip Technology",
+    "description": "8-bit Microcontrollers - MCU 32KB In-system Flash 20MHz 1.8V-5.5V",
+    "category": "8-bit Microcontrollers - MCU",
+    "stock": 10000,
+    "price": 2.66,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 2.66,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Microchip-Technology/ATMEGA328P-AU?qs=K8BHR703ZXiCmmgp6%2FGNmQ%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Not Recommended for New Designs",
+    "parameters": {
+     "Packaging": "Tray",
+     "Standard Pack Qty": "250"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "556-ATMEGA328P-AUR",
+    "mfr_part_number": "ATMEGA328P-AUR",
+    "manufacturer": "Microchip Technology",
+    "description": "8-bit Microcontrollers - MCU AVR 32K FLSH 2K SRAM 1KB EE-20MHz IND",
+    "category": "8-bit Microcontrollers - MCU",
+    "stock": 24066,
+    "price": 2.74,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 2.74,
+      "currency": "USD"
+     },
+     {
+      "qty": 2000,
+      "price": 2.74,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Microchip-Technology/ATMEGA328P-AUR?qs=6Dg1WZIWLC4z32PdFaWSBQ%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Not Recommended for New Designs",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "2000"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 2
+ }
+}

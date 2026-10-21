@@ -1,0 +1,14 @@
+{
+ "mpn": "HYCW312-RJ45-211B-913129A",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "role": "passive",
+  "temp_min": -40.0,
+  "temp_max": 85.0,
+  "interfaces": []
+ },
+ "provenance": {
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

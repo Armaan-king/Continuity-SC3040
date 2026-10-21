@@ -1,0 +1,270 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "5.0V boost converter",
+  "spec_filters": [
+   {
+    "name": "Output Current",
+    "op": ">=",
+    "value": "2A"
+   }
+  ],
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C9864",
+    "model": "TPS5430DDAR",
+    "manufacturer": "Texas Instruments",
+    "package": "SOIC-8-EP",
+    "stock": 145765,
+    "price": 0.8616,
+    "price_10": null,
+    "library_type": "basic",
+    "preferred": true,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃@(TJ) 1 1.221V~32.04V 3A 4.4mA 5.5V~36V 500kHz Adjustable Buck Buck Built-in No SOIC-8-EP DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃@(TJ)",
+     "Function": "Step-down type",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "500kHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "5.5V~36V",
+     "Output Current": "3A",
+     "Quiescent Current": "4.4mA",
+     "Features": "Overcurrent Protection、Cycle-by-cycle current limiting、Hiccup current limiting",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck",
+     "Output Voltage": "1.221V~32.04V",
+     "Number of Outputs": "1"
+    }
+   },
+   {
+    "lcsc": "C51661",
+    "model": "XL4015E1",
+    "manufacturer": "XLSEMI",
+    "package": "TO-263-5",
+    "stock": 99100,
+    "price": 0.6612,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃ 1 1.25V~32V 180kHz 5A 5mA 8V~36V Adjustable Buck Buck Built-in No TO-263-5 DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃",
+     "Function": "Step-down type",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "180kHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "8V~36V",
+     "Output Current": "5A",
+     "Quiescent Current": "5mA",
+     "Features": "Overcurrent Protection",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck",
+     "Output Voltage": "1.25V~32V",
+     "Number of Outputs": "1"
+    }
+   },
+   {
+    "lcsc": "C347421",
+    "model": "LM2596S-5.0(UMW)",
+    "manufacturer": "UMW(Youtai Semiconductor Co., Ltd.)",
+    "package": "TO-263-5",
+    "stock": 93056,
+    "price": 0.6014,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃@(TA) 1 150kHz 3A 5V 7V~40V 80uA Buck Buck Built-in Fixed No TO-263-5 DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃@(TA)",
+     "Function": "Step-down type",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "150kHz",
+     "Output Type": "Fixed",
+     "Voltage - Supply": "7V~40V",
+     "Output Current": "3A",
+     "Quiescent Current": "80uA",
+     "Features": "Overcurrent Protection",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck",
+     "Output Voltage": "5V",
+     "Number of Outputs": "1"
+    }
+   },
+   {
+    "lcsc": "C347423",
+    "model": "LM2596S-ADJ(UMW)",
+    "manufacturer": "UMW(Youtai Semiconductor Co., Ltd.)",
+    "package": "TO-263-5",
+    "stock": 83061,
+    "price": 0.6272,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃@(TA) 1 1.2V~37V 150kHz 3A 40V 80uA Adjustable Buck Buck Built-in No TO-263-5 DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃@(TA)",
+     "Function": "Step-down type",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "150kHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "40V",
+     "Output Current": "3A",
+     "Quiescent Current": "80uA",
+     "Features": "Overcurrent Protection",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck",
+     "Output Voltage": "1.2V~37V",
+     "Number of Outputs": "1"
+    }
+   },
+   {
+    "lcsc": "C73332",
+    "model": "XL4005E1",
+    "manufacturer": "XLSEMI",
+    "package": "TO-263-5",
+    "stock": 49460,
+    "price": 0.902,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃ 1 300kHz 3mA 5A 5V~32V 800mV~30V Adjustable Buck Buck Built-in No TO-263-5 DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃",
+     "Function": "Step-down type",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "300kHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "5V~32V",
+     "Output Current": "5A",
+     "Quiescent Current": "3mA",
+     "Features": "Overcurrent Protection",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck",
+     "Output Voltage": "800mV~30V",
+     "Number of Outputs": "1"
+    }
+   },
+   {
+    "lcsc": "C73018",
+    "model": "XL6019E1",
+    "manufacturer": "XLSEMI",
+    "package": "TO-263-5",
+    "stock": 48502,
+    "price": 0.742,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃@(TJ) 1 180kHz 2.5mA 5A 5V~40V Adjustable Buck-Boost Built-in SEPIC Yes TO-263-5 DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃@(TJ)",
+     "Function": "Buck-Boost",
+     "Synchronous Rectifier": "Yes",
+     "Frequency - Switching": "180kHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "5V~40V",
+     "Output Current": "5A",
+     "Quiescent Current": "2.5mA",
+     "Features": "Overcurrent Protection",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "SEPIC",
+     "Output Voltage": "-",
+     "Number of Outputs": "1"
+    }
+   }
+  ],
+  "total": 660,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 6
+  },
+  "filters_applied": {
+   "query": null,
+   "subcategory_id": 3005,
+   "subcategory_name": "dc-dc converters",
+   "subcategory_resolved": "DC-DC Converters",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [
+    {
+     "name": "Output Current",
+     "op": ">=",
+     "value": "2A"
+    },
+    {
+     "name": "Voltage Rating",
+     "op": ">=",
+     "value": "5.0V"
+    }
+   ],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 1,
+   "preferred": 0,
+   "extended": 659
+  },
+  "no_fee_available": true,
+  "parsed": {
+   "original_query": "5.0V boost converter",
+   "detected": {
+    "component_type": "boost converter",
+    "subcategory": "dc-dc converters",
+    "values": [
+     {
+      "raw": "5.0V",
+      "type": "voltage",
+      "normalized": "5.0V"
+     }
+    ]
+   },
+   "subcategory": "dc-dc converters",
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [
+    {
+     "name": "Voltage Rating",
+     "op": ">=",
+     "value": "5.0V"
+    }
+   ],
+   "remaining_text": ""
+  }
+ }
+}

@@ -1,0 +1,40 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "SGP40-D-R4",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C2874215",
+    "model": "SGP40-D-R4",
+    "manufacturer": "Sensirion",
+    "package": "DFN-6-EP(2.4x2.4)",
+    "stock": 2475,
+    "price": 6.8282,
+    "price_10": 5.9156,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "VOC Sensors",
+    "subcategory_id": 2025,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-10℃~+50℃",
+     "Type": "-",
+     "Length": "2.44mm、2.44mm",
+     "Voltage - Supply": "1.7V~3.6V",
+     "Height": "0.85mm",
+     "Interface": "I2C",
+     "Measurement Range": "0ppm~1000ppm"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

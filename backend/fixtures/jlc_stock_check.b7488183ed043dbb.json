@@ -1,0 +1,41 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "KSZ8081MNXIA-TR",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C145690",
+    "model": "KSZ8081MNXIA-TR",
+    "manufacturer": "Microchip Tech",
+    "package": "QFN-32-EP(5x5)",
+    "stock": 10879,
+    "price": 2.0194,
+    "price_10": 1.7605,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "Ethernet Transceivers",
+    "subcategory_id": 3072,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Type": "PHY Transceiver",
+     "Data Rate": "10Mbit/s、100Mbit/s",
+     "Voltage - Supply": "3.3V",
+     "Number of ports": "1",
+     "Features": "Cable diagnostics、Programmable LED indication、Low-power mode、Error detection and recovery",
+     "MAC Interface": "MII、RMII",
+     "Ethernet Speed Standards": "10BASE-T、100BASE-TX"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

@@ -1,0 +1,42 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "TMP119AIYBGR",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C22428347",
+    "model": "TMP119AIYBGR",
+    "manufacturer": "Texas Instruments",
+    "package": "DSBGA-6",
+    "stock": 4208,
+    "price": 3.3365,
+    "price_10": 2.8705,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Temperature Sensors",
+    "subcategory_id": 3076,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-",
+     "Standby Current": "2uA",
+     "Detection Temperature Range": "-55℃~+150℃",
+     "Voltage - Supply": "1.8V~5.5V",
+     "Tolerance": "±0.08℃",
+     "Features": "Factory temperature calibration、Temperature threshold monitoring、Low-power standby、Configurable temperature output、On-chip non-volatile parameter storage、On-chip digital filtering/averaging",
+     "Temperature Conversion Time": "15.5ms",
+     "Interface": "I2C、SMBus",
+     "Temperature Resolution": "16bit"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

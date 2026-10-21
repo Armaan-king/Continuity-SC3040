@@ -1,0 +1,174 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "AR0135CS2C00SUEA0-DRBR"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "863-AR0135CS2C00DRBR",
+    "mfr_part_number": "AR0135CS2C00SUEA0-DRBR",
+    "manufacturer": "onsemi",
+    "description": "Image Sensors 1MP 1/3 CIS SO",
+    "category": "Image Sensors",
+    "stock": 0,
+    "price": 23.16,
+    "price_breaks": [
+     {
+      "qty": 2600,
+      "price": 23.16,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/onsemi/AR0135CS2C00SUEA0-DRBR?qs=5aG0NVq1C4xMg2jKbfBcPw%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Tray",
+     "Standard Pack Qty": "2600"
+    },
+    "min_qty": 2600,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "863-AR0135CS2C0DRBR1",
+    "mfr_part_number": "AR0135CS2C00SUEA0-DRBR1",
+    "manufacturer": "onsemi",
+    "description": "Image Sensors 1MP 1/3 CIS SO",
+    "category": "Image Sensors",
+    "stock": 245,
+    "price": 30.66,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 30.66,
+      "currency": "USD"
+     },
+     {
+      "qty": 5,
+      "price": 28.07,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 27.17,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 25.99,
+      "currency": "USD"
+     },
+     {
+      "qty": 50,
+      "price": 25.23,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 24.73,
+      "currency": "USD"
+     },
+     {
+      "qty": 260,
+      "price": 24.72,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/onsemi/AR0135CS2C00SUEA0-DRBR1?qs=5aG0NVq1C4zaQygEEMv5KQ%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "End of Life",
+    "parameters": {
+     "Packaging": "Tray",
+     "Standard Pack Qty": "260"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "863-AR0135CS2C00DPBR",
+    "mfr_part_number": "AR0135CS2C00SUEA0-DPBR",
+    "manufacturer": "onsemi",
+    "description": "Image Sensors 1MP 1/3 CIS SO",
+    "category": "Image Sensors",
+    "stock": 0,
+    "price": 24.22,
+    "price_breaks": [
+     {
+      "qty": 2600,
+      "price": 24.22,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/onsemi/AR0135CS2C00SUEA0-DPBR?qs=5aG0NVq1C4w%2F%252BhC0vedAYw%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Tray",
+     "Standard Pack Qty": "2600"
+    },
+    "min_qty": 2600,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "863-S2C00SUEA0-DPBR2",
+    "mfr_part_number": "AR0135CS2C00SUEA0-DPBR2",
+    "manufacturer": "onsemi",
+    "description": "Image Sensors 1MP 1/3 CIS SO",
+    "category": "Image Sensors",
+    "stock": 97,
+    "price": 32.98,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 32.98,
+      "currency": "USD"
+     },
+     {
+      "qty": 5,
+      "price": 30.26,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 29.24,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 28.03,
+      "currency": "USD"
+     },
+     {
+      "qty": 50,
+      "price": 27.74,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 26.11,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/catalog/specsheets/onsemi_5-27-2024_AR0135CS.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/onsemi/AR0135CS2C00SUEA0-DPBR2?qs=i8QVZAFTkqQeUaLZR3lxDQ%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Tray",
+     "Standard Pack Qty": "50"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 4
+ }
+}

@@ -1,0 +1,223 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "ESP32 module",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C2913202",
+    "model": "ESP32-S3-WROOM-1-N16R8",
+    "manufacturer": "Espressif Systems",
+    "package": "SMD,25.5x18mm",
+    "stock": 37759,
+    "price": 5.1126,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "WiFi Modules",
+    "subcategory_id": 3205,
+    "mounting_type": "smd",
+    "description": "-103.5dBm -40℃~+65℃ 2.4GHz 20.5dBm 355mA 3V~3.6V 95mA ESP32-S3R8 On-board PCB Antenna UART、SPI、I2C、GPIO、I2S、USB SMD,25.5x18mm WiFi Modules ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+65℃",
+     "Antenna Type": "On-board PCB Antenna",
+     "Sensitivity": "-103.5dBm",
+     "Output Power": "20.5dBm",
+     "Voltage - Supply": "3V~3.6V",
+     "Frequency": "2.4GHz",
+     "Utilized IC / Part": "ESP32-S3R8",
+     "Interface Type": "UART、SPI、I2C、GPIO、I2S、USB",
+     "Send  Current": "355mA",
+     "Receive  Current": "95mA"
+    }
+   },
+   {
+    "lcsc": "C701341",
+    "model": "ESP32-WROOM-32E-N4",
+    "manufacturer": "Espressif Systems",
+    "package": "SMD,25.5x18mm",
+    "stock": 34872,
+    "price": 3.7163,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "WiFi Modules",
+    "subcategory_id": 3205,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ -98dBm 112mA 2.4GHz 20dBm 239mA 3V~3.6V Bluetooth4.2 ESP32-D0WD-V3、ESP32-D0WDR2-V3 On-board PCB Antenna UART、SDIO、SPI、I2C、GPIO SMD,25.5x18mm WiFi Modules ROHS",
+    "specs": {
+     "Antenna Type": "On-board PCB Antenna",
+     "Operating Temperature": "-40℃~+85℃",
+     "Sensitivity": "-98dBm",
+     "Output Power": "20dBm",
+     "Voltage - Supply": "3V~3.6V",
+     "Frequency": "2.4GHz",
+     "Utilized IC / Part": "ESP32-D0WD-V3、ESP32-D0WDR2-V3",
+     "Interface Type": "UART、SDIO、SPI、I2C、GPIO",
+     "Send  Current": "239mA",
+     "Receive  Current": "112mA",
+     "Wireless Standard": "Bluetooth4.2"
+    }
+   },
+   {
+    "lcsc": "C2838502",
+    "model": "ESP32-C3-MINI-1-N4",
+    "manufacturer": "Espressif Systems",
+    "package": "SMD,16.6x13.2mm",
+    "stock": 25061,
+    "price": 3.8183,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "RF Modules",
+    "subcategory_id": 3207,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ -98dBm 20.5dBm 350mA 3V~3.6V 84mA Integrated temperature sensor、Integrated antenna、Built-in watchdog On-board PCB Antenna SPI、UART、I2C、I2S、USB Transceiver SMD,16.6x13.2mm RF Modules ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Antenna Type": "On-board PCB Antenna",
+     "Sensitivity": "-98dBm",
+     "Output Power(Max)": "20.5dBm",
+     "Voltage - Supply": "3V~3.6V",
+     "Model": "Transceiver",
+     "Features": "Integrated temperature sensor、Integrated antenna、Built-in watchdog",
+     "Interface Type": "SPI、UART、I2C、I2S、USB",
+     "Send  Current": "350mA",
+     "Receive  Current": "84mA"
+    }
+   },
+   {
+    "lcsc": "C3013946",
+    "model": "ESP32-S3-WROOM-1U-N16R8",
+    "manufacturer": "Espressif Systems",
+    "package": "SMD,19.2x18mm",
+    "stock": 20797,
+    "price": 5.0818,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "WiFi Modules",
+    "subcategory_id": 3205,
+    "mounting_type": "smd",
+    "description": "-103.5dBm -40℃~+65℃ 2.4GHz 20.5dBm 355mA 3V~3.6V 95mA Bluetooth5.0 ESP32-S3R8 UART、SDIO、SPI、I2C、GPIO、PWM、ADC、I2S、JTAG、USB SMD,19.2x18mm WiFi Modules ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+65℃",
+     "Sensitivity": "-103.5dBm",
+     "Output Power": "20.5dBm",
+     "Voltage - Supply": "3V~3.6V",
+     "Frequency": "2.4GHz",
+     "Utilized IC / Part": "ESP32-S3R8",
+     "Interface Type": "UART、SDIO、SPI、I2C、GPIO、PWM、ADC、I2S、JTAG、USB",
+     "Send  Current": "355mA",
+     "Wireless Standard": "Bluetooth5.0",
+     "Receive  Current": "95mA"
+    }
+   },
+   {
+    "lcsc": "C2913204",
+    "model": "ESP32-S3-WROOM-1-N8R2",
+    "manufacturer": "Espressif Systems",
+    "package": "SMD,25.5x18mm",
+    "stock": 18298,
+    "price": 5.0446,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "WiFi Modules",
+    "subcategory_id": 3205,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ -98.2dBm 2.4GHz 20.5dBm 355mA 3V~3.6V 97mA Bluetooth5.0 ESP32-S3 Chip On-board PCB Antenna UART、SPI、I2C、I2S、USB SMD,25.5x18mm WiFi Modules ROHS",
+    "specs": {
+     "Antenna Type": "On-board PCB Antenna",
+     "Operating Temperature": "-40℃~+85℃",
+     "Sensitivity": "-98.2dBm",
+     "Output Power": "20.5dBm",
+     "Voltage - Supply": "3V~3.6V",
+     "Frequency": "2.4GHz",
+     "Utilized IC / Part": "ESP32-S3 Chip",
+     "Interface Type": "UART、SPI、I2C、I2S、USB",
+     "Receive  Current": "97mA",
+     "Send  Current": "355mA",
+     "Wireless Standard": "Bluetooth5.0"
+    }
+   },
+   {
+    "lcsc": "C701342",
+    "model": "ESP32-WROOM-32E-N8",
+    "manufacturer": "Espressif Systems",
+    "package": "SMD,25.5x18mm",
+    "stock": 14823,
+    "price": 4.5172,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "WiFi Modules",
+    "subcategory_id": 3205,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ -98dBm 112mA 2.4GHz 20dBm 239mA 3V~3.6V Bluetooth4.2 ESP32-DOWD-V3 On-board PCB Antenna UART、SDIO、SPI、I2C、GPIO、PWM、I2S SMD,25.5x18mm WiFi Modules ROHS",
+    "specs": {
+     "Antenna Type": "On-board PCB Antenna",
+     "Operating Temperature": "-40℃~+85℃",
+     "Sensitivity": "-98dBm",
+     "Output Power": "20dBm",
+     "Voltage - Supply": "3V~3.6V",
+     "Frequency": "2.4GHz",
+     "Utilized IC / Part": "ESP32-DOWD-V3",
+     "Interface Type": "UART、SDIO、SPI、I2C、GPIO、PWM、I2S",
+     "Send  Current": "239mA",
+     "Receive  Current": "112mA",
+     "Wireless Standard": "Bluetooth4.2"
+    }
+   }
+  ],
+  "total": 100,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 6
+  },
+  "filters_applied": {
+   "query": "ESP32",
+   "subcategory_id": null,
+   "subcategory_name": null,
+   "subcategory_resolved": null,
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 100
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "ESP32 module",
+   "detected": {
+    "model_number": "ESP32"
+   },
+   "subcategory": null,
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "ESP32"
+  }
+ }
+}

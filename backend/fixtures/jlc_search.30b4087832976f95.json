@@ -1,0 +1,75 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "LED display",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C52437615",
+    "model": "TDSEMIC-479",
+    "manufacturer": "TDSEMIC",
+    "package": "-",
+    "stock": 96,
+    "price": 0.658,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Optoelectronics",
+    "subcategory": "LED Indication - Discrete",
+    "subcategory_id": 71,
+    "mounting_type": "not_sure",
+    "description": "-40℃~+85℃ 3.3V~5V LED display module - LED Indication - Discrete ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Type": "LED display module",
+     "Voltage - Supply": "3.3V~5V",
+     "Features": "-"
+    }
+   }
+  ],
+  "total": 1,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 1
+  },
+  "filters_applied": {
+   "query": "display",
+   "subcategory_id": 71,
+   "subcategory_name": "led indication - discrete",
+   "subcategory_resolved": "LED Indication - Discrete",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 1
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "LED display",
+   "detected": {
+    "component_type": "led",
+    "subcategory": "led indication - discrete"
+   },
+   "subcategory": "led indication - discrete",
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "display"
+  }
+ }
+}

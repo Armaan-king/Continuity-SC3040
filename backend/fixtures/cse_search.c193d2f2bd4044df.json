@@ -1,0 +1,10 @@
+{
+ "tool": "cse_search",
+ "arguments": {
+  "query": "MB10S-50MIL"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

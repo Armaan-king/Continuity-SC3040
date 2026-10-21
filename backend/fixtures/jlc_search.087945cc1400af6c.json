@@ -1,0 +1,157 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "motor driver",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C4153818",
+    "model": "TC7S08FU(TE85L,F)",
+    "manufacturer": "TOSHIBA",
+    "package": "SOT-353",
+    "stock": 2815,
+    "price": 0.1095,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "Motor Driver ICs",
+    "subcategory_id": 3097,
+    "mounting_type": "smd",
+    "description": "SOT-353 Motor Driver ICs ROHS",
+    "specs": {}
+   },
+   {
+    "lcsc": "C509746",
+    "model": "BA6406F-E2",
+    "manufacturer": "ROHM Semicon",
+    "package": "SOP-8-4.4mm",
+    "stock": 2460,
+    "price": 0.3679,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "Motor Driver ICs",
+    "subcategory_id": 3097,
+    "mounting_type": "smd",
+    "description": "SOP-8-4.4mm Motor Driver ICs ROHS",
+    "specs": {}
+   },
+   {
+    "lcsc": "C5125831",
+    "model": "DRV91680RGZR",
+    "manufacturer": "Texas Instruments",
+    "package": "VQFN-48-EP(7x7)",
+    "stock": 2291,
+    "price": 3.3095,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "Motor Driver ICs",
+    "subcategory_id": 3097,
+    "mounting_type": "smd",
+    "description": "VQFN-48-EP(7x7) Motor Driver ICs ROHS",
+    "specs": {}
+   },
+   {
+    "lcsc": "C513307",
+    "model": "MX2802LL",
+    "manufacturer": "Mixic",
+    "package": "SOP-10-150mil",
+    "stock": 1800,
+    "price": 0.1603,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "Motor Driver ICs",
+    "subcategory_id": 3097,
+    "mounting_type": "smd",
+    "description": "SOP-10-150mil Motor Driver ICs ROHS",
+    "specs": {}
+   },
+   {
+    "lcsc": "C5125879",
+    "model": "AW86017CSR",
+    "manufacturer": "AWINIC(Shanghai Awinic Tech)",
+    "package": "WLCSP-6",
+    "stock": 555,
+    "price": 0.0798,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "Motor Driver ICs",
+    "subcategory_id": 3097,
+    "mounting_type": "smd",
+    "description": "WLCSP-6 Motor Driver ICs ROHS",
+    "specs": {
+     "Features": "Built-in digital-to-analog converter、Thermal shutdown、Power-up state management、Adjustable current limiting"
+    }
+   },
+   {
+    "lcsc": "C5378671",
+    "model": "DRV91670TPHPR",
+    "manufacturer": "Texas Instruments",
+    "package": "LQFP-48(7x7)",
+    "stock": 539,
+    "price": 2.0945,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "Motor Driver ICs",
+    "subcategory_id": 3097,
+    "mounting_type": "smd",
+    "description": "LQFP-48(7x7) Motor Driver ICs ROHS",
+    "specs": {}
+   }
+  ],
+  "total": 8,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 6
+  },
+  "filters_applied": {
+   "query": null,
+   "subcategory_id": 3097,
+   "subcategory_name": "motor driver ics",
+   "subcategory_resolved": "Motor Driver ICs",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 8
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "motor driver",
+   "detected": {
+    "component_type": "motor driver",
+    "subcategory": "motor driver ics"
+   },
+   "subcategory": "motor driver ics",
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": ""
+  }
+ }
+}

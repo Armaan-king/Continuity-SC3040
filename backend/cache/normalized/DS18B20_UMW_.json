@@ -1,0 +1,21 @@
+{
+ "mpn": "DS18B20(UMW)",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 3.0,
+  "vmax": 5.5,
+  "role": "peripheral",
+  "temp_min": -55.0,
+  "temp_max": 125.0,
+  "interfaces": [
+   "1-WIRE"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "temp_min": "Detection Temperature Range",
+  "temp_max": "Detection Temperature Range",
+  "interfaces": "Interface"
+ }
+}

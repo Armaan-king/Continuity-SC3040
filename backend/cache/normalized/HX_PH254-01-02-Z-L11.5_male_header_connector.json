@@ -1,0 +1,16 @@
+{
+ "mpn": "HX PH254-01-02-Z-L11.5 male header connector",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "i_max": 3.0,
+  "role": "passive",
+  "temp_min": -40.0,
+  "temp_max": 105.0,
+  "interfaces": []
+ },
+ "provenance": {
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature",
+  "i_max": "Current Rating"
+ }
+}

@@ -1,0 +1,19 @@
+{
+ "mpn": "EN25QH64A-104HIP",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 2.7,
+  "vmax": 3.6,
+  "i_typ": 1e-06,
+  "role": "peripheral",
+  "interfaces": [
+   "SPI"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "i_typ": "Standby Supply Current",
+  "interfaces": "Interface"
+ }
+}

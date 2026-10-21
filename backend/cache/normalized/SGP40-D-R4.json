@@ -1,0 +1,22 @@
+{
+ "mpn": "SGP40-D-R4",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 1.7,
+  "vmax": 3.6,
+  "i_typ": 0.0026,
+  "role": "peripheral",
+  "temp_min": -10.0,
+  "temp_max": 50.0,
+  "interfaces": [
+   "I2C"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "interfaces": "Interface",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

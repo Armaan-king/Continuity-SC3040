@@ -1,0 +1,10 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "L76KB-A58"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

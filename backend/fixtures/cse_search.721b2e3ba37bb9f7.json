@@ -1,0 +1,10 @@
+{
+ "tool": "cse_search",
+ "arguments": {
+  "query": "TF PUSH"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

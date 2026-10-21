@@ -1,0 +1,26 @@
+{
+ "mpn": "LM2596S-ADJ(UMW)",
+ "prompt": "b7e3da124e2b",
+ "fields": {
+  "vmax": 40.0,
+  "vout_min": 1.2,
+  "vout_max": 37.0,
+  "i_typ": 8e-05,
+  "i_max": 3.0,
+  "role": "passive",
+  "topology": "buck",
+  "temp_min": -40.0,
+  "temp_max": 125.0,
+  "interfaces": []
+ },
+ "provenance": {
+  "vmax": "Voltage - Supply",
+  "vout_min": "Output Voltage",
+  "vout_max": "Output Voltage",
+  "i_typ": "Quiescent Current",
+  "i_max": "Output Current",
+  "topology": "Topology",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

@@ -1,0 +1,149 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "ESP32-C3-MINI-1-N4"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "356-ESP32-C3-MINI1N4",
+    "mfr_part_number": "ESP32-C3-MINI-1-N4",
+    "manufacturer": "Espressif Systems",
+    "description": "Multiprotocol Modules SMD module, ESP32-C3FN4, PCB antenna, -40C - +85C",
+    "category": "Multiprotocol Modules",
+    "stock": 0,
+    "price": null,
+    "price_breaks": [],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/1574/1/esp32-c3-mini-1_datasheet_en.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-C3-MINI-1-N4?qs=stqOd1AaK7%252B%2FpH3qqyGehA%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Not Recommended for New Designs",
+    "parameters": {
+     "Standard Pack Qty": "650"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "356-ESP32C3MINI1N4-A",
+    "mfr_part_number": "ESP32-C3-MINI-1-N4-A",
+    "manufacturer": "Espressif Systems",
+    "description": "Multiprotocol Modules Espressifs AWS IoT ExpressLink Module, pre-provisioned with required certificates and the ExpressLink firmware, for out-of-the-box connectivity to AWS IoT Core.",
+    "category": "Multiprotocol Modules",
+    "stock": 0,
+    "price": 3.69,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 3.69,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 3.19,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 2.97,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 2.77,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 2.63,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 1.99,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/1574/1/esp32-c3-mini-1_datasheet_en.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-C3-MINI-1-N4-A?qs=Rp5uXu7WBW%2FOuhPdnkmhGQ%3D%3D",
+    "rohs": "",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Bulk",
+     "Standard Pack Qty": "650"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "356-ESP32C3MINI1N4X",
+    "mfr_part_number": "ESP32-C3-MINI-1-N4X",
+    "manufacturer": "Espressif Systems",
+    "description": "Multiprotocol Modules SMD module, ESP32-C3FH4X, Chip Revision v1.1 or above, PCB antenna, -40 C +85 C",
+    "category": "Multiprotocol Modules",
+    "stock": 464,
+    "price": 3.26,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 3.26,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 2.82,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 2.63,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 2.45,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 2.32,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 2.23,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 2.17,
+      "currency": "USD"
+     },
+     {
+      "qty": 2600,
+      "price": 2.12,
+      "currency": "USD"
+     },
+     {
+      "qty": 5200,
+      "price": 2.1,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-C3-MINI-1-N4X?qs=3GbUB62Nf7cXFYwepNxnAw%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "New Product",
+    "parameters": {
+     "Standard Pack Qty": "650"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 3
+ }
+}

@@ -1,0 +1,42 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "CR1220-F DIP",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C5154874",
+    "model": "CR1220-F DIP",
+    "manufacturer": "FLYOUNG",
+    "package": "-",
+    "stock": 1212,
+    "price": 0.1332,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Lithium-Ion Battery",
+    "subcategory_id": 1993,
+    "mounting_type": "not_sure",
+    "specs": {
+     "unit": "1 Piece",
+     "Type": "Battery",
+     "diameter": "12.6mm",
+     "thickness": "2.5mm",
+     "Capacity": "-",
+     "Type of electrolyte": "-",
+     "Battery Rechargeability": "-",
+     "Chemical system": "Lithium-ion",
+     "nominal voltage": "3V"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

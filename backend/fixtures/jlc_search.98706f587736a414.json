@@ -1,0 +1,215 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "temperature sensor",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C376006",
+    "model": "DS18B20(UMW)",
+    "manufacturer": "UMW(Youtai Semiconductor Co., Ltd.)",
+    "package": "TO-92",
+    "stock": 114520,
+    "price": 0.5728,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Temperature Sensors",
+    "subcategory_id": 3076,
+    "mounting_type": "through_hole",
+    "description": "-55℃~+125℃ 12bit 3V~5.5V 750ms Single-bus ±0.4℃ TO-92 Temperature Sensors ROHS",
+    "specs": {
+     "Operating Temperature": "-",
+     "Standby Current": "-",
+     "Detection Temperature Range": "-55℃~+125℃",
+     "Voltage - Supply": "3V~5.5V",
+     "Tolerance": "±0.4℃",
+     "Features": "Temperature threshold monitoring、Configurable temperature output、On-chip non-volatile parameter storage",
+     "Temperature Conversion Time": "750ms",
+     "Interface": "Single bus",
+     "Temperature Resolution": "12bit"
+    }
+   },
+   {
+    "lcsc": "C695836",
+    "model": "DS18B20U(UMW)",
+    "manufacturer": "UMW(Youtai Semiconductor Co., Ltd.)",
+    "package": "MSOP-8",
+    "stock": 101164,
+    "price": 0.7168,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Temperature Sensors",
+    "subcategory_id": 3076,
+    "mounting_type": "smd",
+    "description": "-55℃~+125℃ 12bit 2.5V~5.5V 400ms 750nA Single-bus ±0.4℃ MSOP-8 Temperature Sensors ROHS",
+    "specs": {
+     "Operating Temperature": "-",
+     "Standby Current": "750nA",
+     "Voltage - Supply": "2.5V~5.5V",
+     "Detection Temperature Range": "-55℃~+125℃",
+     "Tolerance": "±0.4℃",
+     "Features": "Temperature threshold monitoring、Configurable temperature output、On-chip non-volatile parameter storage",
+     "Temperature Conversion Time": "400ms",
+     "Interface": "Single bus",
+     "Temperature Resolution": "12bit"
+    }
+   },
+   {
+    "lcsc": "C2870250",
+    "model": "TMP1075DSGR",
+    "manufacturer": "Texas Instruments",
+    "package": "WSON-8-EP(2x2)",
+    "stock": 46409,
+    "price": 0.5145,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Temperature Sensors",
+    "subcategory_id": 3076,
+    "mounting_type": "smd",
+    "description": "-55℃~+125℃ 1.7V~5.5V 12bit 4uA 7ms Factory temperature calibration、Temperature threshold monitoring I2C、SMBus ±1℃ WSON-8-EP(2x2) Temperature Sensors ROHS",
+    "specs": {
+     "Operating Temperature": "-",
+     "Standby Current": "4uA",
+     "Detection Temperature Range": "-55℃~+125℃",
+     "Voltage - Supply": "1.7V~5.5V",
+     "Tolerance": "±1℃",
+     "Features": "Factory temperature calibration、Temperature threshold monitoring",
+     "Temperature Conversion Time": "7ms",
+     "Interface": "I2C、SMBus",
+     "Temperature Resolution": "12bit"
+    }
+   },
+   {
+    "lcsc": "C28927",
+    "model": "TMP112AIDRLR",
+    "manufacturer": "Texas Instruments",
+    "package": "SOT-563",
+    "stock": 36810,
+    "price": 0.331,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Temperature Sensors",
+    "subcategory_id": 3076,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃ 1.4V~3.6V 13bit 1uA 26ms Factory temperature calibration、Temperature threshold monitoring、Low power standby、Configurable temperature output、Hardware comparator / independent temperature control output I2C ±0.5℃ SOT-563 Temperature Sensors ROHS",
+    "specs": {
+     "Operating Temperature": "-",
+     "Standby Current": "1uA",
+     "Detection Temperature Range": "-40℃~+125℃",
+     "Voltage - Supply": "1.4V~3.6V",
+     "Tolerance": "±0.5℃",
+     "Features": "Factory temperature calibration、Temperature threshold monitoring、Low-power standby、Configurable temperature output、Hardware comparator / independent temperature control output",
+     "Temperature Conversion Time": "26ms",
+     "Interface": "I2C",
+     "Temperature Resolution": "13bit"
+    }
+   },
+   {
+    "lcsc": "C9753",
+    "model": "DS18B20+",
+    "manufacturer": "Analog Devices Inc./Maxim Integrated",
+    "package": "TO-92",
+    "stock": 32459,
+    "price": 1.2393,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Temperature Sensors",
+    "subcategory_id": 3076,
+    "mounting_type": "through_hole",
+    "description": "-55℃~+125℃ 12bit 1uA 3V~5.5V 750ms Single-bus ±0.5℃ TO-92 Temperature Sensors ROHS",
+    "specs": {
+     "Operating Temperature": "-",
+     "Standby Current": "1uA",
+     "Detection Temperature Range": "-55℃~+125℃",
+     "Voltage - Supply": "3V~5.5V",
+     "Tolerance": "±0.5℃",
+     "Features": "Temperature threshold monitoring、Configurable temperature output、On-chip non-volatile parameter storage",
+     "Temperature Conversion Time": "750ms",
+     "Interface": "Single bus",
+     "Temperature Resolution": "12bit"
+    }
+   },
+   {
+    "lcsc": "C5379069",
+    "model": "DS18B20-MS",
+    "manufacturer": "MSKSEMI",
+    "package": "TO-92",
+    "stock": 31349,
+    "price": 0.4773,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Temperature Sensors",
+    "subcategory_id": 3076,
+    "mounting_type": "through_hole",
+    "description": "-55℃~+125℃ 12bit 1uA 2.5V~5.5V 400ms Single-bus ±0.4℃ TO-92 Temperature Sensors ROHS",
+    "specs": {
+     "Operating Temperature": "-",
+     "Standby Current": "1uA",
+     "Voltage - Supply": "2.5V~5.5V",
+     "Detection Temperature Range": "-55℃~+125℃",
+     "Tolerance": "±0.4℃",
+     "Features": "Temperature threshold monitoring、Low-power standby、Configurable temperature output、On-chip non-volatile parameter storage",
+     "Temperature Conversion Time": "400ms",
+     "Interface": "Single bus",
+     "Temperature Resolution": "12bit"
+    }
+   }
+  ],
+  "total": 756,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 6
+  },
+  "filters_applied": {
+   "query": null,
+   "subcategory_id": 3076,
+   "subcategory_name": "temperature sensors",
+   "subcategory_resolved": "Temperature Sensors",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 756
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "temperature sensor",
+   "detected": {
+    "component_type": "temperature sensor",
+    "subcategory": "temperature sensors"
+   },
+   "subcategory": "temperature sensors",
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": ""
+  }
+ }
+}

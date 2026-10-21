@@ -1,0 +1,41 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "W7500P",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C79676",
+    "model": "W7500P",
+    "manufacturer": "WIZNET",
+    "package": "LQFP-64(7x7)",
+    "stock": 218,
+    "price": 6.4059,
+    "price_10": 5.5661,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Embedded Processors & Controllers",
+    "subcategory": "Microcontrollers (MCU/MPU/SOC)",
+    "subcategory_id": 2584,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-",
+     "Type": "-",
+     "Data Rate": "-",
+     "Voltage - Supply": "2.7V~5.5V",
+     "Number of ports": "8",
+     "Features": "Low-power mode",
+     "MAC Interface": "MII",
+     "Ethernet Speed Standards": "-"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

@@ -1,0 +1,26 @@
+{
+ "mpn": "TPS61040DBVR",
+ "prompt": "a3400943f200",
+ "fields": {
+  "vmin": 1.8,
+  "vmax": 6.0,
+  "vout_max": 28.0,
+  "i_typ": 2.8e-05,
+  "i_max": 0.4,
+  "role": "passive",
+  "topology": "boost",
+  "temp_min": -40.0,
+  "temp_max": 125.0,
+  "interfaces": []
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "vout_max": "Output Voltage",
+  "i_typ": "Quiescent Current",
+  "i_max": "Output Current",
+  "topology": "Topology",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

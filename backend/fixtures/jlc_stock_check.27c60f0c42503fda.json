@@ -1,0 +1,37 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "AR0135CS2C00SUEA0-DRBR",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C889981",
+    "model": "AR0135CS2C00SUEA0-DRBR",
+    "manufacturer": "onsemi",
+    "package": "IBGA-63",
+    "stock": 15,
+    "price": 26.5717,
+    "price_10": 26.5717,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Image Sensors",
+    "subcategory_id": 3078,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-30℃~+70℃",
+     "Sensor Type": "CMOS Image Sensor",
+     "Pixel Size": "3.75umx3.75um",
+     "Active Pixel Array": "1280Hx960V"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

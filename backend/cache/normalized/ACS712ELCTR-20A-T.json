@@ -1,0 +1,18 @@
+{
+ "mpn": "ACS712ELCTR-20A-T",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 5.0,
+  "vmax": 5.0,
+  "role": "peripheral",
+  "temp_min": -40.0,
+  "temp_max": 85.0,
+  "interfaces": []
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

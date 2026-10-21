@@ -1,0 +1,110 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "SCD40-D-R2"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "403-SCD40-D-R2",
+    "mfr_part_number": "SCD40-D-R2",
+    "manufacturer": "Sensirion",
+    "description": "Air Quality Sensors Sensirion photoacoustic CO2 sensor",
+    "category": "Air Quality Sensors",
+    "stock": 1704,
+    "price": 18.66,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 18.66,
+      "currency": "USD"
+     },
+     {
+      "qty": 5,
+      "price": 17.01,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 16.4,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 15.67,
+      "currency": "USD"
+     },
+     {
+      "qty": 50,
+      "price": 15.16,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 14.72,
+      "currency": "USD"
+     },
+     {
+      "qty": 600,
+      "price": 13.4,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/1278/1/CD_DS_SCD4x_Datasheet_D1.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Sensirion/SCD40-D-R2?qs=HBWAp0VN4RjIKW%252BlMeZn1w%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Cut Tape",
+     "Standard Pack Qty": "600"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "403-SCD40-D-R1",
+    "mfr_part_number": "SCD40-D-R1",
+    "manufacturer": "Sensirion",
+    "description": "Air Quality Sensors Sensirion photoacoustic CO2 sensor",
+    "category": "Air Quality Sensors",
+    "stock": 0,
+    "price": 16.4,
+    "price_breaks": [
+     {
+      "qty": 60,
+      "price": 16.4,
+      "currency": "USD"
+     },
+     {
+      "qty": 120,
+      "price": 15.44,
+      "currency": "USD"
+     },
+     {
+      "qty": 300,
+      "price": 15.15,
+      "currency": "USD"
+     },
+     {
+      "qty": 540,
+      "price": 14.44,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/1278/1/CD_DS_SCD4x_Datasheet_D1.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Sensirion/SCD40-D-R1?qs=HBWAp0VN4RjvSDpwiC%2F4pQ%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Reel",
+     "Standard Pack Qty": "60"
+    },
+    "min_qty": 60,
+    "currency": "USD"
+   }
+  ],
+  "total": 2
+ }
+}

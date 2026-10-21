@@ -1,0 +1,52 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "3V3 LDO regulator",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [],
+  "total": 0,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 0
+  },
+  "filters_applied": {
+   "query": "3V3 LDO",
+   "subcategory_id": 2956,
+   "subcategory_name": "voltage regulators - linear, low drop out (ldo) regulators",
+   "subcategory_resolved": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 0
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "3V3 LDO regulator",
+   "detected": {
+    "component_type": "regulator",
+    "subcategory": "voltage regulators - linear, low drop out (ldo) regulators"
+   },
+   "subcategory": "voltage regulators - linear, low drop out (ldo) regulators",
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "3V3 LDO"
+  }
+ }
+}

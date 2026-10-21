@@ -1,0 +1,17 @@
+{
+ "mpn": "W7500P",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 2.7,
+  "vmax": 5.5,
+  "role": "master",
+  "interfaces": [
+   "MII"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "interfaces": "MAC Interface"
+ }
+}

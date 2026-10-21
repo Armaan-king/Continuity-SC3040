@@ -1,0 +1,10 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "CC6900SO-20A"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

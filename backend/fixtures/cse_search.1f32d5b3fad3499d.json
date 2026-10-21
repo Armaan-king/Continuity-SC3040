@@ -1,0 +1,10 @@
+{
+ "tool": "cse_search",
+ "arguments": {
+  "query": "BMI320"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

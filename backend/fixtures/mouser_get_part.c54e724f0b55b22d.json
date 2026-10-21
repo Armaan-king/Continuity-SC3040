@@ -1,0 +1,10 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "LGS5145"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

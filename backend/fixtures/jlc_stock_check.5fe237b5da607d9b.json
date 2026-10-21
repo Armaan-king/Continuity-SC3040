@@ -1,0 +1,42 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "T1601B",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C42456414",
+    "model": "T1601B",
+    "manufacturer": "Mysentech",
+    "package": "SOT-23-3",
+    "stock": 26191,
+    "price": 0.3584,
+    "price_10": 0.2809,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Temperature Sensors",
+    "subcategory_id": 3076,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-",
+     "Standby Current": "10nA",
+     "Detection Temperature Range": "-103℃~+153℃",
+     "Voltage - Supply": "1.8V~5.5V",
+     "Tolerance": "±0.5℃",
+     "Features": "Factory temperature calibration、Temperature threshold monitoring、Low-power standby、Configurable temperature output、On-chip non-volatile parameter storage、Self-diagnosis function",
+     "Temperature Conversion Time": "2.2ms、5.2ms、8.5ms、15.3ms",
+     "Interface": "Single bus",
+     "Temperature Resolution": "16bit"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

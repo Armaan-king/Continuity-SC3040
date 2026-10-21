@@ -1,0 +1,41 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "EN25QH64A-104HIP",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C492205",
+    "model": "EN25QH64A-104HIP",
+    "manufacturer": "ESMT(Elite Semicon Memory Tech)",
+    "package": "SOP-8-208mil",
+    "stock": 172,
+    "price": 1.0032,
+    "price_10": 0.8285,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Memory",
+    "subcategory": "NOR FLASH",
+    "subcategory_id": 3018,
+    "mounting_type": "smd",
+    "specs": {
+     "Data Retention - TDR (Year)": "20 Years",
+     "Clock Frequency": "104MHz",
+     "Memory Size": "64Mbit",
+     "Page Programming Time (Tpp)": "500us",
+     "Voltage - Supply": "2.7V~3.6V",
+     "Interface": "SPI",
+     "Standby Supply Current": "1uA",
+     "Program / Erase Cycles": "100,000 cycles"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

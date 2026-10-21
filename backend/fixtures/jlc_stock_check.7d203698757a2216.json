@@ -1,0 +1,133 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "TF-01A",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C91145",
+    "model": "TF-01A",
+    "manufacturer": "Korean Hroparts Elec",
+    "package": "SMD",
+    "stock": 114916,
+    "price": 0.191,
+    "price_10": 0.1521,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "SD Card / Memory Card Connector",
+    "subcategory_id": 2589,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-",
+     "Connector Type": "Connector and Ejector",
+     "Supplementary Features": "With Locating Pins",
+     "Card Connection Mode": "Push-Push",
+     "Height Above Board": "1.85mm",
+     "Card Type": "MicroSD Card (TF Card)",
+     "Additional Card Detection Pins": "-"
+    }
+   },
+   {
+    "lcsc": "C2889258",
+    "model": "TF-01A",
+    "manufacturer": "Yuandi",
+    "package": "SMD",
+    "stock": 41858,
+    "price": 0.096,
+    "price_10": 0.0766,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "SD Card / Memory Card Connector",
+    "subcategory_id": 2589,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-",
+     "Connector Type": "Connector and Ejector",
+     "Card Connection Mode": "Push-Push",
+     "Height Above Board": "2mm",
+     "Card Type": "MicroSD Card (TF Card)",
+     "Additional Card Detection Pins": "No"
+    }
+   },
+   {
+    "lcsc": "C20613191",
+    "model": "TF-01A-ZYD9AH1.85",
+    "manufacturer": "XYECONN",
+    "package": "SMD",
+    "stock": 18679,
+    "price": 0.0454,
+    "price_10": 0.04,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "SD Card / Memory Card Connector",
+    "subcategory_id": 2589,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-20℃~+90℃",
+     "Connector Type": "Connector and Ejector",
+     "Supplementary Features": "With Locating Pins",
+     "Card Connection Mode": "Plug-in",
+     "Height Above Board": "1.85mm",
+     "Card Type": "MicroSD Card (TF Card)",
+     "Additional Card Detection Pins": "No"
+    }
+   },
+   {
+    "lcsc": "C22383473",
+    "model": "SH-TF-01A",
+    "manufacturer": "SHOU HAN",
+    "package": "SMD",
+    "stock": 28066,
+    "price": 0.069,
+    "price_10": 0.0551,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "SD Card / Memory Card Connector",
+    "subcategory_id": 2589,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-25℃~+85℃",
+     "Connector Type": "Connector and Ejector",
+     "Supplementary Features": "-",
+     "Card Connection Mode": "Push-Push",
+     "Height Above Board": "2mm",
+     "Card Type": "MicroSD Card (TF Card)",
+     "Additional Card Detection Pins": "-"
+    }
+   },
+   {
+    "lcsc": "C36498963",
+    "model": "HX TF-01A",
+    "manufacturer": "hanxia",
+    "package": "SMD",
+    "stock": 920,
+    "price": 0.0667,
+    "price_10": 0.0528,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "SD Card / Memory Card Connector",
+    "subcategory_id": 2589,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-20℃~+70℃",
+     "Connector Type": "Connector and Ejector",
+     "Card Connection Mode": "Push-Push",
+     "Card Type": "MicroSD Card (TF Card)",
+     "Additional Card Detection Pins": "Yes"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 11,
+  "total_pages": 3,
+  "has_more": true
+ }
+}

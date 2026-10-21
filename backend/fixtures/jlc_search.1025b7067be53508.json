@@ -1,0 +1,71 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "2.4GHz chip antenna",
+  "sort_by": "stock",
+  "limit": 40
+ },
+ "response": {
+  "results": [],
+  "total": 0,
+  "page_info": {
+   "limit": 40,
+   "offset": 0,
+   "returned": 0
+  },
+  "filters_applied": {
+   "query": null,
+   "subcategory_id": 3182,
+   "subcategory_name": "antennas",
+   "subcategory_resolved": "Antennas",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [
+    {
+     "name": "Frequency",
+     "op": "=",
+     "value": "2.4GHz"
+    }
+   ],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 0
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "2.4GHz chip antenna",
+   "detected": {
+    "component_type": "chip antenna",
+    "subcategory": "antennas",
+    "values": [
+     {
+      "raw": "2.4GHz",
+      "type": "frequency",
+      "normalized": "2.4GHz"
+     }
+    ]
+   },
+   "subcategory": "antennas",
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [
+    {
+     "name": "Frequency",
+     "op": "=",
+     "value": "2.4GHz"
+    }
+   ],
+   "remaining_text": ""
+  }
+ }
+}

@@ -1,0 +1,24 @@
+{
+ "mpn": "TMP1075DSGR",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 1.7,
+  "vmax": 5.5,
+  "i_typ": 4e-06,
+  "role": "peripheral",
+  "temp_min": -55.0,
+  "temp_max": 125.0,
+  "interfaces": [
+   "I2C",
+   "SMBUS"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "i_typ": "Standby Current",
+  "interfaces": "Interface",
+  "temp_min": "Detection Temperature Range",
+  "temp_max": "Detection Temperature Range"
+ }
+}

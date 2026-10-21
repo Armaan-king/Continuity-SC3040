@@ -1,0 +1,73 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "LLCC68IMLTRT"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "947-LLCC68IMLTRT",
+    "mfr_part_number": "LLCC68IMLTRT",
+    "manufacturer": "Semtech",
+    "description": "RF Transceiver LoRa Smart Home low pwr 150-960MHz ISM",
+    "category": "RF Transceiver",
+    "stock": 5048,
+    "price": 6.88,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 6.88,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 5.27,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 5.1,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 4.31,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 4.26,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 4.1,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 4.05,
+      "currency": "USD"
+     },
+     {
+      "qty": 3000,
+      "price": 3.82,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Semtech/LLCC68IMLTRT?qs=GBLSl2AkirtrsuYMVKq%252B3w%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "3000"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 1
+ }
+}

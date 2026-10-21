@@ -1,0 +1,41 @@
+{
+ "tool": "jlc_get_part",
+ "arguments": {
+  "mpn": "HS96L03W2C03"
+ },
+ "response": {
+  "mpn": "HS96L03W2C03",
+  "total": 1,
+  "results": [
+   {
+    "lcsc": "C5248080",
+    "model": "HS96L03W2C03",
+    "manufacturer": "HS",
+    "package": "-",
+    "stock": 6775,
+    "price": 2.3185,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Displays",
+    "subcategory": "OLED Display",
+    "subcategory_id": 2205,
+    "mounting_type": "not_sure",
+    "description": "-40℃~+70℃ 0.96 128x64 180cd/m2 21.744x10.864mm I2C Passive (PMOLED) SSD1315 chip White - OLED Display ROHS",
+    "specs": {
+     "Type of Drive": "Passive (PMOLED)",
+     "Function": "-",
+     "Operating Temperature": "-40℃~+70℃",
+     "Luminance": "180cd/m2",
+     "Dot Pixels": "128x64",
+     "Size": "0.96",
+     "Controller Type": "SSD1315 chip",
+     "Display Range": "21.744x10.864mm",
+     "Quiescent Current": "-",
+     "Interface": "I2C",
+     "Display Color": "White"
+    }
+   }
+  ]
+ }
+}

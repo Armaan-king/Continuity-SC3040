@@ -1,0 +1,25 @@
+{
+ "mpn": "STM32F030C8T6",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 2.4,
+  "vmax": 3.6,
+  "role": "master",
+  "pins_required": 48,
+  "pins_available": 39,
+  "temp_min": -40.0,
+  "temp_max": 85.0,
+  "interfaces": [
+   "I2C",
+   "SPI",
+   "UART"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "pins_available": "Number of I/O",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

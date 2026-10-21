@@ -1,0 +1,21 @@
+{
+ "mpn": "TMP461AIRUNR-S",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 1.7,
+  "vmax": 3.6,
+  "role": "peripheral",
+  "temp_min": -40.0,
+  "temp_max": 125.0,
+  "interfaces": [
+   "SMBUS"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "temp_min": "Detection Temperature Range",
+  "temp_max": "Detection Temperature Range",
+  "interfaces": "Interface"
+ }
+}

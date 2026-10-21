@@ -1,0 +1,47 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "ESP32-S3FN8",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C2913196",
+    "model": "ESP32-S3FN8",
+    "manufacturer": "Espressif Systems",
+    "package": "QFN-56-EP(7x7)",
+    "stock": 3612,
+    "price": 3.3106,
+    "price_10": 2.9643,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Embedded Processors & Controllers",
+    "subcategory": "Microcontrollers (MCU/MPU/SOC)",
+    "subcategory_id": 2584,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Program Memory Type": "FLASH",
+     "DAC (Bit)": "-",
+     "CPU Core": "Xtensa LX7",
+     "RAM Size": "512KB",
+     "Number of I/O": "45",
+     "Oscillator Type": "-",
+     "EEPROM": "-",
+     "CPU Maximum Speed": "240MHz",
+     "Program Storage Size": "8MB",
+     "Voltage - Supply": "-",
+     "Core Size": "32 bit",
+     "Features": "Watchdog reset、Software reset、Built-in general-purpose timer、Built-in temperature sensor、Touch function、True random number generator (TRNG)、Storage encryption、Infrared remote control",
+     "ADC (Bit)": "12bit"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

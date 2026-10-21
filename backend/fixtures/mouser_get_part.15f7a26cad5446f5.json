@@ -1,0 +1,78 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "DRV10866DSCR"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "595-DRV10866DSCR",
+    "mfr_part_number": "DRV10866DSCR",
+    "manufacturer": "Texas Instruments",
+    "description": "Motor / Motion / Ignition Controllers & Drivers Sensorless Brushless DC Motor Driver",
+    "category": "Motor / Motion / Ignition Controllers & Drivers",
+    "stock": 4453,
+    "price": 1.11,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 1.11,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 0.804,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 0.726,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 0.641,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 0.6,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 0.576,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 0.562,
+      "currency": "USD"
+     },
+     {
+      "qty": 3000,
+      "price": 0.53,
+      "currency": "USD"
+     },
+     {
+      "qty": 6000,
+      "price": 0.517,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Texas-Instruments/DRV10866DSCR?qs=rlDBmY3x7k44jWu8WULIdw%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "3000"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 1
+ }
+}

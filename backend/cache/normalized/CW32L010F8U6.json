@@ -1,0 +1,22 @@
+{
+ "mpn": "CW32L010F8U6",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 1.62,
+  "vmax": 5.5,
+  "role": "master",
+  "temp_min": -40.0,
+  "temp_max": 85.0,
+  "interfaces": [
+   "I2C",
+   "SPI",
+   "UART"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

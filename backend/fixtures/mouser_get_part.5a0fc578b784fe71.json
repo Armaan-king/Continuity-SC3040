@@ -1,0 +1,10 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "MT3540-F23"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

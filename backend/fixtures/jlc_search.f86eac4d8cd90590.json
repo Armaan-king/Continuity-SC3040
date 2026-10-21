@@ -1,0 +1,80 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "lora1276",
+  "sort_by": "stock",
+  "limit": 1
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C3001531",
+    "model": "lora1276-C1-915MHz",
+    "manufacturer": "G-NiceRF",
+    "package": "SMD,16x16mm",
+    "stock": 5721,
+    "price": 7.0931,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "LoRa Modules",
+    "subcategory_id": 2280,
+    "mounting_type": "smd",
+    "description": "-139dBm -40℃~+85℃ 10.8mA 120mA 20dBm 3.3V 915MHz FSK、LoRa、GFSK SPI SMD,16x16mm LoRa Modules ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Sensitivity": "-139dBm",
+     "Output Power": "20dBm",
+     "Modulation System": "FSK、LoRa、GFSK",
+     "Voltage - Supply": "3.3V",
+     "Frequency": "915MHz",
+     "Features": "LoRa frequency hopping spread spectrum、Built-in temperature sensor",
+     "Interface Type": "SPI",
+     "Send  Current": "120mA",
+     "Receive  Current": "10.8mA"
+    }
+   }
+  ],
+  "total": 2,
+  "page_info": {
+   "limit": 1,
+   "offset": 0,
+   "returned": 1
+  },
+  "filters_applied": {
+   "query": "lora1276",
+   "subcategory_id": null,
+   "subcategory_name": null,
+   "subcategory_resolved": null,
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 2
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "lora1276",
+   "detected": {
+    "model_number": "lora1276"
+   },
+   "subcategory": null,
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "lora1276"
+  }
+ }
+}

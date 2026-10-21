@@ -1,0 +1,78 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "SGP40-D-R4"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "403-SGP40-D-R4",
+    "mfr_part_number": "SGP40-D-R4",
+    "manufacturer": "Sensirion",
+    "description": "Air Quality Sensors MOX Sensor",
+    "category": "Air Quality Sensors",
+    "stock": 9173,
+    "price": 6.95,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 6.95,
+      "currency": "USD"
+     },
+     {
+      "qty": 5,
+      "price": 6.27,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 6.01,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 5.71,
+      "currency": "USD"
+     },
+     {
+      "qty": 50,
+      "price": 5.5,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 5.31,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 4.92,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 4.89,
+      "currency": "USD"
+     },
+     {
+      "qty": 2500,
+      "price": 4.48,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/1278/1/Sensirion_Gas_Sensors_Datasheet_SGP40.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Sensirion/SGP40-D-R4?qs=yqaQSyyJnNgaRqiZfsbS1Q%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "2500"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 1
+ }
+}

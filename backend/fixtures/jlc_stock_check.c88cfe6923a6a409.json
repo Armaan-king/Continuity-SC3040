@@ -1,0 +1,45 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "SX1278IMLTRT",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C67678",
+    "model": "SX1278IMLTRT",
+    "manufacturer": "SEMTECH",
+    "package": "QFN-28-EP(6x6)",
+    "stock": 2160,
+    "price": 4.8898,
+    "price_10": 4.194,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "RF and Wireless",
+    "subcategory": "RF Transceiver ICs",
+    "subcategory_id": 3048,
+    "mounting_type": "smd",
+    "specs": {
+     "Frequency Range": "137MHz~525MHz",
+     "Operating Temperature": "-40℃~+85℃",
+     "Type": "transceiver",
+     "Sensitivity": "-148dBm",
+     "Data Rate": "300Kbps",
+     "Output Power": "20dBm",
+     "Applications": "LoRa",
+     "Voltage - Supply": "1.8V~3.7V",
+     "Receive Current": "10.8mA",
+     "Features": "Power-on reset function、Supports RSSI function、Supports FEC function、CRC check function",
+     "Current Of Transmitting": "29mA",
+     "Interface": "SPI"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

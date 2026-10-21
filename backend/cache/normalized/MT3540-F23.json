@@ -1,0 +1,28 @@
+{
+ "mpn": "MT3540-F23",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 2.5,
+  "vmax": 5.5,
+  "vout_min": 1.23,
+  "vout_max": 28.0,
+  "i_typ": 4e-05,
+  "i_max": 1.5,
+  "topology": "boost",
+  "synchronous": false,
+  "temp_min": -40.0,
+  "temp_max": 85.0
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "vout_min": "Output Voltage",
+  "vout_max": "Output Voltage",
+  "i_max": "Output Current",
+  "i_typ": "Quiescent Current",
+  "topology": "Topology",
+  "synchronous": "Synchronous Rectifier",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

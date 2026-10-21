@@ -1,0 +1,190 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "dc-dc converter",
+  "spec_filters": [
+   {
+    "name": "Topology",
+    "op": "=",
+    "value": "Buck"
+   }
+  ],
+  "sort_by": "stock",
+  "limit": 4
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C61063",
+    "model": "XL1509-5.0E1",
+    "manufacturer": "XLSEMI",
+    "package": "SOIC-8",
+    "stock": 196964,
+    "price": 0.2325,
+    "price_10": null,
+    "library_type": "basic",
+    "preferred": true,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 1 150kHz 2A 2mA 4.5V~40V 5V Buck Buck Built-in Fixed No SOIC-8 DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Function": "Step-down type",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "150kHz",
+     "Output Type": "Fixed",
+     "Voltage - Supply": "4.5V~40V",
+     "Output Current": "2A",
+     "Quiescent Current": "2mA",
+     "Features": "Overcurrent Protection",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck",
+     "Output Voltage": "5V",
+     "Number of Outputs": "1"
+    }
+   },
+   {
+    "lcsc": "C9864",
+    "model": "TPS5430DDAR",
+    "manufacturer": "Texas Instruments",
+    "package": "SOIC-8-EP",
+    "stock": 159461,
+    "price": 0.8616,
+    "price_10": null,
+    "library_type": "basic",
+    "preferred": true,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃@(TJ) 1 1.221V~32.04V 3A 4.4mA 5.5V~36V 500kHz Adjustable Buck Buck Built-in No SOIC-8-EP DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃@(TJ)",
+     "Function": "Step-down type",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "500kHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "5.5V~36V",
+     "Output Current": "3A",
+     "Quiescent Current": "4.4mA",
+     "Features": "Overcurrent Protection、Cycle-by-cycle current limiting、Hiccup current limiting",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck",
+     "Output Voltage": "1.221V~32.04V",
+     "Number of Outputs": "1"
+    }
+   },
+   {
+    "lcsc": "C74192",
+    "model": "XL1509-ADJE1",
+    "manufacturer": "XLSEMI",
+    "package": "SOIC-8",
+    "stock": 105255,
+    "price": 0.271,
+    "price_10": null,
+    "library_type": "preferred",
+    "preferred": true,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 1 1.23V~37V 127kHz~173kHz 2A 2mA 4.5V~40V Adjustable Buck Buck Built-in No SOIC-8 DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Function": "Step-down type",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "127kHz~173kHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "4.5V~40V",
+     "Output Current": "2A",
+     "Quiescent Current": "2mA",
+     "Features": "Overcurrent Protection",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck",
+     "Output Voltage": "1.23V~37V",
+     "Number of Outputs": "1"
+    }
+   },
+   {
+    "lcsc": "C9865",
+    "model": "TPS54331DR",
+    "manufacturer": "Texas Instruments",
+    "package": "SOIC-8",
+    "stock": 87328,
+    "price": 0.4446,
+    "price_10": null,
+    "library_type": "preferred",
+    "preferred": true,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+150℃@(TJ) 1 110uA 3.5V~28V 3A 570kHz 800mV~25V Adjustable Buck Buck Built-in No SOIC-8 DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+150℃@(TJ)",
+     "Function": "Step-down type",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "570kHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "3.5V~28V",
+     "Output Current": "3A",
+     "Quiescent Current": "110uA",
+     "Features": "Overcurrent Protection、Light load efficient mode、Adjustable soft-start、Cycle-by-cycle current limiting、External compensation",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck",
+     "Output Voltage": "800mV~25V",
+     "Number of Outputs": "1"
+    }
+   }
+  ],
+  "total": 5278,
+  "page_info": {
+   "limit": 4,
+   "offset": 0,
+   "returned": 4
+  },
+  "filters_applied": {
+   "query": null,
+   "subcategory_id": 3005,
+   "subcategory_name": "dc-dc converters",
+   "subcategory_resolved": "DC-DC Converters",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [
+    {
+     "name": "Topology",
+     "op": "=",
+     "value": "Buck"
+    }
+   ],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 2,
+   "preferred": 4,
+   "extended": 5272
+  },
+  "no_fee_available": true,
+  "parsed": {
+   "original_query": "dc-dc converter",
+   "detected": {
+    "component_type": "dc-dc converter",
+    "subcategory": "dc-dc converters"
+   },
+   "subcategory": "dc-dc converters",
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": ""
+  }
+ }
+}

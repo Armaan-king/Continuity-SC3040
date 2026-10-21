@@ -1,0 +1,23 @@
+{
+ "mpn": "AMT49406GESSR",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 5.5,
+  "vmax": 50.0,
+  "i_typ": 1e-05,
+  "role": "master",
+  "temp_min": -40.0,
+  "temp_max": 105.0,
+  "interfaces": [
+   "I2C"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "i_typ": "Quiescent Current(Iq)",
+  "interfaces": "Interface",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

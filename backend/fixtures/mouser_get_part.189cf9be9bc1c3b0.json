@@ -1,0 +1,10 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "HR911105A"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

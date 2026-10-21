@@ -1,0 +1,203 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "sensor module",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C2838502",
+    "model": "ESP32-C3-MINI-1-N4",
+    "manufacturer": "Espressif Systems",
+    "package": "SMD,16.6x13.2mm",
+    "stock": 25344,
+    "price": 3.8149,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "RF Modules",
+    "subcategory_id": 3207,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ -98dBm 20.5dBm 350mA 3V~3.6V 84mA Integrated temperature sensor、Integrated antenna、Built-in watchdog On-board PCB Antenna SPI、UART、I2C、I2S、USB Transceiver SMD,16.6x13.2mm RF Modules ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Antenna Type": "On-board PCB Antenna",
+     "Sensitivity": "-98dBm",
+     "Output Power(Max)": "20.5dBm",
+     "Voltage - Supply": "3V~3.6V",
+     "Model": "Transceiver",
+     "Features": "Integrated temperature sensor、Integrated antenna、Built-in watchdog",
+     "Interface Type": "SPI、UART、I2C、I2S、USB",
+     "Send  Current": "350mA",
+     "Receive  Current": "84mA"
+    }
+   },
+   {
+    "lcsc": "C22391148",
+    "model": "BMI320",
+    "manufacturer": "Bosch Sensortec",
+    "package": "LGA-14(3x2.5)",
+    "stock": 4615,
+    "price": 1.0928,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Sensor Modules",
+    "subcategory_id": 3299,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 0.83mm 1.71V~3.63V 15uA、45uA、145uA、355uA、390uA、690uA、790uA 3mm I2C、SPI Low-power mode、Threshold detection / event detection、Integrated ADC、Auto calibration、Interrupt output LGA-14(3x2.5) Sensor Modules ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Length": "3mm",
+     "Voltage - Supply": "1.71V~3.63V",
+     "Features": "Low-power mode、Threshold detection / event detection、Integrated ADC、Auto calibration、Interrupt output",
+     "Height": "0.83mm",
+     "Current - Supply": "15uA、45uA、145uA、355uA、390uA、690uA、790uA",
+     "Interface": "I2C、SPI"
+    }
+   },
+   {
+    "lcsc": "C5362858",
+    "model": "A7682E",
+    "manufacturer": "SIMCom Wireless Solutions",
+    "package": "LGA-85_19.6x19.6x1.10P",
+    "stock": 1298,
+    "price": 7.8545,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "RF Modules",
+    "subcategory_id": 3207,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 3.4V~4.2V Module reset function、Integrated temperature sensor、Support adaptive frequency hopping、Integrated antenna、Integrated phase-locked loop、AES encryption、Restore factory settings function、Built-in watchdog、Integrated balun UART、I2C、USB LGA-85_19.6x19.6x1.10P RF Modules ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Voltage - Supply": "3.4V~4.2V",
+     "Features": "Module reset function、Integrated temperature sensor、Support adaptive frequency hopping、Integrated antenna、Integrated phase-locked loop、AES encryption、Restore factory settings function、Built-in watchdog、Integrated balun",
+     "Interface Type": "UART、I2C、USB"
+    }
+   },
+   {
+    "lcsc": "C2830106",
+    "model": "XR3(xp8t)",
+    "manufacturer": "TUYA",
+    "package": "SMD,24x16mm",
+    "stock": 705,
+    "price": 2.7577,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Sensor Modules",
+    "subcategory_id": 3299,
+    "mounting_type": "smd",
+    "description": "-20℃~+85℃ 16mm 24mm 3.3V 3.3mm I2C 集成ADC SMD,24x16mm Sensor Modules ROHS",
+    "specs": {
+     "Operating Temperature": "-20℃~+85℃",
+     "Length": "24mm",
+     "Voltage - Supply": "3.3V",
+     "Features": "集成ADC",
+     "Height": "3.3mm",
+     "Width": "16mm",
+     "Interface": "I2C"
+    }
+   },
+   {
+    "lcsc": "C5183132",
+    "model": "HLK-LD2410B-P",
+    "manufacturer": "HI-LINK",
+    "package": "-",
+    "stock": 634,
+    "price": 5.4734,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Sensor Modules",
+    "subcategory_id": 3299,
+    "mounting_type": "not_sure",
+    "description": "-40℃~+85℃ 35mm 5V 70mA Human Presence Sensing - Sensor Modules ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Length": "35mm",
+     "Sensor Type": "Human Presence Sensing",
+     "Voltage - Supply": "5V",
+     "Features": "-",
+     "Current - Supply": "70mA",
+     "Interface": "-"
+    }
+   },
+   {
+    "lcsc": "C22399510",
+    "model": "E50-900NW20SX",
+    "manufacturer": "Chengdu Ebyte Elec Tech",
+    "package": "SMD,16x16mm",
+    "stock": 626,
+    "price": 4.4243,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "RF Modules",
+    "subcategory_id": 3207,
+    "mounting_type": "smd",
+    "description": "-125dBm -40℃~+85℃ 20dBm 2V~3.8V 5.5mA 65mA 868MHz GFSK、OOK Module reset function、Integrated temperature sensor、AES encryption、Restore factory settings function、Built-in watchdog UART SMD,16x16mm RF Modules ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Sensitivity": "-125dBm",
+     "Output Power(Max)": "20dBm",
+     "Modulation System": "GFSK、OOK",
+     "Voltage - Supply": "2V~3.8V",
+     "Frequency": "868MHz",
+     "Features": "Module reset function、Integrated temperature sensor、AES encryption、Restore factory settings function、Built-in watchdog",
+     "Interface Type": "UART",
+     "Send  Current": "65mA",
+     "Receive  Current": "5.5mA"
+    }
+   }
+  ],
+  "total": 99,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 6
+  },
+  "filters_applied": {
+   "query": "sensor module",
+   "subcategory_id": null,
+   "subcategory_name": null,
+   "subcategory_resolved": null,
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 99
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "sensor module",
+   "detected": {},
+   "subcategory": null,
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "sensor module"
+  }
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "AR0134CSSC00SUEA0-TPBR",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C900726",
+    "model": "AR0134CSSC00SUEA0-TPBR",
+    "manufacturer": "onsemi",
+    "package": "IBGA-63",
+    "stock": 100,
+    "price": 30.3466,
+    "price_10": 30.3466,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Image Sensors",
+    "subcategory_id": 3078,
+    "mounting_type": "smd",
+    "specs": {
+     "Optical Format(inch)": "1/3",
+     "Operating Temperature": "-30℃~+70℃",
+     "Frame Rate(fps)": "54、60",
+     "Length": "-",
+     "Sensor Type": "CMOS Image Sensor",
+     "Pixel Size": "3.75umx3.75um",
+     "Features": "Global shutter、On-chip temperature sensor、Regional image control、On-chip statistical output",
+     "Height": "-",
+     "Dynamic Range": "64dB",
+     "Width": "-",
+     "Active Pixel Array": "1280Hx960V",
+     "Signal-to-Noise Ratio": "38.6dB"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

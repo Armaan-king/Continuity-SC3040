@@ -1,0 +1,212 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "GNSS module",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C2916234",
+    "model": "L76KB-A58",
+    "manufacturer": "Quectel",
+    "package": "SMD,10.1x9.7mm",
+    "stock": 3645,
+    "price": 4.391,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "GNSS Modules",
+    "subcategory_id": 3206,
+    "mounting_type": "smd",
+    "description": "-148dBm -40℃~+85℃ 100mA@3.3V 2.7V~3.4V 2m 5.5s、30s GPS、QZSS、BeiDou、GLONASS UART SMD,10.1x9.7mm GNSS Modules ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Accuracy": "2m",
+     "Sensitivity": "-148dBm",
+     "Voltage - Supply": "2.7V~3.4V",
+     "Features": "RTC backup power、Short-circuit detection",
+     "Time To First Fix": "5.5s、30s",
+     "GNSS Type": "GPS、QZSS、BeiDou、GLONASS",
+     "Current - Supply": "100mA@3.3V",
+     "Interface": "UART"
+    }
+   },
+   {
+    "lcsc": "C128659",
+    "model": "ATGM332D-5N31",
+    "manufacturer": "ZHONGKEWEI",
+    "package": "SMD,16x12.2mm",
+    "stock": 3282,
+    "price": 3.4542,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "GNSS Modules",
+    "subcategory_id": 3206,
+    "mounting_type": "smd",
+    "description": "-148dBm -40℃~+85℃ 2.5m 2.7V~3.6V 25mA@3.3V 32s GPS、BDS、QZSS、GLONASS、GALILEO UART、I2C SMD,16x12.2mm GNSS Modules ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Sensitivity": "-148dBm",
+     "Accuracy": "2.5m",
+     "Voltage - Supply": "2.7V~3.6V",
+     "Features": "Hot start acceleration、RTC backup power、Short-circuit detection",
+     "Time To First Fix": "32s",
+     "GNSS Type": "GPS、BDS、QZSS、GLONASS、GALILEO",
+     "Current - Supply": "25mA@3.3V",
+     "Interface": "UART、I2C"
+    }
+   },
+   {
+    "lcsc": "C49233941",
+    "model": "ATGM332D-5NR32-G",
+    "manufacturer": "ZHONGKEWEI",
+    "package": "-",
+    "stock": 3005,
+    "price": 1.9577,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "GNSS Modules",
+    "subcategory_id": 3206,
+    "mounting_type": "not_sure",
+    "description": "-148dBm -40℃~+85℃ 1.8V~3.6V 2.5m 26mA@3.3V 32s GPS、BDS、QZSS、GLONASS Hot start acceleration、RTC backup power、Short-circuit detection UART、I2C - GNSS Modules ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Sensitivity": "-148dBm",
+     "Accuracy": "2.5m",
+     "Voltage - Supply": "1.8V~3.6V",
+     "Features": "Hot start acceleration、RTC backup power、Short-circuit detection",
+     "Time To First Fix": "32s",
+     "GNSS Type": "GPS、BDS、QZSS、GLONASS",
+     "Current - Supply": "26mA@3.3V",
+     "Interface": "UART、I2C"
+    }
+   },
+   {
+    "lcsc": "C3037611",
+    "model": "ATGM332D-5NR32",
+    "manufacturer": "ZHONGKEWEI",
+    "package": "-",
+    "stock": 1953,
+    "price": 1.8072,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "GNSS Modules",
+    "subcategory_id": 3206,
+    "mounting_type": "not_sure",
+    "description": "-162dBm -40℃~+85℃ 2.5m 2.7V~3.6V 26mA@3.3V 32s GPS、BDS、QZSS、GLONASS、GALILEO UART、I2C - GNSS Modules ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Accuracy": "2.5m",
+     "Sensitivity": "-162dBm",
+     "Voltage - Supply": "2.7V~3.6V",
+     "Features": "Hot start acceleration、RTC backup power、Short-circuit detection",
+     "Time To First Fix": "32s",
+     "GNSS Type": "GPS、BDS、QZSS、GLONASS、GALILEO",
+     "Current - Supply": "26mA@3.3V",
+     "Interface": "UART、I2C"
+    }
+   },
+   {
+    "lcsc": "C90770",
+    "model": "ATGM336H-5N31",
+    "manufacturer": "ZHONGKEWEI",
+    "package": "SMD,10.1x9.7mm",
+    "stock": 1849,
+    "price": 3.2196,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "GNSS Modules",
+    "subcategory_id": 3206,
+    "mounting_type": "smd",
+    "description": "-148dBm -40℃~+85℃ 2.5m 2.7V~3.6V 25mA@3.3V 35s GPS、BDS UART、I2C SMD,10.1x9.7mm GNSS Modules ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Sensitivity": "-148dBm",
+     "Accuracy": "2.5m",
+     "Voltage - Supply": "2.7V~3.6V",
+     "Features": "Hot start acceleration、RTC backup power、Short-circuit detection",
+     "Time To First Fix": "35s",
+     "GNSS Type": "GPS、BDS",
+     "Current - Supply": "25mA@3.3V",
+     "Interface": "UART、I2C"
+    }
+   },
+   {
+    "lcsc": "C22381737",
+    "model": "ATGM336H-6N-22",
+    "manufacturer": "ZHONGKEWEI",
+    "package": "SMD,10.1x9.7mm",
+    "stock": 1266,
+    "price": 3.4267,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "GNSS Modules",
+    "subcategory_id": 3206,
+    "mounting_type": "smd",
+    "description": "-148dBm -40℃~+85℃ 2.7V~3.6V 23s 2m 42mA@3.3V BDS UART SMD,10.1x9.7mm GNSS Modules ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Accuracy": "2m",
+     "Sensitivity": "-148dBm",
+     "Voltage - Supply": "2.7V~3.6V",
+     "Features": "Hot start acceleration、Dual-band / multi-band positioning、RTC backup power、Short-circuit detection",
+     "Time To First Fix": "23s",
+     "GNSS Type": "BDS",
+     "Current - Supply": "42mA@3.3V",
+     "Interface": "UART"
+    }
+   }
+  ],
+  "total": 81,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 6
+  },
+  "filters_applied": {
+   "query": "GNSS module",
+   "subcategory_id": null,
+   "subcategory_name": null,
+   "subcategory_resolved": null,
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 81
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "GNSS module",
+   "detected": {},
+   "subcategory": null,
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "GNSS module"
+  }
+ }
+}

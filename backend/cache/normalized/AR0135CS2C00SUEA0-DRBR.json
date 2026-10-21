@@ -1,0 +1,14 @@
+{
+ "mpn": "AR0135CS2C00SUEA0-DRBR",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "role": "peripheral",
+  "temp_min": -30.0,
+  "temp_max": 70.0,
+  "interfaces": []
+ },
+ "provenance": {
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

@@ -1,0 +1,40 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "SX3M8.000M20F30TNN",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C2901556",
+    "model": "SX3M8.000M20F30TNN",
+    "manufacturer": "Shenzhen SCTF Elec",
+    "package": "SMD3225-4P",
+    "stock": 40538,
+    "price": 0.411,
+    "price_10": 0.3204,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Crystals, Oscillators, Resonators",
+    "subcategory": "Crystal Oscillators",
+    "subcategory_id": 2942,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Normal temperature Frequency Tolerance": "±20ppm",
+     "Output Type": "CMOS",
+     "Voltage - Supply": "1.62V~3.63V",
+     "Frequency Stability": "±30ppm",
+     "Frequency": "8MHz",
+     "Current - Supply": "10mA"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

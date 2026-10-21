@@ -1,0 +1,176 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "XL1509-5.0E1",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C61063",
+    "model": "XL1509-5.0E1",
+    "manufacturer": "XLSEMI",
+    "package": "SOIC-8",
+    "stock": 196964,
+    "price": 0.2325,
+    "price_10": null,
+    "library_type": "basic",
+    "preferred": true,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 1 150kHz 2A 2mA 4.5V~40V 5V Buck Buck Built-in Fixed No SOIC-8 DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Function": "Step-down type",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "150kHz",
+     "Output Type": "Fixed",
+     "Voltage - Supply": "4.5V~40V",
+     "Output Current": "2A",
+     "Quiescent Current": "2mA",
+     "Features": "Overcurrent Protection",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck",
+     "Output Voltage": "5V",
+     "Number of Outputs": "1"
+    }
+   },
+   {
+    "lcsc": "C53055748",
+    "model": "XL1509-5.0BS",
+    "manufacturer": "GREENMICRO",
+    "package": "SOP-8",
+    "stock": 2857,
+    "price": 0.1614,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃ 1 150kHz 3A 4.5V~40V 5V 5mA Buck Built-in Fixed No Overcurrent Protection Step-down type SOP-8 DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃",
+     "Function": "Step-down type",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "150kHz",
+     "Output Type": "Fixed",
+     "Voltage - Supply": "4.5V~40V",
+     "Output Current": "3A",
+     "Quiescent Current": "5mA",
+     "Features": "Overcurrent Protection",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck",
+     "Output Voltage": "5V",
+     "Number of Outputs": "1"
+    }
+   },
+   {
+    "lcsc": "C42422140",
+    "model": "XL1509-5.0-TD",
+    "manufacturer": "TDSEMIC",
+    "package": "SOP-8",
+    "stock": 2313,
+    "price": 0.1943,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "3A 4.5V~40V 5V Buck SOP-8 DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃",
+     "Function": "Step-down type",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "150kHz",
+     "Output Type": "Fixed",
+     "Voltage - Supply": "4.5V~40V",
+     "Output Current": "3A",
+     "Quiescent Current": "2mA",
+     "Features": "Overcurrent Protection",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck",
+     "Output Voltage": "5V",
+     "Number of Outputs": "1"
+    }
+   },
+   {
+    "lcsc": "C49443607",
+    "model": "XL1509-5.0NS08ARBE",
+    "manufacturer": "GR",
+    "package": "SOP-8",
+    "stock": 2172,
+    "price": 0.188,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃ 1 150kHz 2A 4.5V~40V 5V 5mA Buck Built-in Fixed No Overcurrent Protection Step-down type SOP-8 DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃",
+     "Function": "Step-down type",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "150kHz",
+     "Output Type": "Fixed",
+     "Voltage - Supply": "4.5V~40V",
+     "Output Current": "2A",
+     "Quiescent Current": "5mA",
+     "Features": "Overcurrent Protection",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck",
+     "Output Voltage": "5V",
+     "Number of Outputs": "1"
+    }
+   }
+  ],
+  "total": 4,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 4
+  },
+  "filters_applied": {
+   "query": "XL1509-5",
+   "subcategory_id": null,
+   "subcategory_name": null,
+   "subcategory_resolved": null,
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 1,
+   "preferred": 0,
+   "extended": 3
+  },
+  "no_fee_available": true,
+  "parsed": {
+   "original_query": "XL1509-5.0E1",
+   "detected": {
+    "model_number": "XL1509-5"
+   },
+   "subcategory": null,
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "XL1509-5"
+  }
+ }
+}

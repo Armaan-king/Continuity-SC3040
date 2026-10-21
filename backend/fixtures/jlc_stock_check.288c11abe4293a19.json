@@ -1,0 +1,34 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "ADSP-CM408CSWZ-BF",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C659969",
+    "model": "ADSP-CM408CSWZ-BF",
+    "manufacturer": "Analog Devices",
+    "package": "LQFP-176(24x24)",
+    "stock": 19,
+    "price": 25.994,
+    "price_10": 25.994,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Embedded Processors & Controllers",
+    "subcategory": "Microcontrollers (MCU/MPU/SOC)",
+    "subcategory_id": 2584,
+    "mounting_type": "smd",
+    "specs": {
+     "Features": "Interrupt response、Integrated ADC interface、Integrated PWM control、RTC and timer、Low-power mode、High-speed peripheral interface、Hardware MAC acceleration、DMA data transfer、Secure storage and protection"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

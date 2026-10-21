@@ -1,0 +1,228 @@
+{
+ "tool": "jlc_get_pinout",
+ "arguments": {
+  "lcsc": "C2838502"
+ },
+ "response": {
+  "lcsc": "C2838502",
+  "model": "ESP32-C3-MINI-1-N4",
+  "manufacturer": "Espressif Systems",
+  "package": "SMD,16.6x13.2mm",
+  "pin_count": 53,
+  "pins": [
+   {
+    "number": "1",
+    "name": "GND"
+   },
+   {
+    "number": "2",
+    "name": "GND"
+   },
+   {
+    "number": "3",
+    "name": "3V3"
+   },
+   {
+    "number": "4",
+    "name": "NC"
+   },
+   {
+    "number": "5",
+    "name": "IO2"
+   },
+   {
+    "number": "6",
+    "name": "IO3"
+   },
+   {
+    "number": "7",
+    "name": "NC"
+   },
+   {
+    "number": "8",
+    "name": "EN"
+   },
+   {
+    "number": "9",
+    "name": "NC"
+   },
+   {
+    "number": "10",
+    "name": "NC"
+   },
+   {
+    "number": "11",
+    "name": "GND"
+   },
+   {
+    "number": "12",
+    "name": "IO0"
+   },
+   {
+    "number": "13",
+    "name": "IO1"
+   },
+   {
+    "number": "14",
+    "name": "GND"
+   },
+   {
+    "number": "15",
+    "name": "NC"
+   },
+   {
+    "number": "16",
+    "name": "IO10"
+   },
+   {
+    "number": "17",
+    "name": "NC"
+   },
+   {
+    "number": "18",
+    "name": "IO4"
+   },
+   {
+    "number": "19",
+    "name": "IO5"
+   },
+   {
+    "number": "20",
+    "name": "IO6"
+   },
+   {
+    "number": "21",
+    "name": "IO7"
+   },
+   {
+    "number": "22",
+    "name": "IO8"
+   },
+   {
+    "number": "23",
+    "name": "IO9"
+   },
+   {
+    "number": "24",
+    "name": "NC"
+   },
+   {
+    "number": "25",
+    "name": "NC"
+   },
+   {
+    "number": "26",
+    "name": "IO18"
+   },
+   {
+    "number": "27",
+    "name": "IO19"
+   },
+   {
+    "number": "28",
+    "name": "NC"
+   },
+   {
+    "number": "29",
+    "name": "NC"
+   },
+   {
+    "number": "30",
+    "name": "RXD0"
+   },
+   {
+    "number": "31",
+    "name": "TXD0"
+   },
+   {
+    "number": "32",
+    "name": "NC"
+   },
+   {
+    "number": "33",
+    "name": "NC"
+   },
+   {
+    "number": "34",
+    "name": "NC"
+   },
+   {
+    "number": "35",
+    "name": "NC"
+   },
+   {
+    "number": "36",
+    "name": "GND"
+   },
+   {
+    "number": "37",
+    "name": "GND"
+   },
+   {
+    "number": "38",
+    "name": "GND"
+   },
+   {
+    "number": "39",
+    "name": "GND"
+   },
+   {
+    "number": "40",
+    "name": "GND"
+   },
+   {
+    "number": "41",
+    "name": "GND"
+   },
+   {
+    "number": "42",
+    "name": "GND"
+   },
+   {
+    "number": "43",
+    "name": "GND"
+   },
+   {
+    "number": "44",
+    "name": "GND"
+   },
+   {
+    "number": "45",
+    "name": "GND"
+   },
+   {
+    "number": "46",
+    "name": "GND"
+   },
+   {
+    "number": "47",
+    "name": "GND"
+   },
+   {
+    "number": "48",
+    "name": "GND"
+   },
+   {
+    "number": "49",
+    "name": "GND"
+   },
+   {
+    "number": "50",
+    "name": "GND"
+   },
+   {
+    "number": "51",
+    "name": "GND"
+   },
+   {
+    "number": "52",
+    "name": "GND"
+   },
+   {
+    "number": "53",
+    "name": "GND"
+   }
+  ],
+  "easyeda_symbol_uuid": "560f43ff80e24bffb619c892353dd91e"
+ }
+}

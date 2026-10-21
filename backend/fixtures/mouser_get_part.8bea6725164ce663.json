@@ -1,0 +1,130 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "TPS54560BDDAR"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "595-TPS54560BDDAR",
+    "mfr_part_number": "TPS54560BDDAR",
+    "manufacturer": "Texas Instruments",
+    "description": "Switching Voltage Regulators 4.5-V to 60-V input 5-A step-down DC-D A A 595-TPS54560BDDA",
+    "category": "Switching Voltage Regulators",
+    "stock": 7355,
+    "price": 5.76,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 5.76,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 4.4,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 4.06,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 3.68,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 3.52,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 3.46,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 3.43,
+      "currency": "USD"
+     },
+     {
+      "qty": 2500,
+      "price": 3.25,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Texas-Instruments/TPS54560BDDAR?qs=gZXFycFWdAMPyxqrm5VZeg%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "2500"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "595-TPS54560BDDA",
+    "mfr_part_number": "TPS54560BDDA",
+    "manufacturer": "Texas Instruments",
+    "description": "Switching Voltage Regulators 4.5-V to 60-V input 5-A step-down DC-D A A 595-TPS54560BDDAR",
+    "category": "Switching Voltage Regulators",
+    "stock": 3132,
+    "price": 7.14,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 7.14,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 5.76,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 4.95,
+      "currency": "USD"
+     },
+     {
+      "qty": 75,
+      "price": 4.75,
+      "currency": "USD"
+     },
+     {
+      "qty": 300,
+      "price": 4.5,
+      "currency": "USD"
+     },
+     {
+      "qty": 525,
+      "price": 4.49,
+      "currency": "USD"
+     },
+     {
+      "qty": 1050,
+      "price": 4.48,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Texas-Instruments/TPS54560BDDA?qs=gZXFycFWdAMqSdZZ7nACGQ%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Tube",
+     "Standard Pack Qty": "75"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 2
+ }
+}

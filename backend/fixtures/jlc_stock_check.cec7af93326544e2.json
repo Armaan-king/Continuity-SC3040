@@ -1,0 +1,32 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "143HC0112",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C7598669",
+    "model": "143HC0112",
+    "manufacturer": "KNSCHA",
+    "package": "Plugin,P=7.3mm",
+    "stock": 1921,
+    "price": 1.0275,
+    "price_10": 0.835,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Capacitors",
+    "subcategory": "Supercapacitors",
+    "subcategory_id": 3232,
+    "mounting_type": "through_hole",
+    "specs": {}
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

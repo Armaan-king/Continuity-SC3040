@@ -1,0 +1,208 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "real time clock",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C7440",
+    "model": "PCF8563T/5,518",
+    "manufacturer": "NXP Semicon",
+    "package": "SO-8",
+    "stock": 220124,
+    "price": 0.6229,
+    "price_10": null,
+    "library_type": "preferred",
+    "preferred": true,
+    "category": "Clock/Timing",
+    "subcategory": "Real Time Clocks",
+    "subcategory_id": 3017,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 0.25uA 1V~5.5V Battery low-voltage detection、Programmable clock output、Alarm function、Countdown timer I2C Yes SO-8 Real Time Clocks ROHS",
+    "specs": {
+     "Alarm Output": "Yes",
+     "Operating Temperature": "-40℃~+85℃",
+     "Voltage - Supply": "1V~5.5V",
+     "crystal oscillator": "External",
+     "Features": "Battery low voltage detection、Programmable clock output、Alarm function、Countdown timer",
+     "Current - Supply": "800uA",
+     "Quiescent Current(Iq)": "0.25uA",
+     "Interface": "I2C"
+    }
+   },
+   {
+    "lcsc": "C8959",
+    "model": "DS1302Z+T&R",
+    "manufacturer": "Analog Devices Inc./Maxim Integrated",
+    "package": "SOIC-8",
+    "stock": 17991,
+    "price": 1.1649,
+    "price_10": null,
+    "library_type": "preferred",
+    "preferred": true,
+    "category": "Clock/Timing",
+    "subcategory": "Real Time Clocks",
+    "subcategory_id": 3017,
+    "mounting_type": "smd",
+    "description": "0℃~+70℃ 1nA 2V~5.5V 300nA Backup power management and battery charging、InsideSRAM/NVRAM、Sleep/Wake control External SPI SOIC-8 Real Time Clocks ROHS",
+    "specs": {
+     "Operating Temperature": "0℃~+70℃",
+     "Alarm Output": "-",
+     "Voltage - Supply": "2V~5.5V",
+     "crystal oscillator": "External",
+     "Features": "Backup power management and battery charging、InsideSRAM/NVRAM、Sleep/Wake control",
+     "Current - Supply": "300nA",
+     "Quiescent Current(Iq)": "1nA",
+     "Interface": "SPI"
+    }
+   },
+   {
+    "lcsc": "C2900599",
+    "model": "DS1302Z",
+    "manufacturer": "JSMSEMI",
+    "package": "SOP-8",
+    "stock": 102743,
+    "price": 0.1825,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Clock/Timing",
+    "subcategory": "Real Time Clocks",
+    "subcategory_id": 3017,
+    "mounting_type": "smd",
+    "description": "-20℃~+85℃ 1.2mA 1nA 2V~5.5V 3-Wire Serial Interface Backup power management and battery charging、InsideSRAM/NVRAM External SOP-8 Real Time Clocks ROHS",
+    "specs": {
+     "Operating Temperature": "-20℃~+85℃",
+     "Alarm Output": "-",
+     "Voltage - Supply": "2V~5.5V",
+     "crystal oscillator": "External",
+     "Features": "Backup power management and battery charging、InsideSRAM/NVRAM",
+     "Current - Supply": "1.2mA",
+     "Quiescent Current(Iq)": "1nA",
+     "Interface": "3-Wire Serial Interface"
+    }
+   },
+   {
+    "lcsc": "C269877",
+    "model": "BM8563ESA",
+    "manufacturer": "GATEMODE",
+    "package": "SOP-8",
+    "stock": 98231,
+    "price": 0.2534,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Clock/Timing",
+    "subcategory": "Real Time Clocks",
+    "subcategory_id": 3017,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 0.5uA 1.2V~5.5V 500nA Battery low-voltage detection、Programmable clock output、Alarm function、Countdown timer External I2C Yes SOP-8 Real Time Clocks ROHS",
+    "specs": {
+     "Alarm Output": "Yes",
+     "Operating Temperature": "-40℃~+85℃",
+     "Voltage - Supply": "1.2V~5.5V",
+     "crystal oscillator": "External",
+     "Features": "Battery low voltage detection、Programmable clock output、Alarm function、Countdown timer",
+     "Current - Supply": "500nA",
+     "Quiescent Current(Iq)": "0.5uA",
+     "Interface": "I2C"
+    }
+   },
+   {
+    "lcsc": "C2651516",
+    "model": "PCF8523T/1,118",
+    "manufacturer": "NXP Semicon",
+    "package": "SO-8",
+    "stock": 79457,
+    "price": 1.1795,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Clock/Timing",
+    "subcategory": "Real Time Clocks",
+    "subcategory_id": 3017,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 1.6V~5.5V 150nA Backup power management and battery charging、Alarm function、Sleep/Wake control Built-in I2C Yes SO-8 Real Time Clocks ROHS",
+    "specs": {
+     "Alarm Output": "Yes",
+     "Operating Temperature": "-40℃~+85℃",
+     "Voltage - Supply": "1.6V~5.5V",
+     "crystal oscillator": "Built-in",
+     "Features": "Backup power management and battery charging、Alarm function、Sleep/Wake control",
+     "Quiescent Current(Iq)": "150nA",
+     "Interface": "I2C"
+    }
+   },
+   {
+    "lcsc": "C269878",
+    "model": "BM8563EMA",
+    "manufacturer": "GATEMODE",
+    "package": "MSOP-8",
+    "stock": 66966,
+    "price": 0.2526,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Clock/Timing",
+    "subcategory": "Real Time Clocks",
+    "subcategory_id": 3017,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 0.5uA 1.2V~5.5V 500nA Battery low-voltage detection、Programmable clock output、Alarm function、ESD/Overvoltage protection、Countdown timer External I2C Yes MSOP-8 Real Time Clocks ROHS",
+    "specs": {
+     "Alarm Output": "Yes",
+     "Operating Temperature": "-40℃~+85℃",
+     "Voltage - Supply": "1.2V~5.5V",
+     "crystal oscillator": "External",
+     "Features": "Battery low voltage detection、Programmable clock output、Alarm function、ESD/Overvoltage protection、Countdown timer",
+     "Current - Supply": "500nA",
+     "Quiescent Current(Iq)": "0.5uA",
+     "Interface": "I2C"
+    }
+   }
+  ],
+  "total": 436,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 6
+  },
+  "filters_applied": {
+   "query": null,
+   "subcategory_id": 3017,
+   "subcategory_name": "real time clocks",
+   "subcategory_resolved": "Real Time Clocks",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 2,
+   "extended": 434
+  },
+  "no_fee_available": true,
+  "parsed": {
+   "original_query": "real time clock",
+   "detected": {
+    "component_type": "real time clock",
+    "subcategory": "real time clocks"
+   },
+   "subcategory": "real time clocks",
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": ""
+  }
+ }
+}

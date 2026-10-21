@@ -1,0 +1,30 @@
+{
+ "mpn": "TPS563208DDCR",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 4.5,
+  "vmax": 17.0,
+  "vout_min": 0.768,
+  "vout_max": 7.0,
+  "i_typ": 0.00059,
+  "i_max": 3.0,
+  "role": "passive",
+  "topology": "buck",
+  "synchronous": true,
+  "temp_min": -40.0,
+  "temp_max": 125.0,
+  "interfaces": []
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "vout_min": "Output Voltage",
+  "vout_max": "Output Voltage",
+  "i_typ": "Quiescent Current",
+  "i_max": "Output Current",
+  "topology": "Topology",
+  "synchronous": "Synchronous Rectifier",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

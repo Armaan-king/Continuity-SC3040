@@ -1,0 +1,36 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "AR0522SRSC09SURA0-DP",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C605291",
+    "model": "AR0522SRSC09SURA0-DP",
+    "manufacturer": "onsemi",
+    "package": "PLCC-52(12x12)",
+    "stock": 13,
+    "price": 29.4259,
+    "price_10": 29.4259,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Image Sensors",
+    "subcategory_id": 3078,
+    "mounting_type": "smd",
+    "specs": {
+     "Sensor Type": "CMOS Image Sensor",
+     "Pixel Size": "2.2umx2.2um",
+     "Active Pixel Array": "2592Hx1944V"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

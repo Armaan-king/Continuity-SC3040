@@ -1,0 +1,140 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "STM32F030C8T6"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "511-STM32F030C8T6",
+    "mfr_part_number": "STM32F030C8T6",
+    "manufacturer": "STMicroelectronics",
+    "description": "ARM Microcontrollers - MCU Value-Line ARM MCU 64kB 48 MHz",
+    "category": "ARM Microcontrollers - MCU",
+    "stock": 2958,
+    "price": 3.42,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 3.42,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 2.41,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 2.17,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 1.95,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 1.84,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 1.68,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 1.63,
+      "currency": "USD"
+     },
+     {
+      "qty": 1500,
+      "price": 1.42,
+      "currency": "USD"
+     },
+     {
+      "qty": 4500,
+      "price": 1.38,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/STMicroelectronics/STM32F030C8T6?qs=eyrSuY1LhL02NUjnPm0S4A%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Tray",
+     "Standard Pack Qty": "1500"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "511-STM32F030C8T6TR",
+    "mfr_part_number": "STM32F030C8T6TR",
+    "manufacturer": "STMicroelectronics",
+    "description": "ARM Microcontrollers - MCU Mainstream Arm Cortex-M0 Value line MCU 64 Kbytes of Flash , 48 MHz CPU",
+    "category": "ARM Microcontrollers - MCU",
+    "stock": 0,
+    "price": 3.82,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 3.82,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 2.59,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 2.39,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 2.08,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 1.95,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 1.71,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 1.42,
+      "currency": "USD"
+     },
+     {
+      "qty": 2400,
+      "price": 1.42,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/STMicroelectronics/STM32F030C8T6TR?qs=4b8myOmUP%252Bs4btmSMKeu%252Bg%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "2400"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 2
+ }
+}

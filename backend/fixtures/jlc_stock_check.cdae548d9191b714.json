@@ -1,0 +1,36 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "CR2032-BS-6-1",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C70377",
+    "model": "CR2032-BS-6-1",
+    "manufacturer": "Q&J",
+    "package": "-",
+    "stock": 51627,
+    "price": 0.1376,
+    "price_10": 0.1295,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "not_sure",
+    "specs": {
+     "Contact material": "Phosphor bronze",
+     "Type": "Battery base",
+     "Applicable battery specifications": "CR2032"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

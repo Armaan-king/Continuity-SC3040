@@ -1,0 +1,43 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "X096-2864KSWPG01-H30",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C18723026",
+    "model": "X096-2864KSWPG01-H30",
+    "manufacturer": "Newvisio",
+    "package": "-",
+    "stock": 969,
+    "price": 1.8382,
+    "price_10": 1.5566,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Displays",
+    "subcategory": "OLED Display",
+    "subcategory_id": 2205,
+    "mounting_type": "not_sure",
+    "specs": {
+     "Type of Drive": "Passive (PMOLED)",
+     "Operating Temperature": "-40℃~+85℃",
+     "Luminance": "110cd/m2",
+     "Dot Pixels": "128x64",
+     "Size": "0.96",
+     "Controller Type": "SSD1315 chip",
+     "Voltage - Supply  For Logic": "1.65V~3.3V",
+     "Display Range": "21.74x11.175mm",
+     "Interface": "I2C、SPI",
+     "Display Color": "White"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

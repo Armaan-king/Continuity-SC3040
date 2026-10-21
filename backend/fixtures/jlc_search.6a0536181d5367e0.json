@@ -1,0 +1,211 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "digital temperature sensor",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C42456414",
+    "model": "T1601B",
+    "manufacturer": "Mysentech",
+    "package": "SOT-23-3",
+    "stock": 26196,
+    "price": 0.3581,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Temperature Sensors",
+    "subcategory_id": 3076,
+    "mounting_type": "smd",
+    "description": "-103℃~+153℃ 1.8V~5.5V 10nA 16bit 2.2ms、5.2ms、8.5ms、15.3ms Factory temperature calibration、Temperature threshold monitoring、Low power standby、Configurable temperature output、On-chip non-volatile parameter storage、On-chip digital filtering/averaging、Self-diagnosis function Single bus ±0.5℃ SOT-23-3 Temperature Sensors ROHS",
+    "specs": {
+     "Operating Temperature": "-",
+     "Standby Current": "10nA",
+     "Detection Temperature Range": "-103℃~+153℃",
+     "Voltage - Supply": "1.8V~5.5V",
+     "Tolerance": "±0.5℃",
+     "Features": "Factory temperature calibration、Temperature threshold monitoring、Low-power standby、Configurable temperature output、On-chip non-volatile parameter storage、Self-diagnosis function",
+     "Temperature Conversion Time": "2.2ms、5.2ms、8.5ms、15.3ms",
+     "Interface": "Single bus",
+     "Temperature Resolution": "16bit"
+    }
+   },
+   {
+    "lcsc": "C5447196",
+    "model": "T117B",
+    "manufacturer": "Mysentech",
+    "package": "DFN-6L(2x2)",
+    "stock": 11070,
+    "price": 0.3783,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Temperature Sensors",
+    "subcategory_id": 3076,
+    "mounting_type": "smd",
+    "description": "-103℃~+153℃ 1.8V~5.5V 10nA 16bit 2.2ms、5.2ms、8.5ms、15.3ms Factory temperature calibration、Temperature threshold monitoring、Low-power standby、Configurable temperature output、On-chip non-volatile parameter storage、On-chip digital filtering/averaging、Self-diagnosis function、On-chip temperature compensation I2C ±0.5℃ DFN-6L(2x2) Temperature Sensors ROHS",
+    "specs": {
+     "Operating Temperature": "-",
+     "Standby Current": "10nA",
+     "Detection Temperature Range": "-103℃~+153℃",
+     "Voltage - Supply": "1.8V~5.5V",
+     "Tolerance": "±0.5℃",
+     "Features": "Factory temperature calibration、Temperature threshold monitoring、Low-power standby、Configurable temperature output、On-chip non-volatile parameter storage、On-chip digital filtering/averaging、Self-diagnosis function、On-chip temperature compensation",
+     "Temperature Conversion Time": "2.2ms、5.2ms、8.5ms、15.3ms",
+     "Interface": "I2C",
+     "Temperature Resolution": "16bit"
+    }
+   },
+   {
+    "lcsc": "C49174742",
+    "model": "T1601Z",
+    "manufacturer": "Mysentech",
+    "package": "SOT-23-3",
+    "stock": 4761,
+    "price": 0.6531,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Temperature Sensors",
+    "subcategory_id": 3076,
+    "mounting_type": "smd",
+    "description": "-103℃~+153℃ 1.8V~5.5V 10nA 16bit 2.2ms、5.2ms、8.5ms、15.3ms Factory temperature calibration、Temperature threshold monitoring、Low power standby、Configurable temperature output、On-chip non-volatile parameter storage、On-chip digital filtering/averaging、Self-diagnosis function、On-chip temperature compensation Single bus ±0.1℃ SOT-23-3 Temperature Sensors ROHS",
+    "specs": {
+     "Operating Temperature": "-",
+     "Standby Current": "10nA",
+     "Detection Temperature Range": "-103℃~+153℃",
+     "Voltage - Supply": "1.8V~5.5V",
+     "Tolerance": "±0.1℃",
+     "Features": "Factory temperature calibration、Temperature threshold monitoring、Low-power standby、Configurable temperature output、On-chip non-volatile parameter storage、On-chip digital filtering/averaging、Self-diagnosis function、On-chip temperature compensation",
+     "Temperature Conversion Time": "2.2ms、5.2ms、8.5ms、15.3ms",
+     "Interface": "Single bus",
+     "Temperature Resolution": "16bit"
+    }
+   },
+   {
+    "lcsc": "C22428347",
+    "model": "TMP119AIYBGR",
+    "manufacturer": "Texas Instruments",
+    "package": "DSBGA-6",
+    "stock": 4528,
+    "price": 3.3332,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Temperature Sensors",
+    "subcategory_id": 3076,
+    "mounting_type": "smd",
+    "description": "-55℃~+150℃ 1.8V~5.5V 15.5ms 16bit 2uA Factory temperature calibration、Temperature threshold monitoring、Low power standby、Configurable temperature output、On-chip non-volatile parameter storage、On-chip digital filtering/averaging I2C、SMBus ±0.08℃ DSBGA-6 Temperature Sensors ROHS",
+    "specs": {
+     "Operating Temperature": "-",
+     "Standby Current": "2uA",
+     "Detection Temperature Range": "-55℃~+150℃",
+     "Voltage - Supply": "1.8V~5.5V",
+     "Tolerance": "±0.08℃",
+     "Features": "Factory temperature calibration、Temperature threshold monitoring、Low-power standby、Configurable temperature output、On-chip non-volatile parameter storage、On-chip digital filtering/averaging",
+     "Temperature Conversion Time": "15.5ms",
+     "Interface": "I2C、SMBus",
+     "Temperature Resolution": "16bit"
+    }
+   },
+   {
+    "lcsc": "C3663358",
+    "model": "TMP461AIRUNR-S",
+    "manufacturer": "Texas Instruments",
+    "package": "WQFN-10(2x2)",
+    "stock": 2990,
+    "price": 1.4306,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Temperature Sensors",
+    "subcategory_id": 3076,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃ 1.7V~3.6V Low-power standby、On-chip digital filtering/averaging、Self-diagnosis function、Multi-channel temperature sensing SMBus ±1℃ WQFN-10(2x2) Temperature Sensors ROHS",
+    "specs": {
+     "Detection Temperature Range": "-40℃~+125℃",
+     "Voltage - Supply": "1.7V~3.6V",
+     "Tolerance": "±1℃",
+     "Features": "Low-power standby、On-chip digital filtering/averaging、Self-diagnosis function、Multi-channel temperature sensing",
+     "Interface": "SMBus"
+    }
+   },
+   {
+    "lcsc": "C48641769",
+    "model": "T1820B",
+    "manufacturer": "Mysentech",
+    "package": "TO-92S",
+    "stock": 2744,
+    "price": 0.3812,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Temperature Sensors",
+    "subcategory_id": 3076,
+    "mounting_type": "through_hole",
+    "description": "-103℃~+153℃ 1.8V~5.5V 10nA 16bit 2.2ms、5.2ms、8.5ms、15.3ms Factory temperature calibration、Temperature threshold monitoring、Low power standby、Configurable temperature output、On-chip non-volatile parameter storage、On-chip digital filtering/averaging、Self-diagnosis function、On-chip temperature compensation Single bus ±0.1℃ TO-92S Temperature Sensors ROHS",
+    "specs": {
+     "Operating Temperature": "-",
+     "Standby Current": "10nA",
+     "Detection Temperature Range": "-103℃~+153℃",
+     "Voltage - Supply": "1.8V~5.5V",
+     "Tolerance": "±0.1℃",
+     "Features": "Factory temperature calibration、Temperature threshold monitoring、Low-power standby、Configurable temperature output、On-chip non-volatile parameter storage、On-chip digital filtering/averaging、Self-diagnosis function、On-chip temperature compensation",
+     "Temperature Conversion Time": "2.2ms、5.2ms、8.5ms、15.3ms",
+     "Interface": "Single bus",
+     "Temperature Resolution": "16bit"
+    }
+   }
+  ],
+  "total": 19,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 6
+  },
+  "filters_applied": {
+   "query": "digital",
+   "subcategory_id": 3076,
+   "subcategory_name": "temperature sensors",
+   "subcategory_resolved": "Temperature Sensors",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 19
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "digital temperature sensor",
+   "detected": {
+    "component_type": "temperature sensor",
+    "subcategory": "temperature sensors"
+   },
+   "subcategory": "temperature sensors",
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "digital"
+  }
+ }
+}

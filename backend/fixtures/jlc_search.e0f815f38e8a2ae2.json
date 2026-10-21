@@ -1,0 +1,186 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "AA battery holder",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C964881",
+    "model": "BH-AAA-B5AA001",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 8932,
+    "price": 1.5322,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "not_sure",
+    "description": "-25~85℃ Battery holder Gold plating No. 7 Phosphor bronze - ROHS",
+    "specs": {
+     "Operating Temperature": "-25~85℃",
+     "Type": "Battery holder",
+     "Contact material": "Phosphor bronze",
+     "Applicable battery specifications": "No. 7",
+     "Contact coating": "Gold plating"
+    }
+   },
+   {
+    "lcsc": "C5290180",
+    "model": "BH-AA-A5BJ012",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 2056,
+    "price": 0.6003,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "not_sure",
+    "description": "-10~100℃ Battery holder Nickel plated No. 5 Steel - ROHS",
+    "specs": {
+     "Operating Temperature": "-10~100℃",
+     "Contact material": "Steel",
+     "Type": "Battery holder",
+     "Applicable battery specifications": "No. 5",
+     "Contact coating": "Nickel plated"
+    }
+   },
+   {
+    "lcsc": "C5290193",
+    "model": "BH-AAA-A1AJ024",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 1050,
+    "price": 0.2686,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "not_sure",
+    "description": "-10~100℃ Battery holder Nickel plated No. 7 - ROHS",
+    "specs": {
+     "Operating Temperature": "-10~100℃",
+     "Type": "Battery holder",
+     "Applicable battery specifications": "No. 7",
+     "Contact coating": "Nickel plated"
+    }
+   },
+   {
+    "lcsc": "C5290191",
+    "model": "BH-AAA-A1AJ020",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 722,
+    "price": 0.4563,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "not_sure",
+    "description": "-10~100℃ Battery holder Nickel plated No. 7 - ROHS",
+    "specs": {
+     "Operating Temperature": "-10~100℃",
+     "Type": "Battery holder",
+     "Applicable battery specifications": "No. 7",
+     "Contact coating": "Nickel plated"
+    }
+   },
+   {
+    "lcsc": "C5290182",
+    "model": "BH-AA-B5BA015",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 705,
+    "price": 1.5581,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "not_sure",
+    "description": "-10~80℃ Battery holder Gold plating No. 5 Steel - ROHS",
+    "specs": {
+     "Operating Temperature": "-10~80℃",
+     "Contact material": "Steel",
+     "Type": "Battery holder",
+     "Applicable battery specifications": "No. 5",
+     "Contact coating": "Gold plating"
+    }
+   },
+   {
+    "lcsc": "C2979170",
+    "model": "BH-AAA-B5AA005",
+    "manufacturer": "MYOUNG",
+    "package": "-",
+    "stock": 666,
+    "price": 1.6066,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Industrial control electrical",
+    "subcategory": "Battery connector",
+    "subcategory_id": 1651,
+    "mounting_type": "not_sure",
+    "description": "-25~85℃ Battery holder Gold plating No. 7 Phosphor bronze - ROHS",
+    "specs": {
+     "Operating Temperature": "-25~85℃",
+     "Type": "Battery holder",
+     "Contact material": "Phosphor bronze",
+     "Applicable battery specifications": "No. 7",
+     "Contact coating": "Gold plating"
+    }
+   }
+  ],
+  "total": 22,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 6
+  },
+  "filters_applied": {
+   "query": "AA battery holder",
+   "subcategory_id": null,
+   "subcategory_name": null,
+   "subcategory_resolved": null,
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 22
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "AA battery holder",
+   "detected": {},
+   "subcategory": null,
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "AA battery holder"
+  }
+ }
+}

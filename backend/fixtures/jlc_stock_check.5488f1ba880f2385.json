@@ -1,0 +1,46 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "TPS631000DRLR",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C5219190",
+    "model": "TPS631000DRLR",
+    "manufacturer": "Texas Instruments",
+    "package": "SOT-583",
+    "stock": 12278,
+    "price": 0.5518,
+    "price_10": 0.4434,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃",
+     "Function": "Buck-Boost",
+     "Synchronous Rectifier": "-",
+     "Frequency - Switching": "2.2MHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "1.6V~5.5V",
+     "Output Current": "2A",
+     "Quiescent Current": "8uA",
+     "Features": "Overcurrent Protection、Light load efficient mode、Load disconnect",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck-Boost",
+     "Output Voltage": "1.2V~5.3V",
+     "Number of Outputs": "-"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

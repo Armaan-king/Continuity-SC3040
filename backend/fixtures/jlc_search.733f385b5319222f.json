@@ -1,0 +1,206 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "environmental",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C27438",
+    "model": "2.54-1*8PFemale Environmentally Friendly",
+    "manufacturer": "BOOMELE(Boom Precision Elec)",
+    "package": "Plugin,P=2.54mm",
+    "stock": 148671,
+    "price": 0.1123,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "Female Headers",
+    "subcategory_id": 3128,
+    "mounting_type": "through_hole",
+    "description": "-55℃~+105℃ 1 1x8P 2.54mm 3.2mm 3A 8.5mm 8P Brass Gold Square Hole Through Hole Top 插件,P=2.54mm Female Headers ROHS",
+    "specs": {
+     "Circular Hole / Square Hole": "Square Hole",
+     "Operating Temperature": "-55℃~+105℃",
+     "Number of Rows": "1",
+     "Insulation Height": "8.5mm",
+     "Number of Positions": "8P",
+     "Current Rating": "3A",
+     "Row Spacing": "-",
+     "Holes Direction": "Top",
+     "Mounting Type": "Through Hole",
+     "Holes Structure": "1x8P",
+     "Contact Plating": "Gold",
+     "Contact Material": "Brass",
+     "Pitch": "2.54mm",
+     "PIN Length": "3.2mm"
+    }
+   },
+   {
+    "lcsc": "C3130",
+    "model": "5x20 Environmentally Friendly Fuse Clip/Socket",
+    "manufacturer": "Xucheng Elec",
+    "package": "Plugin,P=4.8mm",
+    "stock": 128821,
+    "price": 0.0305,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Circuit Protection",
+    "subcategory": "Fuseholders",
+    "subcategory_id": 2961,
+    "mounting_type": "through_hole",
+    "description": "20mm 5.2mm Clip Cylindrical 插件,P=4.8mm Fuseholders ROHS",
+    "specs": {
+     "Fuse Diameter (φD)": "5.2mm",
+     "Fuseholder Type": "Clip",
+     "Fuse Type": "Cylindrical",
+     "Fuse Length": "20mm"
+    }
+   },
+   {
+    "lcsc": "C20883038",
+    "model": "BTC-1021-BN01",
+    "manufacturer": "BZXC",
+    "package": "-",
+    "stock": 93179,
+    "price": 0.0243,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Hardware Fasteners",
+    "subcategory": "Metal Products SMT Copper Sheet",
+    "subcategory_id": 2008,
+    "mounting_type": "not_applicable",
+    "description": "10*2*1mm 1mm Brass Complies with RoHS and REACH environmental requirements Nickel plated - Metal Products SMT Copper Sheet ROHS",
+    "specs": {
+     "Thickness": "1mm",
+     "EnvironmentalRequirements": "Complies with RoHS and REACH environmental requirements",
+     "MaterialQuality": "Brass",
+     "Specifications": "10*2*1mm",
+     "Remarks": "-",
+     "Characteristic": "-",
+     "SurfaceTreatment": "Nickel plated",
+     "Undeclared tolerance": "-"
+    }
+   },
+   {
+    "lcsc": "C20883043",
+    "model": "BTC-1022-BN01",
+    "manufacturer": "BZXC",
+    "package": "-",
+    "stock": 75822,
+    "price": 0.0411,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Hardware Fasteners",
+    "subcategory": "Metal Products SMT Copper Sheet",
+    "subcategory_id": 2008,
+    "mounting_type": "not_applicable",
+    "description": "10*2*2mm 2mm Brass Complies with RoHS and REACH environmental requirements Nickel plated - Metal Products SMT Copper Sheet ROHS",
+    "specs": {
+     "Thickness": "2mm",
+     "EnvironmentalRequirements": "Complies with RoHS and REACH environmental requirements",
+     "MaterialQuality": "Brass",
+     "Specifications": "10*2*2mm",
+     "Remarks": "-",
+     "Characteristic": "-",
+     "SurfaceTreatment": "Nickel plated",
+     "Undeclared tolerance": "-"
+    }
+   },
+   {
+    "lcsc": "C18548289",
+    "model": "STHW4-DU-HS3001X510",
+    "manufacturer": "STEIPU",
+    "package": "-",
+    "stock": 58835,
+    "price": 0.068,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Hardware Fasteners",
+    "subcategory": "Metal Products SMT Copper Sheet",
+    "subcategory_id": 2008,
+    "mounting_type": "not_applicable",
+    "description": "1.0mm±0.03mm 30*1.5*1mm Bright Tin Plating H62 brass Products Comply with RoHS and REACH Environmental Requirements - Metal Products SMT Copper Sheet ROHS",
+    "specs": {
+     "Thickness": "1.0mm±0.03mm",
+     "EnvironmentalRequirements": "Products Comply with RoHS and REACH Environmental Requirements",
+     "MaterialQuality": "H62 brass",
+     "Specifications": "30*1.5*1mm",
+     "Characteristic": "-",
+     "SurfaceTreatment": "Bright Tin Plating"
+    }
+   },
+   {
+    "lcsc": "C20883045",
+    "model": "BTC-3215-BN01",
+    "manufacturer": "BZXC",
+    "package": "-",
+    "stock": 40823,
+    "price": 0.019,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Hardware Fasteners",
+    "subcategory": "Metal Products SMT Copper Sheet",
+    "subcategory_id": 2008,
+    "mounting_type": "not_applicable",
+    "description": "Brass Complies with RoHS and REACH environmental requirements Nickel plated Size: 3mm×2mm; Thickness: 1.5mm; Shelf Life: 90 Days - Metal Products SMT Copper Sheet ROHS",
+    "specs": {
+     "Thickness": "-",
+     "EnvironmentalRequirements": "Complies with RoHS and REACH environmental requirements",
+     "MaterialQuality": "Brass",
+     "Specifications": "Size: 3mm×2mm; Thickness: 1.5mm; Shelf Life: 90 Days",
+     "Remarks": "-",
+     "Characteristic": "-",
+     "SurfaceTreatment": "Nickel plated",
+     "Undeclared tolerance": "-"
+    }
+   }
+  ],
+  "total": 34,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 6
+  },
+  "filters_applied": {
+   "query": "environmental",
+   "subcategory_id": null,
+   "subcategory_name": null,
+   "subcategory_resolved": null,
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 34
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "environmental",
+   "detected": {},
+   "subcategory": null,
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "environmental"
+  }
+ }
+}

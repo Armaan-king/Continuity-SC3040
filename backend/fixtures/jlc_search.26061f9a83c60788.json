@@ -1,0 +1,75 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "dc-dc",
+  "spec_filters": [
+   {
+    "name": "Topology",
+    "op": "=",
+    "value": "Buck"
+   },
+   {
+    "name": "Voltage - Supply",
+    "op": ">=",
+    "value": "48V"
+   }
+  ],
+  "sort_by": "stock",
+  "limit": 4
+ },
+ "response": {
+  "results": [],
+  "total": 5277,
+  "page_info": {
+   "limit": 4,
+   "offset": 0,
+   "returned": 0
+  },
+  "filters_applied": {
+   "query": null,
+   "subcategory_id": 3005,
+   "subcategory_name": "dc-dc converters",
+   "subcategory_resolved": "DC-DC Converters",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [
+    {
+     "name": "Topology",
+     "op": "=",
+     "value": "Buck"
+    },
+    {
+     "name": "Voltage - Supply",
+     "op": ">=",
+     "value": "48V"
+    }
+   ],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 2,
+   "preferred": 4,
+   "extended": 5271
+  },
+  "no_fee_available": true,
+  "parsed": {
+   "original_query": "dc-dc",
+   "detected": {
+    "component_type": "dc-dc",
+    "subcategory": "dc-dc converters"
+   },
+   "subcategory": "dc-dc converters",
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": ""
+  }
+ }
+}

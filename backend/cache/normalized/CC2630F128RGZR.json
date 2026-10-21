@@ -1,0 +1,29 @@
+{
+ "mpn": "CC2630F128RGZR",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 1.8,
+  "vmax": 3.8,
+  "i_typ": 0.0059,
+  "i_peak": 0.0061,
+  "role": "master",
+  "temp_min": -40.0,
+  "temp_max": 85.0,
+  "interfaces": [
+   "SPI",
+   "UART",
+   "I2C",
+   "JTAG",
+   "I2S"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "i_typ": "Receive Current",
+  "i_peak": "Current Of Transmitting",
+  "interfaces": "Interface",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

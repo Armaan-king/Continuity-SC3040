@@ -1,0 +1,15 @@
+{
+ "mpn": "ADSP-CM408CSWZ-BF",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "role": "master",
+  "interfaces": [
+   "ETHERNET",
+   "CAN",
+   "SPI",
+   "UART",
+   "I2C"
+  ]
+ },
+ "provenance": {}
+}

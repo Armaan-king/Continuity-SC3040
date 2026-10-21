@@ -1,0 +1,52 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "BLDC motor driver",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [],
+  "total": 0,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 0
+  },
+  "filters_applied": {
+   "query": "BLDC",
+   "subcategory_id": 3097,
+   "subcategory_name": "motor driver ics",
+   "subcategory_resolved": "Motor Driver ICs",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 0
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "BLDC motor driver",
+   "detected": {
+    "component_type": "motor driver",
+    "subcategory": "motor driver ics"
+   },
+   "subcategory": "motor driver ics",
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "BLDC"
+  }
+ }
+}

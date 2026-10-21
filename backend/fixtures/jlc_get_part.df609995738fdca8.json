@@ -1,0 +1,44 @@
+{
+ "tool": "jlc_get_part",
+ "arguments": {
+  "mpn": "ESP32-C3FH4"
+ },
+ "response": {
+  "mpn": "ESP32-C3FH4",
+  "total": 1,
+  "results": [
+   {
+    "lcsc": "C2858491",
+    "model": "ESP32-C3FH4",
+    "manufacturer": "Espressif Systems",
+    "package": "QFN-32-EP(5x5)",
+    "stock": 4336,
+    "price": 2.1527,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Embedded Processors & Controllers",
+    "subcategory": "Microcontrollers (MCU/MPU/SOC)",
+    "subcategory_id": 2584,
+    "mounting_type": "smd",
+    "description": "160MHz 32 Bit 3V~3.6V 400KB RISC-V Watchdog reset、Software reset、Built-in general-purpose timer、Programmable watchdog、Built-in temperature sensor、True random number generator (TRNG)、Storage encryption、Infrared remote control QFN-32-EP(5x5) Microcontrollers (MCU/MPU/SOC) ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+105℃",
+     "Program Memory Type": "FLASH",
+     "DAC (Bit)": "-",
+     "RAM Size": "400KB",
+     "CPU Core": "RISC-V",
+     "Number of I/O": "22",
+     "Oscillator Type": "Built-in+External",
+     "EEPROM": "-",
+     "CPU Maximum Speed": "160MHz",
+     "Program Storage Size": "4MB",
+     "Voltage - Supply": "3V~3.6V",
+     "Core Size": "32 bit",
+     "Features": "Watchdog reset、Software reset、Built-in general-purpose timer、Programmable watchdog、Built-in temperature sensor、True random number generator (TRNG)、Storage encryption、Infrared remote control",
+     "ADC (Bit)": "12bit"
+    }
+   }
+  ]
+ }
+}

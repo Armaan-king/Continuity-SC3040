@@ -1,0 +1,10 @@
+{
+ "tool": "cse_search",
+ "arguments": {
+  "query": "TF-01A"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

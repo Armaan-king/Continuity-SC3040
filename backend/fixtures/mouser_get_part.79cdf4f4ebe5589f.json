@@ -1,0 +1,29 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "ICM-42607-C"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "N/A",
+    "mfr_part_number": "ICM-42607-C",
+    "manufacturer": "TDK",
+    "description": "TDK",
+    "category": "TDK",
+    "stock": 0,
+    "price": null,
+    "price_breaks": [],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/TDK/ICM-42607-C?qs=rSMjJ%252B1ewcRlCQN9D6n%252BBA%3D%3D",
+    "rohs": "",
+    "lifecycle": "Active",
+    "parameters": {},
+    "min_qty": 0,
+    "currency": "USD"
+   }
+  ],
+  "total": 1
+ }
+}

@@ -1,0 +1,37 @@
+{
+ "tool": "cse_search",
+ "arguments": {
+  "query": "HR911105A"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "cse",
+    "mfr_part_number": "HR911105A",
+    "manufacturer": "Hanrun Electronics",
+    "description": "Ethernet Connectors/Modular Connectors (RJ45 RJ11) DIP RoHS",
+    "datasheet_url": "https://datasheet.lcsc.com/szlcsc/Zhongshan-HanRun-Elec-HR911105A_C12074.pdf",
+    "has_model": true,
+    "has_3d": true,
+    "model_quality": 4,
+    "cse_part_id": 1897633,
+    "pin_count": 14,
+    "image_url": "https://componentsearchengine.com/2D/0/1897633.png"
+   },
+   {
+    "source": "cse",
+    "mfr_part_number": "HR911105A",
+    "manufacturer": "Heckel",
+    "description": "",
+    "datasheet_url": null,
+    "has_model": false,
+    "has_3d": false,
+    "model_quality": 0,
+    "cse_part_id": 13879210,
+    "pin_count": 14,
+    "image_url": null
+   }
+  ],
+  "total": 2
+ }
+}

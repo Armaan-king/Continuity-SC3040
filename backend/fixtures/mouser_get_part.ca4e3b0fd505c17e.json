@@ -1,0 +1,10 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "HYCW312-RJ45-211B-913129A"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

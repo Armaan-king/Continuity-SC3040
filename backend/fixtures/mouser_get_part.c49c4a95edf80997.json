@@ -1,0 +1,32 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "ADSP-CM408CSWZ-BF"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "584-ADSP-CM408CSWZBF",
+    "mfr_part_number": "ADSP-CM408CSWZ-BF",
+    "manufacturer": "Analog Devices",
+    "description": "Digital Signal Processors & Controllers - DSP, DSC ARM CORTEX M4 FLASH, 13+ ENOB DC 240MHz",
+    "category": "Digital Signal Processors & Controllers - DSP, DSC",
+    "stock": 0,
+    "price": null,
+    "price_breaks": [],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Analog-Devices/ADSP-CM408CSWZ-BF?qs=JeIcUl65ClBARDVAIQ60Cg%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Obsolete",
+    "parameters": {
+     "Packaging": "Tray",
+     "Standard Pack Qty": "40"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 1
+ }
+}

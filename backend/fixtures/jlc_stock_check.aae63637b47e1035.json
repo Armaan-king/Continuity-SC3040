@@ -1,0 +1,42 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "DS18B20(UMW)",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C376006",
+    "model": "DS18B20(UMW)",
+    "manufacturer": "UMW(Youtai Semiconductor Co., Ltd.)",
+    "package": "TO-92",
+    "stock": 106575,
+    "price": 0.5746,
+    "price_10": 0.4756,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Temperature Sensors",
+    "subcategory_id": 3076,
+    "mounting_type": "through_hole",
+    "specs": {
+     "Operating Temperature": "-",
+     "Standby Current": "-",
+     "Detection Temperature Range": "-55℃~+125℃",
+     "Voltage - Supply": "3V~5.5V",
+     "Tolerance": "±0.4℃",
+     "Features": "Temperature threshold monitoring、Configurable temperature output、On-chip non-volatile parameter storage",
+     "Temperature Conversion Time": "750ms",
+     "Interface": "Single bus",
+     "Temperature Resolution": "12bit"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

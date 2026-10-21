@@ -1,0 +1,262 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "dc-dc converter",
+  "spec_filters": [
+   {
+    "name": "Topology",
+    "op": "=",
+    "value": "Boost"
+   },
+   {
+    "name": "Output Current",
+    "op": ">=",
+    "value": "0.5A"
+   }
+  ],
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C181783",
+    "model": "MT3540-F23",
+    "manufacturer": "XI'AN Aerosemi Tech",
+    "package": "SOT-23-5",
+    "stock": 463759,
+    "price": 0.0515,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃@(TA) 1 1.23V~28V 1.2MHz 1.5A 2.5V~5.5V 40uA Adjustable Boost Boost Built-in No SOT-23-5 DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃@(TA)",
+     "Function": "Boost",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "1.2MHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "2.5V~5.5V",
+     "Output Current": "1.5A",
+     "Quiescent Current": "40uA",
+     "Features": "Overcurrent Protection、Light load efficient mode",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Boost",
+     "Output Voltage": "1.23V~28V",
+     "Number of Outputs": "1"
+    }
+   },
+   {
+    "lcsc": "C84817",
+    "model": "MT3608",
+    "manufacturer": "XI'AN Aerosemi Tech",
+    "package": "SOT-23-6",
+    "stock": 219351,
+    "price": 0.1135,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 1 1.2MHz 100uA、1.6mA 2A 2V~24V Adjustable Boost Boost Built-in No SOT-23-6 DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Function": "Boost",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "1.2MHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "2V~24V",
+     "Output Current": "2A",
+     "Quiescent Current": "100uA、1.6mA",
+     "Features": "Overcurrent Protection、Light load efficient mode",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Boost",
+     "Output Voltage": "600mV~28V",
+     "Number of Outputs": "1"
+    }
+   },
+   {
+    "lcsc": "C78162",
+    "model": "SX1308",
+    "manufacturer": "SX(Shenzhen Suosemi Tech)",
+    "package": "SOT-23-6",
+    "stock": 187582,
+    "price": 0.1092,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 1 1.2MHz 100uA 2A 2V~24V Adjustable Boost Boost Built-in No SOT-23-6 DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Function": "Boost",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "1.2MHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "2V~24V",
+     "Output Current": "2A",
+     "Quiescent Current": "100uA",
+     "Features": "Overcurrent Protection、Light load efficient mode",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Boost",
+     "Output Voltage": "-",
+     "Number of Outputs": "1"
+    }
+   },
+   {
+    "lcsc": "C19189893",
+    "model": "MT3608B",
+    "manufacturer": "XI'AN Aerosemi Tech",
+    "package": "SOT-23-6",
+    "stock": 117157,
+    "price": 0.119,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 1 1.2MHz 2.5V~24V 4A 70uA Adjustable Boost Boost Built-in No SOT-23-6 DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Function": "Boost",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "1.2MHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "2.5V~24V",
+     "Output Current": "4A",
+     "Quiescent Current": "70uA",
+     "Features": "Overcurrent Protection、Light load efficient mode",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Boost",
+     "Output Voltage": "-",
+     "Number of Outputs": "1"
+    }
+   },
+   {
+    "lcsc": "C2932326",
+    "model": "MT3608L",
+    "manufacturer": "XI'AN Aerosemi Tech",
+    "package": "SOT-23-6",
+    "stock": 109734,
+    "price": 0.0645,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃@(TA) 1 1.2MHz 100uA 2.2V~16V 2.5A Adjustable Boost Boost Built-in No SOT-23-6 DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃@(TA)",
+     "Function": "Boost",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "1.2MHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "2.2V~16V",
+     "Output Current": "2.5A",
+     "Quiescent Current": "100uA",
+     "Features": "Overcurrent Protection、Light load efficient mode、Adjustable current limiting",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Boost",
+     "Output Voltage": "600mV~20V",
+     "Number of Outputs": "1"
+    }
+   },
+   {
+    "lcsc": "C22396393",
+    "model": "HFP6291LR-G1",
+    "manufacturer": "HXY MOSFET",
+    "package": "SOT-23-6L",
+    "stock": 74241,
+    "price": 0.1229,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+80℃@(TA) 1 1.2MHz 100uA 2.5V~28V 2V~24V 4A Adjustable Boost Boost Built-in No SOT-23-6L DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+80℃@(TA)",
+     "Function": "Boost",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "1.2MHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "2V~24V",
+     "Output Current": "4A",
+     "Quiescent Current": "100uA",
+     "Features": "Overcurrent Protection、Light load efficient mode",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Boost",
+     "Output Voltage": "2.5V~28V",
+     "Number of Outputs": "1"
+    }
+   }
+  ],
+  "total": 430,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 6
+  },
+  "filters_applied": {
+   "query": null,
+   "subcategory_id": 3005,
+   "subcategory_name": "dc-dc converters",
+   "subcategory_resolved": "DC-DC Converters",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [
+    {
+     "name": "Topology",
+     "op": "=",
+     "value": "Boost"
+    },
+    {
+     "name": "Output Current",
+     "op": ">=",
+     "value": "0.5A"
+    }
+   ],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 430
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "dc-dc converter",
+   "detected": {
+    "component_type": "dc-dc converter",
+    "subcategory": "dc-dc converters"
+   },
+   "subcategory": "dc-dc converters",
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": ""
+  }
+ }
+}

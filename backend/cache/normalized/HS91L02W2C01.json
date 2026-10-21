@@ -1,0 +1,17 @@
+{
+ "mpn": "HS91L02W2C01",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 1.65,
+  "vmax": 3.3,
+  "role": "peripheral",
+  "interfaces": [
+   "I2C"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply  For Logic",
+  "vmax": "Voltage - Supply  For Logic",
+  "interfaces": "Interface"
+ }
+}

@@ -1,0 +1,26 @@
+{
+ "mpn": "NRF52840-QIAA-R",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 1.7,
+  "vmax": 5.5,
+  "i_typ": 0.00482,
+  "i_peak": 0.00626,
+  "role": "master",
+  "interfaces": [
+   "SPI",
+   "USB",
+   "UART",
+   "ADC",
+   "I2S",
+   "PWM"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "i_typ": "Current Of Transmitting",
+  "i_peak": "Receive Current",
+  "interfaces": "Interface"
+ }
+}

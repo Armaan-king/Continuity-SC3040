@@ -1,0 +1,140 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "STM32L010F4P6"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "511-STM32L010F4P6",
+    "mfr_part_number": "STM32L010F4P6",
+    "manufacturer": "STMicroelectronics",
+    "description": "ARM Microcontrollers - MCU Ultra-low-power value line Arm Cortex-M0+ MCU 16-Kbytes of of Flash & 32 MHz CPU",
+    "category": "ARM Microcontrollers - MCU",
+    "stock": 4857,
+    "price": 1.86,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 1.86,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 1.35,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 1.14,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 1.04,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 0.958,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 0.908,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 0.763,
+      "currency": "USD"
+     },
+     {
+      "qty": 2960,
+      "price": 0.696,
+      "currency": "USD"
+     },
+     {
+      "qty": 5920,
+      "price": 0.669,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/STMicroelectronics/STM32L010F4P6?qs=PqoDHHvF64%252BtQ%252BKLA1pMLA%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Tube",
+     "Standard Pack Qty": "1480"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "511-STM32L010F4P6TR",
+    "mfr_part_number": "STM32L010F4P6TR",
+    "manufacturer": "STMicroelectronics",
+    "description": "ARM Microcontrollers - MCU Ultra-low-power value line Arm Cortex-M0+ MCU 16-Kbytes of of Flash & 32 MHz CPU",
+    "category": "ARM Microcontrollers - MCU",
+    "stock": 212,
+    "price": 2.0,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 2.0,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 1.34,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 1.17,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 1.02,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 0.937,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 0.869,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 0.786,
+      "currency": "USD"
+     },
+     {
+      "qty": 2500,
+      "price": 0.762,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/STMicroelectronics/STM32L010F4P6TR?qs=GedFDFLaBXH6wsR6DjPcbA%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "2500"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 2
+ }
+}

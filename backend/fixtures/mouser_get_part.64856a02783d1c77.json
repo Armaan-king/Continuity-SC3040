@@ -1,0 +1,81 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "TCD1254GFG(8Z,AA2)"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "757-TCD1254GFG8ZAA2",
+    "mfr_part_number": "TCD1254GFG(8Z,AA2)",
+    "manufacturer": "Toshiba",
+    "description": "Image Sensors CCD Linear Image Sensor - B/W- 2500x1",
+    "category": "Image Sensors",
+    "stock": 101,
+    "price": 89.05,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 89.05,
+      "currency": "USD"
+     },
+     {
+      "qty": 5,
+      "price": 75.12,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 69.82,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 63.38,
+      "currency": "USD"
+     },
+     {
+      "qty": 50,
+      "price": 60.76,
+      "currency": "USD"
+     },
+     {
+      "qty": 110,
+      "price": 59.27,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/105/1/4136324135313831313036314231323541323444443537433335353745364141.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Toshiba/TCD1254GFG8ZAA2?qs=pBJMDPsKWf2odZ%252BUjIC06g%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Tray",
+     "Standard Pack Qty": "110"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "N/A",
+    "mfr_part_number": "TCD1254GFG(8ZAA2)",
+    "manufacturer": "Toshiba",
+    "description": "Image Sensors",
+    "category": "Image Sensors",
+    "stock": 0,
+    "price": null,
+    "price_breaks": [],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/105/1/TCD1254GFG_Web_Datasheet_en_20190124.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Toshiba/TCD1254GFG8ZAA2?qs=iLKYxzqNS76RfhRMEDPSMA%3D%3D",
+    "rohs": "",
+    "lifecycle": "Active",
+    "parameters": {},
+    "min_qty": 0,
+    "currency": "USD"
+   }
+  ],
+  "total": 2
+ }
+}

@@ -1,0 +1,77 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "brushless motor driver",
+  "sort_by": "stock",
+  "limit": 40
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C701762",
+    "model": "DRV10866DSCR",
+    "manufacturer": "Texas Instruments",
+    "package": "WSON-10-EP(3x3)",
+    "stock": 19,
+    "price": 0.9433,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "Motor Driver ICs",
+    "subcategory_id": 3097,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃@(Tj) 1.65V~5.5V 800mA Brushless DC Motor PWM WSON-10-EP(3x3) Motor Driver ICs ROHS",
+    "specs": {
+     "Type of Drive Motor": "Brushless DC Motor",
+     "Operating Temperature": "-40℃~+125℃@(Tj)",
+     "Voltage - Supply": "1.65V~5.5V",
+     "Output Current": "800mA",
+     "Features": "Thermal shutdown、Adjustable current limiting、Motor stall protection、Motor speed indication、Automatic sleep and wake-up",
+     "Interface": "PWM"
+    }
+   }
+  ],
+  "total": 1,
+  "page_info": {
+   "limit": 40,
+   "offset": 0,
+   "returned": 1
+  },
+  "filters_applied": {
+   "query": "brushless",
+   "subcategory_id": 3097,
+   "subcategory_name": "motor driver ics",
+   "subcategory_resolved": "Motor Driver ICs",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 1
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "brushless motor driver",
+   "detected": {
+    "component_type": "motor driver",
+    "subcategory": "motor driver ics"
+   },
+   "subcategory": "motor driver ics",
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "brushless"
+  }
+ }
+}

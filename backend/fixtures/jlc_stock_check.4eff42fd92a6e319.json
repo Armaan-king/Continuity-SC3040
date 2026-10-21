@@ -1,0 +1,122 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "STM32F103C8T6",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C8734",
+    "model": "STM32F103C8T6",
+    "manufacturer": "STMicroelectronics",
+    "package": "LQFP-48(7x7)",
+    "stock": 248463,
+    "price": 1.7136,
+    "price_10": 1.4838,
+    "library_type": "preferred",
+    "preferred": true,
+    "category": "Embedded Processors & Controllers",
+    "subcategory": "Microcontrollers (MCU/MPU/SOC)",
+    "subcategory_id": 2584,
+    "mounting_type": "smd",
+    "specs": {
+     "EEPROM": "-",
+     "Operating Temperature": "-40℃~+85℃",
+     "CPU Maximum Speed": "72MHz",
+     "Program Memory Type": "FLASH",
+     "Program Storage Size": "64KB",
+     "Voltage - Supply": "2V~3.6V",
+     "Core Size": "32 Bit",
+     "RAM Size": "20KB",
+     "CPU Core": "ARM Cortex-M3",
+     "Number of I/O": "37",
+     "ADC (Bit)": "12bit",
+     "Oscillator Type": "Built-in"
+    }
+   },
+   {
+    "lcsc": "C393540",
+    "model": "APM32F103C8T6",
+    "manufacturer": "Geehy",
+    "package": "LQFP-48(7x7)",
+    "stock": 9968,
+    "price": 1.4887,
+    "price_10": 1.2104,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Embedded Processors & Controllers",
+    "subcategory": "Microcontrollers (MCU/MPU/SOC)",
+    "subcategory_id": 2584,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Program Memory Type": "FLASH",
+     "DAC (Bit)": "-",
+     "RAM Size": "20KB",
+     "CPU Core": "ARM Cortex-M3",
+     "Number of I/O": "37",
+     "Oscillator Type": "Built-in+External",
+     "EEPROM": "-",
+     "CPU Maximum Speed": "96MHz",
+     "Program Storage Size": "64KB",
+     "Voltage - Supply": "2V~3.6V",
+     "Core Size": "32 Bit",
+     "Features": "Power-on reset (POR)、Power-down reset (PDR)、Undervoltage detection (BOR/LVD/LVR/LVI)、Built-in general-purpose timer、Hardware CRC、Calendar function、Built-in temperature sensor、Independent watchdog (IWDG)、Window watchdog (WWDG)",
+     "ADC (Bit)": "12bit"
+    }
+   },
+   {
+    "lcsc": "C3151837",
+    "model": "FCM32F103C8T6",
+    "manufacturer": "Flashchip Microelectronics",
+    "package": "LQFP-48(7x7)",
+    "stock": 901,
+    "price": 0.8916,
+    "price_10": 0.7168,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Embedded Processors & Controllers",
+    "subcategory": "Microcontrollers (MCU/MPU/SOC)",
+    "subcategory_id": 2584,
+    "mounting_type": "smd",
+    "specs": {
+     "EEPROM": "-",
+     "Operating Temperature": "-40℃~+85℃",
+     "CPU Maximum Speed": "96MHz",
+     "Program Memory Type": "FLASH",
+     "DAC (Bit)": "-",
+     "Program Storage Size": "64KB",
+     "Voltage - Supply": "1.8V~5.5V",
+     "Core Size": "32 bit",
+     "RAM Size": "20KB、32KB",
+     "CPU Core": "ARM Cortex-M4",
+     "Number of I/O": "37",
+     "ADC (Bit)": "12bit",
+     "Oscillator Type": "Built-in+External"
+    }
+   },
+   {
+    "lcsc": "C22396880",
+    "model": "LCKFB-DKX-STM32F103C8T6",
+    "manufacturer": "LCSC-boards",
+    "package": "-",
+    "stock": 8605,
+    "price": 1.8543,
+    "price_10": 1.8026,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Development Boards & Tools",
+    "subcategory": "Development Boards & Kits",
+    "subcategory_id": 2199,
+    "mounting_type": "not_applicable",
+    "specs": {}
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 4,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

@@ -1,0 +1,48 @@
+[project]
+name = "continuity"
+version = "0.1.0"
+description = "Designs a PCB bill of materials and validates the whole board as a graph."
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn>=0.30",
+    "pydantic>=2.7",
+    "python-dotenv>=1.0",
+    "httpx>=0.27",
+    "pypdf>=5.0",
+    "langgraph>=1.0",
+    # `llm.py` imports this lazily, inside the call, so the engine never pulls it in.
+    # That also meant nothing at import time revealed it was missing: the app started
+    # cleanly on a fresh install and every run died at the first model call with
+    # `ModuleNotFoundError: No module named 'openai'`. Found on the first deploy.
+    # Upper bound because a fresh install resolves 3.0 while every test here has run
+    # against 2.x. The client is constructed with `base_url`, `timeout` and
+    # `default_headers` and called for chat completions — stable across 1.x and 2.x, and
+    # not something to find out about on a deployed instance.
+    "openai>=2.0,<3",
+    # Persistence. `psycopg[pool]` arrives with the checkpointer, and `store.py`
+    # deliberately shares that one pool rather than opening a second stack.
+    "langgraph-checkpoint-postgres>=3.0",
+    "psycopg[binary,pool]>=3.2",
+    # Auth.
+    "argon2-cffi>=23.1",
+    "email-validator>=2.1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "pytest-cov>=5.0"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["continuity"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q --strict-markers"
+
+[tool.coverage.run]
+source = ["continuity"]

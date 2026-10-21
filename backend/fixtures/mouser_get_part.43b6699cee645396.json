@@ -1,0 +1,32 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "UJA1075ATW/5V0/WD"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "771-UJA1075ATW5V0WD",
+    "mfr_part_number": "UJA1075ATW/5V0/WD,",
+    "manufacturer": "NXP Semiconductors",
+    "description": "CAN Interface IC Hi Spd CAN Transcvr 4.5V-28V 6us",
+    "category": "CAN Interface IC",
+    "stock": 0,
+    "price": null,
+    "price_breaks": [],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/118/1/UJA1075A.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/NXP-Semiconductors/UJA1075ATW-5V0-WD?qs=O%2F7ihdSJpeYCYi8rRqLvzA%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Obsolete",
+    "parameters": {
+     "Packaging": "Tube",
+     "Standard Pack Qty": "1100"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 1
+ }
+}

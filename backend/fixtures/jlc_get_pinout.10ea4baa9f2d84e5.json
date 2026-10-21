@@ -1,0 +1,180 @@
+{
+ "tool": "jlc_get_pinout",
+ "arguments": {
+  "lcsc": "C2895249"
+ },
+ "response": {
+  "lcsc": "C2895249",
+  "model": "nRF52833-QDAA-R",
+  "manufacturer": "Nordic Semicon",
+  "package": "QFN-40-EP(5x5)",
+  "pin_count": 41,
+  "pins": [
+   {
+    "number": "1",
+    "name": "DEC1"
+   },
+   {
+    "number": "2",
+    "name": "P0.00_XL1"
+   },
+   {
+    "number": "3",
+    "name": "P0.01_XL2"
+   },
+   {
+    "number": "4",
+    "name": "P0.04_AIN2"
+   },
+   {
+    "number": "5",
+    "name": "P0.05_AIN3"
+   },
+   {
+    "number": "6",
+    "name": "P1.09"
+   },
+   {
+    "number": "7",
+    "name": "P0.11"
+   },
+   {
+    "number": "8",
+    "name": "VDD"
+   },
+   {
+    "number": "9",
+    "name": "VDDH"
+   },
+   {
+    "number": "10",
+    "name": "VBUS"
+   },
+   {
+    "number": "11",
+    "name": "DECUSB"
+   },
+   {
+    "number": "12",
+    "name": "D-"
+   },
+   {
+    "number": "13",
+    "name": "D+"
+   },
+   {
+    "number": "14",
+    "name": "P0.15"
+   },
+   {
+    "number": "15",
+    "name": "P0.17"
+   },
+   {
+    "number": "16",
+    "name": "P0.18_nRESET"
+   },
+   {
+    "number": "17",
+    "name": "P0.20"
+   },
+   {
+    "number": "18",
+    "name": "VDD"
+   },
+   {
+    "number": "19",
+    "name": "SWDIO"
+   },
+   {
+    "number": "20",
+    "name": "SWDCLK"
+   },
+   {
+    "number": "21",
+    "name": "DEC5"
+   },
+   {
+    "number": "22",
+    "name": "P0.09_NFC1"
+   },
+   {
+    "number": "23",
+    "name": "P0.10_NFC2"
+   },
+   {
+    "number": "24",
+    "name": "ANT"
+   },
+   {
+    "number": "25",
+    "name": "VSS_PA"
+   },
+   {
+    "number": "26",
+    "name": "DEC6"
+   },
+   {
+    "number": "27",
+    "name": "DEC3"
+   },
+   {
+    "number": "28",
+    "name": "XC1"
+   },
+   {
+    "number": "29",
+    "name": "XC2"
+   },
+   {
+    "number": "30",
+    "name": "VDD"
+   },
+   {
+    "number": "31",
+    "name": "P0.03_AIN1"
+   },
+   {
+    "number": "32",
+    "name": "P0.02_AIN0"
+   },
+   {
+    "number": "33",
+    "name": "P0.28_AIN4"
+   },
+   {
+    "number": "34",
+    "name": "P0.29_AIN5"
+   },
+   {
+    "number": "35",
+    "name": "P0.30_AIN6"
+   },
+   {
+    "number": "36",
+    "name": "P0.31_AIN7"
+   },
+   {
+    "number": "37",
+    "name": "VSS"
+   },
+   {
+    "number": "38",
+    "name": "DEC4"
+   },
+   {
+    "number": "39",
+    "name": "DCC"
+   },
+   {
+    "number": "40",
+    "name": "VDD"
+   },
+   {
+    "number": "41",
+    "name": "VSS"
+   }
+  ],
+  "easyeda_symbol_uuid": "f3af3cbaddba4a5d9ed57dc7f127a419"
+ }
+}

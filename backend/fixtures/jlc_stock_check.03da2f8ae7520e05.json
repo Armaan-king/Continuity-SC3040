@@ -1,0 +1,46 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "TPS63070RNMR",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C109322",
+    "model": "TPS63070RNMR",
+    "manufacturer": "Texas Instruments",
+    "package": "VQFN-15-HR(2.5x3)",
+    "stock": 21632,
+    "price": 1.4142,
+    "price_10": 1.254,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃@(TJ)",
+     "Function": "Buck-Boost",
+     "Synchronous Rectifier": "Yes",
+     "Frequency - Switching": "2.4MHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "2V~16V",
+     "Output Current": "2A",
+     "Quiescent Current": "50uA",
+     "Features": "Light load efficient mode、Load disconnect、Operating status indication、Frequency synchronization",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck-Boost",
+     "Output Voltage": "2.5V~9V",
+     "Number of Outputs": "1"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

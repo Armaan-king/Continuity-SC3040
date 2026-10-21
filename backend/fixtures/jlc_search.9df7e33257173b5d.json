@@ -1,0 +1,83 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "LM2596S-ADJ",
+  "sort_by": "stock",
+  "limit": 1
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C347423",
+    "model": "LM2596S-ADJ(UMW)",
+    "manufacturer": "UMW(Youtai Semiconductor Co., Ltd.)",
+    "package": "TO-263-5",
+    "stock": 83061,
+    "price": 0.6272,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃@(TA) 1 1.2V~37V 150kHz 3A 40V 80uA Adjustable Buck Buck Built-in No TO-263-5 DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃@(TA)",
+     "Function": "Step-down type",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "150kHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "40V",
+     "Output Current": "3A",
+     "Quiescent Current": "80uA",
+     "Features": "Overcurrent Protection",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck",
+     "Output Voltage": "1.2V~37V",
+     "Number of Outputs": "1"
+    }
+   }
+  ],
+  "total": 20,
+  "page_info": {
+   "limit": 1,
+   "offset": 0,
+   "returned": 1
+  },
+  "filters_applied": {
+   "query": "LM2596S-ADJ",
+   "subcategory_id": null,
+   "subcategory_name": null,
+   "subcategory_resolved": null,
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 20
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "LM2596S-ADJ",
+   "detected": {
+    "model_number": "LM2596S-ADJ"
+   },
+   "subcategory": null,
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "LM2596S-ADJ"
+  }
+ }
+}

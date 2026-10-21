@@ -1,0 +1,135 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "TPS63070RNMR"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "595-TPS63070RNMR",
+    "mfr_part_number": "TPS63070RNMR",
+    "manufacturer": "Texas Instruments",
+    "description": "Switching Voltage Regulators Wide input voltage ( 2V-16V) buck-boost A 595-TPS63070RNMT",
+    "category": "Switching Voltage Regulators",
+    "stock": 17398,
+    "price": 3.37,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 3.37,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 2.53,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 2.32,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 2.09,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 1.98,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 1.95,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 1.88,
+      "currency": "USD"
+     },
+     {
+      "qty": 3000,
+      "price": 1.78,
+      "currency": "USD"
+     },
+     {
+      "qty": 6000,
+      "price": 1.77,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Texas-Instruments/TPS63070RNMR?qs=LuYMPh7GGMS51GHntBDRnQ%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "3000"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "595-TPS63070RNMT",
+    "mfr_part_number": "TPS63070RNMT",
+    "manufacturer": "Texas Instruments",
+    "description": "Switching Voltage Regulators Wide Input Voltage B uck-Boost Convter A A 595-TPS63070RNMR",
+    "category": "Switching Voltage Regulators",
+    "stock": 1112,
+    "price": 3.98,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 3.98,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 3.0,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 2.76,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 2.56,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 2.17,
+      "currency": "USD"
+     },
+     {
+      "qty": 2500,
+      "price": 2.14,
+      "currency": "USD"
+     },
+     {
+      "qty": 5000,
+      "price": 2.06,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Texas-Instruments/TPS63070RNMT?qs=LuYMPh7GGMTfpyXCkymsfw%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "250"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 2
+ }
+}

@@ -1,0 +1,193 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "headphone",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C431535",
+    "model": "PJ-320D",
+    "manufacturer": "SHOU HAN",
+    "package": "SMD",
+    "stock": 86457,
+    "price": 0.0534,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "Audio Connectors",
+    "subcategory_id": 3080,
+    "mounting_type": "smd",
+    "description": "-30℃~+70℃ 12V 1A 3.5mm Headphone Jack Copper Gold SMD Audio Connectors ROHS",
+    "specs": {
+     "Operating Temperature": "-30℃~+70℃",
+     "Voltage Rating (Max)": "12V",
+     "Contact Plating": "Gold",
+     "Contact Material": "Copper",
+     "Current Rating": "1A",
+     "Connector Type": "3.5mm Headphone Jack"
+    }
+   },
+   {
+    "lcsc": "C668606",
+    "model": "PJ-342",
+    "manufacturer": "SHOU HAN",
+    "package": "SMD",
+    "stock": 61327,
+    "price": 0.2594,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "Audio Connectors",
+    "subcategory_id": 3080,
+    "mounting_type": "smd",
+    "description": "-30℃~+70℃ 3.5mm Headphone Jack 30V 500mA Copper Gold SMD Audio Connectors ROHS",
+    "specs": {
+     "Operating Temperature": "-30℃~+70℃",
+     "Voltage Rating (Max)": "30V",
+     "Contact Plating": "Gold",
+     "Contact Material": "Copper",
+     "Current Rating": "500mA",
+     "Connector Type": "3.5mm Headphone Jack"
+    }
+   },
+   {
+    "lcsc": "C145813",
+    "model": "PJ-327C-4A",
+    "manufacturer": "Korean Hroparts Elec",
+    "package": "SMD",
+    "stock": 60221,
+    "price": 0.1816,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "Audio Connectors",
+    "subcategory_id": 3080,
+    "mounting_type": "smd",
+    "description": "3.5mm Headphone Jack 30V 500mA Phosphor bronze Silver SMD Audio Connectors ROHS",
+    "specs": {
+     "Voltage Rating (Max)": "30V",
+     "Contact Plating": "Silver",
+     "Contact Material": "Phosphor bronze",
+     "Connector Type": "3.5mm Headphone Jack",
+     "Current Rating": "500mA"
+    }
+   },
+   {
+    "lcsc": "C668608",
+    "model": "PJ-313D",
+    "manufacturer": "SHOU HAN",
+    "package": "SMD",
+    "stock": 35211,
+    "price": 0.1007,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "Audio Connectors",
+    "subcategory_id": 3080,
+    "mounting_type": "smd",
+    "description": "-30℃~+70℃ 3.5mm Headphone Jack 30V 500mA Phosphor Bronze Silver SMD Audio Connectors ROHS",
+    "specs": {
+     "Operating Temperature": "-30℃~+70℃",
+     "Voltage Rating (Max)": "30V",
+     "Contact Plating": "Silver",
+     "Contact Material": "Phosphor Bronze",
+     "Current Rating": "500mA",
+     "Connector Type": "3.5mm Headphone Jack"
+    }
+   },
+   {
+    "lcsc": "C18185602",
+    "model": "PJ-320A-4P DIP",
+    "manufacturer": "SHOU HAN",
+    "package": "Plugin",
+    "stock": 25406,
+    "price": 0.0547,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "Audio Connectors",
+    "subcategory_id": 3080,
+    "mounting_type": "through_hole",
+    "description": "-20℃~+80℃ 3.5mm Headphone Jack 30V 500mA Copper Tin 插件 Audio Connectors ROHS",
+    "specs": {
+     "Operating Temperature": "-20℃~+80℃",
+     "Voltage Rating (Max)": "30V",
+     "Contact Plating": "Tin",
+     "Contact Material": "Copper",
+     "Current Rating": "500mA",
+     "Connector Type": "3.5mm Headphone Jack"
+    }
+   },
+   {
+    "lcsc": "C7507452",
+    "model": "PJ-342 141",
+    "manufacturer": "SHOU HAN",
+    "package": "SMD",
+    "stock": 21499,
+    "price": 0.1918,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "Audio Connectors",
+    "subcategory_id": 3080,
+    "mounting_type": "smd",
+    "description": "-30℃~+70℃ 3.5mm Headphone Jack 30V 500mA Gold Phosphor Bronze SMD Audio Connectors ROHS",
+    "specs": {
+     "Operating Temperature": "-30℃~+70℃",
+     "Voltage Rating (Max)": "30V",
+     "Contact Plating": "Gold",
+     "Contact Material": "Phosphor Bronze",
+     "Current Rating": "500mA",
+     "Connector Type": "3.5mm Headphone Jack"
+    }
+   }
+  ],
+  "total": 553,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 6
+  },
+  "filters_applied": {
+   "query": "headphone",
+   "subcategory_id": null,
+   "subcategory_name": null,
+   "subcategory_resolved": null,
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 553
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "headphone",
+   "detected": {},
+   "subcategory": null,
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "headphone"
+  }
+ }
+}

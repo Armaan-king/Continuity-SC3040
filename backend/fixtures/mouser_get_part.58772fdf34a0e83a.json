@@ -1,0 +1,120 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "MAX6675ISA+T"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "700-MAX6675ISAT",
+    "mfr_part_number": "MAX6675ISA+T",
+    "manufacturer": "Analog Devices / Maxim Integrated",
+    "description": "Sensor Interface Cold-Junction-Compensated K-Thermocouple-to-Digital Converter (0 C to +1024 C)",
+    "category": "Sensor Interface",
+    "stock": 2489,
+    "price": 18.43,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 18.43,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 17.77,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 16.44,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 15.94,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 15.61,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 15.32,
+      "currency": "USD"
+     },
+     {
+      "qty": 2500,
+      "price": 14.13,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/1014/1/MAX6675.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Analog-Devices-Maxim-Integrated/MAX6675ISA%2bT?qs=1THa7WoU59FV%2FT3S8QjZ%252Bg%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "2500"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "700-MAX6675ISA",
+    "mfr_part_number": "MAX6675ISA+",
+    "manufacturer": "Analog Devices / Maxim Integrated",
+    "description": "Sensor Interface Cold-Junction-Compensated K-Thermocouple-to-Digital Converter (0 C to +1024 C)",
+    "category": "Sensor Interface",
+    "stock": 4887,
+    "price": 18.63,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 18.63,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 17.96,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 16.63,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 15.95,
+      "currency": "USD"
+     },
+     {
+      "qty": 300,
+      "price": 15.55,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 15.42,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/1014/1/MAX6675.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Analog-Devices-Maxim-Integrated/MAX6675ISA%2b?qs=1THa7WoU59H74vpgspkIMw%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Tube",
+     "Standard Pack Qty": "100"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 2
+ }
+}

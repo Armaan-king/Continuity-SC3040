@@ -1,0 +1,53 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "Cortex-M7 microcontroller",
+  "sort_by": "stock",
+  "limit": 40
+ },
+ "response": {
+  "results": [],
+  "total": 0,
+  "page_info": {
+   "limit": 40,
+   "offset": 0,
+   "returned": 0
+  },
+  "filters_applied": {
+   "query": "Cortex",
+   "subcategory_id": 2584,
+   "subcategory_name": "microcontrollers (mcu/mpu/soc)",
+   "subcategory_resolved": "Microcontrollers (MCU/MPU/SOC)",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": "SMA",
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 0
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "Cortex-M7 microcontroller",
+   "detected": {
+    "package": "SMA",
+    "component_type": "microcontroller",
+    "subcategory": "microcontrollers (mcu/mpu/soc)"
+   },
+   "subcategory": "microcontrollers (mcu/mpu/soc)",
+   "package": "SMA",
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "Cortex"
+  }
+ }
+}

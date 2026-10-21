@@ -1,0 +1,41 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "SLM1302",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C125188",
+    "model": "SLM1302",
+    "manufacturer": "SOLA-IC",
+    "package": "SOIC-8",
+    "stock": 6154,
+    "price": 0.2853,
+    "price_10": 0.2237,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Clock/Timing",
+    "subcategory": "Real Time Clocks",
+    "subcategory_id": 3017,
+    "mounting_type": "smd",
+    "specs": {
+     "Alarm Output": "-",
+     "Operating Temperature": "-40℃~+85℃",
+     "Voltage - Supply": "2V~5.5V",
+     "crystal oscillator": "External",
+     "Features": "Backup power management and battery charging、InsideSRAM/NVRAM、Sleep/Wake control",
+     "Current - Supply": "300uA、1.2mA",
+     "Quiescent Current(Iq)": "100nA",
+     "Interface": "SPI"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

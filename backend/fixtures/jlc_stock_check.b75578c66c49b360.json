@@ -1,0 +1,43 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "HYCW312-RJ45-211B-913129A",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C52145823",
+    "model": "HYCW312-RJ45-211B-913129A",
+    "manufacturer": "HOAUC",
+    "package": "Plugin",
+    "stock": 129,
+    "price": 1.3188,
+    "price_10": 1.0858,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "Ethernet Connectors / Modular Connectors (RJ45 RJ11)",
+    "subcategory_id": 2983,
+    "mounting_type": "through_hole",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Number of Ports": "1",
+     "PoE": "Non-PoE",
+     "Contact Plating": "Gold",
+     "Connector Type": "RJ45 Jack",
+     "Contact Material": "Copper alloy",
+     "Supplementary Features": "Filtered",
+     "LED": "With LED",
+     "Shielding": "Shielded",
+     "Mounting Type": "Right Angle"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

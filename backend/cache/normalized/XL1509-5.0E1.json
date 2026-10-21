@@ -1,0 +1,30 @@
+{
+ "mpn": "XL1509-5.0E1",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 4.5,
+  "vmax": 40.0,
+  "vout_min": 5.0,
+  "vout_max": 5.0,
+  "i_typ": 0.002,
+  "i_max": 2.0,
+  "role": "passive",
+  "topology": "buck",
+  "synchronous": false,
+  "temp_min": -40.0,
+  "temp_max": 85.0,
+  "interfaces": []
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "vout_min": "Output Voltage",
+  "vout_max": "Output Voltage",
+  "i_typ": "Quiescent Current",
+  "i_max": "Output Current",
+  "synchronous": "Synchronous Rectifier",
+  "topology": "Topology",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

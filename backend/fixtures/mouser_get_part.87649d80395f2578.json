@@ -1,0 +1,73 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "ESP32-S3-WROOM-1U-N16R8"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "356-ESP32S3WM1UN16R8",
+    "mfr_part_number": "ESP32-S3-WROOM-1U-N16R8",
+    "manufacturer": "Espressif Systems",
+    "description": "Multiprotocol Modules SMD module, ESP32-S3R8 with 8 MB Octal PSRAM die inside, 16 MB Quad SPI flash, IPEX antenna connector",
+    "category": "Multiprotocol Modules",
+    "stock": 7995,
+    "price": 6.9,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 6.9,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 6.16,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 5.65,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 5.22,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 4.95,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 4.47,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 4.3,
+      "currency": "USD"
+     },
+     {
+      "qty": 2600,
+      "price": 3.9,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/1574/1/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-S3-WROOM-1U-N16R8?qs=Li%252BoUPsLEns6V0Pr5KRJtw%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Bulk",
+     "Standard Pack Qty": "650"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 1
+ }
+}

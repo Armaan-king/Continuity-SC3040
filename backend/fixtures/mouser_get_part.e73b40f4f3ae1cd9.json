@@ -1,0 +1,78 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "PCF8563T/5,518"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "771-PCF8563T/5518",
+    "mfr_part_number": "PCF8563T/5,518",
+    "manufacturer": "NXP Semiconductors",
+    "description": "Real Time Clock RTC IC with 400 kHz I2C interface in SO8 package.",
+    "category": "Real Time Clock",
+    "stock": 19586,
+    "price": 1.15,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 1.15,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 0.855,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 0.802,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 0.734,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 0.688,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 0.66,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 0.631,
+      "currency": "USD"
+     },
+     {
+      "qty": 2500,
+      "price": 0.597,
+      "currency": "USD"
+     },
+     {
+      "qty": 5000,
+      "price": 0.593,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/118/1/PCF8563.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/NXP-Semiconductors/PCF8563T-5518?qs=beN0Cyoe8YmsvsbXpQCrnw%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "2500"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 1
+ }
+}

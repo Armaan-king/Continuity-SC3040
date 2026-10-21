@@ -1,0 +1,24 @@
+{
+ "tool": "cse_search",
+ "arguments": {
+  "query": "SX1278IMLTRT"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "cse",
+    "mfr_part_number": "SX1278IMLTRT",
+    "manufacturer": "SEMTECH",
+    "description": "RF Transceiver SINGLE CHIP 2 BANDS TRANCEIVER",
+    "datasheet_url": "https://datasheet.datasheetarchive.com/originals/distributors/DKDS-37/728736.pdf",
+    "has_model": true,
+    "has_3d": true,
+    "model_quality": 4,
+    "cse_part_id": 808063,
+    "pin_count": 29,
+    "image_url": "https://componentsearchengine.com/2D/0T/808063.2.1.png"
+   }
+  ],
+  "total": 1
+ }
+}

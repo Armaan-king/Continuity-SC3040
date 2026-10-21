@@ -1,0 +1,27 @@
+{
+ "mpn": "AW9523BTQR",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 2.4,
+  "vmax": 5.5,
+  "i_typ": 1e-07,
+  "i_peak": 0.02,
+  "role": "peripheral",
+  "pins_available": 16,
+  "temp_min": -40.0,
+  "temp_max": 85.0,
+  "interfaces": [
+   "I2C"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "i_typ": "Quiescent Supply Current",
+  "i_peak": "Current - Output Low(IOL)",
+  "interfaces": "Interface",
+  "pins_available": "Number of I/O",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

@@ -1,0 +1,10 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "VG6328A"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

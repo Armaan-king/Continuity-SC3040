@@ -1,0 +1,78 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "TF-01A"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "720-LATF01AABB243A4B",
+    "mfr_part_number": "LA T67F.01-AABB-24-3A4B-20-R18",
+    "manufacturer": "ams OSRAM",
+    "description": "Single Color LEDs",
+    "category": "Single Color LEDs",
+    "stock": 0,
+    "price": 0.24,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 0.24,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 0.157,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 0.11,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 0.087,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 0.08,
+      "currency": "USD"
+     },
+     {
+      "qty": 2000,
+      "price": 0.073,
+      "currency": "USD"
+     },
+     {
+      "qty": 4000,
+      "price": 0.065,
+      "currency": "USD"
+     },
+     {
+      "qty": 10000,
+      "price": 0.058,
+      "currency": "USD"
+     },
+     {
+      "qty": 24000,
+      "price": 0.055,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/ams-OSRAM/LA-T67F.01-AABB-24-3A4B-20-R18?qs=wT7LY0lnAe2ruGZkPneW4g%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "New at Mouser",
+    "parameters": {
+     "Packaging": "Cut Tape",
+     "Standard Pack Qty": "2000"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 1
+ }
+}

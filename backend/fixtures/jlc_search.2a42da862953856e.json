@@ -1,0 +1,67 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "GPS receiver",
+  "sort_by": "stock",
+  "limit": 40
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C131222",
+    "model": "IRM-8601M2(GPS)",
+    "manufacturer": "Everlight Elec",
+    "package": "SIP-3-2.54mm",
+    "stock": 102,
+    "price": 0.3144,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Optoelectronics",
+    "subcategory": "Infrared Remote Receiver (IRM)",
+    "subcategory_id": 2234,
+    "mounting_type": "through_hole",
+    "description": "SIP-3-2.54mm Infrared Remote Receiver (IRM) ROHS",
+    "specs": {}
+   }
+  ],
+  "total": 1,
+  "page_info": {
+   "limit": 40,
+   "offset": 0,
+   "returned": 1
+  },
+  "filters_applied": {
+   "query": "GPS receiver",
+   "subcategory_id": null,
+   "subcategory_name": null,
+   "subcategory_resolved": null,
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 1
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "GPS receiver",
+   "detected": {},
+   "subcategory": null,
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "GPS receiver"
+  }
+ }
+}

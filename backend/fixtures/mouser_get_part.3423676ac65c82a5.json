@@ -1,0 +1,10 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "CR1220-F DIP"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

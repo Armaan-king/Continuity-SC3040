@@ -1,0 +1,24 @@
+{
+ "tool": "cse_search",
+ "arguments": {
+  "query": "CC6902SO-20A"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "cse",
+    "mfr_part_number": "CC6902SO-20A",
+    "manufacturer": "Cross chip",
+    "description": "",
+    "datasheet_url": null,
+    "has_model": false,
+    "has_3d": false,
+    "model_quality": 0,
+    "cse_part_id": 3259291,
+    "pin_count": 0,
+    "image_url": null
+   }
+  ],
+  "total": 1
+ }
+}

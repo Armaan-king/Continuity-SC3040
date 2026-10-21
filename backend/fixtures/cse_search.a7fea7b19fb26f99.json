@@ -1,0 +1,10 @@
+{
+ "tool": "cse_search",
+ "arguments": {
+  "query": "TX4137"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

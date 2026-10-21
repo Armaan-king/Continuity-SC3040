@@ -1,0 +1,37 @@
+{
+ "tool": "cse_search",
+ "arguments": {
+  "query": "BMP580"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "cse",
+    "mfr_part_number": "BMP580",
+    "manufacturer": "BOSCH",
+    "description": "Board Mount Pressure Sensors The BMP580 is a very small, low-power, and low-noise 24-bit absolute barometric pressure sensor.",
+    "datasheet_url": null,
+    "has_model": false,
+    "has_3d": false,
+    "model_quality": 0,
+    "cse_part_id": 18864435,
+    "pin_count": 0,
+    "image_url": null
+   },
+   {
+    "source": "cse",
+    "mfr_part_number": "BMP580-011-700",
+    "manufacturer": "JSP",
+    "description": "Force 8 ABEK1P2 (F-2712) Filters - Pack",
+    "datasheet_url": null,
+    "has_model": false,
+    "has_3d": false,
+    "model_quality": 0,
+    "cse_part_id": 19906732,
+    "pin_count": 0,
+    "image_url": null
+   }
+  ],
+  "total": 2
+ }
+}

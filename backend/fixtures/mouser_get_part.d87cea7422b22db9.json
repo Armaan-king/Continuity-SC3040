@@ -1,0 +1,10 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "PZ254V-11-02P"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

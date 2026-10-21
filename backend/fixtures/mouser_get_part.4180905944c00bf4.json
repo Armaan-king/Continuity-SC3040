@@ -1,0 +1,32 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "W25N01KVZEIR"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "454-W25N01KVZEIR",
+    "mfr_part_number": "W25N01KVZEIR",
+    "manufacturer": "Winbond",
+    "description": "NAND Flash 1G-bit Serial NAND flash, 3V",
+    "category": "NAND Flash",
+    "stock": 0,
+    "price": null,
+    "price_breaks": [],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Winbond/W25N01KVZEIR?qs=mELouGlnn3crBlK7v8SJ2Q%3D%3D",
+    "rohs": "",
+    "lifecycle": "Verify Status with Factory",
+    "parameters": {
+     "Packaging": "Tube",
+     "Standard Pack Qty": "63"
+    },
+    "min_qty": 63,
+    "currency": "USD"
+   }
+  ],
+  "total": 1
+ }
+}

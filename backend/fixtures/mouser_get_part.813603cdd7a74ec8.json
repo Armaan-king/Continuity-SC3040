@@ -1,0 +1,130 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "STM32F103C8T6"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "511-STM32F103C8T6",
+    "mfr_part_number": "STM32F103C8T6",
+    "manufacturer": "STMicroelectronics",
+    "description": "ARM Microcontrollers - MCU 32BIT Cortex M3 64KB 20KB RAM 2X12 ADC",
+    "category": "ARM Microcontrollers - MCU",
+    "stock": 0,
+    "price": 7.45,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 7.45,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 5.74,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 5.05,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 4.82,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 4.6,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 4.48,
+      "currency": "USD"
+     },
+     {
+      "qty": 1500,
+      "price": 4.47,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/STMicroelectronics/STM32F103C8T6?qs=bhCVus9SdFtq6kqxsU5%2FDA%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Tray",
+     "Standard Pack Qty": "1500"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "511-STM32F103C8T6TR",
+    "mfr_part_number": "STM32F103C8T6TR",
+    "manufacturer": "STMicroelectronics",
+    "description": "ARM Microcontrollers - MCU 32BIT Cortex M3 USB 7 TIMERS 2 ADCS CAN",
+    "category": "ARM Microcontrollers - MCU",
+    "stock": 2,
+    "price": 8.3,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 8.3,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 5.8,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 5.53,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 4.8,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 4.59,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 4.18,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 3.67,
+      "currency": "USD"
+     },
+     {
+      "qty": 2400,
+      "price": 3.67,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/STMicroelectronics/STM32F103C8T6TR?qs=5HwTSiuA5HDxFj62n06yag%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "2400"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 2
+ }
+}

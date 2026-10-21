@@ -1,0 +1,23 @@
+{
+ "mpn": "FU6812V",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 3.0,
+  "vmax": 24.0,
+  "role": "master",
+  "temp_min": -40.0,
+  "temp_max": 85.0,
+  "interfaces": [
+   "I2C",
+   "SPI",
+   "UART"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "interfaces": "Interface",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

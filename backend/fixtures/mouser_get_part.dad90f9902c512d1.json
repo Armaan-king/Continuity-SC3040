@@ -1,0 +1,10 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "lora1276-C1-915MHz"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

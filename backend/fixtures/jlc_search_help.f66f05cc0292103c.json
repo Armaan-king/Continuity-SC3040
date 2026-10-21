@@ -1,0 +1,284 @@
+{
+ "tool": "jlc_search_help",
+ "arguments": {},
+ "response": {
+  "categories": [
+   {
+    "id": 8,
+    "name": "Connectors",
+    "count": 121005,
+    "subcategory_count": 52
+   },
+   {
+    "id": 1,
+    "name": "Resistors",
+    "count": 102851,
+    "subcategory_count": 6
+   },
+   {
+    "id": 2,
+    "name": "Capacitors",
+    "count": 53538,
+    "subcategory_count": 20
+   },
+   {
+    "id": 5,
+    "name": "Transistors/Thyristors",
+    "count": 44137,
+    "subcategory_count": 11
+   },
+   {
+    "id": 3,
+    "name": "Inductors, Coils, Chokes",
+    "count": 41811,
+    "subcategory_count": 13
+   },
+   {
+    "id": 11,
+    "name": "Circuit Protection",
+    "count": 39768,
+    "subcategory_count": 9
+   },
+   {
+    "id": 4,
+    "name": "Diodes",
+    "count": 36544,
+    "subcategory_count": 11
+   },
+   {
+    "id": 9,
+    "name": "Power Management (PMIC)",
+    "count": 32790,
+    "subcategory_count": 24
+   },
+   {
+    "id": 14,
+    "name": "Switches",
+    "count": 19669,
+    "subcategory_count": 19
+   },
+   {
+    "id": 7,
+    "name": "Crystals, Oscillators, Resonators",
+    "count": 16642,
+    "subcategory_count": 13
+   },
+   {
+    "id": 23,
+    "name": "Amplifiers/Comparators",
+    "count": 11149,
+    "subcategory_count": 13
+   },
+   {
+    "id": 19,
+    "name": "Logic",
+    "count": 10129,
+    "subcategory_count": 14
+   },
+   {
+    "id": 34,
+    "name": "Filters",
+    "count": 9197,
+    "subcategory_count": 12
+   },
+   {
+    "id": 16,
+    "name": "Optoelectronics",
+    "count": 8470,
+    "subcategory_count": 15
+   },
+   {
+    "id": 27,
+    "name": "Interface",
+    "count": 8221,
+    "subcategory_count": 24
+   },
+   {
+    "id": 18,
+    "name": "Embedded Processors & Controllers",
+    "count": 7709,
+    "subcategory_count": 3
+   },
+   {
+    "id": 68,
+    "name": "Power Modules",
+    "count": 6208,
+    "subcategory_count": 3
+   },
+   {
+    "id": 22,
+    "name": "Sensors",
+    "count": 4502,
+    "subcategory_count": 30
+   },
+   {
+    "id": 64,
+    "name": "Optoisolators",
+    "count": 4026,
+    "subcategory_count": 6
+   },
+   {
+    "id": 69,
+    "name": "Motor Driver ICs",
+    "count": 3487,
+    "subcategory_count": 5
+   },
+   {
+    "id": 33,
+    "name": "RF and Wireless",
+    "count": 3457,
+    "subcategory_count": 19
+   },
+   {
+    "id": 29,
+    "name": "Data Acquisition",
+    "count": 3383,
+    "subcategory_count": 10
+   },
+   {
+    "id": 21,
+    "name": "Memory",
+    "count": 3369,
+    "subcategory_count": 19
+   },
+   {
+    "id": 10,
+    "name": "Audio Products / Vibration Motors",
+    "count": 2262,
+    "subcategory_count": 5
+   },
+   {
+    "id": 28,
+    "name": "LED Drivers",
+    "count": 2260,
+    "subcategory_count": 6
+   },
+   {
+    "id": 70,
+    "name": "Magnetic Sensors",
+    "count": 2189,
+    "subcategory_count": 6
+   },
+   {
+    "id": 45,
+    "name": "Relays",
+    "count": 1937,
+    "subcategory_count": 6
+   },
+   {
+    "id": 3357,
+    "name": "Terminal",
+    "count": 1728,
+    "subcategory_count": 16
+   },
+   {
+    "id": 47,
+    "name": "Hardware Fasteners",
+    "count": 1580,
+    "subcategory_count": 45
+   },
+   {
+    "id": 63,
+    "name": "Signal Isolation Devices",
+    "count": 1402,
+    "subcategory_count": 21
+   },
+   {
+    "id": 66,
+    "name": "Silicon Carbide (SiC) Devices",
+    "count": 1393,
+    "subcategory_count": 3
+   },
+   {
+    "id": 31,
+    "name": "IoT/Communication Modules",
+    "count": 1385,
+    "subcategory_count": 13
+   },
+   {
+    "id": 20,
+    "name": "Clock/Timing",
+    "count": 1349,
+    "subcategory_count": 11
+   },
+   {
+    "id": 46,
+    "name": "Industrial control electrical",
+    "count": 1230,
+    "subcategory_count": 48
+   },
+   {
+    "id": 61,
+    "name": "Wires and cables",
+    "count": 929,
+    "subcategory_count": 12
+   },
+   {
+    "id": 65,
+    "name": "Displays",
+    "count": 613,
+    "subcategory_count": 4
+   },
+   {
+    "id": 49,
+    "name": "Office Daily Use",
+    "count": 162,
+    "subcategory_count": 4
+   },
+   {
+    "id": 67,
+    "name": "Gallium Nitride (GaN) Devices",
+    "count": 138,
+    "subcategory_count": 1
+   },
+   {
+    "id": 38,
+    "name": "old batch",
+    "count": 80,
+    "subcategory_count": 1
+   },
+   {
+    "id": 35,
+    "name": "Others",
+    "count": 66,
+    "subcategory_count": 4
+   },
+   {
+    "id": 32,
+    "name": "Development Boards & Tools",
+    "count": 50,
+    "subcategory_count": 3
+   },
+   {
+    "id": 43,
+    "name": "Educational Kits",
+    "count": 41,
+    "subcategory_count": 3
+   },
+   {
+    "id": 60,
+    "name": "other",
+    "count": 26,
+    "subcategory_count": 3
+   },
+   {
+    "id": 50,
+    "name": "Tool Equipment",
+    "count": 8,
+    "subcategory_count": 2
+   },
+   {
+    "id": 44,
+    "name": "Evaluation Boards",
+    "count": 4,
+    "subcategory_count": 3
+   },
+   {
+    "id": 59,
+    "name": "Consumables and auxiliary materials",
+    "count": 1,
+    "subcategory_count": 1
+   }
+  ]
+ }
+}

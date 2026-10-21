@@ -1,0 +1,151 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "ESP32-C3",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C2838500",
+    "model": "ESP32-C3",
+    "manufacturer": "Espressif Systems",
+    "package": "QFN-32-EP(5x5)",
+    "stock": 3599,
+    "price": 1.8382,
+    "price_10": 1.6165,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Embedded Processors & Controllers",
+    "subcategory": "Microcontrollers (MCU/MPU/SOC)",
+    "subcategory_id": 2584,
+    "mounting_type": "smd",
+    "specs": {
+     "CPU Maximum Speed": "160MHz",
+     "Voltage - Supply": "3V~3.6V",
+     "RAM Size": "528KB",
+     "CPU Core": "Others",
+     "Number of I/O": "22",
+     "ADC (Bit)": "12bit"
+    }
+   },
+   {
+    "lcsc": "C2838502",
+    "model": "ESP32-C3-MINI-1-N4",
+    "manufacturer": "Espressif Systems",
+    "package": "SMD,16.6x13.2mm",
+    "stock": 24632,
+    "price": 3.8187,
+    "price_10": 3.4578,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "RF Modules",
+    "subcategory_id": 3207,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Antenna Type": "On-board PCB Antenna",
+     "Sensitivity": "-98dBm",
+     "Output Power(Max)": "20.5dBm",
+     "Voltage - Supply": "3V~3.6V",
+     "Model": "Transceiver",
+     "Features": "Integrated temperature sensor、Integrated antenna、Built-in watchdog",
+     "Interface Type": "SPI、UART、I2C、I2S、USB",
+     "Send  Current": "350mA",
+     "Receive  Current": "84mA"
+    }
+   },
+   {
+    "lcsc": "C2858491",
+    "model": "ESP32-C3FH4",
+    "manufacturer": "Espressif Systems",
+    "package": "QFN-32-EP(5x5)",
+    "stock": 3725,
+    "price": 2.1553,
+    "price_10": 1.8802,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Embedded Processors & Controllers",
+    "subcategory": "Microcontrollers (MCU/MPU/SOC)",
+    "subcategory_id": 2584,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+105℃",
+     "Program Memory Type": "FLASH",
+     "DAC (Bit)": "-",
+     "RAM Size": "400KB",
+     "CPU Core": "RISC-V",
+     "Number of I/O": "22",
+     "Oscillator Type": "Built-in+External",
+     "EEPROM": "-",
+     "CPU Maximum Speed": "160MHz",
+     "Program Storage Size": "4MB",
+     "Voltage - Supply": "3V~3.6V",
+     "Core Size": "32 bit",
+     "Features": "Watchdog reset、Software reset、Built-in general-purpose timer、Programmable watchdog、Built-in temperature sensor、True random number generator (TRNG)、Storage encryption、Infrared remote control",
+     "ADC (Bit)": "12bit"
+    }
+   },
+   {
+    "lcsc": "C2911374",
+    "model": "ESP32-C3-MINI-1U-N4",
+    "manufacturer": "Espressif Systems",
+    "package": "SMD,13.2x12.5mm",
+    "stock": 2704,
+    "price": 3.1164,
+    "price_10": 2.7815,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "WiFi Modules",
+    "subcategory_id": 3205,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Sensitivity": "-104dBm",
+     "Output Power": "20.5dBm",
+     "Voltage - Supply": "3V~3.6V",
+     "Frequency": "2.4GHz",
+     "Utilized IC / Part": "ESP32-C3FN4",
+     "Interface Type": "UART、SPI、I2C、I2S、USB",
+     "Receive  Current": "82mA",
+     "Wireless Standard": "Bluetooth5.0",
+     "Send  Current": "350mA"
+    }
+   },
+   {
+    "lcsc": "C2926676",
+    "model": "ESP32-C3-WROOM-02U-N4",
+    "manufacturer": "Espressif Systems",
+    "package": "SMD-19P",
+    "stock": 5358,
+    "price": 3.1099,
+    "price_10": 2.7815,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "WiFi Modules",
+    "subcategory_id": 3205,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+105℃",
+     "Sensitivity": "-98dBm",
+     "Output Power": "20.5dBm",
+     "Voltage - Supply": "3V~3.6V",
+     "Frequency": "2.4GHz",
+     "Utilized IC / Part": "ESP32-C3 Chip",
+     "Interface Type": "UART、SPI、I2C、I2S、JTAG、USB",
+     "Receive  Current": "82mA",
+     "Wireless Standard": "Bluetooth5.0",
+     "Send  Current": "345mA"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 10,
+  "total_pages": 2,
+  "has_more": true
+ }
+}

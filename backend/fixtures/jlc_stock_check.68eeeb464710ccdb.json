@@ -1,0 +1,45 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "LLCC68IMLTRT",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C5120261",
+    "model": "LLCC68IMLTRT",
+    "manufacturer": "SEMTECH",
+    "package": "QFN-24-EP(4x4)",
+    "stock": 27599,
+    "price": 2.0097,
+    "price_10": 1.7087,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "RF and Wireless",
+    "subcategory": "RF Transceiver ICs",
+    "subcategory_id": 3048,
+    "mounting_type": "smd",
+    "specs": {
+     "Frequency Range": "150MHz~960MHz",
+     "Operating Temperature": "-40℃~+85℃",
+     "Type": "transceiver",
+     "Sensitivity": "-129dBm",
+     "Data Rate": "300Kbps",
+     "Output Power": "22dBm",
+     "Applications": "LoRa",
+     "Voltage - Supply": "1.8V~3.7V",
+     "Receive Current": "4.2mA",
+     "Features": "Supports RSSI function、Supports FEC function、CRC check function",
+     "Current Of Transmitting": "118mA",
+     "Interface": "SPI"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

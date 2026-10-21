@@ -1,0 +1,188 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "CAN",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C2981981",
+    "model": "UJA1075ATW/5V0/WD",
+    "manufacturer": "NXP Semicon",
+    "package": "HTSSOP-32-EP-6.1mm",
+    "stock": 1913,
+    "price": 2.1429,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "CAN Transceivers",
+    "subcategory_id": 3093,
+    "mounting_type": "smd",
+    "description": "-40℃~+150℃ 4.5V~28V LIN、CAN HTSSOP-32-EP-6.1mm CAN Transceivers ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+150℃",
+     "Voltage - Supply": "4.5V~28V",
+     "Interface": "LIN、CAN"
+    }
+   },
+   {
+    "lcsc": "C7434864",
+    "model": "STSPIN32G4",
+    "manufacturer": "STMicroelectronics",
+    "package": "VFQFPN-64(9x9)",
+    "stock": 1806,
+    "price": 6.3156,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Motor Driver ICs",
+    "subcategory": "Brushless DC (BLDC) Motor Driver",
+    "subcategory_id": 1627,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃ 1A 3 5.5V~15V I2C、SPI、UART、CAN No Three Phase VFQFPN-64(9x9) Brushless DC (BLDC) Motor Driver ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃",
+     "Integrated FETs": "No",
+     "Voltage - Supply": "5.5V~15V",
+     "Output Current": "1A",
+     "Number of Half Bridges": "3",
+     "Features": "Interleaved conduction protection",
+     "Drive Type": "Three Phase",
+     "Quiescent Current(Iq)": "-",
+     "RDS(on)": "-",
+     "Interface": "I2C、SPI、UART、CAN",
+     "Peak Current": "-"
+    }
+   },
+   {
+    "lcsc": "C540140",
+    "model": "TLE9263-3BQX",
+    "manufacturer": "Infineon Technologies",
+    "package": "VQFN-48-EP(7x7)",
+    "stock": 307,
+    "price": 2.0574,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "Interface - Specialized",
+    "subcategory_id": 2175,
+    "mounting_type": "smd",
+    "description": "-40℃~+150℃ 15uA 3.5mA 5Mbps SPI、LIN、CAN VQFN-48-EP(7x7) Interface - Specialized ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+150℃",
+     "Data Rate": "5Mbps",
+     "Supply Current": "3.5mA",
+     "Features": "Interrupt generation、Fail-safe、Wake-up function",
+     "Quiescent Supply Current": "15uA",
+     "Interface": "SPI、LIN、CAN"
+    }
+   },
+   {
+    "lcsc": "C511785",
+    "model": "UJA1078ATW/5V0/WDJ",
+    "manufacturer": "NXP Semicon",
+    "package": "HTSSOP-32-EP-6.1mm",
+    "stock": 20,
+    "price": 4.6617,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "Interface - Specialized",
+    "subcategory_id": 2175,
+    "mounting_type": "smd",
+    "description": "4.5V~28V Interrupt generation、Wake-up function、Power-up/reset configuration LIN、CAN HTSSOP-32-EP-6.1mm Interface - Specialized ROHS",
+    "specs": {
+     "Voltage - Supply": "4.5V~28V",
+     "Features": "Interrupt generation、Wake-up function、Power-up/reset configuration",
+     "Interface": "LIN、CAN"
+    }
+   },
+   {
+    "lcsc": "C3681206",
+    "model": "TLE9561QXXUMA1",
+    "manufacturer": "Infineon Technologies",
+    "package": "VQFN-48",
+    "stock": 10,
+    "price": 3.6935,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Motor Driver ICs",
+    "subcategory": "Brushed DC Motor Drivers",
+    "subcategory_id": 1628,
+    "mounting_type": "smd",
+    "description": "-40℃~+150℃ 18uA 4.5V~28V 500mA SPI、CAN VQFN-48 Brushed DC Motor Drivers ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+150℃",
+     "Number of H-bridges": "-",
+     "Technology": "-",
+     "Voltage - Supply": "4.5V~28V",
+     "Output Current": "-",
+     "Quiescent Current(Iq)": "18uA",
+     "RDS(on)": "-",
+     "Peak Current": "500mA",
+     "Interface": "SPI、CAN"
+    }
+   }
+  ],
+  "total": 5,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 5
+  },
+  "filters_applied": {
+   "query": null,
+   "subcategory_id": null,
+   "subcategory_name": null,
+   "subcategory_resolved": null,
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [
+    {
+     "name": "Interface",
+     "op": "=",
+     "value": "CAN"
+    }
+   ],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 5
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "CAN",
+   "detected": {
+    "semantic": [
+     "can"
+    ]
+   },
+   "subcategory": null,
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [
+    {
+     "name": "Interface",
+     "op": "=",
+     "value": "CAN"
+    }
+   ],
+   "remaining_text": ""
+  }
+ }
+}

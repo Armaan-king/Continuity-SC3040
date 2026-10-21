@@ -1,0 +1,42 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "TMP1075DSGR",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C2870250",
+    "model": "TMP1075DSGR",
+    "manufacturer": "Texas Instruments",
+    "package": "WSON-8-EP(2x2)",
+    "stock": 44949,
+    "price": 0.5146,
+    "price_10": 0.4078,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Temperature Sensors",
+    "subcategory_id": 3076,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-",
+     "Standby Current": "4uA",
+     "Detection Temperature Range": "-55℃~+125℃",
+     "Voltage - Supply": "1.7V~5.5V",
+     "Tolerance": "±1℃",
+     "Features": "Factory temperature calibration、Temperature threshold monitoring",
+     "Temperature Conversion Time": "7ms",
+     "Interface": "I2C、SMBus",
+     "Temperature Resolution": "12bit"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

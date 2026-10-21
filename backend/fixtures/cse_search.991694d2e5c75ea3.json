@@ -1,0 +1,10 @@
+{
+ "tool": "cse_search",
+ "arguments": {
+  "query": "SPA06-003"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

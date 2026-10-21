@@ -1,0 +1,13 @@
+{
+ "mpn": "MB10S-50MIL",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "role": "passive",
+  "temp_min": -55.0,
+  "temp_max": 150.0
+ },
+ "provenance": {
+  "temp_min": "Operating Junction Temperature Range",
+  "temp_max": "Operating Junction Temperature Range"
+ }
+}

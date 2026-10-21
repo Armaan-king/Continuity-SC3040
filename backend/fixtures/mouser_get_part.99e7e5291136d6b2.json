@@ -1,0 +1,10 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "MB10S-50MIL"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

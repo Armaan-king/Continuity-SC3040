@@ -1,0 +1,11 @@
+{
+ "tool": "jlc_get_part",
+ "arguments": {
+  "mpn": "NOT-A-REAL-PART-XYZ"
+ },
+ "response": {
+  "error": "No JLCPCB parts found for MPN 'NOT-A-REAL-PART-XYZ'",
+  "mpn": "NOT-A-REAL-PART-XYZ",
+  "results": []
+ }
+}

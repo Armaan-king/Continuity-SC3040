@@ -1,0 +1,10 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "XL7005A"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

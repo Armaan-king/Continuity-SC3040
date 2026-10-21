@@ -1,0 +1,10 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "TYPE-C 16PIN 2MD(073)"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

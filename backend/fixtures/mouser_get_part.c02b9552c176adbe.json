@@ -1,0 +1,73 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "ESP32-S3FN8"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "356-ESP32-S3FN8",
+    "mfr_part_number": "ESP32-S3FN8",
+    "manufacturer": "Espressif Systems",
+    "description": "RF System on a Chip - SoC SMD IC ESP32-S3FN8, dual-core MCU,  Wi-Fi 2.4G & BLE 5.0 combo, 8 MB flash die inside, QFN 56-pin, 7*7 mm",
+    "category": "RF System on a Chip - SoC",
+    "stock": 3975,
+    "price": 4.17,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 4.17,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 3.61,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 3.41,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 3.14,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 2.98,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 2.85,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 2.81,
+      "currency": "USD"
+     },
+     {
+      "qty": 2000,
+      "price": 2.58,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/1574/1/esp32-s3_datasheet_en.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-S3FN8?qs=Rp5uXu7WBW%2F4Oihh5tkiVQ%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Bulk",
+     "Standard Pack Qty": "2000"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 1
+ }
+}

@@ -1,0 +1,254 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "TPS54331DR"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "595-TPS54331DR",
+    "mfr_part_number": "TPS54331DR",
+    "manufacturer": "Texas Instruments",
+    "description": "Switching Voltage Regulators 3A 28V In Step Down SWIFT DC/DC Cnvrtr A A 595-TPS54331D",
+    "category": "Switching Voltage Regulators",
+    "stock": 3076,
+    "price": 1.62,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 1.62,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 1.19,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 1.08,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 0.959,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 0.902,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 0.867,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 0.86,
+      "currency": "USD"
+     },
+     {
+      "qty": 2500,
+      "price": 0.86,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Texas-Instruments/TPS54331DR?qs=QyYHynRG50rsSYcB%2Ftz4Yw%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "2500"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "595-TPS54331DRG4",
+    "mfr_part_number": "TPS54331DRG4",
+    "manufacturer": "Texas Instruments",
+    "description": "Switching Voltage Regulators 26V 3A DC-DC Convert er ALT 595-TPS54331 ALT 595-TPS54331DR",
+    "category": "Switching Voltage Regulators",
+    "stock": 3471,
+    "price": 1.69,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 1.69,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 1.64,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 1.45,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 1.36,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 1.31,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 1.29,
+      "currency": "USD"
+     },
+     {
+      "qty": 2500,
+      "price": 0.843,
+      "currency": "USD"
+     },
+     {
+      "qty": 5000,
+      "price": 0.787,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Texas-Instruments/TPS54331DRG4?qs=drm0CCHqiV4wRSO3Sw0lnw%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "2500"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "595-TPS54331D",
+    "mfr_part_number": "TPS54331D",
+    "manufacturer": "Texas Instruments",
+    "description": "Switching Voltage Regulators 3A 28V In Step Down SWIFT DC/DC Cnvrtr A A 595-TPS54331DR",
+    "category": "Switching Voltage Regulators",
+    "stock": 796,
+    "price": 2.17,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 2.17,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 1.61,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 1.48,
+      "currency": "USD"
+     },
+     {
+      "qty": 75,
+      "price": 1.31,
+      "currency": "USD"
+     },
+     {
+      "qty": 300,
+      "price": 1.22,
+      "currency": "USD"
+     },
+     {
+      "qty": 525,
+      "price": 1.18,
+      "currency": "USD"
+     },
+     {
+      "qty": 1050,
+      "price": 1.15,
+      "currency": "USD"
+     },
+     {
+      "qty": 3000,
+      "price": 1.11,
+      "currency": "USD"
+     },
+     {
+      "qty": 6000,
+      "price": 1.09,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Texas-Instruments/TPS54331D?qs=QyYHynRG50pEbpiybdzwkw%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Tube",
+     "Standard Pack Qty": "75"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "595-TPS54331DG4",
+    "mfr_part_number": "TPS54331DG4",
+    "manufacturer": "Texas Instruments",
+    "description": "Switching Voltage Regulators 26V 3A DC-DC Convert er ALT 595-TPS54331 ALT 595-TPS54331D",
+    "category": "Switching Voltage Regulators",
+    "stock": 456,
+    "price": 2.2,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 2.2,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 1.63,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 1.48,
+      "currency": "USD"
+     },
+     {
+      "qty": 75,
+      "price": 1.31,
+      "currency": "USD"
+     },
+     {
+      "qty": 300,
+      "price": 1.24,
+      "currency": "USD"
+     },
+     {
+      "qty": 525,
+      "price": 1.06,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Texas-Instruments/TPS54331DG4?qs=drm0CCHqiV7cBQgWRKzibg%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Tube",
+     "Standard Pack Qty": "75"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 4
+ }
+}

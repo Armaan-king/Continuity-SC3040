@@ -1,0 +1,10 @@
+{
+ "tool": "cse_search",
+ "arguments": {
+  "query": "TYPE-C 16PIN 2MD(073)"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

@@ -1,0 +1,84 @@
+{
+ "tool": "jlc_get_pinout",
+ "arguments": {
+  "lcsc": "C82895"
+ },
+ "response": {
+  "lcsc": "C82895",
+  "model": "ESP-07S",
+  "manufacturer": "Ai-Thinker",
+  "package": "SMD,17x16mm",
+  "pin_count": 17,
+  "pins": [
+   {
+    "number": "1",
+    "name": "RST"
+   },
+   {
+    "number": "2",
+    "name": "ADC"
+   },
+   {
+    "number": "3",
+    "name": "EN"
+   },
+   {
+    "number": "4",
+    "name": "IO16"
+   },
+   {
+    "number": "5",
+    "name": "IO14"
+   },
+   {
+    "number": "6",
+    "name": "IO12"
+   },
+   {
+    "number": "7",
+    "name": "IO13"
+   },
+   {
+    "number": "8",
+    "name": "VCC"
+   },
+   {
+    "number": "9",
+    "name": "GND"
+   },
+   {
+    "number": "10",
+    "name": "IO15"
+   },
+   {
+    "number": "11",
+    "name": "IO2"
+   },
+   {
+    "number": "12",
+    "name": "IO0"
+   },
+   {
+    "number": "13",
+    "name": "IO4"
+   },
+   {
+    "number": "14",
+    "name": "IO5"
+   },
+   {
+    "number": "15",
+    "name": "RXD"
+   },
+   {
+    "number": "16",
+    "name": "TXD"
+   },
+   {
+    "number": "17",
+    "name": "EP"
+   }
+  ],
+  "easyeda_symbol_uuid": "cefef542883fad8a6f308b5a4bfbde4b"
+ }
+}

@@ -1,0 +1,24 @@
+{
+ "mpn": "ESP-07S",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 3.3,
+  "vmax": 3.3,
+  "role": "master",
+  "temp_min": -40.0,
+  "temp_max": 125.0,
+  "interfaces": [
+   "UART",
+   "I2C",
+   "HSPI",
+   "I2S"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "interfaces": "Interface Type",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

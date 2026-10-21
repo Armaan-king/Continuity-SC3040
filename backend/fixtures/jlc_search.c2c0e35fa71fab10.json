@@ -1,0 +1,201 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "microSD card socket",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C393941",
+    "model": "TF PUSH",
+    "manufacturer": "SHOU HAN",
+    "package": "SMD",
+    "stock": 224505,
+    "price": 0.0657,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "SD Card / Memory Card Connector",
+    "subcategory_id": 2589,
+    "mounting_type": "smd",
+    "description": "-25℃~+90℃ 2mm Connector and Ejector MicroSD Card (TF Card) No Push-Push SMD SD Card / Memory Card Connector ROHS",
+    "specs": {
+     "Operating Temperature": "-25℃~+90℃",
+     "Connector Type": "Connector and Ejector",
+     "Supplementary Features": "-",
+     "Card Connection Mode": "Push-Push",
+     "Height Above Board": "2mm",
+     "Card Type": "MicroSD Card (TF Card)",
+     "Additional Card Detection Pins": "No"
+    }
+   },
+   {
+    "lcsc": "C91145",
+    "model": "TF-01A",
+    "manufacturer": "Korean Hroparts Elec",
+    "package": "SMD",
+    "stock": 118513,
+    "price": 0.191,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "SD Card / Memory Card Connector",
+    "subcategory_id": 2589,
+    "mounting_type": "smd",
+    "description": "1.85mm Connector and Ejector MicroSD Card (TF Card) Push-Push With Locating Pins SMD SD Card / Memory Card Connector ROHS",
+    "specs": {
+     "Operating Temperature": "-",
+     "Connector Type": "Connector and Ejector",
+     "Supplementary Features": "With Locating Pins",
+     "Card Connection Mode": "Push-Push",
+     "Height Above Board": "1.85mm",
+     "Card Type": "MicroSD Card (TF Card)",
+     "Additional Card Detection Pins": "-"
+    }
+   },
+   {
+    "lcsc": "C720505",
+    "model": "TF-115-BCP9",
+    "manufacturer": "XUNPU",
+    "package": "SMD",
+    "stock": 85834,
+    "price": 0.0963,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "SD Card / Memory Card Connector",
+    "subcategory_id": 2589,
+    "mounting_type": "smd",
+    "description": "-25℃~+85℃ 1.8mm Connector and Ejector MicroSD Card (TF Card) Push-Push SMD SD Card / Memory Card Connector ROHS",
+    "specs": {
+     "Operating Temperature": "-25℃~+85℃",
+     "Connector Type": "Connector and Ejector",
+     "Supplementary Features": "-",
+     "Card Connection Mode": "Push-Push",
+     "Height Above Board": "1.8mm",
+     "Card Type": "MicroSD Card (TF Card)",
+     "Additional Card Detection Pins": "-"
+    }
+   },
+   {
+    "lcsc": "C7529389",
+    "model": "TF-CARD H1.8",
+    "manufacturer": "SHOU HAN",
+    "package": "SMD",
+    "stock": 58831,
+    "price": 0.0636,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "SD Card / Memory Card Connector",
+    "subcategory_id": 2589,
+    "mounting_type": "smd",
+    "description": "-40℃~+70℃ 1.8mm Connector and Ejector MicroSD Card (TF Card) Push-Push SMD SD Card / Memory Card Connector ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+70℃",
+     "Connector Type": "Connector and Ejector",
+     "Supplementary Features": "-",
+     "Card Connection Mode": "Push-Push",
+     "Height Above Board": "1.8mm",
+     "Card Type": "MicroSD Card (TF Card)",
+     "Additional Card Detection Pins": "-"
+    }
+   },
+   {
+    "lcsc": "C111196",
+    "model": "TF-15x15",
+    "manufacturer": "SOFNG",
+    "package": "SMD",
+    "stock": 52823,
+    "price": 0.1692,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "SD Card / Memory Card Connector",
+    "subcategory_id": 2589,
+    "mounting_type": "smd",
+    "description": "-25℃~+85℃ 2mm Connector and Ejector MicroSD Card (TF Card) Push-Push Yes SMD SD Card / Memory Card Connector ROHS",
+    "specs": {
+     "Operating Temperature": "-25℃~+85℃",
+     "Connector Type": "Connector and Ejector",
+     "Card Connection Mode": "Push-Push",
+     "Height Above Board": "2mm",
+     "Card Type": "MicroSD Card (TF Card)",
+     "Additional Card Detection Pins": "Yes"
+    }
+   },
+   {
+    "lcsc": "C2889258",
+    "model": "TF-01A",
+    "manufacturer": "Yuandi",
+    "package": "SMD",
+    "stock": 43658,
+    "price": 0.096,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "SD Card / Memory Card Connector",
+    "subcategory_id": 2589,
+    "mounting_type": "smd",
+    "description": "2mm Connector and Ejector MicroSD Card (TF Card) No Push-Push SMD SD Card / Memory Card Connector ROHS",
+    "specs": {
+     "Operating Temperature": "-",
+     "Connector Type": "Connector and Ejector",
+     "Card Connection Mode": "Push-Push",
+     "Height Above Board": "2mm",
+     "Card Type": "MicroSD Card (TF Card)",
+     "Additional Card Detection Pins": "No"
+    }
+   }
+  ],
+  "total": 579,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 6
+  },
+  "filters_applied": {
+   "query": "card",
+   "subcategory_id": 2589,
+   "subcategory_name": "sd card / memory card connector",
+   "subcategory_resolved": "SD Card / Memory Card Connector",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 579
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "microSD card socket",
+   "detected": {
+    "component_type": "microsd",
+    "subcategory": "sd card / memory card connector"
+   },
+   "subcategory": "sd card / memory card connector",
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "card"
+  }
+ }
+}

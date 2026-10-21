@@ -1,0 +1,36 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "AR0234CSSM28SUKA0-CP",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C5207406",
+    "model": "AR0234CSSM28SUKA0-CP",
+    "manufacturer": "onsemi",
+    "package": "ODCSP-83(5.6x10)",
+    "stock": 17,
+    "price": 48.5561,
+    "price_10": 48.5561,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Image Sensors",
+    "subcategory_id": 3078,
+    "mounting_type": "smd",
+    "specs": {
+     "Sensor Type": "CMOS Image Sensor",
+     "Pixel Size": "3umx3um",
+     "Active Pixel Array": "1920Hx1200V"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

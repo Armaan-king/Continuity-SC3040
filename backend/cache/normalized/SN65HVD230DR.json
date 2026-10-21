@@ -1,0 +1,24 @@
+{
+ "mpn": "SN65HVD230DR",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 3.0,
+  "vmax": 3.6,
+  "i_typ": 0.017,
+  "i_peak": 0.00037,
+  "role": "peripheral",
+  "temp_min": -40.0,
+  "temp_max": 85.0,
+  "interfaces": [
+   "CAN"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "i_typ": "Current - Supply",
+  "i_peak": "Quiescent Supply Current",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

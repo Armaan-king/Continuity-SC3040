@@ -1,0 +1,43 @@
+{
+ "tool": "jlc_get_part",
+ "arguments": {
+  "mpn": "TPS54331DR"
+ },
+ "response": {
+  "mpn": "TPS54331DR",
+  "total": 1,
+  "results": [
+   {
+    "lcsc": "C9865",
+    "model": "TPS54331DR",
+    "manufacturer": "Texas Instruments",
+    "package": "SOIC-8",
+    "stock": 82513,
+    "price": 0.4154,
+    "price_10": null,
+    "library_type": "preferred",
+    "preferred": true,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+150℃@(TJ) 1 110uA 3.5V~28V 3A 570kHz 800mV~25V Adjustable Buck Buck Built-in No SOIC-8 DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+150℃@(TJ)",
+     "Function": "Step-down type",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "570kHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "3.5V~28V",
+     "Output Current": "3A",
+     "Quiescent Current": "110uA",
+     "Features": "Overcurrent Protection、Light load efficient mode、Adjustable soft-start、Cycle-by-cycle current limiting、External compensation",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck",
+     "Output Voltage": "800mV~25V",
+     "Number of Outputs": "1"
+    }
+   }
+  ]
+ }
+}

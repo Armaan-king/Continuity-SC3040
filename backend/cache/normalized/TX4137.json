@@ -1,0 +1,24 @@
+{
+ "mpn": "TX4137",
+ "prompt": "a3400943f200",
+ "fields": {
+  "vmin": 5.5,
+  "vmax": 60.0,
+  "i_typ": 0.0007,
+  "i_max": 0.6,
+  "role": "passive",
+  "topology": "buck",
+  "temp_min": -40.0,
+  "temp_max": 125.0,
+  "interfaces": []
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "i_typ": "Quiescent Current",
+  "i_max": "Output Current",
+  "topology": "Topology",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

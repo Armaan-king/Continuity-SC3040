@@ -1,0 +1,76 @@
+{
+ "tool": "cse_search",
+ "arguments": {
+  "query": "NRF52840-QIAA-R"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "cse",
+    "mfr_part_number": "NRF52840-QIAA-R (D0)",
+    "manufacturer": "Nordic Semiconductor",
+    "description": "BT+ZigBee Chip 2400MHz 73-Pin AQFN EP T/R",
+    "datasheet_url": "https://www.arrow.com/en/products/nrf52840-qiaa-r-d0/nordic-semiconductor?region=nac",
+    "has_model": false,
+    "has_3d": false,
+    "model_quality": 0,
+    "cse_part_id": 2205395,
+    "pin_count": 73,
+    "image_url": null
+   },
+   {
+    "source": "cse",
+    "mfr_part_number": "nRF52840-QIAA-R7",
+    "manufacturer": "Nordic Semiconductor",
+    "description": "RF System on a Chip - SoC BLE ANT 2.4GHz SOC",
+    "datasheet_url": "https://docs-be.nordicsemi.com/bundle/ps_nrf52840/attach/nRF52840_PS_v1.11.pdf?_LANG=enus",
+    "has_model": false,
+    "has_3d": true,
+    "model_quality": 0,
+    "cse_part_id": 949467,
+    "pin_count": 73,
+    "image_url": "https://componentsearchengine.com/2D/0/949467.png"
+   },
+   {
+    "source": "cse",
+    "mfr_part_number": "NRF52840-QIAA-R (C0)",
+    "manufacturer": "Nordic Semiconductor",
+    "description": "NRF52840-QIAA-R (C0) - High-End Multiprotocol Bluetooth 5/Bluetooth mesh/Thread/802.15.4",
+    "datasheet_url": "http://infocenter.nordicsemi.com/pdf/nRF52840_PS_v1.0.pdf",
+    "has_model": false,
+    "has_3d": false,
+    "model_quality": 0,
+    "cse_part_id": 1160101,
+    "pin_count": 74,
+    "image_url": null
+   },
+   {
+    "source": "cse",
+    "mfr_part_number": "NRF52840-QIAA-R",
+    "manufacturer": "* Other *",
+    "description": "",
+    "datasheet_url": "https://infocenter.nordicsemi.com/pdf/nRF52840_PS_v1.1.pdf",
+    "has_model": false,
+    "has_3d": false,
+    "model_quality": 0,
+    "cse_part_id": 3075130,
+    "pin_count": 73,
+    "image_url": null
+   },
+   {
+    "source": "cse",
+    "mfr_part_number": "NRF52840-QIAA-R7-DX0",
+    "manufacturer": "Nordic Semiconductor",
+    "description": "NRF52840-QIAA-R7-DX0 - Bluetooth 5 and IEEE 802.15.4-2006 2.4 GHz Transceiver",
+    "datasheet_url": null,
+    "has_model": false,
+    "has_3d": false,
+    "model_quality": 0,
+    "cse_part_id": 18401058,
+    "pin_count": 0,
+    "image_url": null
+   }
+  ],
+  "total": 6
+ }
+}

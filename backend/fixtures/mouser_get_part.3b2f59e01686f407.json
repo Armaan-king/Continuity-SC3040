@@ -1,0 +1,10 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "PJ-320D"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

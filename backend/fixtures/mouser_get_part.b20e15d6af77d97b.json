@@ -1,0 +1,140 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "SP485EEN-L/TR"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "701-SP485EEN-L/TR",
+    "mfr_part_number": "SP485EEN-L/TR",
+    "manufacturer": "MaxLinear",
+    "description": "RS-422/RS-485 Interface IC Low Pwr Half-Duplex RS-485",
+    "category": "RS-422/RS-485 Interface IC",
+    "stock": 40746,
+    "price": 0.74,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 0.74,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 0.529,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 0.476,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 0.416,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 0.388,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 0.371,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 0.357,
+      "currency": "USD"
+     },
+     {
+      "qty": 2500,
+      "price": 0.357,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/728/1/SP481E_SP485E.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/MaxLinear/SP485EEN-L-TR?qs=3EMgrMjM0fa5WEiW9NTI3A%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "2500"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "701-SP485EEN-L",
+    "mfr_part_number": "SP485EEN-L",
+    "manufacturer": "MaxLinear",
+    "description": "RS-422/RS-485 Interface IC RS485 10000 kbps EMI temp -40C to 85C",
+    "category": "RS-422/RS-485 Interface IC",
+    "stock": 5100,
+    "price": 0.77,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 0.77,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 0.54,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 0.442,
+      "currency": "USD"
+     },
+     {
+      "qty": 98,
+      "price": 0.393,
+      "currency": "USD"
+     },
+     {
+      "qty": 294,
+      "price": 0.369,
+      "currency": "USD"
+     },
+     {
+      "qty": 588,
+      "price": 0.355,
+      "currency": "USD"
+     },
+     {
+      "qty": 1078,
+      "price": 0.342,
+      "currency": "USD"
+     },
+     {
+      "qty": 2548,
+      "price": 0.332,
+      "currency": "USD"
+     },
+     {
+      "qty": 5096,
+      "price": 0.324,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/728/1/SP481E_SP485E.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/MaxLinear/SP485EEN-L?qs=H%252BP%2FcHWii3eBjfJCCluoeQ%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Tube",
+     "Standard Pack Qty": "98"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 2
+ }
+}

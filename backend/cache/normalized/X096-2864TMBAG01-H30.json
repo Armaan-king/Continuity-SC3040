@@ -1,0 +1,22 @@
+{
+ "mpn": "X096-2864TMBAG01-H30",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 1.65,
+  "vmax": 3.3,
+  "role": "peripheral",
+  "temp_min": -40.0,
+  "temp_max": 85.0,
+  "interfaces": [
+   "I2C",
+   "SPI"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply  For Logic",
+  "vmax": "Voltage - Supply  For Logic",
+  "interfaces": "Interface",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

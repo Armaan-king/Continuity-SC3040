@@ -1,0 +1,67 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "ESP-07S"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "223-ESP-07S",
+    "mfr_part_number": "ESP-07S",
+    "manufacturer": "RF Solutions",
+    "description": "WiFi Modules - 802.11 ESP8266 WiFi 802.11b/g/n 160Mbits SPI Flash UART UFL SMT",
+    "category": "WiFi Modules - 802.11",
+    "stock": 374,
+    "price": 9.89,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 9.89,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 8.58,
+      "currency": "USD"
+     },
+     {
+      "qty": 30,
+      "price": 8.13,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 7.5,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 7.12,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 6.77,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 6.59,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/RF-Solutions/ESP-07S?qs=UkDUCjYnTB0lj%252B%252BGJB5oeg%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Standard Pack Qty": "10"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 1
+ }
+}

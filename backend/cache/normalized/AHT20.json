@@ -1,0 +1,23 @@
+{
+ "mpn": "AHT20",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 2.2,
+  "vmax": 5.5,
+  "i_typ": 0.00057,
+  "role": "peripheral",
+  "temp_min": -40.0,
+  "temp_max": 120.0,
+  "interfaces": [
+   "I2C"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "i_typ": "Current - Supply",
+  "interfaces": "Interface",
+  "temp_min": "Temperature Range",
+  "temp_max": "Temperature Range"
+ }
+}

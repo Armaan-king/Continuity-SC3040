@@ -1,0 +1,31 @@
+node_modules/
+.venv/
+__pycache__/
+.env
+.env.*
+!.env.example
+dist/
+.DS_Store
+fixtures/*.live.json
+.coverage
+
+# Working notes and development history — kept locally, not published.
+#
+# Every one of these is anchored with a leading slash. Unanchored, `design/` also
+# matches `frontend/src/app/design/` and `fixtures/` also matches
+# `backend/fixtures/` — so a new component or a newly recorded distributor response
+# would be silently ignored, invisible to `git status`, and simply absent from the
+# next clone. Both were, until this was measured.
+/RUN.md
+/BUILD_LOG.md
+/design/
+/fixtures/
+/docs/DEFERRED.md
+/docs/BUILD_STEPS.md
+/docs/STATUS.md
+/docs/specs/
+
+# Playwright MCP snapshots and screenshots from local browser checks.
+.playwright-mcp/
+test-results/
+playwright-report/

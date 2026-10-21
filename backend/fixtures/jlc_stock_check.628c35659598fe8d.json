@@ -1,0 +1,42 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "L76KB-A58",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C2916234",
+    "model": "L76KB-A58",
+    "manufacturer": "Quectel",
+    "package": "SMD,10.1x9.7mm",
+    "stock": 3620,
+    "price": 4.3914,
+    "price_10": 3.6989,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "GNSS Modules",
+    "subcategory_id": 3206,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Accuracy": "2m",
+     "Sensitivity": "-148dBm",
+     "Voltage - Supply": "2.7V~3.4V",
+     "Features": "RTC backup power、Short-circuit detection",
+     "Time To First Fix": "5.5s、30s",
+     "GNSS Type": "GPS、QZSS、BeiDou、GLONASS",
+     "Current - Supply": "100mA@3.3V",
+     "Interface": "UART"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

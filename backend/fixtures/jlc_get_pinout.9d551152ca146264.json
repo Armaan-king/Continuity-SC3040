@@ -1,0 +1,208 @@
+{
+ "tool": "jlc_get_pinout",
+ "arguments": {
+  "lcsc": "C95578"
+ },
+ "response": {
+  "lcsc": "C95578",
+  "model": "STM32L151C8T6A",
+  "manufacturer": "STMicroelectronics",
+  "package": "LQFP-48(7x7)",
+  "pin_count": 48,
+  "pins": [
+   {
+    "number": "1",
+    "name": "VLCD"
+   },
+   {
+    "number": "2",
+    "name": "PC13-WKUP2"
+   },
+   {
+    "number": "3",
+    "name": "PC14-OSC32_IN"
+   },
+   {
+    "number": "4",
+    "name": "PC15-OSC32_OUT"
+   },
+   {
+    "number": "5",
+    "name": "PH0-OSC_IN"
+   },
+   {
+    "number": "6",
+    "name": "PH1-OSC_OUT"
+   },
+   {
+    "number": "7",
+    "name": "NRST"
+   },
+   {
+    "number": "8",
+    "name": "VSSA"
+   },
+   {
+    "number": "9",
+    "name": "VDDA"
+   },
+   {
+    "number": "10",
+    "name": "PA0-WKUP1"
+   },
+   {
+    "number": "11",
+    "name": "PA1"
+   },
+   {
+    "number": "12",
+    "name": "PA2"
+   },
+   {
+    "number": "13",
+    "name": "PA3"
+   },
+   {
+    "number": "14",
+    "name": "PA4"
+   },
+   {
+    "number": "15",
+    "name": "PA5"
+   },
+   {
+    "number": "16",
+    "name": "PA6"
+   },
+   {
+    "number": "17",
+    "name": "PA7"
+   },
+   {
+    "number": "18",
+    "name": "PB0"
+   },
+   {
+    "number": "19",
+    "name": "PB1"
+   },
+   {
+    "number": "20",
+    "name": "PB2"
+   },
+   {
+    "number": "21",
+    "name": "PB10"
+   },
+   {
+    "number": "22",
+    "name": "PB11"
+   },
+   {
+    "number": "23",
+    "name": "VSS_1"
+   },
+   {
+    "number": "24",
+    "name": "VDD1"
+   },
+   {
+    "number": "25",
+    "name": "PB12"
+   },
+   {
+    "number": "26",
+    "name": "PB13"
+   },
+   {
+    "number": "27",
+    "name": "PB14"
+   },
+   {
+    "number": "28",
+    "name": "PB15"
+   },
+   {
+    "number": "29",
+    "name": "PA8"
+   },
+   {
+    "number": "30",
+    "name": "PA9"
+   },
+   {
+    "number": "31",
+    "name": "PA10"
+   },
+   {
+    "number": "32",
+    "name": "PA11"
+   },
+   {
+    "number": "33",
+    "name": "PA12"
+   },
+   {
+    "number": "34",
+    "name": "PA13"
+   },
+   {
+    "number": "35",
+    "name": "VSS_2"
+   },
+   {
+    "number": "36",
+    "name": "VDD_2"
+   },
+   {
+    "number": "37",
+    "name": "PA14"
+   },
+   {
+    "number": "38",
+    "name": "PA15"
+   },
+   {
+    "number": "39",
+    "name": "PB3"
+   },
+   {
+    "number": "40",
+    "name": "PB4"
+   },
+   {
+    "number": "41",
+    "name": "PB5"
+   },
+   {
+    "number": "42",
+    "name": "PB6"
+   },
+   {
+    "number": "43",
+    "name": "PB7"
+   },
+   {
+    "number": "44",
+    "name": "BOOT0"
+   },
+   {
+    "number": "45",
+    "name": "PB8"
+   },
+   {
+    "number": "46",
+    "name": "PB9"
+   },
+   {
+    "number": "47",
+    "name": "VSS_3"
+   },
+   {
+    "number": "48",
+    "name": "VDD_3"
+   }
+  ],
+  "easyeda_symbol_uuid": "71657d9283bb41f097608d3d1cb22a70"
+ }
+}

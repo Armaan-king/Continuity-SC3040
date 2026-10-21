@@ -1,0 +1,40 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "MAX14830ETM+T",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C2653202",
+    "model": "MAX14830ETM+T",
+    "manufacturer": "Analog Devices Inc./Maxim Integrated",
+    "package": "TQFN-48-EP(7x7)",
+    "stock": 2560,
+    "price": 15.8197,
+    "price_10": 15.2291,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "UART",
+    "subcategory_id": 2575,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Data Rate(Max)": "12Mbps",
+     "Memory Size": "128Byte",
+     "Number of Channels": "4",
+     "Voltage - Supply": "1.71V~3.6V、2.35V~3.6V",
+     "Features": "With automatic flow control、Configurable GPIO、Auto Transceiver Direction Control、Interrupt Trigger、Hardware flow control support、Software flow control support、Fractional baud rate generator、Automatic RS-485 direction control",
+     "Current - Supply": "-"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

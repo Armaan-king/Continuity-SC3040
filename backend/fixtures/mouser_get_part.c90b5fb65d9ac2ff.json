@@ -1,0 +1,98 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "CN3125"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "996-NSYTBCN3125",
+    "mfr_part_number": "NSYTBCN3125",
+    "manufacturer": "Schneider Electric",
+    "description": "Electrical Enclosure Accessories Top busbar chamber 300x1200x500",
+    "category": "Electrical Enclosure Accessories",
+    "stock": 0,
+    "price": 631.78,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 631.78,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 491.88,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Schneider-Electric/NSYTBCN3125?qs=Q%2F5vwRdkjWJmtg5txihplg%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "New at Mouser",
+    "parameters": {
+     "Standard Pack Qty": "1"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "17-LCCN3125",
+    "mfr_part_number": "LCCN3125",
+    "manufacturer": "L-Com",
+    "description": "RF Connectors / Coaxial Connectors 18 GHz SMA Female Connector Solder Attachment 4 Ho",
+    "category": "RF Connectors / Coaxial Connectors",
+    "stock": 0,
+    "price": 31.78,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 31.78,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 26.02,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 24.5,
+      "currency": "USD"
+     },
+     {
+      "qty": 50,
+      "price": 24.21,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 23.71,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 23.0,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 22.65,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/L-Com/LCCN3125?qs=%252BHhoWzUJg4KRmkMdobaAQQ%3D%3D",
+    "rohs": "",
+    "lifecycle": "New at Mouser",
+    "parameters": {
+     "Standard Pack Qty": "1"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 2
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "mpn": "TMP102AIDRLR",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 1.4,
+  "vmax": 3.6,
+  "i_typ": 1e-06,
+  "role": "peripheral",
+  "temp_min": -40.0,
+  "temp_max": 125.0,
+  "interfaces": [
+   "I2C"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "i_typ": "Standby Current",
+  "interfaces": "Interface",
+  "temp_min": "Detection Temperature Range",
+  "temp_max": "Detection Temperature Range"
+ }
+}

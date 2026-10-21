@@ -1,0 +1,39 @@
+{
+ "tool": "jlc_get_part",
+ "arguments": {
+  "mpn": "AHT20"
+ },
+ "response": {
+  "mpn": "AHT20",
+  "total": 1,
+  "results": [
+   {
+    "lcsc": "C2757850",
+    "model": "AHT20",
+    "manufacturer": "Aosong (Guangzhou) Elec",
+    "package": "SMD",
+    "stock": 49617,
+    "price": 0.7912,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Temperature and Humidity Sensor",
+    "subcategory_id": 3191,
+    "mounting_type": "smd",
+    "description": "-40℃~+120℃ 0%RH~100%RH 2.2V~5.5V 20bit 570uA I2C ±0.3℃ ±2%RH SMD Temperature and Humidity Sensor ROHS",
+    "specs": {
+     "Temperature Tolerance": "±0.3℃",
+     "Voltage - Supply": "2.2V~5.5V",
+     "Humidity": "0%RH~100%RH",
+     "Temperature Range": "-40℃~+120℃",
+     "Features": "Factory calibration",
+     "Current - Supply": "570uA",
+     "Interface": "I2C",
+     "Resolution": "20bit",
+     "Humidity Tolerance": "±2%RH"
+    }
+   }
+  ]
+ }
+}

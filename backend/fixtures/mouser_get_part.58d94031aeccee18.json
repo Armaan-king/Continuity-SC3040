@@ -1,0 +1,161 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "W7500P"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "950-W7500P",
+    "mfr_part_number": "W7500P",
+    "manufacturer": "WIZnet",
+    "description": "ARM Microcontrollers - MCU ARM Cortex-M0 Core 128KBflsh TCP/IP PHY",
+    "category": "ARM Microcontrollers - MCU",
+    "stock": 2009,
+    "price": 5.87,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 5.87,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 4.56,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 3.89,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 3.61,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 3.5,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 3.3,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 2.89,
+      "currency": "USD"
+     },
+     {
+      "qty": 2500,
+      "price": 2.87,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/WIZnet/W7500P?qs=49jCJYXrXPhG03qIHZCeEQ%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Bulk",
+     "Standard Pack Qty": "250"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "950-WIZWIKI-W7500P",
+    "mfr_part_number": "WIZwiki-W7500P",
+    "manufacturer": "WIZnet",
+    "description": "Development Boards & Kits - ARM W7500P Eval Board for mbed",
+    "category": "Development Boards & Kits - ARM",
+    "stock": 4,
+    "price": 28.59,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 28.59,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/WIZnet/WIZwiki-W7500P?qs=49jCJYXrXPjZidwPvgn6AA%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Bulk",
+     "Standard Pack Qty": "1"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "950-W7500P-S2E",
+    "mfr_part_number": "W7500P-S2E",
+    "manufacturer": "WIZnet",
+    "description": "ARM Microcontrollers - MCU W7500P + WIZ750SR Firmware + MAC Add",
+    "category": "ARM Microcontrollers - MCU",
+    "stock": 2330,
+    "price": 7.65,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 7.65,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 6.35,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 5.61,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 5.35,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 5.05,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 4.86,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 4.58,
+      "currency": "USD"
+     },
+     {
+      "qty": 2500,
+      "price": 4.36,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/WIZnet/W7500P-S2E?qs=0lSvoLzn4L9Dejyv9ytr3Q%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Standard Pack Qty": "250"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 3
+ }
+}

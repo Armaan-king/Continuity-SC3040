@@ -1,0 +1,79 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "RTC IC",
+  "sort_by": "stock",
+  "limit": 40
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C125188",
+    "model": "SLM1302",
+    "manufacturer": "SOLA-IC",
+    "package": "SOIC-8",
+    "stock": 6154,
+    "price": 0.2853,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Clock/Timing",
+    "subcategory": "Real Time Clocks",
+    "subcategory_id": 3017,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 100nA 2V~5.5V 300uA、1.2mA Backup power management and battery charging、InsideSRAM/NVRAM、Sleep/Wake control External SPI SOIC-8 Real Time Clocks ROHS",
+    "specs": {
+     "Alarm Output": "-",
+     "Operating Temperature": "-40℃~+85℃",
+     "Voltage - Supply": "2V~5.5V",
+     "crystal oscillator": "External",
+     "Features": "Backup power management and battery charging、InsideSRAM/NVRAM、Sleep/Wake control",
+     "Current - Supply": "300uA、1.2mA",
+     "Quiescent Current(Iq)": "100nA",
+     "Interface": "SPI"
+    }
+   }
+  ],
+  "total": 1,
+  "page_info": {
+   "limit": 40,
+   "offset": 0,
+   "returned": 1
+  },
+  "filters_applied": {
+   "query": "IC",
+   "subcategory_id": 3017,
+   "subcategory_name": "real time clocks",
+   "subcategory_resolved": "Real Time Clocks",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 1
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "RTC IC",
+   "detected": {
+    "component_type": "rtc",
+    "subcategory": "real time clocks"
+   },
+   "subcategory": "real time clocks",
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "IC"
+  }
+ }
+}

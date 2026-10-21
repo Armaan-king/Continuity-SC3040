@@ -1,0 +1,23 @@
+{
+ "mpn": "SP485EEN-L/TR",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 4.75,
+  "vmax": 5.25,
+  "i_typ": 0.0009,
+  "role": "peripheral",
+  "temp_min": -40.0,
+  "temp_max": 85.0,
+  "interfaces": [
+   "RS-485",
+   "RS-422"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "i_typ": "Quiescent Supply Current",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

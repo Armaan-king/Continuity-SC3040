@@ -1,0 +1,10 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "SPA06-003"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

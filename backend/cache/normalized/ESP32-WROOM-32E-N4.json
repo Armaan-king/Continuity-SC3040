@@ -1,0 +1,29 @@
+{
+ "mpn": "ESP32-WROOM-32E-N4",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 3.0,
+  "vmax": 3.6,
+  "i_typ": 0.112,
+  "i_peak": 0.239,
+  "role": "master",
+  "temp_min": -40.0,
+  "temp_max": 85.0,
+  "interfaces": [
+   "UART",
+   "SDIO",
+   "SPI",
+   "I2C",
+   "GPIO"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "i_typ": "Receive  Current",
+  "i_peak": "Send  Current",
+  "interfaces": "Interface Type",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

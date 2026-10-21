@@ -1,0 +1,46 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "TPS54331DR",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C9865",
+    "model": "TPS54331DR",
+    "manufacturer": "Texas Instruments",
+    "package": "SOIC-8",
+    "stock": 83171,
+    "price": 0.4159,
+    "price_10": 0.3269,
+    "library_type": "preferred",
+    "preferred": true,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+150℃@(TJ)",
+     "Function": "Step-down type",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "570kHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "3.5V~28V",
+     "Output Current": "3A",
+     "Quiescent Current": "110uA",
+     "Features": "Overcurrent Protection、Light load efficient mode、Adjustable soft-start、Cycle-by-cycle current limiting、External compensation",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck",
+     "Output Voltage": "800mV~25V",
+     "Number of Outputs": "1"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

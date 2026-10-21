@@ -1,0 +1,83 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "buck regulator",
+  "sort_by": "stock",
+  "limit": 40
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C41432020",
+    "model": "AKZ25V15R",
+    "manufacturer": "ARK micro",
+    "package": "SOT-23",
+    "stock": 1373,
+    "price": 0.7501,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators",
+    "subcategory_id": 2956,
+    "mounting_type": "smd",
+    "description": "-55℃~+125℃ 1 200V 24V 30mA Buck Buck Fixed SOT-23 Voltage Regulators - Linear, Low Drop Out (LDO) Regulators ROHS",
+    "specs": {
+     "Power Supply Rejection Ratio (PSRR)": "-",
+     "Operating Temperature": "-55℃~+125℃@(Ta)",
+     "standby current": "20uA",
+     "Noise": "-",
+     "Voltage - Supply": "180V",
+     "Output Type": "Fixed",
+     "Output Current": "30mA",
+     "Output Configuration": "Positive",
+     "Features": "Over Current Protection、Input overvoltage protection",
+     "Voltage Dropout": "240mV@(30mA)",
+     "Output Voltage": "24V",
+     "Number of Outputs": "1"
+    }
+   }
+  ],
+  "total": 1,
+  "page_info": {
+   "limit": 40,
+   "offset": 0,
+   "returned": 1
+  },
+  "filters_applied": {
+   "query": "buck",
+   "subcategory_id": 2956,
+   "subcategory_name": "voltage regulators - linear, low drop out (ldo) regulators",
+   "subcategory_resolved": "Voltage Regulators - Linear, Low Drop Out (LDO) Regulators",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 1
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "buck regulator",
+   "detected": {
+    "component_type": "regulator",
+    "subcategory": "voltage regulators - linear, low drop out (ldo) regulators"
+   },
+   "subcategory": "voltage regulators - linear, low drop out (ldo) regulators",
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "buck"
+  }
+ }
+}

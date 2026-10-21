@@ -1,0 +1,10 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "ES8311"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

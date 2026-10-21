@@ -1,0 +1,724 @@
+{
+ "tool": "jlc_get_pinout",
+ "arguments": {
+  "lcsc": "C659969"
+ },
+ "response": {
+  "lcsc": "C659969",
+  "model": "ADSP-CM408CSWZ-BF",
+  "manufacturer": "Analog Devices",
+  "package": "LQFP-176(24x24)",
+  "pin_count": 177,
+  "pins": [
+   {
+    "number": "1",
+    "name": "PA_13"
+   },
+   {
+    "number": "2",
+    "name": "VDD_EXT"
+   },
+   {
+    "number": "3",
+    "name": "PA_12"
+   },
+   {
+    "number": "4",
+    "name": "PA_11"
+   },
+   {
+    "number": "5",
+    "name": "PC_15"
+   },
+   {
+    "number": "6",
+    "name": "PA_10"
+   },
+   {
+    "number": "7",
+    "name": "PC_14"
+   },
+   {
+    "number": "8",
+    "name": "VDD_EXT"
+   },
+   {
+    "number": "9",
+    "name": "PC_13"
+   },
+   {
+    "number": "10",
+    "name": "PC_11"
+   },
+   {
+    "number": "11",
+    "name": "PC_12"
+   },
+   {
+    "number": "12",
+    "name": "PA_09"
+   },
+   {
+    "number": "13",
+    "name": "PA_08"
+   },
+   {
+    "number": "14",
+    "name": "PA_07"
+   },
+   {
+    "number": "15",
+    "name": "VDD_EXT"
+   },
+   {
+    "number": "16",
+    "name": "PA_06"
+   },
+   {
+    "number": "17",
+    "name": "PA_05"
+   },
+   {
+    "number": "18",
+    "name": "PA_04"
+   },
+   {
+    "number": "19",
+    "name": "PA_03"
+   },
+   {
+    "number": "20",
+    "name": "PA_02"
+   },
+   {
+    "number": "21",
+    "name": "PA_01"
+   },
+   {
+    "number": "22",
+    "name": "VDD_INT"
+   },
+   {
+    "number": "23",
+    "name": "VDD_EXT"
+   },
+   {
+    "number": "24",
+    "name": "SYS_RESOUT#"
+   },
+   {
+    "number": "25",
+    "name": "PA_00"
+   },
+   {
+    "number": "26",
+    "name": "SYS_FAULT#"
+   },
+   {
+    "number": "27",
+    "name": "SYS_HWRST#"
+   },
+   {
+    "number": "28",
+    "name": "VDD_EXT"
+   },
+   {
+    "number": "29",
+    "name": "SYS_XTAL"
+   },
+   {
+    "number": "30",
+    "name": "SYS_CLKIN"
+   },
+   {
+    "number": "31",
+    "name": "VREG_BASE"
+   },
+   {
+    "number": "32",
+    "name": "VDD_VREG"
+   },
+   {
+    "number": "33",
+    "name": "VDD_EXT"
+   },
+   {
+    "number": "34",
+    "name": "USB0_DM"
+   },
+   {
+    "number": "35",
+    "name": "USB0_DP"
+   },
+   {
+    "number": "36",
+    "name": "USB0_VBUS"
+   },
+   {
+    "number": "37",
+    "name": "USB0_ID"
+   },
+   {
+    "number": "38",
+    "name": "PC_10"
+   },
+   {
+    "number": "39",
+    "name": "PC_08"
+   },
+   {
+    "number": "40",
+    "name": "PC_09"
+   },
+   {
+    "number": "41",
+    "name": "VDD_EXT"
+   },
+   {
+    "number": "42",
+    "name": "TWI0_SCL"
+   },
+   {
+    "number": "43",
+    "name": "TWI0_SDA"
+   },
+   {
+    "number": "44",
+    "name": "JTG_TDI"
+   },
+   {
+    "number": "45",
+    "name": "JTG_TCK/SWCLK"
+   },
+   {
+    "number": "46",
+    "name": "JTG_TRST#"
+   },
+   {
+    "number": "47",
+    "name": "JTG_TDO/SWO"
+   },
+   {
+    "number": "48",
+    "name": "JTG_TMS/SWDIO"
+   },
+   {
+    "number": "49",
+    "name": "PC_07"
+   },
+   {
+    "number": "50",
+    "name": "VDD_EXT"
+   },
+   {
+    "number": "51",
+    "name": "PC_05"
+   },
+   {
+    "number": "52",
+    "name": "PC_06"
+   },
+   {
+    "number": "53",
+    "name": "PF_10"
+   },
+   {
+    "number": "54",
+    "name": "PC_04"
+   },
+   {
+    "number": "55",
+    "name": "PF_08"
+   },
+   {
+    "number": "56",
+    "name": "PF_09"
+   },
+   {
+    "number": "57",
+    "name": "VDD_EXT"
+   },
+   {
+    "number": "58",
+    "name": "PF_06"
+   },
+   {
+    "number": "59",
+    "name": "PF_07"
+   },
+   {
+    "number": "60",
+    "name": "PC_03"
+   },
+   {
+    "number": "61",
+    "name": "PF_05"
+   },
+   {
+    "number": "62",
+    "name": "PC_01"
+   },
+   {
+    "number": "63",
+    "name": "PC_02"
+   },
+   {
+    "number": "64",
+    "name": "VDD_EXT"
+   },
+   {
+    "number": "65",
+    "name": "VDD_INT"
+   },
+   {
+    "number": "66",
+    "name": "PC_00"
+   },
+   {
+    "number": "67",
+    "name": "PF_04"
+   },
+   {
+    "number": "68",
+    "name": "PF_03"
+   },
+   {
+    "number": "69",
+    "name": "PF_02"
+   },
+   {
+    "number": "70",
+    "name": "PF_01"
+   },
+   {
+    "number": "71",
+    "name": "PF_00"
+   },
+   {
+    "number": "72",
+    "name": "VDD_EXT"
+   },
+   {
+    "number": "73",
+    "name": "PE_15"
+   },
+   {
+    "number": "74",
+    "name": "PE_14"
+   },
+   {
+    "number": "75",
+    "name": "PE_13"
+   },
+   {
+    "number": "76",
+    "name": "PB_14"
+   },
+   {
+    "number": "77",
+    "name": "PB_15"
+   },
+   {
+    "number": "78",
+    "name": "PB_13"
+   },
+   {
+    "number": "79",
+    "name": "VDD_EXT"
+   },
+   {
+    "number": "80",
+    "name": "PB_11"
+   },
+   {
+    "number": "81",
+    "name": "PB_12"
+   },
+   {
+    "number": "82",
+    "name": "PE_12"
+   },
+   {
+    "number": "83",
+    "name": "GND"
+   },
+   {
+    "number": "84",
+    "name": "PE_11"
+   },
+   {
+    "number": "85",
+    "name": "PE_10"
+   },
+   {
+    "number": "86",
+    "name": "VDD_EXT"
+   },
+   {
+    "number": "87",
+    "name": "PE_09"
+   },
+   {
+    "number": "88",
+    "name": "PE_08"
+   },
+   {
+    "number": "89",
+    "name": "PE_07"
+   },
+   {
+    "number": "90",
+    "name": "PE_06"
+   },
+   {
+    "number": "91",
+    "name": "PE_05"
+   },
+   {
+    "number": "92",
+    "name": "PE_04"
+   },
+   {
+    "number": "93",
+    "name": "VDD_EXT"
+   },
+   {
+    "number": "94",
+    "name": "VDD_INT"
+   },
+   {
+    "number": "95",
+    "name": "BYP_D0"
+   },
+   {
+    "number": "96",
+    "name": "GND_ANA3"
+   },
+   {
+    "number": "97",
+    "name": "ADC1_VIN00"
+   },
+   {
+    "number": "98",
+    "name": "ADC1_VIN01"
+   },
+   {
+    "number": "99",
+    "name": "ADC1_VIN02"
+   },
+   {
+    "number": "100",
+    "name": "ADC1_VIN03"
+   },
+   {
+    "number": "101",
+    "name": "ADC1_VIN04"
+   },
+   {
+    "number": "102",
+    "name": "ADC1_VIN05"
+   },
+   {
+    "number": "103",
+    "name": "ADC1_VIN06"
+   },
+   {
+    "number": "104",
+    "name": "ADC1_VIN07"
+   },
+   {
+    "number": "105",
+    "name": "VDD_ANA1"
+   },
+   {
+    "number": "106",
+    "name": "GND_ANA1"
+   },
+   {
+    "number": "107",
+    "name": "BYP_A1"
+   },
+   {
+    "number": "108",
+    "name": "VREF1"
+   },
+   {
+    "number": "109",
+    "name": "GND_VREF1"
+   },
+   {
+    "number": "110",
+    "name": "REFCAP"
+   },
+   {
+    "number": "111",
+    "name": "GND_VREF0"
+   },
+   {
+    "number": "112",
+    "name": "VREF0"
+   },
+   {
+    "number": "113",
+    "name": "BYP_A0"
+   },
+   {
+    "number": "114",
+    "name": "GND_ANA0"
+   },
+   {
+    "number": "115",
+    "name": "VDD_ANA0"
+   },
+   {
+    "number": "116",
+    "name": "ADC0_VIN07"
+   },
+   {
+    "number": "117",
+    "name": "ADC0_VIN06"
+   },
+   {
+    "number": "118",
+    "name": "ADC0_VIN05"
+   },
+   {
+    "number": "119",
+    "name": "ADC0_VIN04"
+   },
+   {
+    "number": "120",
+    "name": "ADC0_VIN03"
+   },
+   {
+    "number": "121",
+    "name": "ADC0_VIN02"
+   },
+   {
+    "number": "122",
+    "name": "ADC0_VIN01"
+   },
+   {
+    "number": "123",
+    "name": "ADC0_VIN00"
+   },
+   {
+    "number": "124",
+    "name": "GND_ANA2"
+   },
+   {
+    "number": "125",
+    "name": "VDD_EXT"
+   },
+   {
+    "number": "126",
+    "name": "PE_03"
+   },
+   {
+    "number": "127",
+    "name": "PE_02"
+   },
+   {
+    "number": "128",
+    "name": "VDD_INT"
+   },
+   {
+    "number": "129",
+    "name": "VDD_EXT"
+   },
+   {
+    "number": "130",
+    "name": "PE_01"
+   },
+   {
+    "number": "131",
+    "name": "GND"
+   },
+   {
+    "number": "132",
+    "name": "SYS_NMI#"
+   },
+   {
+    "number": "133",
+    "name": "PE_00"
+   },
+   {
+    "number": "134",
+    "name": "PD_15"
+   },
+   {
+    "number": "135",
+    "name": "PD_14"
+   },
+   {
+    "number": "136",
+    "name": "VDD_EXT"
+   },
+   {
+    "number": "137",
+    "name": "VDD_EXT"
+   },
+   {
+    "number": "138",
+    "name": "PD_12"
+   },
+   {
+    "number": "139",
+    "name": "PD_13"
+   },
+   {
+    "number": "140",
+    "name": "PD_10"
+   },
+   {
+    "number": "141",
+    "name": "PD_11"
+   },
+   {
+    "number": "142",
+    "name": "PD_08"
+   },
+   {
+    "number": "143",
+    "name": "PD_09"
+   },
+   {
+    "number": "144",
+    "name": "VDD_EXT"
+   },
+   {
+    "number": "145",
+    "name": "PD_07"
+   },
+   {
+    "number": "146",
+    "name": "PD_06"
+   },
+   {
+    "number": "147",
+    "name": "SMC0_AMS0#"
+   },
+   {
+    "number": "148",
+    "name": "SMC0_AWE#"
+   },
+   {
+    "number": "149",
+    "name": "SMC0_ARE#"
+   },
+   {
+    "number": "150",
+    "name": "VDD_EXT"
+   },
+   {
+    "number": "151",
+    "name": "PB_10"
+   },
+   {
+    "number": "152",
+    "name": "PB_09"
+   },
+   {
+    "number": "153",
+    "name": "PB_08"
+   },
+   {
+    "number": "154",
+    "name": "PB_07"
+   },
+   {
+    "number": "155",
+    "name": "PB_06"
+   },
+   {
+    "number": "156",
+    "name": "PB_05"
+   },
+   {
+    "number": "157",
+    "name": "VDD_INT"
+   },
+   {
+    "number": "158",
+    "name": "VDD_EXT"
+   },
+   {
+    "number": "159",
+    "name": "PB_03"
+   },
+   {
+    "number": "160",
+    "name": "PB_04"
+   },
+   {
+    "number": "161",
+    "name": "PD_05"
+   },
+   {
+    "number": "162",
+    "name": "PB_02"
+   },
+   {
+    "number": "163",
+    "name": "PD_03"
+   },
+   {
+    "number": "164",
+    "name": "PD_04"
+   },
+   {
+    "number": "165",
+    "name": "VDD_EXT"
+   },
+   {
+    "number": "166",
+    "name": "PD_01"
+   },
+   {
+    "number": "167",
+    "name": "PD_02"
+   },
+   {
+    "number": "168",
+    "name": "PB_01"
+   },
+   {
+    "number": "169",
+    "name": "PD_00"
+   },
+   {
+    "number": "170",
+    "name": "PA_15"
+   },
+   {
+    "number": "171",
+    "name": "PB_00"
+   },
+   {
+    "number": "172",
+    "name": "VDD_EXT"
+   },
+   {
+    "number": "173",
+    "name": "PA_14"
+   },
+   {
+    "number": "174",
+    "name": "SYS_CLKOUT"
+   },
+   {
+    "number": "175",
+    "name": "SYS_BMODE1"
+   },
+   {
+    "number": "176",
+    "name": "SYS_BMODE0"
+   },
+   {
+    "number": "177",
+    "name": "GND"
+   }
+  ],
+  "easyeda_symbol_uuid": "83bc7366efb84f0881da84df66a89f41"
+ }
+}

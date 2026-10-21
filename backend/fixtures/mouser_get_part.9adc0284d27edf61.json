@@ -1,0 +1,10 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "TP4056-42-ESOP8"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

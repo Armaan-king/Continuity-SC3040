@@ -1,0 +1,10 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "T1820B"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

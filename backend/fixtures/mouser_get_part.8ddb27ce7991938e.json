@@ -1,0 +1,32 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "TC7S08FU(TE85L,F)"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "757-TC7S08FUTE85LF",
+    "mfr_part_number": "TC7S08FU(TE85L,F)",
+    "manufacturer": "Toshiba",
+    "description": "Logic Gates 2-Input AND Gate 7ns 2 to 6V VCC 5 LSTTL",
+    "category": "Logic Gates",
+    "stock": 0,
+    "price": null,
+    "price_breaks": [],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/105/1/346829E56EF92F523D3DAA9700A18A1EDA70EF9D452385CF57AE693B48C541F2.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Toshiba/TC7S08FUTE85LF?qs=OcLJh0ZoaxBmHs7AN2%2FzDg%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Reel",
+     "Standard Pack Qty": "3000"
+    },
+    "min_qty": 3000,
+    "currency": "USD"
+   }
+  ],
+  "total": 1
+ }
+}

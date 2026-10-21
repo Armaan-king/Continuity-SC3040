@@ -1,0 +1,192 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "audio codec",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C962342",
+    "model": "ES8311",
+    "manufacturer": "Everest-semi(Everest Semiconductor)",
+    "package": "QFN-20-EP(3x3)",
+    "stock": 64889,
+    "price": 0.5517,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "Audio Interface ICs",
+    "subcategory_id": 2578,
+    "mounting_type": "smd",
+    "description": "-40℃~+105℃ 0uA 1.8V~3.3V QFN-20-EP(3x3) Audio Interface ICs ROHS",
+    "specs": {
+     "Features": "Mute control、Master-slave clock negotiation"
+    }
+   },
+   {
+    "lcsc": "C22402783",
+    "model": "TPF632C-TR",
+    "manufacturer": "3PEAK",
+    "package": "TSSOP-14",
+    "stock": 19625,
+    "price": 0.1473,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "Audio Interface ICs",
+    "subcategory_id": 2578,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 2.7V~5.5V Power-down and reset protection、Mute control TSSOP-14 Audio Interface ICs ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Type": "-",
+     "Voltage - Supply": "2.7V~5.5V",
+     "Sampling Rate": "-",
+     "Features": "Power-down and reset protection、Mute control",
+     "Interface": "-"
+    }
+   },
+   {
+    "lcsc": "C914208",
+    "model": "NAU88C10YG",
+    "manufacturer": "Nuvoton Tech",
+    "package": "QFN-20(4x4)",
+    "stock": 11449,
+    "price": 0.9708,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "Audio Interface ICs",
+    "subcategory_id": 2578,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 1.71V~3.6V、2.5V~3.6V 8kHz~48kHz Encoder/decoder I2S、I2C QFN-20(4x4) Audio Interface ICs ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Type": "Encoder/decoder",
+     "Voltage - Supply": "1.71V~3.6V、2.5V~3.6V",
+     "Sampling Rate": "8kHz~48kHz",
+     "Features": "Built-in phase-locked loop、On-chip digital gain、Mute control",
+     "Interface": "I2S、I2C"
+    }
+   },
+   {
+    "lcsc": "C389590",
+    "model": "ADAU1701JSTZ-RL",
+    "manufacturer": "Analog Devices",
+    "package": "LQFP-48(7x7)",
+    "stock": 6974,
+    "price": 5.894,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "Audio Interface ICs",
+    "subcategory_id": 2578,
+    "mounting_type": "smd",
+    "description": "0℃~+70℃ 1.62V~1.98V、2.97V~3.63V、3.3V 192kHz I2C、SPI Processor LQFP-48(7x7) Audio Interface ICs ROHS",
+    "specs": {
+     "Operating Temperature": "0℃~+70℃",
+     "Type": "Processor",
+     "Voltage - Supply": "1.62V~1.98V、2.97V~3.63V、3.3V",
+     "Sampling Rate": "192kHz",
+     "Features": "Built-in phase-locked loop、Non-volatile configuration storage",
+     "Interface": "I2C、SPI"
+    }
+   },
+   {
+    "lcsc": "C649112",
+    "model": "AD2428WCCSZ-RL",
+    "manufacturer": "Analog Devices",
+    "package": "LFCSP-32-SS(5x5)",
+    "stock": 6600,
+    "price": 6.3049,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "Audio Interface ICs",
+    "subcategory_id": 2578,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃ 3V~3.63V 48kHz I2S、I2C Transceiver LFCSP-32-SS(5x5) Audio Interface ICs ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃",
+     "Type": "Transceiver",
+     "Voltage - Supply": "3V~3.63V",
+     "Sampling Rate": "48kHz",
+     "Features": "Built-in phase-locked loop、Multi-channel audio",
+     "Interface": "I2S、I2C"
+    }
+   },
+   {
+    "lcsc": "C371347",
+    "model": "CM108B",
+    "manufacturer": "Cmedia",
+    "package": "LQFP-48(7x7)",
+    "stock": 6124,
+    "price": 3.1921,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "Audio Interface ICs",
+    "subcategory_id": 2578,
+    "mounting_type": "smd",
+    "description": "-20℃~+70℃ 4.5V~5.5V 44.1kHz~48kHz Encoder/decoder I2S、USB LQFP-48(7x7) Audio Interface ICs ROHS",
+    "specs": {
+     "Operating Temperature": "-20℃~+70℃",
+     "Type": "Encoder/decoder",
+     "Voltage - Supply": "4.5V~5.5V",
+     "Sampling Rate": "44.1kHz~48kHz",
+     "Features": "Built-in phase-locked loop、On-chip digital gain、Mute control、Non-volatile configuration storage",
+     "Interface": "I2S、USB"
+    }
+   }
+  ],
+  "total": 241,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 6
+  },
+  "filters_applied": {
+   "query": null,
+   "subcategory_id": 2578,
+   "subcategory_name": "audio interface ics",
+   "subcategory_resolved": "Audio Interface ICs",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 241
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "audio codec",
+   "detected": {
+    "component_type": "audio codec",
+    "subcategory": "audio interface ics"
+   },
+   "subcategory": "audio interface ics",
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": ""
+  }
+ }
+}

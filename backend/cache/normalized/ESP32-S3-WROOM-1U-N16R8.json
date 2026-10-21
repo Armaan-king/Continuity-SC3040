@@ -1,0 +1,34 @@
+{
+ "mpn": "ESP32-S3-WROOM-1U-N16R8",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 3.0,
+  "vmax": 3.6,
+  "i_typ": 0.095,
+  "i_peak": 0.355,
+  "role": "master",
+  "temp_min": -40.0,
+  "temp_max": 65.0,
+  "interfaces": [
+   "UART",
+   "SDIO",
+   "SPI",
+   "I2C",
+   "GPIO",
+   "PWM",
+   "ADC",
+   "I2S",
+   "JTAG",
+   "USB"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "i_peak": "Send  Current",
+  "i_typ": "Receive  Current",
+  "interfaces": "Interface Type",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

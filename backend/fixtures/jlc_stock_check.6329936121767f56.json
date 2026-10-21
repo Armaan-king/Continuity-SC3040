@@ -1,0 +1,44 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "BMP580",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C22391138",
+    "model": "BMP580",
+    "manufacturer": "Bosch Sensortec",
+    "package": "LGA-10(2x2)",
+    "stock": 22616,
+    "price": 1.199,
+    "price_10": 0.9968,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Pressure Sensors",
+    "subcategory_id": 3298,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Temperature Coefficient of Offset(TCO)": "0.5pa/K",
+     "Standby Current": "5.5uA",
+     "Response time": "-",
+     "Relative Accuracy": "6pa",
+     "Voltage - Supply": "1.73V~3.6V",
+     "Features": "On-chip temperature compensation、Integrated ADC and digital interface、Standby mode、On-chip temperature output",
+     "Pressure range": "30Kpa~1.25bar",
+     "Absolute Accuracy": "75pa",
+     "Module": "-",
+     "Interface": "I2C、SPI"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

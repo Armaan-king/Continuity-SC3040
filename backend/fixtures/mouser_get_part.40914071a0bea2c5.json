@@ -1,0 +1,10 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "TP4057-42-SOT26-R"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

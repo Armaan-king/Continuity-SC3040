@@ -1,0 +1,20 @@
+{
+ "mpn": "NCD0805R1",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 1.6,
+  "vmax": 2.6,
+  "i_typ": 0.025,
+  "role": "peripheral",
+  "temp_min": -30.0,
+  "temp_max": 85.0,
+  "interfaces": []
+ },
+ "provenance": {
+  "vmin": "Voltage - Forward(Vf)",
+  "vmax": "Voltage - Forward(Vf)",
+  "i_typ": "Test Current",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

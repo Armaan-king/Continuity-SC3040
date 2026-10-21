@@ -1,0 +1,26 @@
+{
+ "mpn": "LGS5145",
+ "prompt": "a3400943f200",
+ "fields": {
+  "vmin": 4.5,
+  "vmax": 55.0,
+  "vout_min": 0.812,
+  "vout_max": 55.0,
+  "i_typ": 0.00015,
+  "i_max": 1.0,
+  "topology": "buck",
+  "temp_min": -40.0,
+  "temp_max": 105.0
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "vout_min": "Output Voltage",
+  "vout_max": "Output Voltage",
+  "i_typ": "Quiescent Current",
+  "i_max": "Output Current",
+  "topology": "Topology",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

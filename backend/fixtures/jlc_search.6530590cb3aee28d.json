@@ -1,0 +1,209 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "RS-232 transceiver",
+  "sort_by": "stock",
+  "limit": 40
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C2653202",
+    "model": "MAX14830ETM+T",
+    "manufacturer": "Analog Devices Inc./Maxim Integrated",
+    "package": "TQFN-48-EP(7x7)",
+    "stock": 2560,
+    "price": 15.8197,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "UART",
+    "subcategory_id": 2575,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 1.71V~3.6V、1.71V~3.6V、2.35V~3.6V 128Byte 12Mbps 4 I2C、SPI、IrDA、RS-485、RS-232 With automatic flow control、Configurable GPIO、Auto Transceiver Direction Control、Interrupt Trigger TQFN-48-EP(7x7) UART ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Data Rate(Max)": "12Mbps",
+     "Memory Size": "128Byte",
+     "Number of Channels": "4",
+     "Voltage - Supply": "1.71V~3.6V、2.35V~3.6V",
+     "Features": "With automatic flow control、Configurable GPIO、Auto Transceiver Direction Control、Interrupt Trigger、Hardware flow control support、Software flow control support、Fractional baud rate generator、Automatic RS-485 direction control",
+     "Current - Supply": "-"
+    }
+   },
+   {
+    "lcsc": "C13749",
+    "model": "ADM3251EARWZ-REEL",
+    "manufacturer": "Analog Devices",
+    "package": "SOIC-20-300mil",
+    "stock": 853,
+    "price": 12.0707,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Signal Isolation Devices",
+    "subcategory": "Isolated RS-232 Transceivers (with Power)",
+    "subcategory_id": 2083,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 1 1 2500 25kV/us 460KB/S 5V Yes ±8kV SOIC-20-300mil Isolated RS-232 Transceivers (with Power) ROHS",
+    "specs": {
+     "ESD Protect": "±8kV",
+     "Operating Temperature": "-40℃~+85℃",
+     "Isolation Voltage(Vrms)": "2500",
+     "Features": "Single power supply isolation、ESD protection",
+     "Number of Drivers": "1",
+     "Charge Pump": "Yes",
+     "Output Voltage": "5V",
+     "CMTI(kV/us)": "25kV/us",
+     "Number of Receivers": "1"
+    }
+   },
+   {
+    "lcsc": "C579198",
+    "model": "ADM3251EARWZ",
+    "manufacturer": "Analog Devices",
+    "package": "SOIC-20-300mil",
+    "stock": 278,
+    "price": 15.7178,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Signal Isolation Devices",
+    "subcategory": "Isolated RS-232 Transceivers (with Power)",
+    "subcategory_id": 2083,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 2500 25kV/us 460Kbps SOIC-20-300mil Isolated RS-232 Transceivers (with Power) ROHS",
+    "specs": {
+     "Features": "ESD protection"
+    }
+   },
+   {
+    "lcsc": "C22439586",
+    "model": "RSM232",
+    "manufacturer": "HENIPER",
+    "package": "DIP,19.5x16.5mm",
+    "stock": 236,
+    "price": 4.1487,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Signal Isolation Devices",
+    "subcategory": "Isolated RS-232 Transceivers (with Power)",
+    "subcategory_id": 2083,
+    "mounting_type": "through_hole",
+    "description": "Single power supply isolation、ESD protection DIP,19.5x16.5mm Isolated RS-232 Transceivers (with Power) ROHS",
+    "specs": {
+     "Features": "Single power supply isolation、ESD protection"
+    }
+   },
+   {
+    "lcsc": "C22439595",
+    "model": "TD301D232H",
+    "manufacturer": "HENIPER",
+    "package": "Plugin-7P,19.5x16.5mm",
+    "stock": 18,
+    "price": 5.5807,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Signal Isolation Devices",
+    "subcategory": "Isolated RS-232 Transceivers (with Power)",
+    "subcategory_id": 2083,
+    "mounting_type": "through_hole",
+    "description": "-40℃~85℃ 115.2kbps 2500 Plugin-7P,19.5x16.5mm Isolated RS-232 Transceivers (with Power) ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~85℃",
+     "Data Rate(Max)": "115.2kbps",
+     "Isolation Voltage(Vrms)": "2500"
+    }
+   },
+   {
+    "lcsc": "C579199",
+    "model": "ADM3252EABCZ",
+    "manufacturer": "Analog Devices",
+    "package": "CSPBGA-44",
+    "stock": 14,
+    "price": 32.0892,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Signal Isolation Devices",
+    "subcategory": "Isolated RS-232 Transceivers (with Power)",
+    "subcategory_id": 2083,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 2500 25kV/us 460Kbps CSPBGA-44 Isolated RS-232 Transceivers (with Power) ROHS",
+    "specs": {
+     "Features": "Single power supply isolation、ESD protection、Power-up determined state、Power-down retention"
+    }
+   },
+   {
+    "lcsc": "C690343",
+    "model": "LTM2882IY-5#PBF",
+    "manufacturer": "Analog Devices",
+    "package": "BGA-32",
+    "stock": 11,
+    "price": 41.6584,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Signal Isolation Devices",
+    "subcategory": "Isolated RS-232 Transceivers (with Power)",
+    "subcategory_id": 2083,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 1Mbps 2 2 2500 25mA 30kV/us 4.5V~5.5V 5V Yes ±10kV BGA-32 Isolated RS-232 Transceivers (with Power) ROHS",
+    "specs": {
+     "ESD Protect": "±10kV",
+     "Operating Temperature": "-40℃~+85℃",
+     "Data Rate(Max)": "1Mbps",
+     "Voltage - Supply": "4.5V~5.5V",
+     "Isolation Voltage(Vrms)": "2500",
+     "Number of Drivers": "2",
+     "Charge Pump": "Yes",
+     "Output Voltage": "5V",
+     "Quiescent Supply Current": "25mA",
+     "CMTI(kV/us)": "30kV/us",
+     "Number of Receivers": "2"
+    }
+   }
+  ],
+  "total": 7,
+  "page_info": {
+   "limit": 40,
+   "offset": 0,
+   "returned": 7
+  },
+  "filters_applied": {
+   "query": "RS 232 transceiver",
+   "subcategory_id": null,
+   "subcategory_name": null,
+   "subcategory_resolved": null,
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 7
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "RS-232 transceiver",
+   "detected": {},
+   "subcategory": null,
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "RS 232 transceiver"
+  }
+ }
+}

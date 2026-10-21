@@ -1,0 +1,107 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  darkMode: 'class',
+  theme: {
+    extend: {
+      transitionTimingFunction: {
+        // A decelerating ease with a long tail. Motion that starts quickly and settles
+        // slowly reads as one continuous move rather than as two states swapped.
+        glide: 'cubic-bezier(0.22, 1, 0.36, 1)',
+      },
+      colors: {
+        'surface-container-high': '#242b2d',
+        'on-primary': '#4a2100',
+        error: '#ffb4ab',
+        'surface-container-lowest': '#080f11',
+        'on-background': '#dce4e5',
+        'secondary-fixed': '#dbe3ed',
+        'primary-container': '#f2a25c',
+        'on-error-container': '#ffdad6',
+        'tertiary-fixed-dim': '#e9cd3f',
+        'surface-dim': '#0d1516',
+        'tertiary-container': '#f5d84a',
+        'primary-fixed-dim': '#e08a3c',
+        'on-primary-fixed-variant': '#6b3410',
+        'on-tertiary-fixed-variant': '#594400',
+        'surface-tint': '#e08a3c',
+        'tertiary-fixed': '#ffdf96',
+        'on-surface': '#dce4e5',
+        'on-secondary': '#293138',
+        'surface-variant': '#2e3638',
+        'secondary-fixed-dim': '#bfc7d0',
+        'primary-fixed': '#ffd3ac',
+        'error-container': '#93000a',
+        tertiary: '#ffeac0',
+        'surface-container-low': '#151d1e',
+        'on-primary-container': '#7a3d05',
+        'on-surface-variant': '#bac9cc',
+        'on-secondary-fixed-variant': '#40484f',
+        'on-secondary-fixed': '#151c23',
+        'surface-bright': '#333a3c',
+        'surface-container': '#192122',
+        'inverse-primary': '#8a4a12',
+        'inverse-on-surface': '#2a3233',
+        surface: '#0d1516',
+        'on-secondary-container': '#b1b9c2',
+        'on-primary-fixed': '#301400',
+        background: '#0d1516',
+        'on-tertiary-container': '#6f5500',
+        'secondary-container': '#424a52',
+        'surface-container-highest': '#2e3638',
+        secondary: '#bfc7d0',
+        primary: '#c3f5ff',
+        'on-tertiary': '#3e2e00',
+        'outline-variant': '#3b494c',
+        'on-error': '#690005',
+        'on-tertiary-fixed': '#251a00',
+        outline: '#849396',
+        'inverse-surface': '#dce4e5',
+      },
+      borderRadius: {
+        DEFAULT: '0.125rem',
+        lg: '0.25rem',
+        xl: '0.5rem',
+        full: '0.75rem',
+        pill: '9999px',
+      },
+      spacing: {
+        sm: '8px',
+        unit: '4px',
+        gutter: '8px',
+        'container-margin': '16px',
+        xs: '4px',
+        xl: '24px',
+        md: '12px',
+        lg: '16px',
+      },
+      fontFamily: {
+        // Two families, deliberately. JetBrains Mono carries every value the product emits
+        // — part numbers, voltages, verdicts — so monospace here is functional, not a
+        // "hacker vibe" affectation. IBM Plex Sans does the prose: an industrial face with
+        // an engineering lineage, chosen over Inter, which is the most-cited typographic
+        // tell of a generated interface and was doing all the sans work here.
+        'data-tabular': ["'JetBrains Mono'", 'monospace'],
+        'body-md': ["'IBM Plex Sans'", 'sans-serif'],
+        'label-caps': ["'IBM Plex Sans'", 'sans-serif'],
+        'display-mono': ["'JetBrains Mono'", 'monospace'],
+        'headline-sm': ["'IBM Plex Sans'", 'sans-serif'],
+        'body-sm': ["'IBM Plex Sans'", 'sans-serif'],
+      },
+      fontSize: {
+        'data-tabular': ['13px', { lineHeight: '18px', fontWeight: '500' }],
+        'body-md': ['14px', { lineHeight: '20px', fontWeight: '400' }],
+        'label-caps': [
+          '11px',
+          { lineHeight: '14px', letterSpacing: '0.05em', fontWeight: '700' },
+        ],
+        'display-mono': [
+          '24px',
+          { lineHeight: '32px', letterSpacing: '-0.02em', fontWeight: '700' },
+        ],
+        'headline-sm': ['18px', { lineHeight: '24px', fontWeight: '600' }],
+        'body-sm': ['12px', { lineHeight: '16px', fontWeight: '400' }],
+      },
+    },
+  },
+}

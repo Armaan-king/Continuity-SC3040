@@ -1,0 +1,222 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "LoRa module",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C3001531",
+    "model": "lora1276-C1-915MHz",
+    "manufacturer": "G-NiceRF",
+    "package": "SMD,16x16mm",
+    "stock": 5711,
+    "price": 7.0993,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "LoRa Modules",
+    "subcategory_id": 2280,
+    "mounting_type": "smd",
+    "description": "-139dBm -40℃~+85℃ 10.8mA 120mA 20dBm 3.3V 915MHz FSK、LoRa、GFSK SPI SMD,16x16mm LoRa Modules ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Sensitivity": "-139dBm",
+     "Output Power": "20dBm",
+     "Modulation System": "FSK、LoRa、GFSK",
+     "Voltage - Supply": "3.3V",
+     "Frequency": "915MHz",
+     "Features": "LoRa frequency hopping spread spectrum、Built-in temperature sensor",
+     "Interface Type": "SPI",
+     "Send  Current": "120mA",
+     "Receive  Current": "10.8mA"
+    }
+   },
+   {
+    "lcsc": "C90040",
+    "model": "Ra-01",
+    "manufacturer": "Ai-Thinker",
+    "package": "SMD-16P",
+    "stock": 4443,
+    "price": 7.1899,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "LoRa Modules",
+    "subcategory_id": 2280,
+    "mounting_type": "smd",
+    "description": "-148dBm -40℃~+85℃ 12.15mA 18dBm 2.5V~3.7V 93mA Channel activity detection (CAD)、Automatic frequency correction (AFC) FSK、LoRa、GFSK、MSK、GMSK、OOK SPI Spring antenna SMD-16P LoRa Modules ROHS",
+    "specs": {
+     "Antenna Type": "Spring antenna",
+     "Operating Temperature": "-40℃~+85℃",
+     "Sensitivity": "-148dBm",
+     "Output Power": "18dBm",
+     "Modulation System": "FSK、LoRa、GFSK、MSK、GMSK、OOK",
+     "Voltage - Supply": "2.5V~3.7V",
+     "Features": "Channel activity detection (CAD)、Automatic frequency correction (AFC)",
+     "Interface Type": "SPI",
+     "Send  Current": "93mA",
+     "Receive  Current": "12.15mA"
+    }
+   },
+   {
+    "lcsc": "C2830749",
+    "model": "Ra-01SC",
+    "manufacturer": "Ai-Thinker",
+    "package": "SMD,17x16mm",
+    "stock": 4405,
+    "price": 3.2099,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "LoRa Modules",
+    "subcategory_id": 2280,
+    "mounting_type": "smd",
+    "description": "-129dBm -40℃~+85℃ 140mA 2.8km 22dBm 3.3V 4.2mA IPEX interface LoRa LoRa frequency hopping spread spectrum SPI SMD,17x16mm LoRa Modules ROHS",
+    "specs": {
+     "Antenna Type": "IPEX interface",
+     "Operating Temperature": "-40℃~+85℃",
+     "Sensitivity": "-129dBm",
+     "Output Power": "22dBm",
+     "Modulation System": "LoRa",
+     "Voltage - Supply": "3.3V",
+     "Features": "LoRa frequency hopping spread spectrum",
+     "Communication Distance": "2.8km",
+     "Interface Type": "SPI",
+     "Send  Current": "140mA",
+     "Receive  Current": "4.2mA"
+    }
+   },
+   {
+    "lcsc": "C90039",
+    "model": "Ra-02",
+    "manufacturer": "Ai-Thinker",
+    "package": "SMD-16P",
+    "stock": 4284,
+    "price": 7.2724,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "LoRa Modules",
+    "subcategory_id": 2280,
+    "mounting_type": "smd",
+    "description": "-141dBm -40℃~+85℃ 12.15mA 18dBm 2.5V~3.7V 93mA、97mA Channel activity detection (CAD) FSK、LoRa、GFSK、MSK、GMSK、OOK IPEX interface SPI SMD-16P LoRa Modules ROHS",
+    "specs": {
+     "Antenna Type": "IPEX interface",
+     "Operating Temperature": "-40℃~+85℃",
+     "Sensitivity": "-141dBm",
+     "Output Power": "18dBm",
+     "Modulation System": "FSK、LoRa、GFSK、MSK、GMSK、OOK",
+     "Voltage - Supply": "2.5V~3.7V",
+     "Features": "Channel activity detection (CAD)",
+     "Interface Type": "SPI",
+     "Send  Current": "93mA、97mA",
+     "Receive  Current": "12.15mA"
+    }
+   },
+   {
+    "lcsc": "C411289",
+    "model": "E22-900T22S",
+    "manufacturer": "Chengdu Ebyte Elec Tech",
+    "package": "SMD,26x16mm",
+    "stock": 2730,
+    "price": 9.7899,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "LoRa Modules",
+    "subcategory_id": 2280,
+    "mounting_type": "smd",
+    "description": "-147dBm 150mA 17mA 2.7V~5.5V 22dBm 5km LoRa Stamp Hole Antenna、IPEX interface UART SMD,26x16mm LoRa Modules ROHS",
+    "specs": {
+     "Antenna Type": "Stamp Hole Antenna、IPEX interface",
+     "Sensitivity": "-147dBm",
+     "Output Power": "22dBm",
+     "Modulation System": "LoRa",
+     "Voltage - Supply": "2.7V~5.5V",
+     "Features": "Channel activity detection (CAD)",
+     "Communication Distance": "5km",
+     "Interface Type": "UART",
+     "Send  Current": "150mA",
+     "Receive  Current": "17mA"
+    }
+   },
+   {
+    "lcsc": "C2764087",
+    "model": "Ra-01SH",
+    "manufacturer": "Ai-Thinker",
+    "package": "SMD-16P",
+    "stock": 1839,
+    "price": 4.5835,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "LoRa Modules",
+    "subcategory_id": 2280,
+    "mounting_type": "smd",
+    "description": "-140dBm -40℃~+85℃ 140mA 2.7V~3.6V 22dBm 4.2mA FSK、LoRa、GFSK、MSK、GMSK、OOK IPEX interface SPI SMD-16P LoRa Modules ROHS",
+    "specs": {
+     "Antenna Type": "IPEX interface",
+     "Operating Temperature": "-40℃~+85℃",
+     "Sensitivity": "-140dBm",
+     "Output Power": "22dBm",
+     "Modulation System": "FSK、LoRa、GFSK、MSK、GMSK、OOK",
+     "Voltage - Supply": "2.7V~3.6V",
+     "Features": "-",
+     "Interface Type": "SPI",
+     "Send  Current": "140mA",
+     "Receive  Current": "4.2mA"
+    }
+   }
+  ],
+  "total": 157,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 6
+  },
+  "filters_applied": {
+   "query": null,
+   "subcategory_id": 2280,
+   "subcategory_name": "lora modules",
+   "subcategory_resolved": "LoRa Modules",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 157
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "LoRa module",
+   "detected": {
+    "component_type": "lora module",
+    "subcategory": "lora modules"
+   },
+   "subcategory": "lora modules",
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": ""
+  }
+ }
+}

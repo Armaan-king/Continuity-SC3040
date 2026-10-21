@@ -1,0 +1,73 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "SX1278IMLTRT"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "947-SX1278IMLTRT",
+    "mfr_part_number": "SX1278IMLTRT",
+    "manufacturer": "Semtech",
+    "description": "RF Transceiver SINGLE CHIP 2 BANDS TRANCEIVER",
+    "category": "RF Transceiver",
+    "stock": 3364,
+    "price": 8.49,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 8.49,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 7.08,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 6.33,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 5.86,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 5.57,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 5.37,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 5.17,
+      "currency": "USD"
+     },
+     {
+      "qty": 3000,
+      "price": 4.91,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Semtech/SX1278IMLTRT?qs=rBWM4%252BvDhIee37k32BFwWg%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "3000"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 1
+ }
+}

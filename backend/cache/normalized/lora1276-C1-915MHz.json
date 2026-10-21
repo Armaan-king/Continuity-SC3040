@@ -1,0 +1,23 @@
+{
+ "mpn": "lora1276-C1-915MHz",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmax": 3.3,
+  "i_typ": 0.0108,
+  "i_peak": 0.12,
+  "role": "peripheral",
+  "temp_min": -40.0,
+  "temp_max": 85.0,
+  "interfaces": [
+   "SPI"
+  ]
+ },
+ "provenance": {
+  "vmax": "Voltage - Supply",
+  "i_typ": "Receive  Current",
+  "i_peak": "Send  Current",
+  "interfaces": "Interface Type",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

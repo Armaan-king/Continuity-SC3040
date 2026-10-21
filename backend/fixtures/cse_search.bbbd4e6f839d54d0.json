@@ -1,0 +1,24 @@
+{
+ "tool": "cse_search",
+ "arguments": {
+  "query": "AR0134CSSC00SUEA0-TPBR"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "cse",
+    "mfr_part_number": "AR0134CSSC00SUEA0-TPBR",
+    "manufacturer": "onsemi",
+    "description": "ON Semiconductor's 3rd Generation Global Shutter Technology; Superior low-light performance; HD video (720p60); Video/Single Frame mode; Flexible row-skip modes; On-chip AE and statistics engine; Parallel and serial output; Support for external LED or flash; Auto black level calibration; Context switching",
+    "datasheet_url": "https://www.onsemi.com/pub/Collateral/AR0134CS-D.PDF",
+    "has_model": true,
+    "has_3d": true,
+    "model_quality": 2,
+    "cse_part_id": 11619754,
+    "pin_count": 63,
+    "image_url": "https://www.onsemi.com/PowerSolutions/product.do?id=AR0134CSSC00SUEA0-TPBR"
+   }
+  ],
+  "total": 1
+ }
+}

@@ -1,0 +1,46 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "XL7005A",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C50848",
+    "model": "XL7005A",
+    "manufacturer": "XLSEMI",
+    "package": "SOIC-8-EP",
+    "stock": 185851,
+    "price": 0.3177,
+    "price_10": 0.2539,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃@(TJ)",
+     "Function": "Step-down type",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "150kHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "5V~80V",
+     "Output Current": "400mA",
+     "Quiescent Current": "2.5mA",
+     "Features": "Overcurrent Protection",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck",
+     "Output Voltage": "1.25V~20V",
+     "Number of Outputs": "1"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

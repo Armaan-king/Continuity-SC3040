@@ -1,0 +1,10 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "5x20 Environmentally Friendly Fuse Clip/Socket"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

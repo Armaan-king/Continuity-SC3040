@@ -1,0 +1,28 @@
+{
+ "mpn": "TPS63070RNMR",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 2.0,
+  "vmax": 16.0,
+  "vout_min": 2.5,
+  "vout_max": 9.0,
+  "i_typ": 5e-05,
+  "i_max": 2.0,
+  "topology": "buck-boost",
+  "synchronous": true,
+  "temp_min": -40.0,
+  "temp_max": 125.0
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "vout_min": "Output Voltage",
+  "vout_max": "Output Voltage",
+  "i_typ": "Quiescent Current",
+  "i_max": "Output Current",
+  "topology": "Topology",
+  "synchronous": "Synchronous Rectifier",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

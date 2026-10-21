@@ -1,0 +1,46 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "TPS5430DDAR",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C9864",
+    "model": "TPS5430DDAR",
+    "manufacturer": "Texas Instruments",
+    "package": "SOIC-8-EP",
+    "stock": 159841,
+    "price": 0.8245,
+    "price_10": 0.6914,
+    "library_type": "basic",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃@(TJ)",
+     "Function": "Step-down type",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "500kHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "5.5V~36V",
+     "Output Current": "3A",
+     "Quiescent Current": "4.4mA",
+     "Features": "Overcurrent Protection、Cycle-by-cycle current limiting、Hiccup current limiting",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck",
+     "Output Voltage": "1.221V~32.04V",
+     "Number of Outputs": "1"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

@@ -1,0 +1,44 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "ESP32-WROOM-32E-N4",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C701341",
+    "model": "ESP32-WROOM-32E-N4",
+    "manufacturer": "Espressif Systems",
+    "package": "SMD,25.5x18mm",
+    "stock": 28731,
+    "price": 3.7279,
+    "price_10": 3.2508,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "WiFi Modules",
+    "subcategory_id": 3205,
+    "mounting_type": "smd",
+    "specs": {
+     "Antenna Type": "On-board PCB Antenna",
+     "Operating Temperature": "-40℃~+85℃",
+     "Sensitivity": "-98dBm",
+     "Output Power": "20dBm",
+     "Voltage - Supply": "3V~3.6V",
+     "Frequency": "2.4GHz",
+     "Utilized IC / Part": "ESP32-D0WD-V3、ESP32-D0WDR2-V3",
+     "Interface Type": "UART、SDIO、SPI、I2C、GPIO",
+     "Send  Current": "239mA",
+     "Receive  Current": "112mA",
+     "Wireless Standard": "Bluetooth4.2"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

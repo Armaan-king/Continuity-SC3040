@@ -1,0 +1,10 @@
+{
+ "tool": "cse_search",
+ "arguments": {
+  "query": "DS18B20(UMW)"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

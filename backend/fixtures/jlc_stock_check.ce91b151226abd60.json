@@ -1,0 +1,56 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "MB10S-50MIL",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C2488",
+    "model": "MB10S-50MIL",
+    "manufacturer": "MDD(Microdiode Semiconductor)",
+    "package": "MBS",
+    "stock": 862227,
+    "price": 0.0269,
+    "price_10": 0.0211,
+    "library_type": "basic",
+    "preferred": false,
+    "category": "Diodes",
+    "subcategory": "Bridge Rectifiers",
+    "subcategory_id": 2951,
+    "mounting_type": "through_hole",
+    "specs": {
+     "Voltage - Forward(Vf@If)": "1.1V@400mA",
+     "Type": "Single-Phase Rectifier",
+     "Non-Repetitive Peak Forward Surge Current": "35A",
+     "Voltage - DC Reverse(Vr)": "1kV",
+     "Operating Junction Temperature Range": "-55℃~+150℃",
+     "Current - Rectified": "1A",
+     "Reverse Leakage Current (Ir)": "5uA@1kV"
+    }
+   },
+   {
+    "lcsc": "C55099129",
+    "model": "MB10S-50MIL",
+    "manufacturer": "TDD",
+    "package": "MBS",
+    "stock": 3000,
+    "price": 0.0264,
+    "price_10": 0.0208,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Diodes",
+    "subcategory": "Bridge Rectifiers",
+    "subcategory_id": 2951,
+    "mounting_type": "through_hole",
+    "specs": {}
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 2,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

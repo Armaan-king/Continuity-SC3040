@@ -1,0 +1,66 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "TPS23754PWPR",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C2691431",
+    "model": "WS3204",
+    "manufacturer": "NJGW",
+    "package": "TSSOP-20-EP",
+    "stock": 4001,
+    "price": 1.6909,
+    "price_10": 1.4126,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "Power Over Ethernet (PoE) Controllers",
+    "subcategory_id": 2327,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃",
+     "Type": "Powered Device (PD)",
+     "Power - Max": "25.5W",
+     "limiting current": "970mA",
+     "Voltage - Supply (IC)": "5.1V",
+     "Features": "PD detection and disconnect identification、Overvoltage protection、Undervoltage Protection、Thermal Protection、Overcurrent Protection、Dual event classification detection、Built-in LDO",
+     "Support PoE standard": "IEEE 802.3 at(PoE+)",
+     "Voltage - Breakdown": "85V"
+    }
+   },
+   {
+    "lcsc": "C181651",
+    "model": "TPS23754PWPR",
+    "manufacturer": "Texas Instruments",
+    "package": "HTSSOP-20-EP",
+    "stock": 18200,
+    "price": 2.0113,
+    "price_10": 1.7281,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "Power Over Ethernet (PoE) Controllers",
+    "subcategory_id": 2327,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃",
+     "Type": "Powered Device (PD)",
+     "Power - Max": "30W",
+     "limiting current": "970mA",
+     "Voltage - Supply (IC)": "5.1V",
+     "Features": "PD detection and disconnect identification、Undervoltage Protection、Thermal Protection、Overcurrent Protection、Dual event classification detection",
+     "Support PoE standard": "IEEE 802.3 at(PoE+)",
+     "Voltage - Breakdown": "100V"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 2,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

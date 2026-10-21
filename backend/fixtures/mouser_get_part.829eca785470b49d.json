@@ -1,0 +1,78 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "TMP119AIYBGR"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "595-TMP119AIYBGR",
+    "mfr_part_number": "TMP119AIYBGR",
+    "manufacturer": "Texas Instruments",
+    "description": "Board Mount Temperature Sensors TEMPERATURE SENSOR",
+    "category": "Board Mount Temperature Sensors",
+    "stock": 5920,
+    "price": 5.78,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 5.78,
+      "currency": "USD"
+     },
+     {
+      "qty": 5,
+      "price": 5.2,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 4.98,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 4.72,
+      "currency": "USD"
+     },
+     {
+      "qty": 50,
+      "price": 4.54,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 4.38,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 3.97,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 3.84,
+      "currency": "USD"
+     },
+     {
+      "qty": 3000,
+      "price": 3.71,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Texas-Instruments/TMP119AIYBGR?qs=dbcCsuKDzFUz%2FSabBerKMA%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "3000"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 1
+ }
+}

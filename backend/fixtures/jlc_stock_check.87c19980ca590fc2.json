@@ -1,0 +1,75 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "NRF52840-QIAA-R",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C190794",
+    "model": "NRF52840-QIAA-R",
+    "manufacturer": "Nordic Semicon",
+    "package": "AQFN-73-EP(7x7)",
+    "stock": 53237,
+    "price": 5.8153,
+    "price_10": 5.1665,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "RF and Wireless",
+    "subcategory": "RF Transceiver ICs",
+    "subcategory_id": 3048,
+    "mounting_type": "smd",
+    "specs": {
+     "Frequency Range": "2.4GHz~2.4835GHz",
+     "Operating Temperature": "-",
+     "Type": "transceiver",
+     "Sensitivity": "-95dBm",
+     "Output Power": "8dBm",
+     "Data Rate": "2Mbps",
+     "Applications": "ZigBee、Bluetooth、LoRa、ISM",
+     "Voltage - Supply": "1.7V~5.5V",
+     "Receive Current": "6.26mA",
+     "Typical Application Frequency": "2.4GHz",
+     "Features": "Supports RSSI function",
+     "Current Of Transmitting": "4.82mA",
+     "Interface": "SPI、USB、UART、ADC、I2S、PWM"
+    }
+   },
+   {
+    "lcsc": "C1851953",
+    "model": "NRF52840-QIAA-R7",
+    "manufacturer": "Nordic Semicon",
+    "package": "AQFN-73-EP",
+    "stock": 3324,
+    "price": 6.0435,
+    "price_10": 5.2312,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "RF and Wireless",
+    "subcategory": "RF Transceiver ICs",
+    "subcategory_id": 3048,
+    "mounting_type": "smd",
+    "specs": {
+     "Frequency Range": "2.4GHz~2.4835GHz",
+     "Operating Temperature": "-",
+     "Type": "transceiver",
+     "Sensitivity": "-95dBm",
+     "Output Power": "8dBm",
+     "Data Rate": "2Mbps",
+     "Applications": "ZigBee、Bluetooth",
+     "Voltage - Supply": "1.7V~5.5V",
+     "Receive Current": "6.26mA",
+     "Typical Application Frequency": "2.4GHz",
+     "Current Of Transmitting": "4.82mA",
+     "Interface": "SPI、USB、UART、I2S、PDM、PWM"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 2,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

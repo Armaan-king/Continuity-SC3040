@@ -1,0 +1,16 @@
+{
+ "mpn": "A4931METTR-T",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "i_typ": 0.003,
+  "i_peak": 0.03,
+  "temp_min": -20.0,
+  "temp_max": 105.0
+ },
+ "provenance": {
+  "i_typ": "Quiescent Current(Iq)",
+  "i_peak": "Peak Current",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

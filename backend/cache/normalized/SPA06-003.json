@@ -1,0 +1,26 @@
+{
+ "mpn": "SPA06-003",
+ "prompt": "a3400943f200",
+ "fields": {
+  "vmin": 1.7,
+  "vmax": 3.6,
+  "i_typ": 1.7e-06,
+  "i_peak": 5e-07,
+  "role": "peripheral",
+  "temp_min": -40.0,
+  "temp_max": 85.0,
+  "interfaces": [
+   "I2C",
+   "SPI"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "i_typ": "Standby Current",
+  "i_peak": "Standby Current",
+  "interfaces": "Interface",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

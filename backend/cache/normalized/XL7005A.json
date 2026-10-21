@@ -1,0 +1,28 @@
+{
+ "mpn": "XL7005A",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 5.0,
+  "vmax": 80.0,
+  "vout_min": 1.25,
+  "vout_max": 20.0,
+  "i_typ": 0.0025,
+  "i_max": 0.4,
+  "topology": "buck",
+  "synchronous": false,
+  "temp_min": -40.0,
+  "temp_max": 125.0
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "vout_min": "Output Voltage",
+  "vout_max": "Output Voltage",
+  "i_max": "Output Current",
+  "i_typ": "Quiescent Current",
+  "topology": "Topology",
+  "synchronous": "Synchronous Rectifier",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

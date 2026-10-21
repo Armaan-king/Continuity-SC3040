@@ -1,0 +1,44 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "HR911105A",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C12074",
+    "model": "HR911105A",
+    "manufacturer": "HANRUN(Zhongshan HanRun Elec)",
+    "package": "Plugin",
+    "stock": 32745,
+    "price": 1.822,
+    "price_10": 1.555,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "Ethernet Connectors / Modular Connectors (RJ45 RJ11)",
+    "subcategory_id": 2983,
+    "mounting_type": "through_hole",
+    "specs": {
+     "Operating Temperature": "0℃~+70℃",
+     "Number of Ports": "1",
+     "PoE": "Non-PoE",
+     "Contact Plating": "Gold",
+     "Connector Type": "RJ45 Jack",
+     "Contact Material": "Phosphor bronze",
+     "Supplementary Features": "Filtered",
+     "LED": "With LED",
+     "Shielding": "Shielded",
+     "Mounting Type": "Right Angle",
+     "Ratings": "-"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

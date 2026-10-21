@@ -1,0 +1,73 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "NUC029LAN"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "503-NUC029LAN",
+    "mfr_part_number": "NUC029LAN",
+    "manufacturer": "Nuvoton",
+    "description": "ARM Microcontrollers - MCU M0-64K AP+4KRAM+UART+SPI+I2C+PWM+ADC+ISP+EBI",
+    "category": "ARM Microcontrollers - MCU",
+    "stock": 392,
+    "price": 1.9,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 1.9,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 1.6,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 1.48,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 1.33,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 1.23,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 1.17,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 1.16,
+      "currency": "USD"
+     },
+     {
+      "qty": 4000,
+      "price": 1.04,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Nuvoton/NUC029LAN?qs=A6eO%252BMLsxmTXENZtqRqqvQ%3D%3D",
+    "rohs": "",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Tray",
+     "Standard Pack Qty": "250"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 1
+ }
+}

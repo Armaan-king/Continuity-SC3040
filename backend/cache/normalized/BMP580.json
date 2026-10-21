@@ -1,0 +1,24 @@
+{
+ "mpn": "BMP580",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 1.73,
+  "vmax": 3.6,
+  "i_typ": 5.5e-06,
+  "role": "peripheral",
+  "temp_min": -40.0,
+  "temp_max": 85.0,
+  "interfaces": [
+   "I2C",
+   "SPI"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "i_typ": "Standby Current",
+  "interfaces": "Interface",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

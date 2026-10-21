@@ -1,0 +1,180 @@
+{
+ "tool": "jlc_get_pinout",
+ "arguments": {
+  "lcsc": "C2913202"
+ },
+ "response": {
+  "lcsc": "C2913202",
+  "model": "ESP32-S3-WROOM-1-N16R8",
+  "manufacturer": "Espressif Systems",
+  "package": "SMD,25.5x18mm",
+  "pin_count": 41,
+  "pins": [
+   {
+    "number": "1",
+    "name": "GND"
+   },
+   {
+    "number": "2",
+    "name": "3V3"
+   },
+   {
+    "number": "3",
+    "name": "EN"
+   },
+   {
+    "number": "4",
+    "name": "IO4"
+   },
+   {
+    "number": "5",
+    "name": "IO5"
+   },
+   {
+    "number": "6",
+    "name": "IO6"
+   },
+   {
+    "number": "7",
+    "name": "IO7"
+   },
+   {
+    "number": "8",
+    "name": "IO15"
+   },
+   {
+    "number": "9",
+    "name": "IO16"
+   },
+   {
+    "number": "10",
+    "name": "IO17"
+   },
+   {
+    "number": "11",
+    "name": "IO18"
+   },
+   {
+    "number": "12",
+    "name": "IO8"
+   },
+   {
+    "number": "13",
+    "name": "IO19"
+   },
+   {
+    "number": "14",
+    "name": "IO20"
+   },
+   {
+    "number": "15",
+    "name": "IO3"
+   },
+   {
+    "number": "16",
+    "name": "IO46"
+   },
+   {
+    "number": "17",
+    "name": "IO9"
+   },
+   {
+    "number": "18",
+    "name": "IO10"
+   },
+   {
+    "number": "19",
+    "name": "IO11"
+   },
+   {
+    "number": "20",
+    "name": "IO12"
+   },
+   {
+    "number": "21",
+    "name": "IO13"
+   },
+   {
+    "number": "22",
+    "name": "IO14"
+   },
+   {
+    "number": "23",
+    "name": "IO21"
+   },
+   {
+    "number": "24",
+    "name": "IO47"
+   },
+   {
+    "number": "25",
+    "name": "IO48"
+   },
+   {
+    "number": "26",
+    "name": "IO45"
+   },
+   {
+    "number": "27",
+    "name": "IO0"
+   },
+   {
+    "number": "28",
+    "name": "IO35"
+   },
+   {
+    "number": "29",
+    "name": "IO36"
+   },
+   {
+    "number": "30",
+    "name": "IO37"
+   },
+   {
+    "number": "31",
+    "name": "IO38"
+   },
+   {
+    "number": "32",
+    "name": "IO39"
+   },
+   {
+    "number": "33",
+    "name": "IO40"
+   },
+   {
+    "number": "34",
+    "name": "IO41"
+   },
+   {
+    "number": "35",
+    "name": "IO42"
+   },
+   {
+    "number": "36",
+    "name": "RXD0"
+   },
+   {
+    "number": "37",
+    "name": "TXD0"
+   },
+   {
+    "number": "38",
+    "name": "IO2"
+   },
+   {
+    "number": "39",
+    "name": "IO1"
+   },
+   {
+    "number": "40",
+    "name": "GND"
+   },
+   {
+    "number": "41",
+    "name": "GND"
+   }
+  ],
+  "easyeda_symbol_uuid": "df849068acb94b99ae025c69d6bae386"
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "mpn": "DRV10866DSCR",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 1.65,
+  "vmax": 5.5,
+  "i_peak": 0.8,
+  "role": "passive",
+  "temp_min": -40.0,
+  "temp_max": 125.0,
+  "interfaces": [
+   "PWM"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "i_peak": "Output Current",
+  "interfaces": "Interface",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

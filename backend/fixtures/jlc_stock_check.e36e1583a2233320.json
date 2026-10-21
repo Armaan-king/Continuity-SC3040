@@ -1,0 +1,46 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "MT3540-F23",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C181783",
+    "model": "MT3540-F23",
+    "manufacturer": "XI'AN Aerosemi Tech",
+    "package": "SOT-23-5",
+    "stock": 455211,
+    "price": 0.0516,
+    "price_10": 0.0445,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃@(TA)",
+     "Function": "Boost",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "1.2MHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "2.5V~5.5V",
+     "Output Current": "1.5A",
+     "Quiescent Current": "40uA",
+     "Features": "Overcurrent Protection、Light load efficient mode",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Boost",
+     "Output Voltage": "1.23V~28V",
+     "Number of Outputs": "1"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

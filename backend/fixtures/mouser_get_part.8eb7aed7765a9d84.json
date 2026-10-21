@@ -1,0 +1,73 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "ESP32-S3-WROOM-1-N8R2"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "356-ESP32-S3WRM1N8R2",
+    "mfr_part_number": "ESP32-S3-WROOM-1-N8R2",
+    "manufacturer": "Espressif Systems",
+    "description": "Multiprotocol Modules SMD module, ESP32-S3R2 with 2 MB PSRAM die inside, 8 MB SPI flash, PCB antenna",
+    "category": "Multiprotocol Modules",
+    "stock": 7896,
+    "price": 5.88,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 5.88,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 5.09,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 4.74,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 4.44,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 4.22,
+      "currency": "USD"
+     },
+     {
+      "qty": 650,
+      "price": 3.99,
+      "currency": "USD"
+     },
+     {
+      "qty": 1300,
+      "price": 3.75,
+      "currency": "USD"
+     },
+     {
+      "qty": 1950,
+      "price": 3.74,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/1574/1/esp32-s3-wroom-1_wroom-1u_datasheet_en.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-S3-WROOM-1-N8R2?qs=Wj%2FVkw3K%252BMCC1Ha9x85iJA%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "650"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 1
+ }
+}

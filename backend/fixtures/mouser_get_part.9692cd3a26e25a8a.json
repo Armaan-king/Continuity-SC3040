@@ -1,0 +1,1359 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "ESP32-C3"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "356-ESP32-C3",
+    "mfr_part_number": "ESP32-C3",
+    "manufacturer": "Espressif Systems",
+    "description": "RF System on a Chip - SoC SMD IC ESP32-C3, single-core MCU, 2.4G Wi-Fi & BLE 5.0 combo, QFN 32-pin, 5*5 mm",
+    "category": "RF System on a Chip - SoC",
+    "stock": 1006,
+    "price": 1.07,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 1.07,
+      "currency": "USD"
+     },
+     {
+      "qty": 5000,
+      "price": 1.0,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/1574/1/esp32-c3_datasheet_en.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-C3?qs=iLbezkQI%252BsiMXe7tMG%252Bo%2FA%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Cut Tape",
+     "Standard Pack Qty": "5000"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "223-ESP32-C3-13U-KIT",
+    "mfr_part_number": "ESP32-C3-13U-KIT",
+    "manufacturer": "RF Solutions",
+    "description": "Multiprotocol Development Tools",
+    "category": "Multiprotocol Development Tools",
+    "stock": 0,
+    "price": 8.33,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 8.33,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/RF-Solutions/ESP32-C3-13U-KIT?qs=4ASt3YYao0WyLFInG3kO7g%3D%3D",
+    "rohs": "",
+    "lifecycle": "Active",
+    "parameters": {
+     "Standard Pack Qty": "1"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "223-ESP32-C3-12F",
+    "mfr_part_number": "ESP32-C3-12F",
+    "manufacturer": "RF Solutions",
+    "description": "Multiprotocol Modules",
+    "category": "Multiprotocol Modules",
+    "stock": 8,
+    "price": 7.67,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 7.67,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 7.32,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 7.1,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 6.73,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 6.37,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 6.04,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 5.94,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/RF-Solutions/ESP32-C3-12F?qs=4ASt3YYao0XGzbs7IYgT7w%3D%3D",
+    "rohs": "",
+    "lifecycle": "Active",
+    "parameters": {
+     "Standard Pack Qty": "1"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "223-ESP32-C3-12F-KIT",
+    "mfr_part_number": "ESP32-C3-12F-KIT",
+    "manufacturer": "RF Solutions",
+    "description": "Multiprotocol Development Tools",
+    "category": "Multiprotocol Development Tools",
+    "stock": 0,
+    "price": 8.64,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 8.64,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/RF-Solutions/ESP32-C3-12F-KIT?qs=4ASt3YYao0UlPEW8OT3Frw%3D%3D",
+    "rohs": "",
+    "lifecycle": "Active",
+    "parameters": {
+     "Standard Pack Qty": "1"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "356-ESP32C3DKRUST2",
+    "mfr_part_number": "ESP32-C3-DevKit-RUST-2",
+    "manufacturer": "Espressif Systems",
+    "description": "Multiprotocol Development Tools The ESP32-C3-DevKit-RUST-2 is a development board based on the ESP32-C3-MINI-1 module, a general-purpose module featuring 4 MB of SPI flash. The board integrates full Wi-Fi and Bluetooth Low Energy (BLE) connectivity, making it suitable for a wide ra",
+    "category": "Multiprotocol Development Tools",
+    "stock": 0,
+    "price": 18.53,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 18.53,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-C3-DevKit-RUST-2?qs=Omd18uQ5iJF9ag7btHwzPw%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "New Product",
+    "parameters": {},
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "356-ESP32C3WROOM02N4",
+    "mfr_part_number": "ESP32-C3-WROOM-02-N4",
+    "manufacturer": "Espressif Systems",
+    "description": "Multiprotocol Modules SMD module, ESP32-C3, 4MB SPI flash, PCB antenna, -40C - +85C",
+    "category": "Multiprotocol Modules",
+    "stock": 6634,
+    "price": 3.64,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 3.64,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 3.25,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 2.82,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 2.59,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 2.46,
+      "currency": "USD"
+     },
+     {
+      "qty": 650,
+      "price": 2.22,
+      "currency": "USD"
+     },
+     {
+      "qty": 1300,
+      "price": 2.12,
+      "currency": "USD"
+     },
+     {
+      "qty": 1950,
+      "price": 2.02,
+      "currency": "USD"
+     },
+     {
+      "qty": 4550,
+      "price": 1.98,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/catalog/specsheets/Espressif Systems_04082021_ESP32-C3-WROOM-02.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-C3-WROOM-02-N4?qs=stqOd1AaK7%2FqjTZKEOgfUg%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "650"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "223-ESP32-C3-13-KIT",
+    "mfr_part_number": "ESP32-C3-13-KIT",
+    "manufacturer": "RF Solutions",
+    "description": "Multiprotocol Development Tools",
+    "category": "Multiprotocol Development Tools",
+    "stock": 0,
+    "price": 8.31,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 8.31,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/RF-Solutions/ESP32-C3-13-KIT?qs=4ASt3YYao0UXOXEiYDt%2Fqw%3D%3D",
+    "rohs": "",
+    "lifecycle": "Active",
+    "parameters": {
+     "Standard Pack Qty": "1"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "223-ESP32-C3-13U",
+    "mfr_part_number": "ESP32-C3-13U",
+    "manufacturer": "RF Solutions",
+    "description": "Multiprotocol Modules",
+    "category": "Multiprotocol Modules",
+    "stock": 0,
+    "price": 8.01,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 8.01,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 6.94,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 6.84,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 6.46,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 6.21,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 6.04,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 5.93,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/RF-Solutions/ESP32-C3-13U?qs=4ASt3YYao0VKHeMtZzi9EA%3D%3D",
+    "rohs": "",
+    "lifecycle": "Active",
+    "parameters": {
+     "Standard Pack Qty": "1"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "356-ESP32C3MINI1N4X",
+    "mfr_part_number": "ESP32-C3-MINI-1-N4X",
+    "manufacturer": "Espressif Systems",
+    "description": "Multiprotocol Modules SMD module, ESP32-C3FH4X, Chip Revision v1.1 or above, PCB antenna, -40 C +85 C",
+    "category": "Multiprotocol Modules",
+    "stock": 439,
+    "price": 3.26,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 3.26,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 2.82,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 2.63,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 2.45,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 2.32,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 2.23,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 2.17,
+      "currency": "USD"
+     },
+     {
+      "qty": 2600,
+      "price": 2.12,
+      "currency": "USD"
+     },
+     {
+      "qty": 5200,
+      "price": 2.1,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-C3-MINI-1-N4X?qs=3GbUB62Nf7cXFYwepNxnAw%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "New Product",
+    "parameters": {
+     "Standard Pack Qty": "650"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "356-ESP32C3MINI1UN4X",
+    "mfr_part_number": "ESP32-C3-MINI-1U-N4X",
+    "manufacturer": "Espressif Systems",
+    "description": "Multiprotocol Modules SMD module, ESP32-C3FH4X, Chip Revision v1.1 or above, IPEX antenna connector, -40 C +85 C",
+    "category": "Multiprotocol Modules",
+    "stock": 1385,
+    "price": 3.38,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 3.38,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 2.93,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 2.72,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 2.54,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 2.46,
+      "currency": "USD"
+     },
+     {
+      "qty": 2600,
+      "price": 2.19,
+      "currency": "USD"
+     },
+     {
+      "qty": 5200,
+      "price": 2.17,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-C3-MINI-1U-N4X?qs=3GbUB62Nf7f0m8jNHhdU4A%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "New Product",
+    "parameters": {
+     "Standard Pack Qty": "650"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "356-ESP32C3DVKTM1N4X",
+    "mfr_part_number": "ESP32-C3-DevKitM-1-N4X",
+    "manufacturer": "Espressif Systems",
+    "description": "Multiprotocol Development Tools ESP32-C3-DevKitM-1 is an entry-level development board equipped with ESP32-C3-MINI-1 or ESP32-C3-MINI-1U. Most of the I/O pins are broken out to the pin headers on both sides for easy interfacing. Developers can either connect peripherals with jumper",
+    "category": "Multiprotocol Development Tools",
+    "stock": 14,
+    "price": 8.0,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 8.0,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/catalog/specsheets/Espressif Systems_10-09-2024_Datasheet-ESP32-C3-DevKitM-1-N4X.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-C3-DevKitM-1-N4X?qs=olJun0bQHM8KNNDD%252BFT48A%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "New Product",
+    "parameters": {
+     "Standard Pack Qty": "560"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "356-ESP32C3MINI1N4-A",
+    "mfr_part_number": "ESP32-C3-MINI-1-N4-A",
+    "manufacturer": "Espressif Systems",
+    "description": "Multiprotocol Modules Espressifs AWS IoT ExpressLink Module, pre-provisioned with required certificates and the ExpressLink firmware, for out-of-the-box connectivity to AWS IoT Core.",
+    "category": "Multiprotocol Modules",
+    "stock": 0,
+    "price": 3.69,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 3.69,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 3.19,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 2.97,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 2.77,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 2.63,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 1.99,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/1574/1/esp32-c3-mini-1_datasheet_en.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-C3-MINI-1-N4-A?qs=Rp5uXu7WBW%2FOuhPdnkmhGQ%3D%3D",
+    "rohs": "",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Bulk",
+     "Standard Pack Qty": "650"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "356-ESP32-C3-LYRA",
+    "mfr_part_number": "ESP32-C3-Lyra",
+    "manufacturer": "Espressif Systems",
+    "description": "Audio IC Development Tools ESP32-C3-based audio development board for ultra-low-cost and high-performance audio broadcasters and rhythm light strips.",
+    "category": "Audio IC Development Tools",
+    "stock": 155,
+    "price": 28.0,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 28.0,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/catalog/specsheets/Espressif systems_6-22-2022_user-guide-esp32-c3-lyra-v2.0-preliminary.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-C3-Lyra?qs=4ASt3YYao0UIhTmN8ifyWw%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "End of Life",
+    "parameters": {
+     "Standard Pack Qty": "72"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "356-ESP32-C3MINI1UH4",
+    "mfr_part_number": "ESP32-C3-MINI-1U-H4",
+    "manufacturer": "Espressif Systems",
+    "description": "Multiprotocol Modules SMD module, ESP32-C3FH4, IPEX antenna connector, -40C - +105C",
+    "category": "Multiprotocol Modules",
+    "stock": 4733,
+    "price": 3.78,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 3.78,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 3.38,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 2.79,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 2.64,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 2.5,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 2.3,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 2.22,
+      "currency": "USD"
+     },
+     {
+      "qty": 2500,
+      "price": 2.11,
+      "currency": "USD"
+     },
+     {
+      "qty": 5000,
+      "price": 2.07,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/catalog/specsheets/Espressif Systems_09072021_ESP32-C3-MINI-1U.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-C3-MINI-1U-H4?qs=pBJMDPsKWf1ZgoQcnZrrOA%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Not Recommended for New Designs",
+    "parameters": {
+     "Packaging": "Tray",
+     "Standard Pack Qty": "6500"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "223-ESP32-C3-01M",
+    "mfr_part_number": "ESP32-C3-01M",
+    "manufacturer": "RF Solutions",
+    "description": "Multiprotocol Modules",
+    "category": "Multiprotocol Modules",
+    "stock": 0,
+    "price": 7.42,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 7.42,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 7.22,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 6.86,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 6.5,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 6.27,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 6.12,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 6.02,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/RF-Solutions/ESP32-C3-01M?qs=4ASt3YYao0VwRw%252B%2FQoU5Gw%3D%3D",
+    "rohs": "",
+    "lifecycle": "Active",
+    "parameters": {
+     "Standard Pack Qty": "1"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "223-ESP32-C3-32S",
+    "mfr_part_number": "ESP32-C3-32S",
+    "manufacturer": "RF Solutions",
+    "description": "Multiprotocol Modules",
+    "category": "Multiprotocol Modules",
+    "stock": 0,
+    "price": 7.71,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 7.71,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 7.52,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 7.14,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 6.77,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 6.52,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 6.35,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 6.25,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/RF-Solutions/ESP32-C3-32S?qs=4ASt3YYao0W9PI8LYZ%2FiWg%3D%3D",
+    "rohs": "",
+    "lifecycle": "Active",
+    "parameters": {
+     "Standard Pack Qty": "1"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "356-ESP32-C3-MINI1H4",
+    "mfr_part_number": "ESP32-C3-MINI-1-H4",
+    "manufacturer": "Espressif Systems",
+    "description": "Multiprotocol Modules SMD module, ESP32-C3FH4, PCB antenna, -40C - +105C",
+    "category": "Multiprotocol Modules",
+    "stock": 20,
+    "price": 3.28,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 3.28,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 2.84,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 2.68,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 2.47,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 2.34,
+      "currency": "USD"
+     },
+     {
+      "qty": 650,
+      "price": 2.27,
+      "currency": "USD"
+     },
+     {
+      "qty": 1300,
+      "price": 2.22,
+      "currency": "USD"
+     },
+     {
+      "qty": 1950,
+      "price": 2.16,
+      "currency": "USD"
+     },
+     {
+      "qty": 4550,
+      "price": 2.14,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/1574/1/esp32-c3-mini-1_datasheet_en.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-C3-MINI-1-H4?qs=stqOd1AaK78JkwNX13Q9hQ%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Not Recommended for New Designs",
+    "parameters": {
+     "Packaging": "Cut Tape",
+     "Standard Pack Qty": "650"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "356-ESP32C3WROM02UN4",
+    "mfr_part_number": "ESP32-C3-WROOM-02U-N4",
+    "manufacturer": "Espressif Systems",
+    "description": "Multiprotocol Modules SMD module, ESP32-C3, 4MB SPI flash, IPEX antenna, -40C - +85C",
+    "category": "Multiprotocol Modules",
+    "stock": 5176,
+    "price": 3.5,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 3.5,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 3.03,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 2.82,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 2.63,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 2.5,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 1.95,
+      "currency": "USD"
+     },
+     {
+      "qty": 6500,
+      "price": 1.95,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/catalog/specsheets/Espressif Systems_09072021_ESP32-C3-WROOM-02U-N4.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-C3-WROOM-02U-N4?qs=pBJMDPsKWf2Ces2aXBSNjQ%3D%3D",
+    "rohs": "",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "6500"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "909-ESP32C3DEVKITLIP",
+    "mfr_part_number": "ESP32-C3-DevKit-Lipo",
+    "manufacturer": "Olimex Ltd.",
+    "description": "Development Boards & Kits - Other Processors ESP32-C3-DevKit-Lipo RISC-V development board with JTAG WIFI BT5 USB",
+    "category": "Development Boards & Kits - Other Processors",
+    "stock": 170,
+    "price": 5.96,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 5.96,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/catalog/specsheets/Olimex_ESP32-C3-Devkit-Lipo.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Olimex-Ltd/ESP32-C3-DevKit-Lipo?qs=rQFj71Wb1eU46R%2FjdrIoJQ%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Standard Pack Qty": "1"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "356-ESP32-C3FH4X",
+    "mfr_part_number": "ESP32-C3FH4X",
+    "manufacturer": "Espressif Systems",
+    "description": "RF System on a Chip - SoC ESP32-C3FH4X is an low-power and highly-integrated MCU-based solution that supports 2.4 GHz Wi-Fi and Bluetooth Low Energy (Bluetooth LE)",
+    "category": "RF System on a Chip - SoC",
+    "stock": 10582,
+    "price": 2.5,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 2.5,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 2.16,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 2.04,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 1.88,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 1.78,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 1.7,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 1.63,
+      "currency": "USD"
+     },
+     {
+      "qty": 2500,
+      "price": 1.6,
+      "currency": "USD"
+     },
+     {
+      "qty": 5000,
+      "price": 1.48,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/1574/1/esp32-c3_datasheet_en.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-C3FH4X?qs=i8QVZAFTkqTBHNQ1W71daA%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Standard Pack Qty": "5000"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "356-ESP32C3WROOM02H4",
+    "mfr_part_number": "ESP32-C3-WROOM-02-H4",
+    "manufacturer": "Espressif Systems",
+    "description": "Multiprotocol Modules SMD module, ESP32-C3, 4MB SPI flash, PCB antenna, -40C - +105C",
+    "category": "Multiprotocol Modules",
+    "stock": 6281,
+    "price": 3.62,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 3.62,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 3.13,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 2.91,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 2.72,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 2.58,
+      "currency": "USD"
+     },
+     {
+      "qty": 650,
+      "price": 2.0,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/catalog/specsheets/Espressif Systems_04082021_ESP32-C3-WROOM-02.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-C3-WROOM-02-H4?qs=stqOd1AaK79%2FSA14oWtR%252Bw%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Cut Tape",
+     "Standard Pack Qty": "650"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "356-ESP32-C3FH4",
+    "mfr_part_number": "ESP32-C3FH4",
+    "manufacturer": "Espressif Systems",
+    "description": "RF System on a Chip - SoC SMD IC ESP32-C3FH4, single-core MCU, 2.4G Wi-Fi & BLE 5.0 combo, QFN 32-pin, 5*5 mm, 4 MB flash inside, -40 C - +105 C",
+    "category": "RF System on a Chip - SoC",
+    "stock": 7576,
+    "price": 2.5,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 2.5,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 2.16,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 2.04,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 1.88,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 1.78,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 1.7,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 1.63,
+      "currency": "USD"
+     },
+     {
+      "qty": 2500,
+      "price": 1.6,
+      "currency": "USD"
+     },
+     {
+      "qty": 5000,
+      "price": 1.3,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/1574/1/esp32-c3_datasheet_en.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-C3FH4?qs=iLbezkQI%252BsgL5PSvEueYlQ%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "5000"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "223-ESP32-C3-13",
+    "mfr_part_number": "ESP32-C3-13",
+    "manufacturer": "RF Solutions",
+    "description": "Multiprotocol Modules",
+    "category": "Multiprotocol Modules",
+    "stock": 0,
+    "price": 7.94,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 7.94,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 6.88,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 6.78,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 6.41,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 6.15,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 5.99,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 5.88,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/RF-Solutions/ESP32-C3-13?qs=4ASt3YYao0W0pqxAu8EOZw%3D%3D",
+    "rohs": "",
+    "lifecycle": "Active",
+    "parameters": {
+     "Standard Pack Qty": "1"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "356-ESP32-C3-LCDKIT",
+    "mfr_part_number": "ESP32-C3-LCDkit",
+    "manufacturer": "Espressif Systems",
+    "description": "Multiprotocol Development Tools ESP32-C3-LCDkit is a development board used for evaluating rotary knob applications. The board consists of a mainboard and a subboard. The mainboard integrates the ESP32-C3-MINI-1 module, a speaker, an EC11 rotary encoder, an infrared sensor, and mor",
+    "category": "Multiprotocol Development Tools",
+    "stock": 0,
+    "price": 19.0,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 19.0,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/catalog/specsheets/Espressif_ESP32-C3-LCDkit.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-C3-LCDkit?qs=1Kr7Jg1SGW80G9%2FrsoY2tQ%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Standard Pack Qty": "108"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "356-ESP32C3MINI1UH4X",
+    "mfr_part_number": "ESP32-C3-MINI-1U-H4X",
+    "manufacturer": "Espressif Systems",
+    "description": "Multiprotocol Modules SMD module, ESP32-C3FH4X, Chip Revision v1.1 or above, IPEX antenna connector, -40 C +105 C",
+    "category": "Multiprotocol Modules",
+    "stock": 2175,
+    "price": 3.5,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 3.5,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 3.03,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 2.82,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 2.63,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 2.5,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 2.33,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 2.21,
+      "currency": "USD"
+     },
+     {
+      "qty": 2600,
+      "price": 2.11,
+      "currency": "USD"
+     },
+     {
+      "qty": 5200,
+      "price": 2.09,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-C3-MINI-1U-H4X?qs=3GbUB62Nf7cOVIOf5hCWGQ%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "New Product",
+    "parameters": {
+     "Standard Pack Qty": "650"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "356-ESP32C3MINI1H4X",
+    "mfr_part_number": "ESP32-C3-MINI-1-H4X",
+    "manufacturer": "Espressif Systems",
+    "description": "Multiprotocol Modules ESP32-C3-MINI-1 and ESP32-C3-MINI-1U are two general-purpose Wi-Fi and Bluetooth LE modules. The rich set of peripherals and a small size make the two modules an ideal choice for smart homes, industrial automation, health care, consumer electronics,",
+    "category": "Multiprotocol Modules",
+    "stock": 309,
+    "price": 4.01,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 4.01,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 3.58,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 2.93,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 2.78,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 2.65,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 2.42,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 2.32,
+      "currency": "USD"
+     },
+     {
+      "qty": 2600,
+      "price": 2.26,
+      "currency": "USD"
+     },
+     {
+      "qty": 5200,
+      "price": 2.19,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/catalog/specsheets/Espressif_Systems_esp32-c3-mini-1_datasheet_en.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-C3-MINI-1-H4X?qs=olJun0bQHM%252Bm8wbucOd%2FlA%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "New at Mouser",
+    "parameters": {
+     "Standard Pack Qty": "650"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "356-E3C3AWSXPLNKDVKT",
+    "mfr_part_number": "ESP32-C3-AWS-ExpressLink-DevKit",
+    "manufacturer": "Espressif Systems",
+    "description": "Development Boards & Kits - Wireless The ESP32-C3-AWS-ExpressLink-DevKit is a development board that hosts Espressifs AWS IoT ExpressLink module for out-of-the-box connectivity to AWS IoT Core. It can be used with an external host MCU for easy evaluation and prototyping.",
+    "category": "Development Boards & Kits - Wireless",
+    "stock": 65,
+    "price": 29.91,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 29.91,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/catalog/specsheets/Espressif_User-Guide-AWS-EXPRESSLINK-DEVKIT_20211122.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-C3-AWS-ExpressLink-DevKit?qs=Rp5uXu7WBW%2F%2FCBX4xJ8e%2Fg%3D%3D",
+    "rohs": "",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Bulk",
+     "Standard Pack Qty": "72"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "356-ESP32PCOV3ZRDVKT",
+    "mfr_part_number": "ESP32-PICO-V3-ZERO-DevKit",
+    "manufacturer": "Espressif Systems",
+    "description": "Development Boards & Kits - Other Processors This a low-footprint and entry-level development board for ESP32-PICO-V3-ZERO.",
+    "category": "Development Boards & Kits - Other Processors",
+    "stock": 2,
+    "price": 70.0,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 70.0,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/catalog/specsheets/Espressif_21821_ESP32-PICO-V3-ZERO-DevKit.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP32-PICO-V3-ZERO-DevKit?qs=81r%252BiQLm7BRT7N0uDaSUcQ%3D%3D",
+    "rohs": "",
+    "lifecycle": "End of Life",
+    "parameters": {
+     "Packaging": "Bulk",
+     "Standard Pack Qty": "1"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "356-ESPWROOM-02U",
+    "mfr_part_number": "ESP-WROOM-02U-N2",
+    "manufacturer": "Espressif Systems",
+    "description": "WiFi Modules - 802.11 SMD Module, ESP8266EX, 16Mbits SPI flash, UART Mode, U.FL antenna connector",
+    "category": "WiFi Modules - 802.11",
+    "stock": 0,
+    "price": 3.0,
+    "price_breaks": [
+     {
+      "qty": 6500,
+      "price": 3.0,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/1574/1/0c-esp-wroom-02_datasheet_en.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Espressif-Systems/ESP-WROOM-02U-N2?qs=Li%252BoUPsLEnvuG4H1UnEEvQ%3D%3D",
+    "rohs": "",
+    "lifecycle": "Not Recommended for New Designs",
+    "parameters": {
+     "Packaging": "Reel",
+     "Standard Pack Qty": "650"
+    },
+    "min_qty": 6500,
+    "currency": "USD"
+   }
+  ],
+  "total": 29
+ }
+}

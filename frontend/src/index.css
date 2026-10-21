@@ -1,0 +1,336 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply m-0 bg-background text-on-background font-body-md;
+    /* Was `max(884px, 100dvh)`. That literal pinned the document to 884px tall whatever
+       the window was, so any viewport shorter than it scrolled by definition — which is
+       what slid the design workspace's header under the browser chrome. A floor measured
+       from one machine's window is not a layout rule. */
+    min-height: 100dvh;
+  }
+
+  #root {
+    /* `min-h-screen` is 100vh, and 100vh is not 100dvh — they differed by 23px here, which
+       is enough to reintroduce the scroll the workspace lock exists to remove. */
+    min-height: 100dvh;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0B0C0E;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #2A2D35;
+    border-radius: 2px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3F444E;
+  }
+}
+
+@layer components {
+  .app-page-transition {
+    animation: page-enter 360ms ease-out both;
+  }
+
+  /* Delayed so the copy arrives *after* the card has begun moving, rather than the two
+     competing. The card takes 320ms; this starts a third of the way in. */
+  .coach-copy {
+    animation: coach-copy-in 260ms 110ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .rounded-DEFAULT {
+    border-radius: 0.125rem;
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, #1A1C20 1px, transparent 1px),
+      linear-gradient(to bottom, #1A1C20 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .glow-focus:focus-within {
+    box-shadow: 0 0 0 1px #f2a25c, 0 0 8px 0 rgba(242, 162, 92, 0.2);
+    border-color: #f2a25c;
+  }
+
+  .panel-border {
+    @apply border border-[#2A2D35] bg-[#16181D];
+  }
+
+  .input-field {
+    @apply bg-[#0B0C0E] border border-outline-variant rounded focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors duration-150;
+  }
+
+  .uppercase-label {
+    @apply uppercase tracking-[0.05em];
+  }
+
+  .glow-error {
+    box-shadow: 0 0 8px rgba(255, 180, 171, 0.2);
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 8px rgba(242, 162, 92, 0.2);
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, #1A1C20 1px, transparent 1px),
+      linear-gradient(to bottom, #1A1C20 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .node {
+    @apply fill-[#16181D] stroke-outline-variant stroke-[1.5px] transition-all duration-200;
+  }
+
+  .node:hover {
+    @apply stroke-primary;
+  }
+
+  .node-pass {
+    @apply stroke-[#4ade80] opacity-100;
+  }
+
+  .node-searching {
+    @apply stroke-tertiary-container opacity-80;
+    animation: searching-pulse 1.2s ease-in-out infinite;
+  }
+
+  .node-conflict {
+    @apply stroke-error opacity-100;
+    filter: drop-shadow(0 0 6px rgba(255, 180, 171, 0.35));
+  }
+
+  .node-conflict-entry {
+    animation: conflict-entry 360ms ease-out;
+  }
+
+  .node-conflict-repeat {
+    animation: conflict-repeat 260ms ease-out;
+  }
+
+  .node-pending {
+    @apply stroke-outline-variant opacity-45;
+    stroke-dasharray: 4 3;
+  }
+
+  .edge {
+    @apply stroke-outline-variant stroke-2 fill-none;
+  }
+
+  .edge-conflict {
+    @apply stroke-error;
+    stroke-dasharray: 4 4;
+    animation: march 1s linear infinite;
+  }
+
+  /* Drawn so the part is not floating, but no rule ran on it — so it reads as weaker
+     than a checked wire and carries no hue of its own. */
+  .edge-unchecked {
+    @apply stroke-outline-variant opacity-50;
+    stroke-dasharray: 3 5;
+    stroke-width: 1.5;
+  }
+
+  .graph-node-reveal {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: graph-node-reveal 240ms ease-out both;
+  }
+
+  .edge-reveal {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: graph-edge-reveal 240ms ease-out forwards;
+  }
+
+  .edge-conflict.edge-reveal {
+    animation: graph-edge-reveal 240ms ease-out forwards, march 1s 240ms linear infinite;
+  }
+
+  /* Draws on with every other edge, then takes its dash back. `edge-reveal` animates
+     `stroke-dasharray` and holds it at the end, so without this second step an unchecked
+     stub would finish the reveal as a solid line and stop reading as unchecked. */
+  .edge-unchecked.edge-reveal {
+    animation: graph-edge-reveal 240ms ease-out forwards, unchecked-settle 1ms 240ms linear forwards;
+  }
+
+  .node-text-title {
+    @apply font-label-caps text-[10px] fill-on-surface-variant;
+  }
+
+  .node-text-mpn {
+    @apply font-data-tabular text-[11px] fill-on-surface font-medium;
+  }
+
+  .badge-bg {
+    @apply fill-surface-container-high stroke-outline-variant stroke-1;
+    rx: 4;
+  }
+
+  .badge-text {
+    @apply font-label-caps text-[9px] fill-on-surface;
+  }
+
+  .badge-error-bg {
+    @apply fill-error-container stroke-error stroke-1;
+    rx: 4;
+  }
+
+  .badge-error-text {
+    @apply font-label-caps text-[9px] fill-on-error-container font-bold;
+  }
+
+  .spinner {
+    animation: spin 1s linear infinite;
+    transform-origin: center;
+  }
+}
+
+@keyframes searching-pulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 0 rgba(0, 229, 255, 0));
+  }
+  50% {
+    filter: drop-shadow(0 0 7px rgba(0, 229, 255, 0.35));
+  }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes graph-node-reveal {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes coach-copy-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes graph-edge-reveal {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes unchecked-settle {
+  to {
+    stroke-dasharray: 3 5;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes conflict-entry {
+  0% {
+    transform: translateX(-1px);
+    filter: drop-shadow(0 0 2px rgba(255, 180, 171, 0.35));
+  }
+  30% {
+    transform: translateX(1px);
+  }
+  60% {
+    transform: translateX(-1px);
+    filter: drop-shadow(0 0 8px rgba(255, 180, 171, 0.75));
+  }
+  100% {
+    transform: translateX(0);
+    filter: drop-shadow(0 0 6px rgba(255, 180, 171, 0.35));
+  }
+}
+
+@keyframes conflict-repeat {
+  0% {
+    filter: drop-shadow(0 0 2px rgba(255, 180, 171, 0.35));
+  }
+  45% {
+    filter: drop-shadow(0 0 10px rgba(255, 180, 171, 0.95));
+  }
+  100% {
+    filter: drop-shadow(0 0 6px rgba(255, 180, 171, 0.35));
+  }
+}
+
+@keyframes march {
+  to {
+    stroke-dashoffset: -8;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -8;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .node-searching,
+  .node-conflict-entry,
+  .node-conflict-repeat,
+  .edge-conflict,
+  .graph-node-reveal,
+  .edge-reveal,
+  .app-page-transition,
+  .coach-copy,
+  .spinner {
+    animation: none !important;
+  }
+
+  .edge-reveal {
+    stroke-dashoffset: 0;
+  }
+}

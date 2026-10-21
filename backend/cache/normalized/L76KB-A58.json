@@ -1,0 +1,23 @@
+{
+ "mpn": "L76KB-A58",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 2.7,
+  "vmax": 3.4,
+  "i_typ": 0.1,
+  "role": "peripheral",
+  "temp_min": -40.0,
+  "temp_max": 85.0,
+  "interfaces": [
+   "UART"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "i_typ": "Current - Supply",
+  "interfaces": "Interface",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

@@ -1,0 +1,15 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "S13131-1536(DYWH)",
+  "limit": 5
+ },
+ "response": {
+  "results": [],
+  "page": 1,
+  "per_page": 5,
+  "total": 0,
+  "total_pages": 0,
+  "has_more": false
+ }
+}

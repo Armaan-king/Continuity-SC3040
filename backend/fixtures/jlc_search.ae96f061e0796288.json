@@ -1,0 +1,203 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "bridge rectifier",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C2488",
+    "model": "MB10S-50MIL",
+    "manufacturer": "MDD(Microdiode Semiconductor)",
+    "package": "MBS",
+    "stock": 873533,
+    "price": 0.0269,
+    "price_10": null,
+    "library_type": "basic",
+    "preferred": true,
+    "category": "Diodes",
+    "subcategory": "Bridge Rectifiers",
+    "subcategory_id": 2951,
+    "mounting_type": "through_hole",
+    "description": "-55℃~+150℃ 1.1V@400mA 1A 1kV 35A 5uA@1kV Single-Phase Rectifier MBS Bridge Rectifiers ROHS",
+    "specs": {
+     "Voltage - Forward(Vf@If)": "1.1V@400mA",
+     "Type": "Single-Phase Rectifier",
+     "Non-Repetitive Peak Forward Surge Current": "35A",
+     "Voltage - DC Reverse(Vr)": "1kV",
+     "Operating Junction Temperature Range": "-55℃~+150℃",
+     "Current - Rectified": "1A",
+     "Reverse Leakage Current (Ir)": "5uA@1kV"
+    }
+   },
+   {
+    "lcsc": "C5377",
+    "model": "DB107S",
+    "manufacturer": "MDD(Microdiode Semiconductor)",
+    "package": "DBS",
+    "stock": 329623,
+    "price": 0.0684,
+    "price_10": null,
+    "library_type": "preferred",
+    "preferred": true,
+    "category": "Diodes",
+    "subcategory": "Bridge Rectifiers",
+    "subcategory_id": 2951,
+    "mounting_type": "through_hole",
+    "description": "-55℃~+150℃ 1.1V@1A 10uA@1kV 1A 1kV 30A Single-Phase Rectifier DBS Bridge Rectifiers ROHS",
+    "specs": {
+     "Voltage - Forward(Vf@If)": "1.1V@1A",
+     "Type": "Single-Phase Rectifier",
+     "Non-Repetitive Peak Forward Surge Current": "30A",
+     "Voltage - DC Reverse(Vr)": "1kV",
+     "Operating Junction Temperature Range": "-55℃~+150℃",
+     "Current - Rectified": "1A",
+     "Reverse Leakage Current (Ir)": "10uA@1kV"
+    }
+   },
+   {
+    "lcsc": "C42406052",
+    "model": "ABS210",
+    "manufacturer": "hongjiacheng",
+    "package": "ABS",
+    "stock": 208905,
+    "price": 0.0374,
+    "price_10": null,
+    "library_type": "preferred",
+    "preferred": true,
+    "category": "Diodes",
+    "subcategory": "Bridge Rectifiers",
+    "subcategory_id": 2951,
+    "mounting_type": "not_sure",
+    "description": "-55℃~+150℃ 1V@1A 1kV 2A 5uA 60A Single-Phase Rectifier ABS Bridge Rectifiers ROHS",
+    "specs": {
+     "Voltage - Forward(Vf@If)": "1V@1A",
+     "Type": "Single-Phase Rectifier",
+     "Non-Repetitive Peak Forward Surge Current": "60A",
+     "Voltage - DC Reverse(Vr)": "1kV",
+     "Operating Junction Temperature Range": "-55℃~+150℃",
+     "Current - Rectified": "2A",
+     "Reverse Leakage Current (Ir)": "5uA"
+    }
+   },
+   {
+    "lcsc": "C42406051",
+    "model": "ABS10",
+    "manufacturer": "hongjiacheng",
+    "package": "ABS",
+    "stock": 108442,
+    "price": 0.0314,
+    "price_10": null,
+    "library_type": "preferred",
+    "preferred": true,
+    "category": "Diodes",
+    "subcategory": "Bridge Rectifiers",
+    "subcategory_id": 2951,
+    "mounting_type": "not_sure",
+    "description": "-55℃~+150℃ 1A 1V@0.4A 1kV 30A 5uA Single-Phase Rectifier ABS Bridge Rectifiers ROHS",
+    "specs": {
+     "Voltage - Forward(Vf@If)": "1V@0.4A",
+     "Type": "Single-Phase Rectifier",
+     "Non-Repetitive Peak Forward Surge Current": "30A",
+     "Voltage - DC Reverse(Vr)": "1kV",
+     "Operating Junction Temperature Range": "-55℃~+150℃",
+     "Current - Rectified": "1A",
+     "Reverse Leakage Current (Ir)": "5uA"
+    }
+   },
+   {
+    "lcsc": "C42406066",
+    "model": "GBU1510",
+    "manufacturer": "hongjiacheng",
+    "package": "GBU",
+    "stock": 3994,
+    "price": 0.3439,
+    "price_10": null,
+    "library_type": "preferred",
+    "preferred": true,
+    "category": "Diodes",
+    "subcategory": "Bridge Rectifiers",
+    "subcategory_id": 2951,
+    "mounting_type": "through_hole",
+    "description": "-55℃~+150℃ 1.1V@7.5A 10uA 15A 1kV 220A Single-Phase Rectifier GBU Bridge Rectifiers ROHS",
+    "specs": {
+     "Voltage - Forward(Vf@If)": "1.1V@7.5A",
+     "Type": "Single-Phase Rectifier",
+     "Non-Repetitive Peak Forward Surge Current": "220A",
+     "Voltage - DC Reverse(Vr)": "1kV",
+     "Operating Junction Temperature Range": "-55℃~+150℃",
+     "Current - Rectified": "15A",
+     "Reverse Leakage Current (Ir)": "10uA"
+    }
+   },
+   {
+    "lcsc": "C42406063",
+    "model": "GBJL1506",
+    "manufacturer": "hongjiacheng",
+    "package": "GBJ",
+    "stock": 2956,
+    "price": 0.6224,
+    "price_10": null,
+    "library_type": "preferred",
+    "preferred": true,
+    "category": "Diodes",
+    "subcategory": "Bridge Rectifiers",
+    "subcategory_id": 2951,
+    "mounting_type": "through_hole",
+    "description": "-55℃~+150℃ 10uA 15A 380A 600V 920mV@7.5A Single-Phase Rectifier GBJ Bridge Rectifiers ROHS",
+    "specs": {
+     "Voltage - Forward(Vf@If)": "920mV@7.5A",
+     "Type": "Single-Phase Rectifier",
+     "Non-Repetitive Peak Forward Surge Current": "380A",
+     "Voltage - DC Reverse(Vr)": "600V",
+     "Operating Junction Temperature Range": "-55℃~+150℃",
+     "Current - Rectified": "15A",
+     "Reverse Leakage Current (Ir)": "10uA"
+    }
+   }
+  ],
+  "total": 3049,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 6
+  },
+  "filters_applied": {
+   "query": "bridge",
+   "subcategory_id": 2951,
+   "subcategory_name": "bridge rectifiers",
+   "subcategory_resolved": "Bridge Rectifiers",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 1,
+   "preferred": 25,
+   "extended": 3023
+  },
+  "no_fee_available": true,
+  "parsed": {
+   "original_query": "bridge rectifier",
+   "detected": {
+    "component_type": "rectifier",
+    "subcategory": "bridge rectifiers"
+   },
+   "subcategory": "bridge rectifiers",
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "bridge"
+  }
+ }
+}

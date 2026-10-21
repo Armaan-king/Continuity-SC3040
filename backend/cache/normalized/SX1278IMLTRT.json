@@ -1,0 +1,25 @@
+{
+ "mpn": "SX1278IMLTRT",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 1.8,
+  "vmax": 3.7,
+  "i_typ": 0.0108,
+  "i_peak": 0.029,
+  "role": "peripheral",
+  "temp_min": -40.0,
+  "temp_max": 85.0,
+  "interfaces": [
+   "SPI"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "i_typ": "Receive Current",
+  "i_peak": "Current Of Transmitting",
+  "interfaces": "Interface",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

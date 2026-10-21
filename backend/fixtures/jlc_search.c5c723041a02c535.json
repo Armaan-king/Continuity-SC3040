@@ -1,0 +1,214 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "temperature humidity sensor",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C2757850",
+    "model": "AHT20",
+    "manufacturer": "Aosong (Guangzhou) Elec",
+    "package": "SMD",
+    "stock": 49617,
+    "price": 0.7912,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Temperature and Humidity Sensor",
+    "subcategory_id": 3191,
+    "mounting_type": "smd",
+    "description": "-40℃~+120℃ 0%RH~100%RH 2.2V~5.5V 20bit 570uA I2C ±0.3℃ ±2%RH SMD Temperature and Humidity Sensor ROHS",
+    "specs": {
+     "Temperature Tolerance": "±0.3℃",
+     "Voltage - Supply": "2.2V~5.5V",
+     "Humidity": "0%RH~100%RH",
+     "Temperature Range": "-40℃~+120℃",
+     "Features": "Factory calibration",
+     "Current - Supply": "570uA",
+     "Interface": "I2C",
+     "Resolution": "20bit",
+     "Humidity Tolerance": "±2%RH"
+    }
+   },
+   {
+    "lcsc": "C2687423",
+    "model": "SHT30-DIS-B10KS",
+    "manufacturer": "Sensirion",
+    "package": "DFN-8-EP(2.5x2.5)",
+    "stock": 31487,
+    "price": 2.833,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Temperature and Humidity Sensor",
+    "subcategory_id": 3191,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃ 0%RH~100%RH 16bit 2.15V~5.5V 600uA Factory calibration、温度补偿 I2C ±0.2℃ ±2%RH DFN-8-EP(2.5x2.5) Temperature and Humidity Sensor ROHS",
+    "specs": {
+     "Temperature Tolerance": "±0.2℃",
+     "Voltage - Supply": "2.15V~5.5V",
+     "Humidity": "0%RH~100%RH",
+     "Temperature Range": "-40℃~+125℃",
+     "Features": "Factory calibration、Temperature compensation",
+     "Current - Supply": "600uA",
+     "Interface": "I2C",
+     "Resolution": "16bit",
+     "Humidity Tolerance": "±2%RH"
+    }
+   },
+   {
+    "lcsc": "C3012622",
+    "model": "AHT20-F",
+    "manufacturer": "Aosong (Guangzhou) Elec",
+    "package": "SMD-6P,3x3mm",
+    "stock": 22520,
+    "price": 0.809,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Temperature and Humidity Sensor",
+    "subcategory_id": 3191,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 0%RH~100%RH 2.2V~5.5V 980uA I2C ±0.3℃ ±2%RH SMD-6P,3x3mm Temperature and Humidity Sensor ROHS",
+    "specs": {
+     "Temperature Tolerance": "±0.3℃",
+     "Voltage - Supply": "2.2V~5.5V",
+     "Humidity": "0%RH~100%RH",
+     "Temperature Range": "-40℃~+85℃",
+     "Features": "Factory calibration",
+     "Current - Supply": "980uA",
+     "Interface": "I2C",
+     "Humidity Tolerance": "±2%RH"
+    }
+   },
+   {
+    "lcsc": "C2909890",
+    "model": "SHT40-AD1B-R2",
+    "manufacturer": "Sensirion",
+    "package": "DFN-4-EP(1.5x1.5)",
+    "stock": 20569,
+    "price": 2.0175,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Temperature and Humidity Sensor",
+    "subcategory_id": 3191,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃ 0%RH~100%RH 1.08V~3.6V 16bit 400nA Factory calibration、Built-in heater I2C ±0.2℃ ±1.8%RH DFN-4-EP(1.5x1.5) Temperature and Humidity Sensor ROHS",
+    "specs": {
+     "Temperature Tolerance": "±0.2℃",
+     "Voltage - Supply": "1.08V~3.6V",
+     "Humidity": "0%RH~100%RH",
+     "Temperature Range": "-40℃~+125℃",
+     "Features": "Factory calibration、Built-in heater",
+     "Current - Supply": "400nA",
+     "Interface": "I2C",
+     "Resolution": "16bit",
+     "Humidity Tolerance": "±1.8%RH"
+    }
+   },
+   {
+    "lcsc": "C477922",
+    "model": "HDC2010YPAR",
+    "manufacturer": "Texas Instruments",
+    "package": "DSBGA-6",
+    "stock": 16535,
+    "price": 0.8171,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Temperature and Humidity Sensor",
+    "subcategory_id": 3191,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 0%RH~100%RH 1.62V~3.6V 11bit 550nA I2C ±0.2℃ ±2%RH DSBGA-6 Temperature and Humidity Sensor ROHS",
+    "specs": {
+     "Temperature Tolerance": "±0.2℃",
+     "Voltage - Supply": "1.62V~3.6V",
+     "Humidity": "0%RH~100%RH",
+     "Temperature Range": "-40℃~+85℃",
+     "Features": "Factory calibration、Built-in heater",
+     "Current - Supply": "550nA",
+     "Interface": "I2C",
+     "Resolution": "11bit",
+     "Humidity Tolerance": "±2%RH"
+    }
+   },
+   {
+    "lcsc": "C2848306",
+    "model": "SHT40-AD1B-R3",
+    "manufacturer": "Sensirion",
+    "package": "DFN-4-EP(1.5x1.5)",
+    "stock": 15653,
+    "price": 1.8266,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Temperature and Humidity Sensor",
+    "subcategory_id": 3191,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃ 0%RH~100%RH 1.08V~3.6V 16bit 400nA Built-in heater I2C ±0.2℃ ±1.8%RH DFN-4-EP(1.5x1.5) Temperature and Humidity Sensor ROHS",
+    "specs": {
+     "Temperature Tolerance": "±0.2℃",
+     "Voltage - Supply": "1.08V~3.6V",
+     "Humidity": "0%RH~100%RH",
+     "Temperature Range": "-40℃~+125℃",
+     "Features": "Built-in heater",
+     "Current - Supply": "400nA",
+     "Interface": "I2C",
+     "Resolution": "16bit",
+     "Humidity Tolerance": "±1.8%RH"
+    }
+   }
+  ],
+  "total": 113,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 6
+  },
+  "filters_applied": {
+   "query": null,
+   "subcategory_id": 3191,
+   "subcategory_name": "temperature and humidity sensor",
+   "subcategory_resolved": "Temperature and Humidity Sensor",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 113
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "temperature humidity sensor",
+   "detected": {
+    "component_type": "temperature humidity sensor",
+    "subcategory": "temperature and humidity sensor"
+   },
+   "subcategory": "temperature and humidity sensor",
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": ""
+  }
+ }
+}

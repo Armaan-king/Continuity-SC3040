@@ -1,0 +1,105 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "PIC16F1939-I/PT"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "579-PIC16F1939-I/PT",
+    "mfr_part_number": "PIC16F1939-I/PT",
+    "manufacturer": "Microchip Technology",
+    "description": "8-bit Microcontrollers - MCU 28KB Flash 1.8-5.5V 1KB RAM 256B EEPROM",
+    "category": "8-bit Microcontrollers - MCU",
+    "stock": 26377,
+    "price": 2.79,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 2.79,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 2.76,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 2.64,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 2.39,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/282/1/PIC16F-LF-1938-39-Micorcontroller-Data-Sheet-40001574E.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Microchip-Technology/PIC16F1939-I-PT?qs=DAV8Y8VhPTIMDflTVymdSA%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Tray",
+     "Standard Pack Qty": "160"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "579-PIC16F1939T-I/PT",
+    "mfr_part_number": "PIC16F1939T-I/PT",
+    "manufacturer": "Microchip Technology",
+    "description": "8-bit Microcontrollers - MCU 28KB Flash 1.8-5.5V 1KB RAM 256B EEPROM",
+    "category": "8-bit Microcontrollers - MCU",
+    "stock": 1188,
+    "price": 2.93,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 2.93,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 2.87,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 2.67,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 2.66,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 2.65,
+      "currency": "USD"
+     },
+     {
+      "qty": 1200,
+      "price": 2.44,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/282/1/PIC16F-LF-1938-39-Micorcontroller-Data-Sheet-40001574E.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Microchip-Technology/PIC16F1939T-I-PT?qs=DAV8Y8VhPTLpnCAcZBU96w%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "1200"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 2
+ }
+}

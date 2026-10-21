@@ -1,0 +1,20 @@
+{
+ "mpn": "KSZ8081MNXIA-TR",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmax": 3.3,
+  "role": "peripheral",
+  "temp_min": -40.0,
+  "temp_max": 85.0,
+  "interfaces": [
+   "MII",
+   "RMII"
+  ]
+ },
+ "provenance": {
+  "vmax": "Voltage - Supply",
+  "interfaces": "MAC Interface",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

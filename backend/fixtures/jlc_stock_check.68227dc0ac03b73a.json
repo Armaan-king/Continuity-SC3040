@@ -1,0 +1,37 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "AR0234CSSM00SUKA0-CP",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C5207402",
+    "model": "AR0234CSSM00SUKA0-CP",
+    "manufacturer": "onsemi",
+    "package": "ODCSP-83",
+    "stock": 11,
+    "price": 45.3265,
+    "price_10": 45.3265,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Image Sensors",
+    "subcategory_id": 3078,
+    "mounting_type": "smd",
+    "specs": {
+     "Sensor Type": "CMOS Image Sensor",
+     "Pixel Size": "3umx3um",
+     "Features": "Multi-camera synchronous trigger、Global shutter、On-chip temperature sensor、Regional image control、On-chip statistical output",
+     "Active Pixel Array": "1920Hx1200V"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

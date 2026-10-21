@@ -1,0 +1,76 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "W25N01KVZEIR",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C22472329",
+    "model": "W25N01KVZEIR",
+    "manufacturer": "Winbond Elec",
+    "package": "WSON-8(8x6)",
+    "stock": 27109,
+    "price": 7.0952,
+    "price_10": 6.2813,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Memory",
+    "subcategory": "NAND FLASH",
+    "subcategory_id": 2322,
+    "mounting_type": "smd",
+    "specs": {
+     "Data Retention - TDR (Year)": "10 years",
+     "Page Program time (TPP)": "700us",
+     "Clock Frequency": "104MHz",
+     "Operating Temperature": "-40℃~+85℃",
+     "Write Cycle Time(tWC)": "-",
+     "ECC": "Yes",
+     "Memory Size": "1Gbit",
+     "Voltage - Supply": "2.7V~3.6V",
+     "Block Erase Time(tBE)": "2ms",
+     "Features": "Software reset function、ECC error correction function、OTP region write protection and lock function、Hardware write protection function、Write enable latch、Software write protection function、Hardware reset function",
+     "Interface": "SPI",
+     "Program / Erase Cycles": "60,000 Cycles",
+     "Standby Supply Current": "10uA"
+    }
+   },
+   {
+    "lcsc": "C36919433",
+    "model": "W25N01KVZEIR TR",
+    "manufacturer": "Winbond Elec",
+    "package": "WSON-8(6x8)",
+    "stock": 4001,
+    "price": 7.1114,
+    "price_10": 6.1535,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Memory",
+    "subcategory": "NAND FLASH",
+    "subcategory_id": 2322,
+    "mounting_type": "smd",
+    "specs": {
+     "Data Retention - TDR (Year)": "-",
+     "Page Program time (TPP)": "700us",
+     "Clock Frequency": "104MHz",
+     "Operating Temperature": "-40℃~+85℃",
+     "Write Cycle Time(tWC)": "-",
+     "ECC": "有",
+     "Memory Size": "1Gbit",
+     "Voltage - Supply": "2.7V~3.6V",
+     "Block Erase Time(tBE)": "2ms",
+     "Features": "Software reset function、ECC error correction function、OTP region write protection and lock function、Hardware write protection function、Write enable latch、Software write protection function、Hardware reset function",
+     "Interface": "SPI",
+     "Program / Erase Cycles": "60,000 Cycles",
+     "Standby Supply Current": "10uA"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 2,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

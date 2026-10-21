@@ -1,0 +1,109 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "NOR flash memory",
+  "sort_by": "stock",
+  "limit": 40
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C492205",
+    "model": "EN25QH64A-104HIP",
+    "manufacturer": "ESMT(Elite Semicon Memory Tech)",
+    "package": "SOP-8-208mil",
+    "stock": 182,
+    "price": 1.0032,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Memory",
+    "subcategory": "NOR FLASH",
+    "subcategory_id": 3018,
+    "mounting_type": "smd",
+    "description": "100,000 cycles 104MHz 1uA 2.7V~3.6V 20 Years 500us 64Mbit SPI SOP-8-208mil NOR FLASH ROHS",
+    "specs": {
+     "Data Retention - TDR (Year)": "20 Years",
+     "Clock Frequency": "104MHz",
+     "Memory Size": "64Mbit",
+     "Page Programming Time (Tpp)": "500us",
+     "Voltage - Supply": "2.7V~3.6V",
+     "Interface": "SPI",
+     "Standby Supply Current": "1uA",
+     "Program / Erase Cycles": "100,000 cycles"
+    }
+   },
+   {
+    "lcsc": "C492203",
+    "model": "EN25QH128A-104HIP2T",
+    "manufacturer": "ESMT(Elite Semicon Memory Tech)",
+    "package": "SOP-8-208mil",
+    "stock": 166,
+    "price": 1.5712,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Memory",
+    "subcategory": "NOR FLASH",
+    "subcategory_id": 3018,
+    "mounting_type": "smd",
+    "description": "100,000 cycles 104MHz 128Mbit 1uA 2.7V~3.6V 20 Years 200ms@(64KB) 800us SPI SOP-8-208mil NOR FLASH ROHS",
+    "specs": {
+     "Data Retention - TDR (Year)": "20 Years",
+     "Clock Frequency": "104MHz",
+     "Operating Temperature": "-",
+     "Memory Size": "128Mbit",
+     "Page Programming Time (Tpp)": "800us",
+     "Voltage - Supply": "2.7V~3.6V",
+     "Write Cycle Time (tWC)": "-",
+     "Block Erase Time(tBE)": "200ms@(64KB)",
+     "Features": "-",
+     "Interface": "SPI",
+     "Standby Supply Current": "1uA",
+     "Program / Erase Cycles": "100,000 cycles"
+    }
+   }
+  ],
+  "total": 2,
+  "page_info": {
+   "limit": 40,
+   "offset": 0,
+   "returned": 2
+  },
+  "filters_applied": {
+   "query": "memory",
+   "subcategory_id": 3018,
+   "subcategory_name": "nor flash",
+   "subcategory_resolved": "NOR FLASH",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 2
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "NOR flash memory",
+   "detected": {
+    "component_type": "nor flash",
+    "subcategory": "nor flash"
+   },
+   "subcategory": "nor flash",
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "memory"
+  }
+ }
+}

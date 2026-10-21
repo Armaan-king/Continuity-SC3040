@@ -1,0 +1,205 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "ethernet transceiver",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C45044",
+    "model": "RTL8201F-VB-CG",
+    "manufacturer": "Realtek Semicon",
+    "package": "QFN-32-EP(5x5)",
+    "stock": 65853,
+    "price": 0.4887,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "Ethernet Transceivers",
+    "subcategory_id": 3072,
+    "mounting_type": "smd",
+    "description": "0℃~+70℃ 1 10BASE-T、100BASE-TX 10Mbit/s、100Mbit/s 3.3V MII、RMII PHY Transceiver QFN-32-EP(5x5) Ethernet Transceivers ROHS",
+    "specs": {
+     "Operating Temperature": "0℃~+70℃",
+     "Type": "PHY Transceiver",
+     "Data Rate": "10Mbit/s、100Mbit/s",
+     "Voltage - Supply": "3.3V",
+     "Number of ports": "1",
+     "Features": "Support optical fiber、Programmable LED indication、Low-power mode",
+     "MAC Interface": "MII、RMII",
+     "Ethernet Speed Standards": "10BASE-T、100BASE-TX"
+    }
+   },
+   {
+    "lcsc": "C2766076",
+    "model": "RTL8213B-CG",
+    "manufacturer": "Realtek Semicon",
+    "package": "QFN-40-EP(5x5)",
+    "stock": 49493,
+    "price": 1.4222,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "Ethernet Transceivers",
+    "subcategory_id": 3072,
+    "mounting_type": "smd",
+    "description": "0℃~+70℃ 1 1.1V、3.3V 10BASE-T、100BASE-TX、1000BASE-T、100BASE-FX、1000BASE-X 10Mbit/s、100Mbit/s、1Gbit/s、1.25Gbit/s Ethernet Transceiver SGMII QFN-40-EP(5x5) Ethernet Transceivers ROHS",
+    "specs": {
+     "Operating Temperature": "0℃~+70℃",
+     "Type": "Ethernet Transceiver",
+     "Data Rate": "10Mbit/s、100Mbit/s、1Gbit/s、1.25Gbit/s",
+     "Voltage - Supply": "1.1V、3.3V",
+     "Number of ports": "1",
+     "Features": "Support optical fiber、Cable diagnostics、Programmable LED indication、Low-power mode、Power-on reset",
+     "MAC Interface": "SGMII",
+     "Ethernet Speed Standards": "10BASE-T、100BASE-TX、1000BASE-T、100BASE-FX、1000BASE-X"
+    }
+   },
+   {
+    "lcsc": "C45223",
+    "model": "LAN8720A-CP-TR",
+    "manufacturer": "Microchip Tech",
+    "package": "QFN-24",
+    "stock": 41331,
+    "price": 0.8591,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "Ethernet Transceivers",
+    "subcategory_id": 3072,
+    "mounting_type": "smd",
+    "description": "0℃~+85℃ 1 1.6V~3.6V 10BASE-T、100BASE-TX 10Mbit/s、100Mbit/s PHY Transceiver RMII QFN-24-EP(4x4) Ethernet Transceivers ROHS",
+    "specs": {
+     "Operating Temperature": "0℃~+85℃",
+     "Type": "PHY Transceiver",
+     "Data Rate": "10Mbit/s、100Mbit/s",
+     "Voltage - Supply": "1.6V~3.6V",
+     "Number of ports": "1",
+     "Features": "Programmable LED indication、Low-power mode、Power-on reset",
+     "MAC Interface": "RMII",
+     "Ethernet Speed Standards": "10BASE-T、100BASE-TX"
+    }
+   },
+   {
+    "lcsc": "C703537",
+    "model": "IP101GRI",
+    "manufacturer": "IC Plus",
+    "package": "QFN-32-EP(4x4)",
+    "stock": 38320,
+    "price": 1.0355,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "Ethernet Transceivers",
+    "subcategory_id": 3072,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 1 10BASE-T、100BASE-TX、100BASE-FX 10Mbit/s、100Mbit/s 150mW 3.3V Ethernet Transceiver MII、RMII QFN-32-EP(4x4) Ethernet Transceivers ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Type": "Ethernet Transceiver",
+     "Data Rate": "10Mbit/s、100Mbit/s",
+     "Voltage - Supply": "3.3V",
+     "Number of ports": "1",
+     "Features": "Support optical fiber、Programmable LED indication、Low-power mode",
+     "MAC Interface": "MII、RMII",
+     "Ethernet Speed Standards": "10BASE-T、100BASE-TX、100BASE-FX"
+    }
+   },
+   {
+    "lcsc": "C187932",
+    "model": "RTL8211F-CG",
+    "manufacturer": "Realtek Semicon",
+    "package": "WQFN-40-EP(5x5)",
+    "stock": 35293,
+    "price": 1.4901,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "Ethernet Transceivers",
+    "subcategory_id": 3072,
+    "mounting_type": "smd",
+    "description": "1.5V、1.8V、2.5V、3.3V 10BASE-T、100BASE-TX、1000BASE-T 10Mbit/s、100Mbit/s、1Gbit/s Ethernet Transceiver RGMII WQFN-40-EP(5x5) Ethernet Transceivers ROHS",
+    "specs": {
+     "Type": "Ethernet Transceiver",
+     "Data Rate": "10Mbit/s、100Mbit/s、1Gbit/s",
+     "Voltage - Supply": "1.5V、1.8V、2.5V、3.3V",
+     "Number of ports": "-",
+     "Features": "Programmable LED indication、Low-power mode",
+     "MAC Interface": "RGMII",
+     "Ethernet Speed Standards": "10BASE-T、100BASE-TX、1000BASE-T"
+    }
+   },
+   {
+    "lcsc": "C17146",
+    "model": "LAN8720AI-CP-TR",
+    "manufacturer": "Microchip Tech",
+    "package": "QFN-24-EP(4x4)",
+    "stock": 19606,
+    "price": 1.1229,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "Ethernet Transceivers",
+    "subcategory_id": 3072,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 1.6V~3.6V 10BASE-T、100BASE-TX 10Mbit/s、100Mbit/s PHY Transceiver RMII QFN-24-EP(4x4) Ethernet Transceivers ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Type": "PHY Transceiver",
+     "Data Rate": "10Mbit/s、100Mbit/s",
+     "Voltage - Supply": "1.6V~3.6V",
+     "Number of ports": "-",
+     "Features": "Programmable LED indication、Low-power mode、Power-on reset、Error detection and recovery",
+     "MAC Interface": "RMII",
+     "Ethernet Speed Standards": "10BASE-T、100BASE-TX"
+    }
+   }
+  ],
+  "total": 318,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 6
+  },
+  "filters_applied": {
+   "query": "ethernet transceiver",
+   "subcategory_id": null,
+   "subcategory_name": null,
+   "subcategory_resolved": null,
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 318
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "ethernet transceiver",
+   "detected": {},
+   "subcategory": null,
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "ethernet transceiver"
+  }
+ }
+}

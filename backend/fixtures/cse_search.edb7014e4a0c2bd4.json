@@ -1,0 +1,10 @@
+{
+ "tool": "cse_search",
+ "arguments": {
+  "query": "IP2332"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

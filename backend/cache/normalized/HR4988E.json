@@ -1,0 +1,23 @@
+{
+ "mpn": "HR4988E",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 3.0,
+  "vmax": 5.5,
+  "i_max": 1.6,
+  "role": "peripheral",
+  "temp_min": -40.0,
+  "temp_max": 85.0,
+  "interfaces": [
+   "STEP/DIR"
+  ]
+ },
+ "provenance": {
+  "vmin": "Control Voltage",
+  "vmax": "Control Voltage",
+  "i_max": "Output Current",
+  "interfaces": "Interface",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

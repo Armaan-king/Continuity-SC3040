@@ -1,0 +1,206 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "ethernet PHY",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C45044",
+    "model": "RTL8201F-VB-CG",
+    "manufacturer": "Realtek Semicon",
+    "package": "QFN-32-EP(5x5)",
+    "stock": 65853,
+    "price": 0.4887,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "Ethernet Transceivers",
+    "subcategory_id": 3072,
+    "mounting_type": "smd",
+    "description": "0℃~+70℃ 1 10BASE-T、100BASE-TX 10Mbit/s、100Mbit/s 3.3V MII、RMII PHY Transceiver QFN-32-EP(5x5) Ethernet Transceivers ROHS",
+    "specs": {
+     "Operating Temperature": "0℃~+70℃",
+     "Type": "PHY Transceiver",
+     "Data Rate": "10Mbit/s、100Mbit/s",
+     "Voltage - Supply": "3.3V",
+     "Number of ports": "1",
+     "Features": "Support optical fiber、Programmable LED indication、Low-power mode",
+     "MAC Interface": "MII、RMII",
+     "Ethernet Speed Standards": "10BASE-T、100BASE-TX"
+    }
+   },
+   {
+    "lcsc": "C45223",
+    "model": "LAN8720A-CP-TR",
+    "manufacturer": "Microchip Tech",
+    "package": "QFN-24",
+    "stock": 41331,
+    "price": 0.8591,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "Ethernet Transceivers",
+    "subcategory_id": 3072,
+    "mounting_type": "smd",
+    "description": "0℃~+85℃ 1 1.6V~3.6V 10BASE-T、100BASE-TX 10Mbit/s、100Mbit/s PHY Transceiver RMII QFN-24-EP(4x4) Ethernet Transceivers ROHS",
+    "specs": {
+     "Operating Temperature": "0℃~+85℃",
+     "Type": "PHY Transceiver",
+     "Data Rate": "10Mbit/s、100Mbit/s",
+     "Voltage - Supply": "1.6V~3.6V",
+     "Number of ports": "1",
+     "Features": "Programmable LED indication、Low-power mode、Power-on reset",
+     "MAC Interface": "RMII",
+     "Ethernet Speed Standards": "10BASE-T、100BASE-TX"
+    }
+   },
+   {
+    "lcsc": "C17146",
+    "model": "LAN8720AI-CP-TR",
+    "manufacturer": "Microchip Tech",
+    "package": "QFN-24-EP(4x4)",
+    "stock": 19606,
+    "price": 1.1229,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "Ethernet Transceivers",
+    "subcategory_id": 3072,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 1.6V~3.6V 10BASE-T、100BASE-TX 10Mbit/s、100Mbit/s PHY Transceiver RMII QFN-24-EP(4x4) Ethernet Transceivers ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Type": "PHY Transceiver",
+     "Data Rate": "10Mbit/s、100Mbit/s",
+     "Voltage - Supply": "1.6V~3.6V",
+     "Number of ports": "-",
+     "Features": "Programmable LED indication、Low-power mode、Power-on reset、Error detection and recovery",
+     "MAC Interface": "RMII",
+     "Ethernet Speed Standards": "10BASE-T、100BASE-TX"
+    }
+   },
+   {
+    "lcsc": "C510876",
+    "model": "LAN8720AI-CP-TR-ABC",
+    "manufacturer": "Microchip Tech",
+    "package": "SQFN-24(4x4)",
+    "stock": 12308,
+    "price": 1.2992,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "Ethernet Transceivers",
+    "subcategory_id": 3072,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 1.6V~3.6V 10BASE-T、100BASE-TX 10Mbit/s、100Mbit/s PHY Transceiver RMII SQFN-24(4x4) Ethernet Transceivers ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Type": "PHY Transceiver",
+     "Data Rate": "10Mbit/s、100Mbit/s",
+     "Voltage - Supply": "1.6V~3.6V",
+     "Number of ports": "-",
+     "Features": "Programmable LED indication、Low-power mode、Power-on reset、Error detection and recovery",
+     "MAC Interface": "RMII",
+     "Ethernet Speed Standards": "10BASE-T、100BASE-TX"
+    }
+   },
+   {
+    "lcsc": "C145690",
+    "model": "KSZ8081MNXIA-TR",
+    "manufacturer": "Microchip Tech",
+    "package": "QFN-32-EP(5x5)",
+    "stock": 11004,
+    "price": 2.0192,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "Ethernet Transceivers",
+    "subcategory_id": 3072,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 1 10BASE-T、100BASE-TX 10Mbit/s、100Mbit/s 3.3V MII、RMII PHY Transceiver QFN-32-EP(5x5) Ethernet Transceivers ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Type": "PHY Transceiver",
+     "Data Rate": "10Mbit/s、100Mbit/s",
+     "Voltage - Supply": "3.3V",
+     "Number of ports": "1",
+     "Features": "Cable diagnostics、Programmable LED indication、Low-power mode、Error detection and recovery",
+     "MAC Interface": "MII、RMII",
+     "Ethernet Speed Standards": "10BASE-T、100BASE-TX"
+    }
+   },
+   {
+    "lcsc": "C43593",
+    "model": "DP83848KSQ/NOPB",
+    "manufacturer": "Texas Instruments",
+    "package": "QFN-40-EP(6x6)",
+    "stock": 9620,
+    "price": 1.3979,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "Ethernet Transceivers",
+    "subcategory_id": 3072,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 1 10BASE-T、100BASE-TX 10Mbit/s、100Mbit/s 264mW 3.3V MII、RMII PHY Transceiver QFN-40-EP(6x6) Ethernet Transceivers ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Type": "PHY Transceiver",
+     "Data Rate": "10Mbit/s、100Mbit/s",
+     "Voltage - Supply": "3.3V",
+     "Number of ports": "1",
+     "Features": "Programmable LED indication",
+     "MAC Interface": "MII、RMII",
+     "Ethernet Speed Standards": "10BASE-T、100BASE-TX"
+    }
+   }
+  ],
+  "total": 86,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 6
+  },
+  "filters_applied": {
+   "query": "ethernet PHY",
+   "subcategory_id": null,
+   "subcategory_name": null,
+   "subcategory_resolved": null,
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 86
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "ethernet PHY",
+   "detected": {},
+   "subcategory": null,
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "ethernet PHY"
+  }
+ }
+}

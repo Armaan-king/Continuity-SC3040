@@ -1,0 +1,153 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "SP3485EN-L/TR",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C2691428",
+    "model": "WS3081",
+    "manufacturer": "NJGW",
+    "package": "SOP-8",
+    "stock": 514,
+    "price": 0.5486,
+    "price_10": 0.4418,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "RS-485 / RS-422 ICs",
+    "subcategory_id": 3071,
+    "mounting_type": "smd",
+    "specs": {
+     "ESD Protect": "±15kV",
+     "Operating Temperature": "-40℃~+125℃",
+     "Type": "Transceiver",
+     "Data Rate": "16Mbps",
+     "Voltage - Supply": "3.3V~5.25V",
+     "Number of Nodes": "256",
+     "Features": "Enable shutdown、Overcurrent Protection、Thermal shutdown protection、Low-power mode、Tx/Rx enable",
+     "Number of Drivers": "1",
+     "Communication Mode": "Half-Duplex",
+     "Quiescent Supply Current": "300uA",
+     "Number of Receivers": "1"
+    }
+   },
+   {
+    "lcsc": "C2834455",
+    "model": "HT3485ARZ",
+    "manufacturer": "HTCSEMI",
+    "package": "SOP-8",
+    "stock": 9862,
+    "price": 0.2476,
+    "price_10": 0.2238,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "RS-485 / RS-422 ICs",
+    "subcategory_id": 3071,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "Type": "Transceiver",
+     "Data Rate": "12Mbps",
+     "Voltage - Supply": "3V~3.6V",
+     "Features": "Enable shutdown、Low-power mode、Tx/Rx enable",
+     "Number of Drivers": "1",
+     "Communication Mode": "Half-Duplex",
+     "Quiescent Supply Current": "2.2mA",
+     "Number of Receivers": "1"
+    }
+   },
+   {
+    "lcsc": "C2960961",
+    "model": "HT3485EARZ",
+    "manufacturer": "HTCSEMI",
+    "package": "SOP-8",
+    "stock": 2027,
+    "price": 0.7783,
+    "price_10": 0.5793,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "RS-485 / RS-422 ICs",
+    "subcategory_id": 3071,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "ESD Protect": "±15kV",
+     "Type": "Transceiver",
+     "Data Rate": "10Mbps",
+     "Voltage - Supply": "3.3V",
+     "Number of Nodes": "32",
+     "Features": "Overcurrent Protection、Thermal shutdown protection",
+     "Number of Drivers": "1",
+     "Communication Mode": "Half-Duplex",
+     "Quiescent Supply Current": "120uA",
+     "Number of Receivers": "1"
+    }
+   },
+   {
+    "lcsc": "C5334495",
+    "model": "COS485RS",
+    "manufacturer": "COSINE",
+    "package": "SOP-8",
+    "stock": 21,
+    "price": 0.2138,
+    "price_10": 0.173,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "RS-485 / RS-422 ICs",
+    "subcategory_id": 3071,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+85℃",
+     "ESD Protect": "-",
+     "Type": "Transceiver",
+     "Data Rate": "10Mbps",
+     "Voltage - Supply": "4.5V~5.5V",
+     "Number of Nodes": "256",
+     "Features": "Enable shutdown、Thermal shutdown protection、Low-power mode、Tx/Rx enable",
+     "Number of Drivers": "1",
+     "Communication Mode": "Half-Duplex",
+     "Quiescent Supply Current": "520uA",
+     "Number of Receivers": "1"
+    }
+   },
+   {
+    "lcsc": "C7434431",
+    "model": "MAX3485ESA-MS",
+    "manufacturer": "MSKSEMI",
+    "package": "SOP-8",
+    "stock": 5634,
+    "price": 0.384,
+    "price_10": 0.3067,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Interface",
+    "subcategory": "RS-485 / RS-422 ICs",
+    "subcategory_id": 3071,
+    "mounting_type": "smd",
+    "specs": {
+     "ESD Protect": "±15kV",
+     "Operating Temperature": "-40℃~+125℃",
+     "Type": "Transceiver",
+     "Data Rate": "12Mbps",
+     "Voltage - Supply": "3V~5.5V",
+     "Number of Nodes": "256",
+     "Features": "Enable shutdown、Overcurrent Protection、Thermal shutdown protection、Low-power mode、Tx/Rx enable",
+     "Number of Drivers": "1",
+     "Communication Mode": "Half-Duplex",
+     "Number of Receivers": "1"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 9,
+  "total_pages": 2,
+  "has_more": true
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "mpn": "T1820B",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 1.8,
+  "vmax": 5.5,
+  "i_typ": 1e-08,
+  "role": "peripheral",
+  "temp_min": -103.0,
+  "temp_max": 153.0,
+  "interfaces": [
+   "SINGLE BUS"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "i_typ": "Standby Current",
+  "interfaces": "Interface",
+  "temp_min": "Detection Temperature Range",
+  "temp_max": "Detection Temperature Range"
+ }
+}

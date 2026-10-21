@@ -1,0 +1,210 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "radio",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C18208793",
+    "model": "HJ-RF2516-0.38(2-12)",
+    "manufacturer": "HenryTech",
+    "package": "插件,D2.5xL1.6mm",
+    "stock": 200,
+    "price": 1.5842,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "Feed-Voltage/Radio-Frequency Insulator",
+    "subcategory_id": 2060,
+    "mounting_type": "through_hole",
+    "description": "-55℃~+165℃ 0.2dB 1 1 1.2 50Ω 插件,D2.5xL1.6mm Feed-Voltage/Radio-Frequency Insulator ROHS",
+    "specs": {
+     "Insertion Loss": "0.2dB",
+     "Operating Temperature": "-55℃~+165℃",
+     "Number of Rows": "1",
+     "Characteristic Impedance": "50Ω",
+     "Connector Type": "RF single-core insulator",
+     "Needle Number": "1",
+     "SWR": "1.2"
+    }
+   },
+   {
+    "lcsc": "C48971996",
+    "model": "HN-DC2016-0.5(12-3.4)",
+    "manufacturer": "HenryTech",
+    "package": "插件,D2xL1.6mm",
+    "stock": 188,
+    "price": 1.5131,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "Feed-Voltage/Radio-Frequency Insulator",
+    "subcategory_id": 2060,
+    "mounting_type": "through_hole",
+    "description": "-65℃~+155℃ 1 1 300V 5000MΩ 50Ω 插件,D2xL1.6mm Feed-Voltage/Radio-Frequency Insulator ROHS",
+    "specs": {
+     "Operating Temperature": "-65℃~+155℃",
+     "Insertion Loss": "-",
+     "Number of Rows": "1",
+     "Dielectric Withstand Voltage": "300V",
+     "Characteristic Impedance": "50Ω",
+     "Connector Type": "Feedthrough single-core insulator",
+     "Insulation Resistance": "5000MΩ",
+     "Needle Number": "1",
+     "SWR": "-"
+    }
+   },
+   {
+    "lcsc": "C18208776",
+    "model": "HJ-DC1611-0.45(1-12)",
+    "manufacturer": "HenryTech",
+    "package": "插件,D1.6xL1.1mm",
+    "stock": 150,
+    "price": 1.8897,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "Feed-Voltage/Radio-Frequency Insulator",
+    "subcategory_id": 2060,
+    "mounting_type": "through_hole",
+    "description": "-55℃~+165℃ 1 1 1000MΩ 500V Feedthrough single-core insulator 插件,D1.6xL1.1mm Feed-Voltage/Radio-Frequency Insulator ROHS",
+    "specs": {
+     "Operating Temperature": "-55℃~+165℃",
+     "Insertion Loss": "-",
+     "Number of Rows": "1",
+     "Dielectric Withstand Voltage": "500V",
+     "Characteristic Impedance": "-",
+     "Connector Type": "Feedthrough single-core insulator",
+     "Insulation Resistance": "1000MΩ",
+     "Needle Number": "1",
+     "SWR": "-"
+    }
+   },
+   {
+    "lcsc": "C18208775",
+    "model": "HJ-DC1216-0.45(4.6-12)",
+    "manufacturer": "HenryTech",
+    "package": "插件,D2xL1.6mm",
+    "stock": 100,
+    "price": 1.6327,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "Feed-Voltage/Radio-Frequency Insulator",
+    "subcategory_id": 2060,
+    "mounting_type": "through_hole",
+    "description": "-55℃~+165℃ 1 1 1000MΩ 500V Feedthrough single-core insulator 插件,D2xL1.6mm Feed-Voltage/Radio-Frequency Insulator ROHS",
+    "specs": {
+     "Operating Temperature": "-55℃~+165℃",
+     "Insertion Loss": "-",
+     "Number of Rows": "1",
+     "Dielectric Withstand Voltage": "500V",
+     "Characteristic Impedance": "-",
+     "Connector Type": "Feedthrough single-core insulator",
+     "Insulation Resistance": "1000MΩ",
+     "Needle Number": "1",
+     "SWR": "-"
+    }
+   },
+   {
+    "lcsc": "C48971987",
+    "model": "HN-DC1616-0.45(12-3.4)M",
+    "manufacturer": "HenryTech",
+    "package": "插件,D1.6xL1.6mm",
+    "stock": 100,
+    "price": 1.7685,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "Feed-Voltage/Radio-Frequency Insulator",
+    "subcategory_id": 2060,
+    "mounting_type": "through_hole",
+    "description": "-65℃~+155℃ 1 1 300V 5000MΩ 50Ω 插件,D1.6xL1.6mm Feed-Voltage/Radio-Frequency Insulator ROHS",
+    "specs": {
+     "Operating Temperature": "-65℃~+155℃",
+     "Insertion Loss": "-",
+     "Number of Rows": "1",
+     "Dielectric Withstand Voltage": "300V",
+     "Characteristic Impedance": "50Ω",
+     "Connector Type": "Feedthrough single-core insulator",
+     "Insulation Resistance": "5000MΩ",
+     "Needle Number": "1",
+     "SWR": "-"
+    }
+   },
+   {
+    "lcsc": "C48971993",
+    "model": "HN-DC1616-0.45(8-1.5)-T0.8",
+    "manufacturer": "HenryTech",
+    "package": "插件,D1.6xL1.6mm",
+    "stock": 100,
+    "price": 1.901,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Connectors",
+    "subcategory": "Feed-Voltage/Radio-Frequency Insulator",
+    "subcategory_id": 2060,
+    "mounting_type": "through_hole",
+    "description": "-65℃~+155℃ 1 1 300V 5000MΩ 50Ω 插件,D1.6xL1.6mm Feed-Voltage/Radio-Frequency Insulator ROHS",
+    "specs": {
+     "Operating Temperature": "-65℃~+155℃",
+     "Insertion Loss": "-",
+     "Number of Rows": "1",
+     "Dielectric Withstand Voltage": "300V",
+     "Characteristic Impedance": "50Ω",
+     "Connector Type": "Feedthrough single-core insulator",
+     "Insulation Resistance": "5000MΩ",
+     "Needle Number": "1",
+     "SWR": "-"
+    }
+   }
+  ],
+  "total": 27,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 6
+  },
+  "filters_applied": {
+   "query": "radio",
+   "subcategory_id": null,
+   "subcategory_name": null,
+   "subcategory_resolved": null,
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 27
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "radio",
+   "detected": {},
+   "subcategory": null,
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "radio"
+  }
+ }
+}

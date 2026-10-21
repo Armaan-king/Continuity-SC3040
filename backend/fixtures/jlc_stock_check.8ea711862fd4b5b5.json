@@ -1,0 +1,46 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "SCD41-D-R2",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C3659294",
+    "model": "SCD41-D-R2",
+    "manufacturer": "Sensirion",
+    "package": "LGA-20(10.1x10.1)",
+    "stock": 2607,
+    "price": 19.3212,
+    "price_10": 18.4199,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Sensors",
+    "subcategory": "Gas Sensors",
+    "subcategory_id": 3296,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-10℃~+60℃",
+     "Type": "Air quality",
+     "Length": "10.1mm",
+     "Voltage - Supply": "2.4V~5.5V",
+     "Diameter (φD)": "-",
+     "Pitch": "-",
+     "Tolerance": "±5%",
+     "Features": "Reset function",
+     "Height": "6.5mm",
+     "Current - Supply": "15mA",
+     "Width": "10.1mm",
+     "Interface": "I2C",
+     "Measurement Range": "400ppm~5000ppm"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

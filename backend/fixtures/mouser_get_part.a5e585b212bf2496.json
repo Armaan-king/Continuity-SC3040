@@ -1,0 +1,202 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "TMP1075DSGR"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "595-TMP1075DSGR",
+    "mfr_part_number": "TMP1075DSGR",
+    "manufacturer": "Texas Instruments",
+    "description": "Board Mount Temperature Sensors 1 C I C temperature sensor with performa A 595-TMP1075DSGT",
+    "category": "Board Mount Temperature Sensors",
+    "stock": 18507,
+    "price": 0.57,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 0.57,
+      "currency": "USD"
+     },
+     {
+      "qty": 5,
+      "price": 0.5,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 0.442,
+      "currency": "USD"
+     },
+     {
+      "qty": 50,
+      "price": 0.42,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 0.399,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 0.347,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 0.331,
+      "currency": "USD"
+     },
+     {
+      "qty": 2000,
+      "price": 0.31,
+      "currency": "USD"
+     },
+     {
+      "qty": 3000,
+      "price": 0.297,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Texas-Instruments/TMP1075DSGR?qs=gZXFycFWdAOidBdJW42bRw%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "3000"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "595-TMP1075DSGRG4",
+    "mfr_part_number": "TMP1075DSGRG4",
+    "manufacturer": "Texas Instruments",
+    "description": "Sensor Interface 1C IC temperature se nsor with performan",
+    "category": "Sensor Interface",
+    "stock": 0,
+    "price": 2.7,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 2.7,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 2.01,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 1.83,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 1.64,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 1.55,
+      "currency": "USD"
+     },
+     {
+      "qty": 3000,
+      "price": 1.31,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Texas-Instruments/TMP1075DSGRG4?qs=2FehpBK1j97%252BTAijjrO3xg%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "New Product",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "3000"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "595-TMP1075DSGT",
+    "mfr_part_number": "TMP1075DSGT",
+    "manufacturer": "Texas Instruments",
+    "description": "Board Mount Temperature Sensors 1 C I C temperature sensor with performance upgrades to industry standard LM75 / TMP75 8-WSON -55 to 125",
+    "category": "Board Mount Temperature Sensors",
+    "stock": 34525,
+    "price": 1.26,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 1.26,
+      "currency": "USD"
+     },
+     {
+      "qty": 5,
+      "price": 1.06,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 0.982,
+      "currency": "USD"
+     },
+     {
+      "qty": 50,
+      "price": 0.828,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 0.77,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 0.77,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 0.648,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 0.611,
+      "currency": "USD"
+     },
+     {
+      "qty": 2000,
+      "price": 0.576,
+      "currency": "USD"
+     },
+     {
+      "qty": 5000,
+      "price": 0.557,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Texas-Instruments/TMP1075DSGT?qs=u16ybLDytRYtMVzRNRQ5CQ%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "End of Life",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "250"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 3
+ }
+}

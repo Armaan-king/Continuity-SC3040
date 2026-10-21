@@ -1,0 +1,188 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "PoE controller",
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C181651",
+    "model": "TPS23754PWPR",
+    "manufacturer": "Texas Instruments",
+    "package": "HTSSOP-20-EP",
+    "stock": 18200,
+    "price": 2.0111,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "Power Over Ethernet (PoE) Controllers",
+    "subcategory_id": 2327,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃ 100V 30W 5.1V 970mA IEEE 802.3 at(PoE+) Powered Device (PD) HTSSOP-20-EP Power Over Ethernet (PoE) Controllers ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃",
+     "Type": "Powered Device (PD)",
+     "Power - Max": "30W",
+     "limiting current": "970mA",
+     "Voltage - Supply (IC)": "5.1V",
+     "Features": "PD detection and disconnect identification、Undervoltage Protection、Thermal Protection、Overcurrent Protection、Dual event classification detection",
+     "Support PoE standard": "IEEE 802.3 at(PoE+)",
+     "Voltage - Breakdown": "100V"
+    }
+   },
+   {
+    "lcsc": "C92115",
+    "model": "TPS23753APWR",
+    "manufacturer": "Texas Instruments",
+    "package": "TSSOP-14",
+    "stock": 12120,
+    "price": 1.7328,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "Power Over Ethernet (PoE) Controllers",
+    "subcategory_id": 2327,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃ 1 100V 13W 450mA 5.1V IEEE 802.3 at(PoE+) Powered Device (PD) TSSOP-14 Power Over Ethernet (PoE) Controllers ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃",
+     "Type": "Powered Device (PD)",
+     "Power - Max": "13W",
+     "Voltage - Supply (IC)": "5.1V",
+     "limiting current": "450mA",
+     "Features": "PD detection and disconnect identification、Undervoltage Protection、Thermal Protection、Overcurrent Protection、Built-in LDO",
+     "number of channels": "1",
+     "Support PoE standard": "IEEE 802.3 at(PoE+)",
+     "Voltage - Breakdown": "100V"
+    }
+   },
+   {
+    "lcsc": "C53433407",
+    "model": "TME7624",
+    "manufacturer": "TMI",
+    "package": "QFN-32(5x5)",
+    "stock": 5099,
+    "price": 1.6519,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "Power Over Ethernet (PoE) Controllers",
+    "subcategory_id": 2327,
+    "mounting_type": "smd",
+    "description": "QFN-32(5x5) Power Over Ethernet (PoE) Controllers ROHS",
+    "specs": {}
+   },
+   {
+    "lcsc": "C29779845",
+    "model": "TMI7303B",
+    "manufacturer": "TMI",
+    "package": "DFN-10(3x3)",
+    "stock": 4647,
+    "price": 0.5194,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "Power Over Ethernet (PoE) Controllers",
+    "subcategory_id": 2327,
+    "mounting_type": "smd",
+    "description": "DFN-10(3x3) Power Over Ethernet (PoE) Controllers ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃",
+     "Type": "Powered Device (PD)",
+     "Power - Max": "25W",
+     "limiting current": "920mA",
+     "Features": "PGOOD status indication、PD detection and disconnect identification、Thermal Protection、Overcurrent Protection、Dual event classification detection、Local power coordination",
+     "Support PoE standard": "IEEE 802.3 at(PoE+)、IEEE 802.3 af(PoE)",
+     "Voltage - Breakdown": "100V"
+    }
+   },
+   {
+    "lcsc": "C42441048",
+    "model": "SD4923ETR",
+    "manufacturer": "Hangzhou Silan Microelectronics",
+    "package": "ESOP-8-225mil-1.27mm",
+    "stock": 4219,
+    "price": 0.4385,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "Power Over Ethernet (PoE) Controllers",
+    "subcategory_id": 2327,
+    "mounting_type": "smd",
+    "description": "ESOP-8-225mil-1.27mm Power Over Ethernet (PoE) Controllers ROHS",
+    "specs": {}
+   },
+   {
+    "lcsc": "C2691431",
+    "model": "WS3204",
+    "manufacturer": "NJGW",
+    "package": "TSSOP-20-EP",
+    "stock": 4001,
+    "price": 1.6907,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "Power Over Ethernet (PoE) Controllers",
+    "subcategory_id": 2327,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃ 25.5W 5.1V 85V 970mA IEEE 802.3 at(PoE+) PD检测与断开识别、过压保护、Undervoltage Protection、Thermal Protection、Overcurrent Protection、双事件分级检测、内置LDO Powered Device (PD) TSSOP-20-EP Power Over Ethernet (PoE) Controllers ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃",
+     "Type": "Powered Device (PD)",
+     "Power - Max": "25.5W",
+     "limiting current": "970mA",
+     "Voltage - Supply (IC)": "5.1V",
+     "Features": "PD detection and disconnect identification、Overvoltage protection、Undervoltage Protection、Thermal Protection、Overcurrent Protection、Dual event classification detection、Built-in LDO",
+     "Support PoE standard": "IEEE 802.3 at(PoE+)",
+     "Voltage - Breakdown": "85V"
+    }
+   }
+  ],
+  "total": 90,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 6
+  },
+  "filters_applied": {
+   "query": "PoE controller",
+   "subcategory_id": null,
+   "subcategory_name": null,
+   "subcategory_resolved": null,
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 90
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "PoE controller",
+   "detected": {},
+   "subcategory": null,
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "PoE controller"
+  }
+ }
+}

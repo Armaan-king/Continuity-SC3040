@@ -1,0 +1,182 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "ISL81601FRZ-T"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "968-ISL81601FRZ-T",
+    "mfr_part_number": "ISL81601FRZ-T",
+    "manufacturer": "Renesas / Intersil",
+    "description": "Switching Controllers 60V 4-Switch Synchronous Buck-Boost PWM Controller, 32LD QFN",
+    "category": "Switching Controllers",
+    "stock": 0,
+    "price": 7.86,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 7.86,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 6.19,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 5.69,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 5.15,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 4.9,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 4.76,
+      "currency": "USD"
+     },
+     {
+      "qty": 6000,
+      "price": 4.39,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/1166/1/REN_isl81601_DST_20210527_1.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Renesas-Intersil/ISL81601FRZ-T?qs=MLItCLRbWsyAFJ2WOr%252BxVg%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Cut Tape",
+     "Standard Pack Qty": "6000"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "968-ISL81601FRZ-T7A",
+    "mfr_part_number": "ISL81601FRZ-T7A",
+    "manufacturer": "Renesas / Intersil",
+    "description": "Switching Controllers 60V 4-Switch Synchronous Buck-Boost PWM Controller, 32LD QFN",
+    "category": "Switching Controllers",
+    "stock": 4,
+    "price": 7.27,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 7.27,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 5.61,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 5.19,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 4.73,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 4.38,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 4.37,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 4.24,
+      "currency": "USD"
+     },
+     {
+      "qty": 2500,
+      "price": 4.04,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/1166/1/REN_isl81601_DST_20210527_1.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Renesas-Intersil/ISL81601FRZ-T7A?qs=MLItCLRbWsz5H3Ge%2FusuGw%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "End of Life",
+    "parameters": {
+     "Packaging": "Cut Tape",
+     "Standard Pack Qty": "250"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "968-ISL81601FRZ",
+    "mfr_part_number": "ISL81601FRZ",
+    "manufacturer": "Renesas / Intersil",
+    "description": "Switching Controllers 60V 4-Switch Synchronous Buck-Boost PWM Controller, 32LD QF",
+    "category": "Switching Controllers",
+    "stock": 0,
+    "price": 7.86,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 7.86,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 5.98,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 5.33,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 4.99,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 4.68,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 4.62,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/datasheet/3/1166/1/REN_isl81601_DST_20210527_1.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Renesas-Intersil/ISL81601FRZ?qs=MLItCLRbWsyqIDuPMQxP3g%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Tube",
+     "Standard Pack Qty": "330"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 3
+ }
+}

@@ -1,0 +1,20 @@
+{
+ "mpn": "ESP32-C3",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 3.0,
+  "vmax": 3.6,
+  "role": "master",
+  "pins_available": 22,
+  "interfaces": [
+   "I2C",
+   "SPI",
+   "UART"
+  ]
+ },
+ "provenance": {
+  "vmin": "Voltage - Supply",
+  "vmax": "Voltage - Supply",
+  "pins_available": "Number of I/O"
+ }
+}

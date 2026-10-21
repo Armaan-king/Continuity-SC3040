@@ -1,0 +1,115 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "MAX14830ETM+T"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "700-MAX14830ETM+T",
+    "mfr_part_number": "MAX14830ETM+T",
+    "manufacturer": "Analog Devices / Maxim Integrated",
+    "description": "UART Interface IC Quad Serial UART with 128-Word FIFOs",
+    "category": "UART Interface IC",
+    "stock": 2157,
+    "price": 30.3,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 30.3,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 24.48,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 23.03,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 21.83,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 21.37,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 21.1,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 21.09,
+      "currency": "USD"
+     },
+     {
+      "qty": 2500,
+      "price": 21.09,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Analog-Devices-Maxim-Integrated/MAX14830ETM%2bT?qs=LbY2dft4ljD3lFimnKILWw%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "2500"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   },
+   {
+    "source": "mouser",
+    "part_number": "700-MAX14830ETM+",
+    "mfr_part_number": "MAX14830ETM+",
+    "manufacturer": "Analog Devices / Maxim Integrated",
+    "description": "UART Interface IC Quad Serial UART with 128-Word FIFOs",
+    "category": "UART Interface IC",
+    "stock": 524,
+    "price": 30.51,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 30.51,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 24.66,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 22.49,
+      "currency": "USD"
+     },
+     {
+      "qty": 86,
+      "price": 21.35,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Analog-Devices-Maxim-Integrated/MAX14830ETM%2b?qs=pOU3usejv6ftQfmydKKFTw%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "Tube",
+     "Standard Pack Qty": "43"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 2
+ }
+}

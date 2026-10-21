@@ -1,0 +1,270 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "32.04V boost converter",
+  "spec_filters": [
+   {
+    "name": "Output Current",
+    "op": ">=",
+    "value": "3A"
+   }
+  ],
+  "sort_by": "stock",
+  "limit": 6
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C347423",
+    "model": "LM2596S-ADJ(UMW)",
+    "manufacturer": "UMW(Youtai Semiconductor Co., Ltd.)",
+    "package": "TO-263-5",
+    "stock": 83061,
+    "price": 0.6272,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃@(TA) 1 1.2V~37V 150kHz 3A 40V 80uA Adjustable Buck Buck Built-in No TO-263-5 DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃@(TA)",
+     "Function": "Step-down type",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "150kHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "40V",
+     "Output Current": "3A",
+     "Quiescent Current": "80uA",
+     "Features": "Overcurrent Protection",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck",
+     "Output Voltage": "1.2V~37V",
+     "Number of Outputs": "1"
+    }
+   },
+   {
+    "lcsc": "C347422",
+    "model": "LM2596S-12(UMW)",
+    "manufacturer": "UMW(Youtai Semiconductor Co., Ltd.)",
+    "package": "TO-263-5",
+    "stock": 41996,
+    "price": 0.5707,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃@(TA) 1 12V 150kHz 3A 40V 80uA Buck Buck Built-in Fixed No TO-263-5 DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃@(TA)",
+     "Function": "Step-down type",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "150kHz",
+     "Output Type": "Fixed",
+     "Voltage - Supply": "40V",
+     "Output Current": "3A",
+     "Quiescent Current": "80uA",
+     "Features": "Overcurrent Protection",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck",
+     "Output Voltage": "12V",
+     "Number of Outputs": "1"
+    }
+   },
+   {
+    "lcsc": "C52684",
+    "model": "LM2596R-ADJ",
+    "manufacturer": "HTC Korea TAEJIN Tech",
+    "package": "TO-263-5",
+    "stock": 28021,
+    "price": 1.0637,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃ 1 1.23V~37V 150kHz 3A 40V 5mA Adjustable Buck Buck Built-in No TO-263-5 DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃",
+     "Function": "Step-down type",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "150kHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "40V",
+     "Output Current": "3A",
+     "Quiescent Current": "5mA",
+     "Features": "Overcurrent Protection",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck",
+     "Output Voltage": "1.23V~37V",
+     "Number of Outputs": "1"
+    }
+   },
+   {
+    "lcsc": "C347420",
+    "model": "LM2596S-3.3(UMW)",
+    "manufacturer": "UMW(Youtai Semiconductor Co., Ltd.)",
+    "package": "TO-263-5",
+    "stock": 14156,
+    "price": 0.6046,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃@(TA) 1 150kHz 3.3V 3A 40V 80uA Buck Buck Built-in Fixed No TO-263-5 DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃@(TA)",
+     "Function": "Step-down type",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "150kHz",
+     "Output Type": "Fixed",
+     "Voltage - Supply": "40V",
+     "Output Current": "3A",
+     "Quiescent Current": "80uA",
+     "Features": "Overcurrent Protection",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck",
+     "Output Voltage": "3.3V",
+     "Number of Outputs": "1"
+    }
+   },
+   {
+    "lcsc": "C90690",
+    "model": "LM2596R-3.3",
+    "manufacturer": "HTC Korea TAEJIN Tech",
+    "package": "TO-263-5",
+    "stock": 8706,
+    "price": 1.1122,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃ 1 150kHz 3.3V 3A 40V 5mA Buck Buck Built-in Fixed No TO-263-5 DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃",
+     "Function": "Step-down type",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "150kHz",
+     "Output Type": "Fixed",
+     "Voltage - Supply": "40V",
+     "Output Current": "3A",
+     "Quiescent Current": "5mA",
+     "Features": "Overcurrent Protection",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck",
+     "Output Voltage": "3.3V",
+     "Number of Outputs": "1"
+    }
+   },
+   {
+    "lcsc": "C82634",
+    "model": "LM2576R-5.0",
+    "manufacturer": "HTC Korea TAEJIN Tech",
+    "package": "TO-263-5",
+    "stock": 7352,
+    "price": 1.1413,
+    "price_10": null,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃ 1 3A 40V 52kHz 5V 5mA Buck Buck Built-in Fixed No TO-263-5 DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃",
+     "Function": "Step-down type",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "52kHz",
+     "Output Type": "Fixed",
+     "Voltage - Supply": "40V",
+     "Output Current": "3A",
+     "Quiescent Current": "5mA",
+     "Features": "Overcurrent Protection、Cycle-by-cycle current limiting",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck",
+     "Output Voltage": "5V",
+     "Number of Outputs": "1"
+    }
+   }
+  ],
+  "total": 112,
+  "page_info": {
+   "limit": 6,
+   "offset": 0,
+   "returned": 6
+  },
+  "filters_applied": {
+   "query": null,
+   "subcategory_id": 3005,
+   "subcategory_name": "dc-dc converters",
+   "subcategory_resolved": "DC-DC Converters",
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [
+    {
+     "name": "Output Current",
+     "op": ">=",
+     "value": "3A"
+    },
+    {
+     "name": "Voltage Rating",
+     "op": ">=",
+     "value": "32.04V"
+    }
+   ],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 0,
+   "extended": 112
+  },
+  "no_fee_available": false,
+  "parsed": {
+   "original_query": "32.04V boost converter",
+   "detected": {
+    "component_type": "boost converter",
+    "subcategory": "dc-dc converters",
+    "values": [
+     {
+      "raw": "32.04V",
+      "type": "voltage",
+      "normalized": "32.04V"
+     }
+    ]
+   },
+   "subcategory": "dc-dc converters",
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [
+    {
+     "name": "Voltage Rating",
+     "op": ">=",
+     "value": "32.04V"
+    }
+   ],
+   "remaining_text": ""
+  }
+ }
+}

@@ -1,0 +1,24 @@
+{
+ "mpn": "TMC2209-LA-T",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmin": 4.75,
+  "vmax": 29.0,
+  "i_max": 2.0,
+  "role": "passive",
+  "temp_min": -40.0,
+  "temp_max": 125.0,
+  "interfaces": [
+   "STEP/DIR",
+   "UART"
+  ]
+ },
+ "provenance": {
+  "vmin": "Motor Drive Voltage(Vm)",
+  "vmax": "Motor Drive Voltage(Vm)",
+  "i_max": "Output Current",
+  "interfaces": "Interface",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

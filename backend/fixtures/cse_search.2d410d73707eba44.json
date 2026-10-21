@@ -1,0 +1,10 @@
+{
+ "tool": "cse_search",
+ "arguments": {
+  "query": "CR1220-F DIP"
+ },
+ "response": {
+  "results": [],
+  "total": 0
+ }
+}

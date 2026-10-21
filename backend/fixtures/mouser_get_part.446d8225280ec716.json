@@ -1,0 +1,78 @@
+{
+ "tool": "mouser_get_part",
+ "arguments": {
+  "part_number": "RFANT3216120A5T"
+ },
+ "response": {
+  "results": [
+   {
+    "source": "mouser",
+    "part_number": "791-RFANT3216120A5T",
+    "mfr_part_number": "RFANT3216120A5T",
+    "manufacturer": "Walsin",
+    "description": "Antennas 2450+/-50MHz 2.9GHz Fc 2dBi",
+    "category": "Antennas",
+    "stock": 8549,
+    "price": 0.29,
+    "price_breaks": [
+     {
+      "qty": 1,
+      "price": 0.29,
+      "currency": "USD"
+     },
+     {
+      "qty": 10,
+      "price": 0.252,
+      "currency": "USD"
+     },
+     {
+      "qty": 25,
+      "price": 0.238,
+      "currency": "USD"
+     },
+     {
+      "qty": 100,
+      "price": 0.217,
+      "currency": "USD"
+     },
+     {
+      "qty": 250,
+      "price": 0.205,
+      "currency": "USD"
+     },
+     {
+      "qty": 500,
+      "price": 0.196,
+      "currency": "USD"
+     },
+     {
+      "qty": 1000,
+      "price": 0.188,
+      "currency": "USD"
+     },
+     {
+      "qty": 2000,
+      "price": 0.179,
+      "currency": "USD"
+     },
+     {
+      "qty": 4000,
+      "price": 0.166,
+      "currency": "USD"
+     }
+    ],
+    "datasheet_url": "https://www.mouser.com/catalog/specsheets/kamaya_rf_productcatalog_feb08.pdf",
+    "product_url": "https://www.mouser.ca/en/ProductDetail/Walsin/RFANT3216120A5T?qs=L3QzcrVjv97%252B5sRaX3g2QQ%3D%3D",
+    "rohs": "RoHS Compliant",
+    "lifecycle": "Active",
+    "parameters": {
+     "Packaging": "MouseReel",
+     "Standard Pack Qty": "2000"
+    },
+    "min_qty": 1,
+    "currency": "USD"
+   }
+  ],
+  "total": 1
+ }
+}

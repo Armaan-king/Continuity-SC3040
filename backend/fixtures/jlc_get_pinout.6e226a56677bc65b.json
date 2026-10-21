@@ -1,0 +1,36 @@
+{
+ "tool": "jlc_get_pinout",
+ "arguments": {
+  "lcsc": "C20539408"
+ },
+ "response": {
+  "lcsc": "C20539408",
+  "model": "VG6328A",
+  "manufacturer": "Vollgo",
+  "package": "SMD,16x13.6mm",
+  "pin_count": 5,
+  "pins": [
+   {
+    "number": "1",
+    "name": "RXD"
+   },
+   {
+    "number": "2",
+    "name": "TXD"
+   },
+   {
+    "number": "3",
+    "name": "GND"
+   },
+   {
+    "number": "4",
+    "name": "VDD"
+   },
+   {
+    "number": "5",
+    "name": "LED"
+   }
+  ],
+  "easyeda_symbol_uuid": "81d032e23c414d3da854e05f6c83ec79"
+ }
+}

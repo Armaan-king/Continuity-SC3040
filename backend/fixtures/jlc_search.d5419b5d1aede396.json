@@ -1,0 +1,81 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "TPS5430DDAR",
+  "sort_by": "stock",
+  "limit": 1
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C9864",
+    "model": "TPS5430DDAR",
+    "manufacturer": "Texas Instruments",
+    "package": "SOIC-8-EP",
+    "stock": 145765,
+    "price": 0.8616,
+    "price_10": null,
+    "library_type": "basic",
+    "preferred": true,
+    "category": "Power Management (PMIC)",
+    "subcategory": "DC-DC Converters",
+    "subcategory_id": 3005,
+    "mounting_type": "smd",
+    "description": "-40℃~+125℃@(TJ) 1 1.221V~32.04V 3A 4.4mA 5.5V~36V 500kHz Adjustable Buck Buck Built-in No SOIC-8-EP DC-DC Converters ROHS",
+    "specs": {
+     "Operating Temperature": "-40℃~+125℃@(TJ)",
+     "Function": "Step-down type",
+     "Synchronous Rectifier": "No",
+     "Frequency - Switching": "500kHz",
+     "Output Type": "Adjustable",
+     "Voltage - Supply": "5.5V~36V",
+     "Output Current": "3A",
+     "Quiescent Current": "4.4mA",
+     "Features": "Overcurrent Protection、Cycle-by-cycle current limiting、Hiccup current limiting",
+     "Switch tube (built-in/external)": "Built-in",
+     "Topology": "Buck",
+     "Output Voltage": "1.221V~32.04V",
+     "Number of Outputs": "1"
+    }
+   }
+  ],
+  "total": 1,
+  "page_info": {
+   "limit": 1,
+   "offset": 0,
+   "returned": 1
+  },
+  "filters_applied": {
+   "query": "TPS5430DDAR",
+   "subcategory_id": null,
+   "subcategory_name": null,
+   "subcategory_resolved": null,
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 1,
+   "preferred": 0,
+   "extended": 0
+  },
+  "no_fee_available": true,
+  "parsed": {
+   "original_query": "TPS5430DDAR",
+   "detected": {},
+   "subcategory": null,
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "TPS5430DDAR"
+  }
+ }
+}

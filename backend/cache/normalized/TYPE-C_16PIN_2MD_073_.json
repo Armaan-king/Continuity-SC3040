@@ -1,0 +1,16 @@
+{
+ "mpn": "TYPE-C 16PIN 2MD(073)",
+ "prompt": "7fde8e5c4f2c",
+ "fields": {
+  "vmax": 5.0,
+  "i_max": 3.0,
+  "temp_min": -25.0,
+  "temp_max": 85.0
+ },
+ "provenance": {
+  "vmax": "Voltage Rating",
+  "i_max": "Current Rating-Power",
+  "temp_min": "Operating Temperature",
+  "temp_max": "Operating Temperature"
+ }
+}

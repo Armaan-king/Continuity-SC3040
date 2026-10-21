@@ -1,0 +1,47 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "TP4057-42-SOT26-R",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C12044",
+    "model": "TP4057-42-SOT26-R",
+    "manufacturer": "TOPPOWER(Nanjing Extension Microelectronics)",
+    "package": "SOT-23-6",
+    "stock": 50291,
+    "price": 0.1707,
+    "price_10": 0.1395,
+    "library_type": "preferred",
+    "preferred": true,
+    "category": "Power Management (PMIC)",
+    "subcategory": "Battery Management",
+    "subcategory_id": 3098,
+    "mounting_type": "smd",
+    "specs": {
+     "Charging Saturation Voltage": "4.2V",
+     "Supply Current (Iq)": "40uA",
+     "Operating Temperature": "-40℃~+85℃",
+     "Type of Battery": "Lithium Battery",
+     "Charge Current - Max": "500mA",
+     "Number of Cells": "1",
+     "Battery Temperature Detection": "Not supported",
+     "The Chip Type": "Charging IC",
+     "Balance Current": "-",
+     "Voltage - Supply": "4V~9V",
+     "End-Off Voltage": "-",
+     "Features": "Constant current charging、Constant voltage charging、Trickle charging、Automatic recharge、Charge termination、Programmable charging current、Soft-start、Under-voltage lockout",
+     "Interface": "-",
+     "0V Battery Charge": "Not supported"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

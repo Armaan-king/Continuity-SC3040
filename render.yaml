@@ -1,0 +1,70 @@
+# Render blueprint: the API as a web service, the UI as a static site.
+#
+# The database is deliberately not declared here. Render's free Postgres expires 30 days
+# after creation and is then deleted, which is a poor fit for something meant to keep
+# working after the event. Point DATABASE_URL at a Neon free database instead — that tier
+# is permanent, scales to zero after five minutes and wakes on the next connection.
+#
+# Two things about the free web service worth knowing before the first demo:
+#
+#   * It spins down after 15 minutes without traffic, and the next request pays a 30-60
+#     second cold start. Wake it before presenting, or ping it on a schedule.
+#   * It has no persistent disk, so the parse cache is read from the image and anything a
+#     run adds is lost on restart. That is correct for a cache and needs no volume; the
+#     committed entries are what make a demo reproducible.
+
+services:
+  - type: web
+    name: continuity-api
+    runtime: python
+    plan: free
+    region: singapore
+    healthCheckPath: /health
+    # `-e` matters. The wheel packages `continuity` only, so a non-editable install would
+    # copy the code to site-packages and leave `cache/` and `fixtures/` behind — and the
+    # anchored paths would then point at a site-packages directory that has neither.
+    buildCommand: pip install -e ./backend
+    # `--host 0.0.0.0` because the container's loopback is not reachable from outside it,
+    # and $PORT because Render assigns it. One worker: the design run holds an SSE stream
+    # open for the length of the run, and a second worker would not share `STREAMS`.
+    startCommand: uvicorn continuity.api.app:app --host 0.0.0.0 --port $PORT --workers 1
+    envVars:
+      # Pinned, and fully qualified as Render requires. Their default for new services is
+      # 3.14.3, which nothing here has been run against — and the dependencies that would
+      # break on it are the compiled ones, psycopg and argon2-cffi, which is a build-log
+      # failure rather than anything visible in the app.
+      - key: PYTHON_VERSION
+        value: "3.13.5"
+      # Neon connection string. Set in the dashboard, not here.
+      - key: DATABASE_URL
+        sync: false
+      - key: CONTINUITY_LLM_API_KEY
+        sync: false
+      # The static site's URL, exactly — a wildcard is rejected once credentials are
+      # allowed, and a trailing slash does not match.
+      - key: CONTINUITY_ORIGINS
+        sync: false
+      # The UI and the API are on different hosts, so the session cookie is cross-site.
+      # `none` requires `secure`; without both, every signed-in request fails silently.
+      - key: CONTINUITY_COOKIE_SAMESITE
+        value: none
+      - key: CONTINUITY_COOKIE_SECURE
+        value: "1"
+
+  - type: web
+    name: continuity-ui
+    runtime: static
+    buildCommand: cd frontend && npm ci && npm run build
+    # Relative to the repo root, which is where the blueprint runs from.
+    staticPublishPath: ./frontend/dist
+    envVars:
+      # The API's URL, injected at build time — Vite inlines it, so changing this needs a
+      # rebuild rather than a restart.
+      - key: VITE_API_URL
+        sync: false
+    routes:
+      # The router owns every path. Without this, a reload on /projects or /design/:id
+      # asks Render for a file that was never built and gets a 404.
+      - type: rewrite
+        source: /*
+        destination: /index.html

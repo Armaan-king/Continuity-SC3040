@@ -1,0 +1,43 @@
+{
+ "tool": "jlc_stock_check",
+ "arguments": {
+  "query": "ESP32-S3-WROOM-1U-N16R8",
+  "limit": 5
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C3013946",
+    "model": "ESP32-S3-WROOM-1U-N16R8",
+    "manufacturer": "Espressif Systems",
+    "package": "SMD,19.2x18mm",
+    "stock": 16348,
+    "price": 5.0945,
+    "price_10": 4.4615,
+    "library_type": "extended",
+    "preferred": false,
+    "category": "IoT/Communication Modules",
+    "subcategory": "WiFi Modules",
+    "subcategory_id": 3205,
+    "mounting_type": "smd",
+    "specs": {
+     "Operating Temperature": "-40℃~+65℃",
+     "Sensitivity": "-103.5dBm",
+     "Output Power": "20.5dBm",
+     "Voltage - Supply": "3V~3.6V",
+     "Frequency": "2.4GHz",
+     "Utilized IC / Part": "ESP32-S3R8",
+     "Interface Type": "UART、SDIO、SPI、I2C、GPIO、PWM、ADC、I2S、JTAG、USB",
+     "Send  Current": "355mA",
+     "Wireless Standard": "Bluetooth5.0",
+     "Receive  Current": "95mA"
+    }
+   }
+  ],
+  "page": 1,
+  "per_page": 5,
+  "total": 1,
+  "total_pages": 1,
+  "has_more": false
+ }
+}

@@ -1,0 +1,83 @@
+{
+ "tool": "jlc_search",
+ "arguments": {
+  "query": "stm32l151c8t6",
+  "sort_by": "stock",
+  "limit": 1
+ },
+ "response": {
+  "results": [
+   {
+    "lcsc": "C9861",
+    "model": "STM32L151C8T6",
+    "manufacturer": "STMicroelectronics",
+    "package": "LQFP-48(7x7)",
+    "stock": 615,
+    "price": 7.4617,
+    "price_10": null,
+    "library_type": "preferred",
+    "preferred": true,
+    "category": "Embedded Processors & Controllers",
+    "subcategory": "Microcontrollers (MCU/MPU/SOC)",
+    "subcategory_id": 2584,
+    "mounting_type": "smd",
+    "description": "-40℃~+85℃ 1.8V~3.6V 10KB 12bit 12bit 32 Bit 32MHz 37 4KB 64KB ARM Cortex-M3 Built-in FLASH LQFP-48(7x7) Microcontrollers (MCU/MPU/SOC) ROHS",
+    "specs": {
+     "EEPROM": "4KB",
+     "Operating Temperature": "-40℃~+85℃",
+     "CPU Maximum Speed": "32MHz",
+     "DAC (Bit)": "12bit",
+     "Program Memory Type": "FLASH",
+     "Program Storage Size": "64KB",
+     "Voltage - Supply": "1.8V~3.6V",
+     "RAM Size": "10KB",
+     "Core Size": "32 Bit",
+     "CPU Core": "ARM Cortex-M3",
+     "Number of I/O": "37",
+     "ADC (Bit)": "12bit",
+     "Oscillator Type": "Built-in"
+    }
+   }
+  ],
+  "total": 2,
+  "page_info": {
+   "limit": 1,
+   "offset": 0,
+   "returned": 1
+  },
+  "filters_applied": {
+   "query": "stm32l151c8t6",
+   "subcategory_id": null,
+   "subcategory_name": null,
+   "subcategory_resolved": null,
+   "category_id": null,
+   "category_name": null,
+   "category_resolved": null,
+   "spec_filters": [],
+   "library_type": null,
+   "prefer_no_fee": true,
+   "min_stock": 10,
+   "package": null,
+   "packages": null,
+   "manufacturer": null,
+   "match_all_terms": true
+  },
+  "library_type_counts": {
+   "basic": 0,
+   "preferred": 1,
+   "extended": 1
+  },
+  "no_fee_available": true,
+  "parsed": {
+   "original_query": "stm32l151c8t6",
+   "detected": {
+    "model_number": "stm32l151c8t6"
+   },
+   "subcategory": null,
+   "package": null,
+   "mounting_type": null,
+   "spec_filters": [],
+   "remaining_text": "stm32l151c8t6"
+  }
+ }
+}

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState, type ChangeEvent, type FormEvent,
 import { Link } from 'react-router'
 
 import { updateProject } from '../lib/api'
+import { useAuth } from '../hooks/useAuth'
 import { PcbBackground } from '../shell/PcbBackground'
 import { Wordmark } from '../shell/Wordmark'
 
@@ -33,6 +34,7 @@ function deriveProjectName(brief: string) {
 }
 
 export function BriefEntry({ projectId, onStarted, walkthroughBrief }: BriefEntryProps) {
+  const { runtime } = useAuth()
   const [brief, setBrief] = useState('')
   const [attachment, setAttachment] = useState<BomAttachment | null>(null)
   const [attachmentError, setAttachmentError] = useState<string | null>(null)
@@ -50,6 +52,11 @@ export function BriefEntry({ projectId, onStarted, walkthroughBrief }: BriefEntr
     event.target.value = ''
 
     if (!file) {
+      return
+    }
+
+    if (file.size > 1_000_000) {
+      setAttachmentError('Choose a BOM smaller than 1 MB (up to 100 parts).')
       return
     }
 
@@ -267,11 +274,17 @@ export function BriefEntry({ projectId, onStarted, walkthroughBrief }: BriefEntr
           </form>
 
           <div className="flex flex-col gap-md mt-sm">
+            {!walkthroughBrief && runtime && (!runtime.ai.configured || runtime.parts === 'recorded') ? (
+              <p className="font-body-sm text-body-sm text-on-surface-variant" role="status">
+                {!runtime.ai.configured ? 'Basic planning is active. Complex briefs need AI; missing specifications remain unchecked. ' : ''}
+                {runtime.parts === 'recorded' ? 'Part data is recorded and does not represent current stock or prices.' : ''}
+              </p>
+            ) : null}
             <span className="font-label-caps text-label-caps text-on-surface-variant uppercase">
               TRY ONE
             </span>
             <div className="flex flex-wrap gap-sm">
-              {SAMPLE_BRIEFS.map((sample) => (
+              {(runtime?.ai.configured === false ? ['USB temperature and humidity sensor', '12V controller with an OLED display', 'USB motion sensor with serial flash storage'] : SAMPLE_BRIEFS).map((sample) => (
                 <button
                   className="px-md py-sm rounded-DEFAULT border border-outline-variant bg-surface-container-low hover:bg-surface-variant transition-colors text-left font-data-tabular text-data-tabular text-on-surface text-xs leading-relaxed max-w-full"
                   key={sample}

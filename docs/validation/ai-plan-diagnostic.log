@@ -1,0 +1,60 @@
+{
+  "input_source": "usb-5v",
+  "input_voltage": 5,
+  "temp_range": [
+    0,
+    70
+  ],
+  "current_margin": 0.15,
+  "priority": "size",
+  "min_stock": 100,
+  "ambient_c": 25,
+  "lifetime_hours": null,
+  "slots": [
+    {
+      "id": "mcu",
+      "label": "MCU Controller",
+      "tier": "core",
+      "pinned": true,
+      "query": "microcontroller",
+      "category": "mcu"
+    },
+    {
+      "id": "sensor",
+      "label": "Temperature and Humidity Sensor",
+      "tier": "peripherals",
+      "pinned": false,
+      "query": "temperature humidity sensor",
+      "category": "sensor"
+    },
+    {
+      "id": "display",
+      "label": "OLED Display",
+      "tier": "peripherals",
+      "pinned": false,
+      "query": "oled display",
+      "category": "display"
+    }
+  ],
+  "rails": [
+    {
+      "id": "3V3",
+      "voltage": 3.3,
+      "source": "mcu",
+      "members": [
+        "sensor",
+        "display"
+      ]
+    }
+  ],
+  "links": [
+    [
+      "mcu",
+      "sensor"
+    ],
+    [
+      "mcu",
+      "display"
+    ]
+  ]
+}

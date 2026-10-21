@@ -1,0 +1,6 @@
+
+> frontend@0.0.0 build
+> tsc -b && vite build
+
+src/app/lib/mockEmitter.ts(971,3): error TS1360: Type '{ speed: 1; start(prompt: string, onEvent: (event: DesignEvent) => void): void; startBom(bom: string, onEvent: (event: DesignEvent) => void, prompt: string | undefined): void; ... 4 more ...; cancel(): void; }' does not satisfy the expected type 'EventSource'.
+  Type '{ speed: 1; start(prompt: string, onEvent: (event: DesignEvent) => void): void; startBom(bom: string, onEvent: (event: DesignEvent) => void, prompt: string | undefined): void; ... 4 more ...; cancel(): void; }' is missing the following properties from type 'EventSource': reconnect, disconnect

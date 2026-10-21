@@ -1,0 +1,6 @@
+PASS: readiness, SPA deep links, asset/API 404s
+PASS: session cookies, private project persistence, origin rejection
+{"case": "recorded-walkthrough-restoration-export", "result": "PASS", "events": 91}
+{"case": "live-parts-basic-planning", "events": {"reasoning": 32, "plan": 1, "candidate": 6, "check": 25, "selection": 1, "conflict": 5, "repair": 4, "question": 1}, "terminal": {"type": "question", "seq": 74, "thread_id": "5a8b78c048b4bd3b40d92a00", "question_id": "escalation", "text": "Microcontroller has been replaced 4 times and still fails temperature rating. This needs a requirement relaxed, not another part. ESP32-S3-WROOM-1-N16R8 misses the hot end by 5 \u00b0C (65 \u00b0C versus 70 \u00b0C).", "suggestions": ["Accept this and continue", "Stop and let me change the brief"]}}
+PASS: real design reached a valid terminal state with live part selections
+PASS: project deletion and session revocation

@@ -14,12 +14,15 @@ import {
   logout as logoutRequest,
   me,
   register,
+  getRuntime,
+  type RuntimeInfo,
   type PublicUser,
 } from '../lib/api'
 
 type AuthContextValue = {
   user: PublicUser | null
   loading: boolean
+  runtime: RuntimeInfo | null
   signIn: (email: string, password: string) => Promise<PublicUser>
   signUp: (email: string, password: string) => Promise<PublicUser>
   signOut: () => Promise<void>
@@ -31,6 +34,7 @@ const AuthContext = createContext<AuthContextValue | null>(null)
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<PublicUser | null>(null)
   const [loading, setLoading] = useState(true)
+  const [runtime, setRuntime] = useState<RuntimeInfo | null>(null)
 
   const refresh = useCallback(async () => {
     try {
@@ -48,7 +52,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   useEffect(() => {
-    refresh()
+    Promise.all([getRuntime().then(setRuntime), refresh()])
       .catch(() => {
         setUser(null)
       })
@@ -78,17 +82,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     () => ({
       user,
       loading,
+      runtime,
       signIn,
       signUp,
       signOut,
       refresh,
     }),
-    [loading, refresh, signIn, signOut, signUp, user],
+    [loading, runtime, refresh, signIn, signOut, signUp, user],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
 
+// This module intentionally exports the provider and its matching context hook.
+// eslint-disable-next-line react/only-export-components
 export function useAuth() {
   const context = useContext(AuthContext)
 

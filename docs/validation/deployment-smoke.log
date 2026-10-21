@@ -1,0 +1,6 @@
+PASS: readiness, SPA deep links, asset/API 404s
+PASS: session cookies, private project persistence, origin rejection
+{"case": "recorded-walkthrough-restoration-export", "result": "PASS", "events": 91}
+{"case": "live-parts-basic-planning", "events": {"reasoning": 18, "plan": 1, "candidate": 4, "check": 17, "selection": 3, "conflict": 1, "repair": 1, "bom": 1, "done": 1}, "terminal": {"type": "done", "seq": 46, "thread_id": "bedd120006431e41fcb286b8", "summary": {"slots": 3, "placed": 3, "conflicts_resolved": 1, "elapsed_s": 58.1}}}
+PASS: real design reached a valid terminal state with live part selections
+PASS: project deletion and session revocation

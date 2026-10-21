@@ -8,6 +8,9 @@ dist/
 .DS_Store
 fixtures/*.live.json
 .coverage
+.local/
+.pytest_cache/
+*.egg-info/
 
 # Working notes and development history — kept locally, not published.
 #

@@ -1,0 +1,62 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+__________________ test_search_returns_real_parts_with_specs __________________
+
+    @live
+    def test_search_returns_real_parts_with_specs():
+>       rows = run(search.search("3.3V LDO regulator", package="SOT-223", limit=3))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+backend\tests\test_parts.py:277: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend\tests\test_parts.py:20: in run
+    return asyncio.run(coro)
+           ^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py:195: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+backend\continuity\parts\search.py:140: in search
+    rows, payload = await _search_once(
+backend\continuity\parts\search.py:191: in _search_once
+    payload = await mcp.call_tool(
+backend\continuity\parts\mcp.py:143: in call_tool
+    fixtures.save(tool, arguments, result)
+backend\continuity\parts\fixtures.py:61: in save
+    _path(tool, key).write_text(
+..\..\..\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py:555: in write_text
+    return PathBase.write_text(self, data, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py:652: in write_text
+    return f.write(data)
+           ^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <encodings.cp1252.IncrementalEncoder object at 0x000001DF23319E50>
+input = '{\r\n "tool": "jlc_search",\r\n "arguments": {\r\n  "query": "3.3V LDO regulator",\r\n  "package": "SOT-223",\r\n  "s...: "Vout",\r\n     "op": "=",\r\n     "value": "3.3V"\r\n    }\r\n   ],\r\n   "remaining_text": "LDO"\r\n  }\r\n }\r\n}'
+final = False
+
+    def encode(self, input, final=False):
+>       return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       UnicodeEncodeError: 'charmap' codec can't encode character '\u2103' in position 642: character maps to <undefined>
+
+..\..\..\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py:19: UnicodeEncodeError
+============================== warnings summary ===============================
+backend\.venv\Lib\site-packages\_pytest\cacheprovider.py:469
+  C:\Users\iidab\OneDrive\Desktop\b-main\backend\.venv\Lib\site-packages\_pytest\cacheprovider.py:469: PytestCacheWarning: could not create cache path C:\Users\iidab\OneDrive\Desktop\b-main\backend\.pytest_cache\v\cache\nodeids: [WinError 5] Access is denied: 'C:\\Users\\iidab\\OneDrive\\Desktop\\b-main\\backend\\.pytest_cache\\v\\cache'
+    config.cache.set("cache/nodeids", sorted(self.cached_nodeids))
+
+backend\.venv\Lib\site-packages\_pytest\cacheprovider.py:423
+  C:\Users\iidab\OneDrive\Desktop\b-main\backend\.venv\Lib\site-packages\_pytest\cacheprovider.py:423: PytestCacheWarning: could not create cache path C:\Users\iidab\OneDrive\Desktop\b-main\backend\.pytest_cache\v\cache\lastfailed: [WinError 5] Access is denied: 'C:\\Users\\iidab\\OneDrive\\Desktop\\b-main\\backend\\.pytest_cache\\v\\cache'
+    config.cache.set("cache/lastfailed", self.lastfailed)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED backend\tests\test_parts.py::test_search_returns_real_parts_with_specs
+1 failed, 2 warnings in 1.54s

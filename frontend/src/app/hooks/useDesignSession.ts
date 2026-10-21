@@ -24,17 +24,20 @@ import type {
 
 export type EventSource = {
   speed: 1 | 2 | 4
-  start: (prompt: string, onEvent: (event: DesignEvent) => void, projectId?: string) => void
+  start: (prompt: string, onEvent: (event: DesignEvent) => void, projectId?: string, requestId?: string) => void
   startBom: (
     bom: string,
     onEvent: (event: DesignEvent) => void,
     prompt?: string,
     projectId?: string,
+    requestId?: string,
   ) => void
   startDemo: (onEvent: (event: DesignEvent) => void) => void
   answer: (text: string) => void
   continueRun: (threadId: string, onEvent: (event: DesignEvent) => void) => void
-  restore: (threadId: string, onEvent: (event: DesignEvent) => void) => void
+  restore: (threadId: string, onEvent: (event: DesignEvent) => void, lastSeq?: number) => void
+  reconnect: (threadId: string, onEvent: (event: DesignEvent) => void) => void
+  disconnect: () => void
   cancel: () => void
 }
 
@@ -168,6 +171,14 @@ export function useDesignSession() {
 
   const threadRef = useRef<string | null>(null)
   const lastSeqRef = useRef<number>(-1)
+  const requestRef = useRef<{ fingerprint: string; id: string; at: number } | null>(null)
+  const requestId = useCallback((fingerprint: string) => {
+    const previous = requestRef.current
+    if (previous?.fingerprint === fingerprint && Date.now() - previous.at < 2000) return previous.id
+    const id = crypto.randomUUID()
+    requestRef.current = { fingerprint, id, at: Date.now() }
+    return id
+  }, [])
   const conflictRef = useRef<SessionConflict | null>(null)
   /** Whether this run ever repaired anything. A design run resolves its conflicts and
    *  a lingering `conflict` status at the end is stale presentation state; a BOM
@@ -419,6 +430,14 @@ export function useDesignSession() {
 
   const handleEvent = useCallback(
     (event: DesignEvent) => {
+      if (event.type === 'error' && event.seq < 0) {
+        setReasoning((previous) => [...previous, event])
+        setStatus('error')
+        setCanContinue(event.recoverable && threadRef.current !== null)
+        flushPresentationFlow()
+        disposePresentationFlow()
+        return
+      }
       if (threadRef.current === null) {
         threadRef.current = event.thread_id
       }
@@ -432,6 +451,13 @@ export function useDesignSession() {
       }
 
       lastSeqRef.current = event.seq
+
+      // Replaying a resumed run can include a question that was already answered.
+      // A later event supersedes that historical pause.
+      if (event.type !== 'question') {
+        setQuestion(null)
+        setStatus((current) => current === 'paused' ? 'running' : current)
+      }
 
       if (event.type !== 'reasoning') {
         setInFlightReasoningSeq(null)
@@ -641,6 +667,7 @@ export function useDesignSession() {
           // the server log.
           setReasoning((previous) => [...previous, event])
           setStatus('error')
+          setCanContinue(event.recoverable)
           flushPresentationFlow()
           disposePresentationFlow()
         }
@@ -662,18 +689,18 @@ export function useDesignSession() {
     (prompt: string, projectId?: string) => {
       resetSessionState()
       setStatus('running')
-      source.start(prompt, handleEvent, projectId)
+      source.start(prompt, handleEvent, projectId, requestId(`design:${projectId}:${prompt}`))
     },
-    [handleEvent, resetSessionState],
+    [handleEvent, resetSessionState, requestId],
   )
 
   const startBom = useCallback(
     (bom: string, prompt?: string, projectId?: string) => {
       resetSessionState()
       setStatus('running')
-      source.startBom(bom, handleEvent, prompt, projectId)
+      source.startBom(bom, handleEvent, prompt, projectId, requestId(`bom:${projectId}:${prompt}:${bom}`))
     },
-    [handleEvent, resetSessionState],
+    [handleEvent, resetSessionState, requestId],
   )
 
   const startWalkthrough = useCallback(() => {
@@ -687,7 +714,7 @@ export function useDesignSession() {
       resetSessionState()
       threadRef.current = threadId
       lastSeqRef.current = board.trace.reduce((lastSeq, event) => Math.max(lastSeq, event.seq), -1)
-      source.restore(threadId, handleEvent)
+      source.restore(threadId, handleEvent, lastSeqRef.current)
       setSlots(board.slots)
       setEdges(board.edges)
       setSupply(board.supply ?? null)
@@ -750,6 +777,13 @@ export function useDesignSession() {
     [status],
   )
 
+  const reconnect = useCallback((threadId: string) => {
+    resetSessionState()
+    threadRef.current = threadId
+    setStatus('running')
+    source.reconnect(threadId, handleEvent)
+  }, [handleEvent, resetSessionState])
+
   const cancel = useCallback(() => {
     source.cancel()
     disposePresentationFlow()
@@ -775,7 +809,7 @@ export function useDesignSession() {
   useEffect(() => {
     return () => {
       disposePresentationFlow()
-      source.cancel()
+      source.disconnect()
     }
   }, [disposePresentationFlow])
 
@@ -804,6 +838,7 @@ export function useDesignSession() {
     hydrate,
     answer,
     continueRun,
+    reconnect,
     cancel,
   }
 }

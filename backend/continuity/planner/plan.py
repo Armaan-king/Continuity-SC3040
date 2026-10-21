@@ -35,6 +35,7 @@ from .. import llm
 from ..engine.models import Rail, Requirements, Slot, Tier
 from ..parts import categories
 from .topology import BATTERY_SOURCES, INPUT_SOURCES, capacity_of
+from .requirements import explicit_requirements
 
 log = logging.getLogger(__name__)
 
@@ -121,6 +122,10 @@ rails: the power tree. Each rail has:
   source   the slot id of the regulator producing it
   members  slot ids powered by it (NOT the source itself)
   Do NOT include the board's input supply as a rail; that is added separately.
+  A microcontroller is a LOAD, never a regulator or rail source. A USB-powered
+  3.3V board needs a separate regulator slot in tier "power", category "regulator".
+  Example: {{"id":"3V3","voltage":3.3,"source":"regulator","members":["mcu","sensor"]}}.
+  Every core/peripheral slot must appear in a rail's members.
 
   A CHARGER counts as a source. If the board has an on-board battery charged by a charge
   controller, declare the battery's rail with the charger as its `source` and everything
@@ -164,6 +169,25 @@ lifetime_hours: how long the board must run on its own supply, in hours, ONLY wh
   from the word "battery": a battery board with no stated lifetime has no requirement.
 
 Return the JSON object and nothing else."""
+
+SYSTEM += """
+Here is a complete structural example for a USB motion sensor. Adapt the functions
+to the user's brief, but preserve this schema and declare every rail source as a slot:
+{
+  "input_source": "usb-5v", "input_voltage": null, "temp_range": [0,70],
+  "current_margin": 0.15, "priority": "cost", "min_stock": 100, "ambient_c": 25,
+  "slots": [
+    {"id":"regulator","label":"3.3V Regulator","tier":"power","pinned":false,
+     "query":"3.3V LDO regulator","category":"regulator","topology":"ldo"},
+    {"id":"mcu","label":"Microcontroller","tier":"core","pinned":false,
+     "query":"ESP32 module","category":"mcu"},
+    {"id":"imu","label":"Motion Sensor","tier":"peripherals","pinned":true,
+     "query":"IMU accelerometer","category":"sensor"}
+  ],
+  "rails":[{"id":"3V3","voltage":3.3,"source":"regulator","members":["mcu","imu"]}],
+  "links":[["mcu","imu"]]
+}
+"""
 
 
 # ── validation ────────────────────────────────────────────────────────────────
@@ -477,16 +501,40 @@ async def plan_board(prompt: str) -> Plan | None:
     """Plan a board from a description. None when no usable plan came back."""
     if not llm.available():
         return None
-    try:
-        reply = await llm.complete_json(SYSTEM, prompt.strip()[:2000])
-    except (llm.LLMUnavailable, ValueError, json.JSONDecodeError) as error:
-        log.warning("planning failed: %s", error)
-        return None
+    request = prompt.strip()[:2000]
+    for attempt in range(2):
+        try:
+            reply = await llm.complete_json(SYSTEM, request)
+            plan = build_plan(reply)
+        except (llm.LLMUnavailable, ValueError, json.JSONDecodeError) as error:
+            log.warning("planning failed: %s", error)
+            return None
+        issues = structural_issues(plan)
+        if not issues:
+            return plan
+        log.warning("planner structure rejected: %s", "; ".join(issues))
+        if attempt == 0:
+            request = (prompt.strip()[:2000] + "\nYour previous plan had these structural errors: "
+                       + "; ".join(issues) + "\nReturn a complete corrected JSON plan.")
+    return None
 
-    plan = build_plan(reply)
+
+def structural_issues(plan: Plan | None) -> list[str]:
+    """Reject incomplete wiring before sourcing; electrical verdicts stay in the engine."""
     if plan is None:
-        log.warning("planner returned nothing usable for %r", prompt[:60])
-    return plan
+        return ["At least two valid functional slots are required"]
+    issues = []
+    if not plan.rails:
+        issues.append("Declare power rails and their regulator/charger source slots")
+    supplied = {member for rail in plan.rails for member in rail.members}
+    for rail in plan.rails:
+        source = plan.slots[rail.source]
+        if source.tier != "power":
+            issues.append(f"Rail {rail.id} source {source.id} must be a separate power slot, not a load")
+    for slot in plan.slots.values():
+        if slot.tier in {"core", "peripherals"} and slot.id not in supplied:
+            issues.append(f"Connect {slot.id} to a declared power rail")
+    return issues
 
 
 def fallback_plan(prompt: str) -> Plan:
@@ -507,6 +555,10 @@ def fallback_plan(prompt: str) -> Plan:
         (("imu", "accelerom", "gyro", "motion"), "imu", "IMU", "IMU accelerometer", "sensor"),
         (("flash", "storage", "sd card", "memory"), "flash", "Serial Flash", "SPI NOR flash", "memory"),
     ]
+    optional.extend([
+        (("lora",), "lora", "LoRa Radio", "LoRa module", "radio"),
+        (("gps", "gnss"), "gps", "GNSS Receiver", "GNSS module", "radio"),
+    ])
     for keywords, slot_id, label, query, category in optional:
         if any(k in text for k in keywords):
             wanted.append((slot_id, label, "peripherals", True, query, category))
@@ -525,7 +577,7 @@ def fallback_plan(prompt: str) -> Plan:
     loads = tuple(s for s in slots if s != "regulator")
 
     return Plan(
-        requirements=_clean_requirements({"input_source": _guess_source(text)}),
+        requirements=_clean_requirements({"input_source": _guess_source(text), **explicit_requirements(text)}),
         slots=slots,
         rails=[Rail(id="3V3", voltage=3.3, source="regulator", members=loads)],
         queries=queries,

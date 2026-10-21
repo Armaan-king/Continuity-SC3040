@@ -1,32 +1,21 @@
-# React + TypeScript + Vite
+# Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React 19, TypeScript, Vite and Tailwind power the existing Continuity interface. Design state is reduced from typed SSE events; presentation timing remains in the frontend.
 
-Currently, two official plugins are available:
+Use Node 24. From the repository root:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```sh
+npm ci --prefix frontend
+npm run dev --prefix frontend
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Start the backend on port 8000. Vite forwards `/api` to it; no frontend environment file is needed. The production Docker image serves the build and API together. `VITE_API_URL` is an optional override for a deliberately separate API origin, not a place for credentials.
+
+```sh
+npm run lint --prefix frontend
+npm run build --prefix frontend
+```
+
+For browser tests, install Chromium with `npx playwright install chromium` from `frontend/`, set `E2E_DATABASE_URL` to a disposable PostgreSQL database, and run `npm run test:e2e`. Playwright starts its own API and Vite servers on ports 8020 and 5175. `E2E_PYTHON` can override the backend virtual environment interpreter. Tests seed a test account; do not use a production database.
+
+The stream client reconnects through `/threads/{id}/events?after={seq}`, ignores duplicates, and separates disconnecting a view from cancelling a run. Runtime capability messages distinguish basic planning, AI configuration, and recorded part data.

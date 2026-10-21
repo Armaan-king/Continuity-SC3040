@@ -29,6 +29,7 @@ function getErrorMessage(error: unknown) {
     if (error.status === 422) {
       return 'Enter a valid email and a password of at least 8 characters'
     }
+    return error.message
   }
 
   return 'Could not reach the server'
@@ -37,7 +38,7 @@ function getErrorMessage(error: unknown) {
 function AuthCard({ mode }: AuthCardProps) {
   const navigate = useNavigate()
   const location = useLocation()
-  const { user, loading, signIn, signUp } = useAuth()
+  const { user, loading, runtime, signIn, signUp } = useAuth()
 
   const [email, setEmail] = useState(() => {
     const state = location.state as { email?: unknown } | null
@@ -49,7 +50,17 @@ function AuthCard({ mode }: AuthCardProps) {
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   if (loading) {
-    return null
+    return <p className="p-xl text-on-surface-variant" role="status">Connecting to the workspace…</p>
+  }
+
+  if (runtime?.accounts === false) {
+    return <div className="min-h-screen flex items-center justify-center text-on-surface p-xl">
+      <div className="max-w-md border border-outline-variant bg-surface-container rounded-lg p-xl">
+        <Wordmark size="lg" />
+        <p>This local workspace does not have accounts or saved projects. You can still design a board.</p>
+        <Link className="text-primary-container" to="/design">Open workspace →</Link>
+      </div>
+    </div>
   }
 
   // Where a signed-in visitor to /login or /signup belongs. This has to agree with the

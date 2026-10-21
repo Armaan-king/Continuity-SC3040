@@ -24,7 +24,7 @@ and the production values are a deliberate act.
 
 from __future__ import annotations
 
-import os
+import asyncio
 
 from argon2 import PasswordHasher
 from argon2.exceptions import VerificationError, VerifyMismatchError
@@ -32,6 +32,7 @@ from fastapi import APIRouter, Depends, HTTPException, Request, Response
 from pydantic import BaseModel, EmailStr, Field
 
 from .store import SESSION_TTL_SECONDS, EmailTaken, Store, User
+from ..settings import Settings
 
 COOKIE = "continuity_session"
 
@@ -53,7 +54,7 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 
 class Credentials(BaseModel):
     email: EmailStr
-    password: str = Field(min_length=MIN_PASSWORD_LENGTH)
+    password: str = Field(min_length=MIN_PASSWORD_LENGTH, max_length=1024)
 
 
 class PublicUser(BaseModel):
@@ -101,12 +102,13 @@ async def current_user(request: Request) -> User:
 
 
 def _set_session_cookie(response: Response, token: str) -> None:
+    settings = Settings.read()
     response.set_cookie(
         COOKIE,
         token,
         httponly=True,
-        samesite=os.environ.get("CONTINUITY_COOKIE_SAMESITE", "lax"),
-        secure=os.environ.get("CONTINUITY_COOKIE_SECURE", "") == "1",
+        samesite=settings.cookie_samesite,
+        secure=settings.cookie_secure,
         path="/",
         # The *ceiling*, not the idle window. The browser keeps sending the cookie and the
         # server decides whether it is still alive — a cookie that expired client-side would
@@ -122,7 +124,8 @@ async def register(
 ) -> PublicUser:
     store = store_of(request)
     try:
-        user = await store.create_user(credentials.email, hasher.hash(credentials.password))
+        password_hash = await asyncio.to_thread(hasher.hash, credentials.password)
+        user = await store.create_user(credentials.email, password_hash)
     except EmailTaken:
         raise HTTPException(409, "an account with that email already exists")
 
@@ -136,7 +139,7 @@ async def login(credentials: Credentials, request: Request, response: Response) 
     user = await store.user_by_email(credentials.email)
 
     try:
-        hasher.verify(user.password_hash if user else _DUMMY_HASH, credentials.password)
+        await asyncio.to_thread(hasher.verify, user.password_hash if user else _DUMMY_HASH, credentials.password)
     except (VerifyMismatchError, VerificationError):
         raise HTTPException(401, INVALID_CREDENTIALS)
 
@@ -146,7 +149,8 @@ async def login(credentials: Credentials, request: Request, response: Response) 
     # Parameters change as hardware does; a login is the only moment the plaintext is
     # available to re-hash with the current ones.
     if hasher.check_needs_rehash(user.password_hash):
-        await store.update_password_hash(user.id, hasher.hash(credentials.password))
+        password_hash = await asyncio.to_thread(hasher.hash, credentials.password)
+        await store.update_password_hash(user.id, password_hash)
 
     _set_session_cookie(response, await store.create_session(user.id))
     return _public(user)

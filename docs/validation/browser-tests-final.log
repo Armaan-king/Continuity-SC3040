@@ -1,0 +1,48 @@
+
+> frontend@0.0.0 test:e2e
+> playwright test
+
+npm.cmd : [WebServer] INFO:     Started server process [63324]
+At line:2 char:173
++ ... laywright'; npm.cmd --prefix frontend run test:e2e *> docs/validation ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([WebServer] INF...process [63324]:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[WebServer] INFO:     Waiting for application startup.
+[WebServer] INFO:     Application startup complete.
+[WebServer] INFO:     Uvicorn running on http://127.0.0.1:8020 (Press CTRL+C to quit)
+[WebServer] (node:56816) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:62852) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:62712) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+Seeded e2e@continuity.dev: 25 completed runs, 3 excluded, 5 projects.
+
+Running 20 tests using 1 worker
+
+(node:70680) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 [chromium] › e2e\analytics.spec.ts:11:3 › validation analytics › a signed-out visitor is sent to sign in (3.3s)
+  ok  2 [chromium] › e2e\analytics.spec.ts:16:3 › validation analytics › the side rail opens the analysis from the projects page (645ms)
+  ok  3 [chromium] › e2e\analytics.spec.ts:27:3 › validation analytics › the overview counts only completed runs and names what was excluded (708ms)
+  ok  4 [chromium] › e2e\analytics.spec.ts:37:3 › validation analytics › every rule shows all four outcomes, and a mostly-unchecked rate is withheld with its reason (585ms)
+  ok  5 [chromium] › e2e\analytics.spec.ts:54:3 › validation analytics › hovering a bar segment shows its count and share (866ms)
+  ok  6 [chromium] › e2e\analytics.spec.ts:65:3 › validation analytics › repair effectiveness, supply exposure and recurring conflicts are all reported (721ms)
+  ok  7 [chromium] › e2e\analytics.spec.ts:85:3 › validation analytics › every figure on screen matches the API it was computed from (836ms)
+  ok  8 [chromium] › e2e\analytics.spec.ts:102:3 › validation analytics › viewing the analysis changes nothing (859ms)
+  ok  9 [chromium] › e2e\analytics.spec.ts:114:3 › validation analytics › an engineer with no completed runs sees an empty state, not an error (475ms)
+  ok 10 [chromium] › e2e\analytics.spec.ts:122:3 › validation analytics › when retrieval fails the page says so and shows no partial analysis (951ms)
+  ok 11 [chromium] › e2e\regression.spec.ts:13:1 › the landing page renders (608ms)
+  ok 12 [chromium] › e2e\regression.spec.ts:20:1 › wrong credentials are refused without signing in (485ms)
+  ok 13 [chromium] › e2e\regression.spec.ts:28:1 › signing in lists every project, and signing out ends the session (878ms)
+  ok 14 [chromium] › e2e\regression.spec.ts:44:1 › a finished board opens with its trace and bill of materials, and exports as CSV (1.1s)
+  ok 15 [chromium] › e2e\regression.spec.ts:64:1 › the server-side CSV export still answers for a finished run (141ms)
+  ok 16 [chromium] › e2e\regression.spec.ts:77:1 › memory shows the parts and boards from past runs (493ms)
+  ok 17 [chromium] › e2e\regression.spec.ts:88:1 › the guided walkthrough still replays for a new account (4.9s)
+  ok 18 [chromium] › e2e\runtime.spec.ts:4:1 › local mode opens a usable brief screen without requiring an account (503ms)
+  ok 19 [chromium] › e2e\runtime.spec.ts:16:1 › local sign-in explains persistence and provides a working workspace link (502ms)
+  ok 20 [chromium] › e2e\runtime.spec.ts:27:1 › a dropped stream reconnects using the cursor without starting another design (583ms)
+
+  20 passed (30.7s)

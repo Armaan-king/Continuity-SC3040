@@ -1,0 +1,53 @@
+name: Checks
+on:
+  push:
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: continuity
+          POSTGRES_PASSWORD: test-only
+          POSTGRES_DB: continuity_test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd pg_isready --health-interval 5s
+          --health-timeout 5s --health-retries 10
+    env:
+      CONTINUITY_ENV: test
+      CONTINUITY_LLM_PROVIDER: disabled
+      CONTINUITY_TEST_DB: postgresql://continuity:test-only@localhost:5432/continuity_test
+      E2E_DATABASE_URL: postgresql://continuity:test-only@localhost:5432/continuity_test
+      E2E_PYTHON: python
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: pip install -r backend/requirements.lock && pip install --no-deps -e backend && pip install pytest pytest-cov
+      - run: python -m pytest backend/tests --junitxml=test-results/backend.xml
+      - run: npm ci
+        working-directory: frontend
+      - run: npm run lint && npm run build
+        working-directory: frontend
+      - run: npx playwright install --with-deps chromium
+        working-directory: frontend
+      - run: npm run test:e2e
+        working-directory: frontend
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-reports
+          path: |
+            test-results/
+            frontend/test-results/
+            frontend/playwright-report/

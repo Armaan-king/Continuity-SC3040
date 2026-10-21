@@ -1,0 +1,30 @@
+{"test": "real-ai", "configured": true, "provider": "ollama", "model": "qwen2.5:7b", "mode": "ai"}
+{"case": "measurement-extraction", "result": "PASS", "response": {"vmin": 1.8, "vmax": 3.6}}
+python.exe : planner structure rejected: Declare power rails and their regulator/charger source slots; Connect sensor 
+to a declared power rail; Connect display to a declared power rail; Connect mcu to a declared power rail
+At line:2 char:138
++ ... wen2.5:7b'; & .\backend\.venv\Scripts\python.exe backend/tools/smoke_ ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (planner structu...ared power rail:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+planner structure rejected: Declare power rails and their regulator/charger source slots; Connect sensor to a declared 
+power rail; Connect display to a declared power rail; Connect mcu to a declared power rail
+Traceback (most recent call last):
+  File "C:\Users\iidab\OneDrive\Desktop\b-main\backend\tools\smoke_ai.py", line 33, in <module>
+    asyncio.run(main())
+    ~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\iidab\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "C:\Users\iidab\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\iidab\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 719, in 
+run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "C:\Users\iidab\OneDrive\Desktop\b-main\backend\tools\smoke_ai.py", line 25, in main
+    assert plan is not None, "Provider did not produce a usable plan"
+           ^^^^^^^^^^^^^^^^
+AssertionError: Provider did not produce a usable plan

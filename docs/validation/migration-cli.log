@@ -1,0 +1,1 @@
+PASS: migration CLI applied no duplicate migrations and preserved checksums.

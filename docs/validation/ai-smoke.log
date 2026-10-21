@@ -1,0 +1,26 @@
+{"test": "real-ai", "configured": true, "provider": "ollama", "model": "qwen2.5:3b", "mode": "ai"}
+{"case": "measurement-extraction", "result": "PASS", "response": {"vmin": 1.8, "vmax": 3.6}}
+python.exe : Traceback (most recent call last):
+At line:2 char:177
++ ... ENS='2048'; & .\backend\.venv\Scripts\python.exe backend/tools/smoke_ ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Traceback (most recent call last)::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  File "C:\Users\iidab\OneDrive\Desktop\b-main\backend\tools\smoke_ai.py", line 33, in <module>
+    asyncio.run(main())
+    ~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\iidab\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "C:\Users\iidab\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\iidab\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 719, in 
+run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "C:\Users\iidab\OneDrive\Desktop\b-main\backend\tools\smoke_ai.py", line 26, in main
+    assert len(plan.slots) >= 3 and plan.rails, "Missing functional blocks or power rails"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Missing functional blocks or power rails

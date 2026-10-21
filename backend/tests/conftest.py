@@ -18,6 +18,11 @@ Set `CONTINUITY_LIVE=1` to run everything against the real services instead.
 from __future__ import annotations
 
 import os
+import sys
+import asyncio
+
+if sys.platform == "win32":
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 import pytest
 

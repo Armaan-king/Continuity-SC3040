@@ -1,0 +1,109 @@
+docker : #0 building with "desktop-linux" instance using docker driver
+At line:2 char:1
++ docker build --tag continuity:verified . *> docs/validation/docker-bu ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (#0 building wit...g docker driver:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 931B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.13-slim
+#2 ...
+
+#3 [internal] load metadata for docker.io/library/node:24-bookworm-slim
+#3 DONE 0.9s
+
+#2 [internal] load metadata for docker.io/library/python:3.13-slim
+#2 DONE 0.9s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 193B done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 DONE 0.0s
+
+#6 [app 1/7] FROM 
+docker.io/library/python:3.13-slim@sha256:cf50a4f6ac4f026458b08d5222023d700ac806410dff5e9ca8728fa44f2b850f
+#6 resolve docker.io/library/python:3.13-slim@sha256:cf50a4f6ac4f026458b08d5222023d700ac806410dff5e9ca8728fa44f2b850f 
+0.1s done
+#6 DONE 0.1s
+
+#7 [frontend 1/7] FROM 
+docker.io/library/node:24-bookworm-slim@sha256:8cabefbd444809cf0e319b5831c65da1ea202200ca552a5e75fd7938a6f86658
+#7 resolve 
+docker.io/library/node:24-bookworm-slim@sha256:8cabefbd444809cf0e319b5831c65da1ea202200ca552a5e75fd7938a6f86658 0.1s 
+done
+#7 DONE 0.1s
+
+#5 [internal] load build context
+#5 transferring context: 157B done
+#5 ERROR: error from sender: open backend\.pytest_cache: Access is denied.
+------
+ > [internal] load build context:
+------
+WARNING: current commit information was not captured by the build: failed to read current commit information with git 
+rev-parse --is-inside-work-tree
+ERROR: failed to solve: error from sender: open backend\.pytest_cache: Access is denied.
+158  /usr/local/bin/dockerd --config-file /run/config/docker/daemon.json --containerd /run/containerd/containerd.sock 
+--pidfile /run/desktop/docker.pid --swarm-default-advertise-addr=192.168.65.3 --host-gateway-ip 192.168.65.254
+github.com/moby/buildkit/session/filesync.recvDiffCopy
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/session/filesync/diffcopy.go:104
+github.com/moby/buildkit/session/filesync.FSSync
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/session/filesync/filesync.go:247
+github.com/moby/buildkit/source/local.(*localSourceHandler).snapshot
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/source/local/source.go:299
+github.com/moby/buildkit/source/local.(*localSourceHandler).Snapshot
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/source/local/source.go:175
+github.com/moby/buildkit/solver/llbsolver/ops.(*SourceOp).Exec
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/solver/llbsolver/ops/source.go:108
+github.com/moby/buildkit/solver.(*sharedOp).Exec.func2
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/solver/jobs.go:1106
+github.com/moby/buildkit/util/flightcontrol.(*call[...]).run
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/util/flightcontrol/flightcontrol.go:123
+sync.(*Once).doSlow
+	/usr/local/go/src/sync/once.go:76
+sync.(*Once).Do
+	/usr/local/go/src/sync/once.go:67
+runtime.goexit
+	/usr/local/go/src/runtime/asm_amd64.s:1700
+
+31160 v0.23.0-desktop.1 C:\Program Files\Docker\cli-plugins\docker-buildx.exe buildx build --tag continuity:verified .
+google.golang.org/grpc.(*ClientConn).Invoke
+	google.golang.org/grpc@v1.69.4/call.go:35
+github.com/moby/buildkit/api/services/control.(*controlClient).Solve
+	github.com/moby/buildkit@v0.21.0/api/services/control/control_grpc.pb.go:88
+github.com/moby/buildkit/client.(*Client).solve.func2
+	github.com/moby/buildkit@v0.21.0/client/solve.go:268
+golang.org/x/sync/errgroup.(*Group).Go.func1
+	golang.org/x/sync@v0.13.0/errgroup/errgroup.go:79
+runtime.goexit
+	runtime/asm_amd64.s:1700
+
+158  /usr/local/bin/dockerd --config-file /run/config/docker/daemon.json --containerd /run/containerd/containerd.sock 
+--pidfile /run/desktop/docker.pid --swarm-default-advertise-addr=192.168.65.3 --host-gateway-ip 192.168.65.254
+github.com/tonistiigi/fsutil.(*receiver).run.func2
+	/root/build-deb/engine/vendor/github.com/tonistiigi/fsutil/receive.go:222
+golang.org/x/sync/errgroup.(*Group).Go.func1
+	/root/build-deb/engine/vendor/golang.org/x/sync/errgroup/errgroup.go:79
+runtime.goexit
+	/usr/local/go/src/runtime/asm_amd64.s:1700
+
+158  /usr/local/bin/dockerd --config-file /run/config/docker/daemon.json --containerd /run/containerd/containerd.sock 
+--pidfile /run/desktop/docker.pid --swarm-default-advertise-addr=192.168.65.3 --host-gateway-ip 192.168.65.254
+github.com/moby/buildkit/solver.(*edge).execOp
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/solver/edge.go:963
+github.com/moby/buildkit/solver/internal/pipe.NewWithFunction[...].func2
+	/root/build-deb/engine/vendor/github.com/moby/buildkit/solver/internal/pipe/pipe.go:78
+runtime.goexit
+	/usr/local/go/src/runtime/asm_amd64.s:1700
+
+31160 v0.23.0-desktop.1 C:\Program Files\Docker\cli-plugins\docker-buildx.exe buildx build --tag continuity:verified .
+github.com/moby/buildkit/client.(*Client).solve.func2
+	github.com/moby/buildkit@v0.21.0/client/solve.go:285
+golang.org/x/sync/errgroup.(*Group).Go.func1
+	golang.org/x/sync@v0.13.0/errgroup/errgroup.go:79
+

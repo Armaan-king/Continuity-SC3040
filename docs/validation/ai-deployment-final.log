@@ -1,0 +1,6 @@
+PASS: readiness, SPA deep links, asset/API 404s
+PASS: session cookies, private project persistence, origin rejection
+{"case": "recorded-walkthrough-restoration-export", "result": "PASS", "events": 91}
+{"case": "live-parts-design", "planning": "ai", "accepted_test_warnings": 0, "events": {"reasoning": 15, "plan": 1, "candidate": 3, "check": 17, "selection": 3, "bom": 1, "done": 1}, "terminal": {"type": "done", "seq": 40, "thread_id": "c238c1dc27a1fc09238e6676", "summary": {"slots": 3, "placed": 3, "conflicts_resolved": 0, "elapsed_s": 31.6}}}
+PASS: real design completed; saved board and CSV are available (accepted warnings remain warnings)
+PASS: project deletion and session revocation

@@ -963,6 +963,14 @@ export const mockEmitter = {
     threadId = savedThreadId
     listener = onEvent
   },
+  reconnect(savedThreadId, onEvent) {
+    threadId = savedThreadId
+    listener = onEvent
+  },
+  disconnect() {
+    this.cancel()
+    listener = null
+  },
   cancel() {
     activeToken += 1
     clearTimers()

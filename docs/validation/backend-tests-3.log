@@ -1,0 +1,157 @@
+........................................................................ [  9%]
+........................................................................ [ 18%]
+........................................................................ [ 27%]
+........................................................................ [ 36%]
+........................F.......................sss..s.................. [ 46%]
+..................s..................................................... [ 55%]
+........................................................................ [ 64%]
+...F.F.......F.......................................................... [ 73%]
+........................................................................ [ 82%]
+........................................................................ [ 92%]
+.............................................................            [100%]
+================================== FAILURES ===================================
+____________ test_theta_ja_covers_most_fixture_regulator_packages _____________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x0000020A28CC6BA0>
+
+    def test_theta_ja_covers_most_fixture_regulator_packages(capsys):
+        """Coverage guard against regression; the pre-fold baseline was 55%."""
+>       rows = [row for row in _jlc_rows() if row.get("subcategory") in _REGULATOR_SUBCATEGORIES]
+                               ^^^^^^^^^^^
+
+backend\tests\test_packages.py:107: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend\tests\test_packages.py:100: in _jlc_rows
+    payload = json.loads(path.read_text())
+                         ^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py:546: in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py:633: in read_text
+    return f.read()
+           ^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <encodings.cp1252.IncrementalDecoder object at 0x0000020A2A729980>
+input = b'{\n "tool": "jlc_search",\n "arguments": {\n  "query": "",\n  "subcategory_name": "NOR FLASH",\n  "sort_by": "stock"...brary_type_counts": {\n   "basic": 1,\n   "preferred": 0,\n   "extended": 855\n  },\n  "no_fee_available": true\n }\n}'
+final = True
+
+    def decode(self, input, final=False):
+>       return codecs.charmap_decode(input,self.errors,decoding_table)[0]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       UnicodeDecodeError: 'charmap' codec can't decode byte 0x81 in position 635: character maps to <undefined>
+
+..\..\..\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py:23: UnicodeDecodeError
+____ test_a_finished_thread_hydrates_its_trace_in_order_without_bom_frames ____
+
+    def test_a_finished_thread_hydrates_its_trace_in_order_without_bom_frames():
+        async def go():
+            async with a_store():
+                async with signed_in() as http:
+                    project = (await http.post("/projects", json={"name": "P"})).json()
+                    frames = await frames_of(http, "/design", {"prompt": DEMO, "project_id": project["id"]})
+                    board = await http.get(f"/threads/{frames[0]['thread_id']}/board")
+                    return board, frames
+    
+        board, frames = run(go())
+        assert [event["seq"] for event in board.json()["trace"]] == sorted(
+            event["seq"] for event in board.json()["trace"]
+        )
+>       assert not [event for event in board.json()["trace"] if event["type"] == "bom"]
+E       AssertionError: assert not [{'seq': 90, 'rows': [{'mpn': 'TPS62825DMQR', 'qty': 1, 'slot': 'regulator', 'stock': 8200, ...}, {'mpn': 'ESP32-S3-WR..., ...}, {'mpn': 'ER-OLED013-1', 'qty': 1, 'slot': 'display', 'stock': 3100, ...}], 'type': 'bom', 'total': 13.03, ...}]
+
+backend\tests\test_projects.py:473: AssertionError
+_____ test_an_abandoned_thread_hydrates_its_board_trace_and_is_resumable ______
+
+    def test_an_abandoned_thread_hydrates_its_board_trace_and_is_resumable():
+        async def go():
+            async with a_store() as store:
+                async with signed_in() as http:
+                    project = (await http.post("/projects", json={"name": "P"})).json()
+                    frames = await frames_of(http, "/design", {"prompt": DEMO, "project_id": project["id"]})
+                    me = (await http.get("/auth/me")).json()
+                    thread = await store.thread_for_user(frames[0]["thread_id"], me["id"])
+                    await store.save_progress(thread.id, thread.last_seq, "abandoned")
+                    return await http.get(f"/threads/{thread.id}/board")
+    
+        body = run(go()).json()
+        assert body["status"] == "abandoned"
+        assert body["slots"]
+        assert body["trace"]
+>       assert body["resumable"] is True
+E       assert False is True
+
+backend\tests\test_projects.py:518: AssertionError
+______ test_continue_reenters_with_none_and_keeps_the_persisted_sequence ______
+
+    def test_continue_reenters_with_none_and_keeps_the_persisted_sequence():
+        class ContinuationGraph:
+            def __init__(self):
+                self.payloads = []
+    
+            async def astream(self, payload, config, stream_mode):
+                self.payloads.append(payload)
+                yield "custom", config["configurable"]["events"].reasoning(None, "continued")
+    
+        async def go():
+            async with a_store() as store:
+                async with signed_in() as http:
+                    me = (await http.get("/auth/me")).json()
+                    project = await store.create_project(me["id"], "P")
+                    await store.create_thread("continue-me", project.id, me["id"], "A board")
+                    await store.save_progress("continue-me", 41, "abandoned")
+                    graph = ContinuationGraph()
+                    previous = app.state.graph
+                    app.state.graph = graph
+                    try:
+                        frames = await frames_of(http, "/threads/continue-me/continue", {})
+                    finally:
+                        app.state.graph = previous
+                    return frames, graph.payloads
+    
+>       frames, payloads = run(go())
+                           ^^^^^^^^^
+
+backend\tests\test_projects.py:648: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend\tests\test_projects.py:46: in run
+    return asyncio.run(coro)
+           ^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py:195: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+backend\tests\test_projects.py:643: in go
+    frames = await frames_of(http, "/threads/continue-me/continue", {})
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+http = <httpx.AsyncClient object at 0x0000020A288CF710>
+path = '/threads/continue-me/continue', payload = {}
+
+    async def frames_of(http: httpx.AsyncClient, path: str, payload: dict) -> list[dict]:
+        async with http.stream("POST", path, json=payload) as response:
+>           assert response.status_code == 200, await response.aread()
+E           AssertionError: b'{"detail":"This run has no unfinished checkpoint. Start a new design."}'
+E           assert 409 == 200
+E            +  where 409 = <Response [409 Conflict]>.status_code
+
+backend\tests\test_projects.py:86: AssertionError
+------------------------------ Captured log call ------------------------------
+WARNING  continuity.api.app:app.py:556 could not restore checkpoint for thread continue-me
+Traceback (most recent call last):
+  File "C:\Users\iidab\OneDrive\Desktop\b-main\backend\continuity\api\app.py", line 554, in _checkpoint_snapshot
+    return await graph.aget_state({"configurable": {"thread_id": thread_id}})
+                 ^^^^^^^^^^^^^^^^
+AttributeError: 'ContinuationGraph' object has no attribute 'aget_state'
+=========================== short test summary info ===========================
+FAILED backend\tests\test_packages.py::test_theta_ja_covers_most_fixture_regulator_packages
+FAILED backend\tests\test_projects.py::test_a_finished_thread_hydrates_its_trace_in_order_without_bom_frames
+FAILED backend\tests\test_projects.py::test_an_abandoned_thread_hydrates_its_board_trace_and_is_resumable
+FAILED backend\tests\test_projects.py::test_continue_reenters_with_none_and_keeps_the_persisted_sequence
+4 failed, 772 passed, 5 skipped in 41.32s

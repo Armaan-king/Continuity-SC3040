@@ -97,7 +97,7 @@ not a weaker test, it is a test of nothing.
 
 def _jlc_rows():
     for path in FIXTURES.glob("jlc_search*.json"):
-        payload = json.loads(path.read_text())
+        payload = json.loads(path.read_text(encoding="utf-8"))
         response = payload.get("response", payload)
         yield from response.get("results", ())
 

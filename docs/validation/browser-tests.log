@@ -1,0 +1,60 @@
+
+> frontend@0.0.0 test:e2e
+> playwright test
+
+npm.cmd : [WebServer] Traceback (most recent call last):
+At line:2 char:173
++ ... laywright'; npm.cmd --prefix frontend run test:e2e *> docs/validation ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([WebServer] Tra...ent call last)::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[WebServer]   File "C:\Users\iidab\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 195, in run
+[WebServer]     return runner.run(main)
+[WebServer]            ~~~~~~~~~~^^^^^^
+[WebServer]   File "C:\Users\iidab\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 100, in run
+[WebServer]     task = self._loop.create_task(coro, context=context)
+[WebServer] TypeError: BaseEventLoop.create_task() missing 1 required positional argument: 'coro'
+[WebServer] 
+[WebServer] During handling of the above exception, another exception occurred:
+[WebServer] 
+[WebServer] Traceback (most recent call last):
+[WebServer]   File "C:\Users\iidab\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 71, in close
+[WebServer]     loop.run_until_complete(loop.shutdown_asyncgens())
+[WebServer]                             ~~~~~~~~~~~~~~~~~~~~~~~^^
+[WebServer] TypeError: BaseEventLoop.shutdown_asyncgens() missing 1 required positional argument: 'self'
+[WebServer] 
+[WebServer] During handling of the above exception, another exception occurred:
+[WebServer] 
+[WebServer] Traceback (most recent call last):
+[WebServer]   File "<frozen runpy>", line 198, in _run_module_as_main
+[WebServer]   File "<frozen runpy>", line 88, in _run_code
+[WebServer]   File "C:\Users\iidab\OneDrive\Desktop\b-main\backend\continuity\__main__.py", line 28, in <module>
+[WebServer]     main()
+[WebServer]     ~~~~^^
+[WebServer]   File "C:\Users\iidab\OneDrive\Desktop\b-main\backend\continuity\__main__.py", line 23, in main
+[WebServer]     uvicorn.run(target, host=args.host, port=args.port, reload=args.reload,
+[WebServer]     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[WebServer]                 loop="continuity.__main__:loop_factory", workers=1)
+[WebServer]                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[WebServer]   File "C:\Users\iidab\OneDrive\Desktop\b-main\backend\.venv\Lib\site-packages\uvicorn\main.py", line 632, 
+in run
+[WebServer]     server.run()
+[WebServer]     ~~~~~~~~~~^^
+[WebServer]   File "C:\Users\iidab\OneDrive\Desktop\b-main\backend\.venv\Lib\site-packages\uvicorn\server.py", line 
+86, in run
+[WebServer]     return asyncio_run(self.serve(sockets=sockets), loop_factory=self.config.get_loop_factory())
+[WebServer]   File "C:\Users\iidab\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 194, in run
+[WebServer]     with Runner(debug=debug, loop_factory=loop_factory) as runner:
+[WebServer]          ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[WebServer]   File "C:\Users\iidab\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 62, in 
+__exit__
+[WebServer]     self.close()
+[WebServer]     ~~~~~~~~~~^^
+[WebServer]   File "C:\Users\iidab\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 77, in close
+[WebServer]     loop.close()
+[WebServer]     ~~~~~~~~~~^^
+[WebServer] TypeError: BaseSelectorEventLoop.close() missing 1 required positional argument: 'self'
+[WebServer] <sys>:0: RuntimeWarning: coroutine 'Server.serve' was never awaited
+Error: Process from config.webServer was not able to start. Exit code: 1
+

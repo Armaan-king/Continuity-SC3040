@@ -33,6 +33,7 @@ import asyncio
 import hashlib
 import json
 import logging
+import math
 import re
 from contextvars import ContextVar, Token
 from pathlib import Path
@@ -176,7 +177,7 @@ def _coerce(name: str, value: Any) -> Any | None:
     if isinstance(value, bool):
         return None  # bools are ints in Python; never a legitimate answer here
     if expected is float and isinstance(value, (int, float)):
-        return float(value)
+        return float(value) if math.isfinite(value) else None
     if expected is int and isinstance(value, int):
         return value
     if expected is str and isinstance(value, str):
@@ -402,7 +403,8 @@ async def normalize(
     if cached is not None:
         fields, provenance = cached
     elif not llm.available():
-        fields, provenance = {}, {}
+        from .specifications import parse
+        fields, provenance = parse(candidate.specs)
     else:
         try:
             reply = await llm.complete_json(SYSTEM, _prompt(candidate))
@@ -416,7 +418,8 @@ async def normalize(
             # part with no published specs is the kind of thing nobody notices until
             # the board is wrong.
             log.warning("normalisation failed for %s: %s", candidate.mpn, error)
-            fields, provenance = {}, {}
+            from .specifications import parse
+            fields, provenance = parse(candidate.specs)
 
     _discard_non_regulator_fields(fields, provenance, candidate.category)
 
@@ -514,7 +517,7 @@ def _load(mpn: str) -> tuple[dict, dict] | None:
     if not path.exists():
         return None
     try:
-        stored = json.loads(path.read_text())
+        stored = json.loads(path.read_text(encoding="utf-8"))
     except json.JSONDecodeError:
         return None
     if stored.get("prompt") != _prompt_version():

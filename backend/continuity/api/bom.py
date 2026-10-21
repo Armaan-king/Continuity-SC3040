@@ -55,8 +55,9 @@ class BomItem(BaseModel):
 
 
 class BomRequest(BaseModel):
-    bom: str | list[BomItem]
-    prompt: str | None = None
+    bom: str | list[BomItem] = Field(max_length=1_000_000)
+    prompt: str | None = Field(default=None, max_length=2000)
+    request_id: str | None = Field(default=None, min_length=8, max_length=128)
     """What the user typed alongside the file. Named to match `DesignRequest.prompt`:
     both endpoints take the same thing from the same box, and two names for it would be
     a papercut for anyone reading the API. Internally it is a *brief*, which is what the
@@ -130,6 +131,8 @@ async def requirements_from_brief(brief: str | None) -> Requirements:
     defaults = Requirements()
     if not brief or not brief.strip():
         return defaults
+    from ..planner.requirements import explicit_requirements
+    defaults = replace(defaults, **explicit_requirements(brief))
     if not llm.available():
         log.warning("BOM requirements inference unavailable; using defaults")
         return defaults

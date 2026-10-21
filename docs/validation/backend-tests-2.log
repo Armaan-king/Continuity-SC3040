@@ -1,0 +1,278 @@
+.........................................F.............................. [  9%]
+......................................FF................................ [ 18%]
+........................................................................ [ 27%]
+..................................FF
+================================== FAILURES ===================================
+________ test_a_signed_in_run_without_a_project_uses_a_scratch_project ________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001E05C48AD60>
+
+    def test_a_signed_in_run_without_a_project_uses_a_scratch_project(monkeypatch):
+        calls: list[tuple] = []
+    
+        class Store:
+            async def ensure_scratch_project(self, user_id: str) -> str:
+                calls.append(("ensure", user_id))
+                return "scratch-project"
+    
+            async def project_for_user(self, project_id: str, user_id: str):
+                calls.append(("project", project_id, user_id))
+                return object()
+    
+            async def create_thread(
+                self, thread_id: str, project_id: str, user_id: str, prompt: str
+            ) -> None:
+                calls.append(("thread", thread_id, project_id, user_id, prompt))
+    
+        async def signed_in(request):
+            return SimpleNamespace(id="user-1")
+    
+        async def fake_run(*args):
+            yield 'data: {"thread_id":"thread-1"}\n\n'
+    
+        monkeypatch.setattr(app.state, "store", Store())
+        monkeypatch.setattr(app_module, "_signed_in", signed_in)
+        monkeypatch.setattr(app_module, "_run", fake_run)
+    
+>       frames = run(stream("/design", {"prompt": DEMO}))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+backend\tests\test_api.py:201: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+backend\tests\test_api.py:25: in run
+    return asyncio.run(coro)
+           ^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py:195: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+backend\tests\test_api.py:37: in stream
+    async with http.stream("POST", path, json=payload) as response:
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Programs\Python\Python313\Lib\contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+backend\.venv\Lib\site-packages\httpx\_client.py:1583: in stream
+    response = await self.send(
+backend\.venv\Lib\site-packages\httpx\_client.py:1629: in send
+    response = await self._send_handling_auth(
+backend\.venv\Lib\site-packages\httpx\_client.py:1657: in _send_handling_auth
+    response = await self._send_handling_redirects(
+backend\.venv\Lib\site-packages\httpx\_client.py:1694: in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend\.venv\Lib\site-packages\httpx\_client.py:1730: in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend\.venv\Lib\site-packages\httpx\_transports\asgi.py:170: in handle_async_request
+    await self.app(scope, receive, send)
+backend\.venv\Lib\site-packages\fastapi\applications.py:1194: in __call__
+    await super().__call__(scope, receive, send)
+backend\.venv\Lib\site-packages\starlette\applications.py:96: in __call__
+    await self.middleware_stack(scope, receive, send)
+backend\.venv\Lib\site-packages\starlette\middleware\errors.py:186: in __call__
+    raise exc
+backend\.venv\Lib\site-packages\starlette\middleware\errors.py:164: in __call__
+    await self.app(scope, receive, _send)
+backend\.venv\Lib\site-packages\fastapi\telemetry\_asgi.py:151: in __call__
+    await self.app(scope, receive, send)
+backend\continuity\api\security.py:54: in __call__
+    await self.app(scope, receive, secure_send)
+backend\.venv\Lib\site-packages\starlette\middleware\cors.py:91: in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+backend\.venv\Lib\site-packages\starlette\middleware\cors.py:149: in simple_response
+    await self.app(scope, receive, send)
+backend\.venv\Lib\site-packages\starlette\middleware\exceptions.py:63: in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+backend\.venv\Lib\site-packages\starlette\_exception_handler.py:53: in wrapped_app
+    raise exc
+backend\.venv\Lib\site-packages\starlette\_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+backend\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py:18: in __call__
+    await self.app(scope, receive, send)
+backend\.venv\Lib\site-packages\starlette\routing.py:678: in __call__
+    await self.middleware_stack(scope, receive, send)
+backend\.venv\Lib\site-packages\fastapi\routing.py:2813: in app
+    await route.handle(scope, receive, send)
+backend\.venv\Lib\site-packages\fastapi\routing.py:1332: in handle
+    await super().handle(scope, receive, send)
+backend\.venv\Lib\site-packages\starlette\routing.py:284: in handle
+    await self.app(scope, receive, send)
+backend\.venv\Lib\site-packages\fastapi\routing.py:167: in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+backend\.venv\Lib\site-packages\starlette\_exception_handler.py:53: in wrapped_app
+    raise exc
+backend\.venv\Lib\site-packages\starlette\_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+backend\.venv\Lib\site-packages\fastapi\routing.py:153: in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+backend\.venv\Lib\site-packages\fastapi\routing.py:746: in app
+    raw_response = await run_endpoint_function(
+backend\.venv\Lib\site-packages\fastapi\routing.py:373: in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+body = DesignRequest(prompt='temp and humidity sensor, wifi and ble, usb-c powered with li-ion backup, small oled', project_id=None, request_id=None)
+request = <starlette.requests.Request object at 0x000001E05C4A1860>
+
+    @app.post("/design")
+    async def design(body: DesignRequest, request: Request) -> StreamingResponse:
+        store = request.app.state.store
+        user = await _signed_in(request)
+        owner = _owner(user)
+        thread_id = _thread_id(owner, body.request_id, f"design:{body.project_id}:{body.prompt}")
+>       if store and await store.thread_for_user(thread_id, owner):
+                           ^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Store' object has no attribute 'thread_for_user'
+
+backend\continuity\api\app.py:387: AttributeError
+________________ test_a_slow_bom_stream_still_sends_heartbeats ________________
+
+    def test_a_slow_bom_stream_still_sends_heartbeats():
+        """The BOM path resolves every MPN before it can emit anything, so the stream is
+        genuinely silent for twenty seconds or more on a real BOM. The client treats thirty
+        seconds without a byte as a dead connection, and the first real run of a five-line
+        BOM died with "the connection went quiet" � a 200 on the server and a failed run in
+        the browser."""
+        import asyncio
+        from continuity.api import app as app_module
+        from continuity.api import events as events_module
+    
+        async def go():
+            async def slow():
+                await asyncio.sleep(0.25)
+                yield {"type": "done", "summary": {"slots": 0, "placed": 0}}
+    
+            # Shrink the interval rather than sleeping through the real one.
+            original = events_module.HEARTBEAT_INTERVAL_S
+            events_module.HEARTBEAT_INTERVAL_S = 0.05
+            try:
+                return [item async for item in app_module._with_heartbeats(slow())]
+            finally:
+                events_module.HEARTBEAT_INTERVAL_S = original
+    
+>       produced = asyncio.run(go())
+                   ^^^^^^^^^^^^^^^^^
+
+backend\tests\test_bom_validation.py:419: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\..\..\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py:195: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    async def go():
+        async def slow():
+            await asyncio.sleep(0.25)
+            yield {"type": "done", "summary": {"slots": 0, "placed": 0}}
+    
+        # Shrink the interval rather than sleeping through the real one.
+        original = events_module.HEARTBEAT_INTERVAL_S
+        events_module.HEARTBEAT_INTERVAL_S = 0.05
+        try:
+>           return [item async for item in app_module._with_heartbeats(slow())]
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'continuity.api.app' has no attribute '_with_heartbeats'
+
+backend\tests\test_bom_validation.py:415: AttributeError
+_______ test_heartbeats_do_not_drop_or_duplicate_the_events_themselves ________
+
+    def test_heartbeats_do_not_drop_or_duplicate_the_events_themselves():
+        import asyncio
+        from continuity.api import app as app_module
+    
+        async def go():
+            async def quick():
+                for index in range(4):
+                    yield {"type": "check", "seq": index}
+    
+            return [item async for item in app_module._with_heartbeats(quick())]
+    
+>       produced = asyncio.run(go())
+                   ^^^^^^^^^^^^^^^^^
+
+backend\tests\test_bom_validation.py:436: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\..\..\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py:195: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    async def go():
+        async def quick():
+            for index in range(4):
+                yield {"type": "check", "seq": index}
+    
+>       return [item async for item in app_module._with_heartbeats(quick())]
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'continuity.api.app' has no attribute '_with_heartbeats'
+
+backend\tests\test_bom_validation.py:434: AttributeError
+_______ test_a_dossier_value_fills_a_field_absent_from_the_live_payload _______
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001E05C99EF90>
+
+    def test_a_dossier_value_fills_a_field_absent_from_the_live_payload(monkeypatch):
+        monkeypatch.setattr(normalize.llm, "available", lambda: False)
+        monkeypatch.setattr(normalize.search, "enrich", _plain)
+    
+        async def lookup(_mpn):
+            return [{"field": "temp_max", "value": "125.0", "source": "TI datasheet SLVS123"}]
+    
+        part = asyncio.run(normalize.normalize(CANDIDATE, use_cache=False, dossier_lookup=lookup))
+    
+        assert part.temp_max == 125.0
+>       assert part.provenance["temp_max"] == (
+            "Continuity dossier � learned in an earlier run (TI datasheet SLVS123)"
+        )
+E       AssertionError: assert 'Operating Temperature' == 'Continuity d...heet SLVS123)'
+E         
+E         - Continuity dossier � learned in an earlier run (TI datasheet SLVS123)
+E         + Operating Temperature
+
+backend\tests\test_normalize.py:317: AssertionError
+_________ test_an_empty_dossier_keeps_today_s_missing_field_behaviour _________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001E05C92DF60>
+
+    def test_an_empty_dossier_keeps_today_s_missing_field_behaviour(monkeypatch):
+        monkeypatch.setattr(normalize.llm, "available", lambda: False)
+        monkeypatch.setattr(normalize.search, "enrich", _plain)
+    
+        async def lookup(_mpn):
+            return []
+    
+        part = asyncio.run(normalize.normalize(CANDIDATE, use_cache=False, dossier_lookup=lookup))
+    
+>       assert part.temp_max is None
+E       AssertionError: assert 125.0 is None
+E        +  where 125.0 = PartSpec(mpn='SHT40-AD1B-R2', manufacturer='Sensirion', description='temperature and humidity sensor', category='Tempe...urrent - Supply', 'interfaces': 'Interface', 'temp_min': 'Operating Temperature', 'temp_max': 'Operating Temperature'}).temp_max
+
+backend\tests\test_normalize.py:332: AssertionError
+=========================== short test summary info ===========================
+FAILED backend\tests\test_api.py::test_a_signed_in_run_without_a_project_uses_a_scratch_project
+FAILED backend\tests\test_bom_validation.py::test_a_slow_bom_stream_still_sends_heartbeats
+FAILED backend\tests\test_bom_validation.py::test_heartbeats_do_not_drop_or_duplicate_the_events_themselves
+FAILED backend\tests\test_normalize.py::test_a_dossier_value_fills_a_field_absent_from_the_live_payload
+FAILED backend\tests\test_normalize.py::test_an_empty_dossier_keeps_today_s_missing_field_behaviour
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 5 failures !!!!!!!!!!!!!!!!!!!!!!!!!!
+5 failed, 247 passed in 14.64s

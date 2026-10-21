@@ -1,0 +1,16 @@
+.git
+.local
+**/.venv
+**/node_modules
+**/__pycache__
+**/.env
+**/.env.*
+!**/.env.example
+**/dist
+**/test-results
+**/playwright-report
+Lab * Deliverables
+
+**/.pytest_cache
+**/*.egg-info
+docs/validation

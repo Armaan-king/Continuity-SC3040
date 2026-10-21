@@ -238,7 +238,7 @@ def _load(mpn: str) -> ThermalFact | None:
     if not path.exists():
         return None
     try:
-        stored = json.loads(path.read_text())
+        stored = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         return None
     if stored.get("prompt") != _prompt_version():

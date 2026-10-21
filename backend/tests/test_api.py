@@ -175,6 +175,9 @@ def test_a_signed_in_run_without_a_project_uses_a_scratch_project(monkeypatch):
     calls: list[tuple] = []
 
     class Store:
+        async def thread_for_user(self, *args):
+            return None
+
         async def ensure_scratch_project(self, user_id: str) -> str:
             calls.append(("ensure", user_id))
             return "scratch-project"
@@ -187,6 +190,7 @@ def test_a_signed_in_run_without_a_project_uses_a_scratch_project(monkeypatch):
             self, thread_id: str, project_id: str, user_id: str, prompt: str
         ) -> None:
             calls.append(("thread", thread_id, project_id, user_id, prompt))
+            return True
 
     async def signed_in(request):
         return SimpleNamespace(id="user-1")
@@ -194,6 +198,11 @@ def test_a_signed_in_run_without_a_project_uses_a_scratch_project(monkeypatch):
     async def fake_run(*args):
         yield 'data: {"thread_id":"thread-1"}\n\n'
 
+    async def start_run(request, thread_id, owner, producer):
+        from fastapi.responses import StreamingResponse
+        return StreamingResponse(producer, media_type="text/event-stream")
+
+    monkeypatch.setattr(app_module, "_start_run", start_run)
     monkeypatch.setattr(app.state, "store", Store())
     monkeypatch.setattr(app_module, "_signed_in", signed_in)
     monkeypatch.setattr(app_module, "_run", fake_run)

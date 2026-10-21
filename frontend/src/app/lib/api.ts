@@ -1,6 +1,17 @@
 import type { BomRow, DesignEvent, Edge, QuestionEvent, Slot, SupplyNode } from './types'
 
-const API_BASE = import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
+import { API_BASE, responseError } from './config'
+
+export type RuntimeInfo = {
+  accounts: boolean
+  persistence: 'postgres' | 'memory'
+  ai: { configured: boolean; provider: string; model: string | null; mode: 'ai' | 'rules' }
+  parts: 'recorded' | 'live'
+}
+
+export function getRuntime() {
+  return request<RuntimeInfo>('/runtime')
+}
 
 export type PublicUser = {
   id: string
@@ -161,10 +172,11 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<T
     credentials: 'include',
     headers: body === undefined ? undefined : { 'Content-Type': 'application/json' },
     body: body === undefined ? undefined : JSON.stringify(body),
+    signal: AbortSignal.timeout(90_000),
   })
 
   if (!response.ok) {
-    throw new ApiError(response.status)
+    throw new ApiError(response.status, await responseError(response))
   }
 
   if (response.status === 204) {

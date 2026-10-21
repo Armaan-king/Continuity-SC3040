@@ -1,21 +1,7 @@
-"""Application tables over the same connection pool the checkpointer uses.
+"""Parameterized PostgreSQL repositories sharing the graph checkpointer's pool.
 
-## Why this is not an ORM
-
-`langgraph-checkpoint-postgres` already brings psycopg3 and `psycopg_pool`, so a second
-driver and a mapping layer would buy nothing: the schema is four tables of flat columns
-and the queries are all single-statement. Sharing one pool also means one place where
-connection limits, timeouts and shutdown are decided.
-
-## Why the user-scoped lookups take a `user_id` rather than filtering afterwards
-
-`project_for_user` and `thread_for_user` are the authorisation boundary for `/resume`,
-`/export` and everything under `/projects`. Fetching by id and comparing the owner in
-Python is the same logic with one more place to forget it, so ownership is a `WHERE`
-clause and there is no unscoped read to reach for by accident.
-
-A miss returns `None` and the route answers 404 rather than 403 — a 403 confirms that a
-thread exists, which is a fact the caller has no business learning.
+User-scoped lookups enforce authorization in SQL. Execution writes run inside a
+transaction and verify the current lease; composite foreign keys protect ownership.
 """
 
 from __future__ import annotations
@@ -23,6 +9,8 @@ from __future__ import annotations
 import hashlib
 import secrets
 import uuid
+from contextlib import asynccontextmanager
+from contextvars import ContextVar
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -37,6 +25,7 @@ from .findings import Finding
 from ..parts.dossier import DOSSIER_FIELDS
 
 SCHEMA = Path(__file__).with_name("schema.sql")
+execution_lease: ContextVar[tuple[str, str] | None] = ContextVar("execution_lease", default=None)
 
 SESSION_IDLE_SECONDS = 60 * 30
 """How long a session survives with no requests at all.
@@ -125,10 +114,27 @@ class Store:
     def __init__(self, pool: AsyncConnectionPool) -> None:
         self.pool = pool
 
-    async def setup(self) -> None:
-        """Apply the schema. Idempotent, like `checkpointer.setup()`."""
+    @asynccontextmanager
+    async def _run_connection(self, thread_id: str):
+        """Fence writes from an execution that has lost its lease, within one transaction."""
         async with self.pool.connection() as conn:
-            await conn.execute(SCHEMA.read_text())
+            async with conn.transaction():
+                lease = execution_lease.get()
+                if lease is not None:
+                    if lease[0] != thread_id:
+                        raise RuntimeError("Execution thread mismatch")
+                    cursor = await conn.execute(
+                        "SELECT id FROM threads WHERE id = %s AND run_token = %s "
+                        "AND lease_until > now() FOR UPDATE", lease,
+                    )
+                    if await cursor.fetchone() is None:
+                        raise RuntimeError("Run lease was lost")
+                yield conn
+
+    async def setup(self) -> None:
+        """Upgrade existing databases without discarding user data."""
+        from .migrations import migrate
+        await migrate(self.pool)
 
     # ── users ────────────────────────────────────────────────────────────────
 
@@ -372,18 +378,20 @@ class Store:
 
     async def create_thread(
         self, thread_id: str, project_id: str, user_id: str, prompt: str
-    ) -> None:
+    ) -> bool:
         async with self.pool.connection() as conn:
-            await conn.execute(
+            cursor = await conn.execute(
                 """
                 INSERT INTO threads (id, project_id, user_id, prompt)
                 VALUES (%s, %s, %s, %s)
+                ON CONFLICT (id) DO NOTHING
                 """,
                 (thread_id, project_id, user_id, prompt),
             )
             await conn.execute(
                 "UPDATE projects SET updated_at = now() WHERE id = %s", (project_id,)
             )
+            return cursor.rowcount == 1
 
     async def thread_for_user(self, thread_id: str, user_id: str) -> Thread | None:
         async with self.pool.connection() as conn:
@@ -425,10 +433,10 @@ class Store:
 
     async def save_progress(self, thread_id: str, last_seq: int, status: str) -> None:
         """Written when a stream ends — which is exactly when a resume becomes possible."""
-        async with self.pool.connection() as conn:
+        async with self._run_connection(thread_id) as conn:
             await conn.execute(
                 """
-                UPDATE threads SET last_seq = %s, status = %s, updated_at = now()
+                UPDATE threads SET last_seq = GREATEST(last_seq, %s), status = CASE WHEN run_token IS NULL THEN %s ELSE status END, updated_at = now()
                  WHERE id = %s
                 """,
                 (last_seq, status, thread_id),
@@ -442,14 +450,14 @@ class Store:
         it — and a dashboard that re-derived any of this from the BOM would be inventing
         a second opinion the engine never gave.
         """
-        async with self.pool.connection() as conn:
+        async with self._run_connection(thread_id) as conn:
             await conn.execute(
                 "UPDATE threads SET summary = %s, updated_at = now() WHERE id = %s",
                 (Json(summary), thread_id),
             )
 
     async def save_bom(self, thread_id: str, rows: list[dict[str, Any]]) -> None:
-        async with self.pool.connection() as conn:
+        async with self._run_connection(thread_id) as conn:
             await conn.execute(
                 "UPDATE threads SET bom = %s, updated_at = now() WHERE id = %s",
                 (Json(rows), thread_id),
@@ -464,7 +472,7 @@ class Store:
         ]
         if not rows:
             return
-        async with self.pool.connection() as conn:
+        async with self._run_connection(thread_id) as conn:
             cursor = conn.cursor()
             await cursor.executemany(
                 """
@@ -484,7 +492,7 @@ class Store:
 
     async def save_findings(self, thread_id: str, findings: list[Finding]) -> None:
         """Replace this completed run's recorded observations atomically enough to retry."""
-        async with self.pool.connection() as conn:
+        async with self._run_connection(thread_id) as conn:
             await conn.execute("DELETE FROM findings WHERE thread_id = %s", (thread_id,))
             for finding in findings:
                 await conn.execute(
@@ -717,3 +725,73 @@ class Store:
                 {"field": row["field"], "value": row["value"], "source": row["source"]}
             )
         return facts
+
+    async def claim_run(self, thread_id: str, user_id: str, token: str) -> bool:
+        """Serialize admission per account, then acquire a renewable execution lease."""
+        async with self.pool.connection() as conn:
+            async with conn.transaction():
+                await conn.execute("SELECT id FROM users WHERE id = %s FOR UPDATE", (user_id,))
+                cursor = await conn.execute(
+                    "SELECT id FROM threads WHERE user_id = %s AND lease_until > now()",
+                    (user_id,),
+                )
+                if await cursor.fetchone():
+                    return False
+                cursor = await conn.execute("""
+                    UPDATE threads SET run_token = %s, lease_until = now() + interval '45 seconds',
+                                       status = 'running', updated_at = now()
+                     WHERE id = %s AND user_id = %s AND status <> 'done'
+                       AND (lease_until IS NULL OR lease_until <= now())
+                """, (token, thread_id, user_id))
+                return cursor.rowcount == 1
+
+    async def renew_run(self, thread_id: str, token: str) -> bool:
+        async with self.pool.connection() as conn:
+            cursor = await conn.execute("""
+                UPDATE threads SET lease_until = now() + interval '45 seconds'
+                 WHERE id = %s AND run_token = %s AND lease_until > now()
+            """, (thread_id, token))
+            return cursor.rowcount == 1
+
+    async def release_run(self, thread_id: str, token: str, status: str = "abandoned") -> None:
+        async with self.pool.connection() as conn:
+            await conn.execute("""
+                UPDATE threads SET run_token = NULL, lease_until = NULL,
+                    status = %s,
+                    updated_at = now()
+                 WHERE id = %s AND run_token = %s
+            """, (status, thread_id, token))
+
+    async def recover_stale_runs(self) -> None:
+        async with self.pool.connection() as conn:
+            await conn.execute("""
+                UPDATE threads SET status = 'abandoned', run_token = NULL, lease_until = NULL
+                 WHERE status = 'running' AND (
+                    lease_until < now() OR
+                    (lease_until IS NULL AND updated_at < now() - interval '60 seconds')
+                 )
+            """)
+
+    async def append_stream_event(self, thread_id: str, token: str, event: dict) -> None:
+        """Persist before publishing, atomically advancing the reconnect cursor."""
+        async with self.pool.connection() as conn:
+            async with conn.transaction():
+                cursor = await conn.execute("""
+                    UPDATE threads SET last_seq = GREATEST(last_seq, %s), updated_at = now()
+                     WHERE id = %s AND run_token = %s AND lease_until > now() RETURNING id
+                """, (event["seq"], thread_id, token))
+                if await cursor.fetchone() is None:
+                    raise RuntimeError("Run lease was lost")
+                await conn.execute("""
+                    INSERT INTO run_events (thread_id, seq, event) VALUES (%s, %s, %s)
+                    ON CONFLICT (thread_id, seq) DO NOTHING
+                """, (thread_id, event["seq"], Json(event)))
+
+    async def events_after(self, thread_id: str, user_id: str, after: int) -> list[dict]:
+        async with self.pool.connection() as conn:
+            cursor = await conn.execute("""
+                SELECT e.event FROM run_events e JOIN threads t ON t.id = e.thread_id
+                 WHERE t.id = %s AND t.user_id = %s AND e.seq > %s
+                 ORDER BY e.seq LIMIT 500
+            """, (thread_id, user_id, after))
+            return [row[0] for row in await cursor.fetchall()]

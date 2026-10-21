@@ -1,4 +1,6 @@
 import type { DesignEvent } from './types'
+import { API_BASE, responseError } from './config'
+import { getThreadBoard } from './api'
 
 /**
  * Real backend client. Drop-in replacement for `mockEmitter`.
@@ -18,7 +20,6 @@ import type { DesignEvent } from './types'
  * that setting it can never silently do half of what it used to.
  */
 
-const API_BASE = import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
 
 /** The client treats this much silence as a dead stream. Contract §1. */
 const STALL_TIMEOUT_MS = 30_000
@@ -41,6 +42,8 @@ export type DatasheetUploadResult =
 let controller: AbortController | null = null
 let threadId: string | null = null
 let listener: EventListener | null = null
+let lastSequence = -1
+let terminal = false
 let walkthroughQueue: DesignEvent[] = []
 let walkthroughMilestone: WalkthroughReplayMilestone | null = null
 /** The last milestone asked for, satisfied or not. A milestone is released once. */
@@ -129,7 +132,7 @@ export function releaseWalkthroughReplay(milestone: WalkthroughReplayMilestone) 
 function emitError(message: string, recoverable = false) {
   emit({
     type: 'error',
-    seq: Number.MAX_SAFE_INTEGER,
+    seq: -1,
     thread_id: threadId ?? '',
     message,
     recoverable,
@@ -144,83 +147,96 @@ function emitError(message: string, recoverable = false) {
  * the heartbeat — are skipped.
  */
 async function readStream(response: Response, signal: AbortSignal) {
-  const body = response.body
-  if (!body) {
-    emitError('The server returned no stream.')
-    return
-  }
-
-  const reader = body.getReader()
+  if (!response.body) throw new Error('The server returned no stream.')
+  const reader = response.body.getReader()
   const decoder = new TextDecoder()
   let buffer = ''
   let lastFrameAt = Date.now()
-
+  let stalled = false
   const stall = setInterval(() => {
     if (Date.now() - lastFrameAt > STALL_TIMEOUT_MS) {
-      clearInterval(stall)
+      stalled = true
       reader.cancel().catch(() => undefined)
-      emitError('The connection went quiet. The run may still be going on the server.')
     }
   }, 5_000)
-
   try {
-    for (;;) {
+    while (!signal.aborted) {
       const { done, value } = await reader.read()
-      if (done) break
-
-      // Any bytes at all prove the connection is alive — including a heartbeat, which is
-      // a `:` comment line and is skipped by the frame loop below. Refreshing this only
-      // on `data:` frames made the heartbeat useless for the one job it exists to do:
-      // a node that searches a distributor holds the stream quiet for ~24s, and two of
-      // those in a row tripped the 30s stall timer and killed a live run with
-      // "the connection went quiet" while the server was still working normally.
+      if (done || signal.aborted) break
       lastFrameAt = Date.now()
-
       buffer += decoder.decode(value, { stream: true })
-      const blocks = buffer.split('\n\n')
+      if (buffer.length > 4_000_000) throw new Error('The server sent an oversized event.')
+      const blocks = buffer.split(/\r?\n\r?\n/)
       buffer = blocks.pop() ?? ''
-
       for (const block of blocks) {
-        for (const line of block.split('\n')) {
-          if (!line.startsWith('data: ')) continue
-          lastFrameAt = Date.now()
-
-          let event: DesignEvent
-          try {
-            event = JSON.parse(line.slice(6)) as DesignEvent
-          } catch {
-            continue // a malformed frame is not worth killing the run over
-          }
-
-          if (event.thread_id) threadId = event.thread_id
-          emit(event)
+        const data = block.split(/\r?\n/).filter((line) => line.startsWith('data:'))
+          .map((line) => line.slice(5).trimStart()).join('\n')
+        if (!data) continue
+        const event = JSON.parse(data) as DesignEvent
+        if (!Number.isInteger(event.seq) || !event.thread_id || typeof event.type !== 'string') {
+          throw new Error('The server sent an invalid design event.')
         }
+        if (event.seq <= lastSequence) continue
+        threadId = event.thread_id
+        lastSequence = event.seq
+        terminal = event.type === 'done' || event.type === 'question' || event.type === 'error'
+        emit(event)
       }
     }
-  } catch (error) {
-    if (!signal.aborted) {
-      emitError(error instanceof Error ? error.message : 'The stream failed.')
-    }
+    if (stalled) throw new Error('The connection went quiet.')
   } finally {
     clearInterval(stall)
+    reader.releaseLock()
+  }
+}
+
+async function reconnectStream(signal: AbortSignal) {
+  for (let attempt = 0; attempt < 4 && !signal.aborted && !terminal; attempt += 1) {
+    if (attempt > 0) await new Promise((resolve) => setTimeout(resolve, 1000 * 2 ** (attempt - 1)))
+    if (signal.aborted || !threadId) return
+    try {
+      const response = await fetch(
+        `${API_BASE}/threads/${encodeURIComponent(threadId)}/events?after=${lastSequence}`,
+        { credentials: 'include', signal },
+      )
+      if (!response.ok) {
+        const message = await responseError(response)
+        if ([401, 403, 404].includes(response.status)) {
+          emitError(message)
+          return
+        }
+        throw new Error(message)
+      }
+      await readStream(response, signal)
+    } catch (error) {
+      if (signal.aborted) return
+      if (attempt === 3) throw error
+    }
+  }
+  if (!signal.aborted && !terminal) {
+    emitError('Connection interrupted. Reopen this project to continue the saved run.', true)
   }
 }
 
 async function post(path: string, payload: unknown, signal: AbortSignal) {
   const response = await fetch(`${API_BASE}${path}`, {
-    method: 'POST',
-    credentials: 'include',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-    signal,
+    method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload), signal,
   })
-
+  if (signal.aborted) return
   if (!response.ok) {
-    emitError(`The server refused the request (${response.status}).`)
+    emitError(await responseError(response), response.status >= 500)
     return
   }
-
-  await readStream(response, signal)
+  threadId = response.headers.get('X-Thread-ID') ?? threadId
+  terminal = false
+  try {
+    await readStream(response, signal)
+  } catch (error) {
+    if (signal.aborted) return
+    if (!threadId) throw error
+  }
+  if (!signal.aborted && !terminal && threadId) await reconnectStream(signal)
 }
 
 function responseMessage(payload: unknown, fallback: string) {
@@ -253,9 +269,11 @@ export const sseClient = {
   /** Present so the real and mock sources share one type. Deliberately inert — see above. */
   speed: 1 as 1 | 2 | 4,
 
-  start(prompt: string, onEvent: EventListener, projectId?: string) {
+  start(prompt: string, onEvent: EventListener, projectId?: string, requestId?: string) {
     reset()
     threadId = null
+    lastSequence = -1
+    terminal = false
     listener = onEvent
     controller = new AbortController()
     const { signal } = controller
@@ -264,7 +282,7 @@ export const sseClient = {
       ? { prompt, project_id: projectId }
       : { prompt }
 
-    post('/design', payload, signal).catch((error: unknown) => {
+    post('/design', { ...payload, request_id: requestId ?? crypto.randomUUID() }, signal).catch((error: unknown) => {
       if (signal.aborted) return
       emitError(
         error instanceof Error ? error.message : 'Could not reach the design service.',
@@ -272,9 +290,11 @@ export const sseClient = {
     })
   },
 
-  startBom(bom: string, onEvent: EventListener, prompt?: string, projectId?: string) {
+  startBom(bom: string, onEvent: EventListener, prompt?: string, projectId?: string, requestId?: string) {
     reset()
     threadId = null
+    lastSequence = -1
+    terminal = false
     listener = onEvent
     controller = new AbortController()
     const { signal } = controller
@@ -285,7 +305,7 @@ export const sseClient = {
       ...(projectId ? { project_id: projectId } : {}),
     }
 
-    post('/bom/validate', payload, signal).catch((error: unknown) => {
+    post('/bom/validate', { ...payload, request_id: requestId ?? crypto.randomUUID() }, signal).catch((error: unknown) => {
       if (signal.aborted) return
       emitError(
         error instanceof Error ? error.message : 'Could not reach the design service.',
@@ -296,6 +316,8 @@ export const sseClient = {
   startDemo(onEvent: EventListener) {
     reset()
     threadId = null
+    lastSequence = -1
+    terminal = false
     listener = onEvent
     // The server correctly streams the recording as fast as it can. The tour owns the
     // visible pacing, so hold frames until its next narrated milestone asks for them.
@@ -339,7 +361,12 @@ export const sseClient = {
     controller = new AbortController()
     const { signal } = controller
 
-    post(`/threads/${encodeURIComponent(savedThreadId)}/continue`, {}, signal).catch(
+    terminal = false
+    getThreadBoard(savedThreadId).then((board) => {
+      if (signal.aborted) return
+      if (board.status === 'running') return reconnectStream(signal)
+      return post(`/threads/${encodeURIComponent(savedThreadId)}/continue`, {}, signal)
+    }).catch(
       (error: unknown) => {
         if (signal.aborted) return
         emitError(error instanceof Error ? error.message : 'Could not continue the run.')
@@ -347,14 +374,37 @@ export const sseClient = {
     )
   },
 
-  restore(savedThreadId: string, onEvent: EventListener) {
+  reconnect(savedThreadId: string, onEvent: EventListener) {
+    reset()
+    threadId = savedThreadId
+    lastSequence = -1
+    terminal = false
+    listener = onEvent
+    controller = new AbortController()
+    const { signal } = controller
+    reconnectStream(signal).catch((error: unknown) => {
+      if (!signal.aborted) emitError(error instanceof Error ? error.message : 'Could not reconnect.', true)
+    })
+  },
+
+  restore(savedThreadId: string, onEvent: EventListener, lastSeq = -1) {
+    lastSequence = lastSeq
     threadId = savedThreadId
     listener = onEvent
   },
 
-  cancel() {
+  disconnect() {
     reset()
     listener = null
+  },
+
+  cancel() {
+    const id = threadId
+    reset()
+    listener = null
+    if (id) fetch(`${API_BASE}/threads/${encodeURIComponent(id)}/cancel`, {
+      method: 'POST', credentials: 'include',
+    }).catch(() => undefined)
   },
 
   /**

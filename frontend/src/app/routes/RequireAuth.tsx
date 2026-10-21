@@ -8,11 +8,13 @@ type RequireAuthProps = {
 }
 
 export function RequireAuth({ children }: RequireAuthProps) {
-  const { user, loading } = useAuth()
+  const { user, loading, runtime } = useAuth()
 
   if (loading) {
-    return null
+    return <p className="p-xl text-on-surface-variant" role="status">Connecting to the workspace…</p>
   }
+
+  if (runtime?.accounts === false) return <Navigate to="/design" replace />
 
   if (!user) {
     return <Navigate to="/login" replace />

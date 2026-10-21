@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router'
+import { useLocation, useNavigate, useParams } from 'react-router'
 
 import { BriefEntry } from '../design/BriefEntry'
 import { Workspace, WorkspaceView } from '../design/Workspace'
@@ -13,17 +13,18 @@ type StartedRequest = {
   bom?: string
 }
 
-function StartedWorkspace({ projectId, request }: { projectId: string; request: StartedRequest }) {
+function StartedWorkspace({ projectId, request }: { projectId?: string; request: StartedRequest }) {
   const session = useDesignSession()
+  const { start, startBom } = session
 
   useEffect(() => {
     if (request.bom !== undefined) {
-      session.startBom(request.bom, request.brief || undefined, projectId)
+      startBom(request.bom, request.brief || undefined, projectId)
       return
     }
 
-    session.start(request.brief, projectId)
-  }, [projectId, request, session.start, session.startBom])
+    start(request.brief, projectId)
+  }, [projectId, request, start, startBom])
 
   return <WorkspaceView projectId={projectId} session={session} />
 }
@@ -33,6 +34,7 @@ type RestoreState = 'loading' | 'ready' | 'live' | 'empty' | 'error'
 function RestoredWorkspace({ projectId, thread }: { projectId: string; thread: ProjectThread }) {
   const navigate = useNavigate()
   const session = useDesignSession()
+  const { hydrate, reconnect } = session
   const [restoreState, setRestoreState] = useState<RestoreState>('loading')
 
   useEffect(() => {
@@ -46,7 +48,8 @@ function RestoredWorkspace({ projectId, thread }: { projectId: string; thread: P
         }
 
         if (board.status === 'running') {
-          setRestoreState('live')
+          reconnect(thread.id)
+          setRestoreState('ready')
           return
         }
 
@@ -55,7 +58,7 @@ function RestoredWorkspace({ projectId, thread }: { projectId: string; thread: P
           return
         }
 
-        session.hydrate(board, thread.id)
+        hydrate(board, thread.id)
         setRestoreState('ready')
       } catch (error) {
         if (!active) {
@@ -81,7 +84,7 @@ function RestoredWorkspace({ projectId, thread }: { projectId: string; thread: P
     return () => {
       active = false
     }
-  }, [navigate, session.hydrate, thread.id])
+  }, [navigate, hydrate, reconnect, thread.id])
 
   if (restoreState === 'loading') {
     return null
@@ -126,6 +129,7 @@ function RestoredWorkspace({ projectId, thread }: { projectId: string; thread: P
  */
 export default function DesignRoute() {
   const navigate = useNavigate()
+  const location = useLocation()
   const { projectId } = useParams<{ projectId: string }>()
 
   const [mode, setMode] = useState<ProjectMode>(projectId ? 'loading' : 'workspace')
@@ -175,10 +179,12 @@ export default function DesignRoute() {
     return () => {
       active = false
     }
-  }, [navigate, projectId])
+  }, [navigate, projectId, location.key])
 
   if (!projectId) {
-    return <Workspace />
+    return startedRequest ? <StartedWorkspace request={startedRequest} /> : (
+      <BriefEntry onStarted={(brief, bom) => setStartedRequest({ brief, bom })} />
+    )
   }
 
   // Render nothing until the answer arrives — flashing the brief screen at somebody who
@@ -201,7 +207,7 @@ export default function DesignRoute() {
 
   return startedRequest ? (
     <StartedWorkspace projectId={projectId} request={startedRequest} />
-  ) : latestThread && latestThread.status !== 'running' ? (
+  ) : latestThread ? (
     <RestoredWorkspace projectId={projectId} thread={latestThread} />
   ) : (
     <Workspace projectId={projectId} />

@@ -1,0 +1,119 @@
+docker : #0 building with "desktop-linux" instance using docker driver
+At line:2 char:134
++ ... rations.py; docker build --tag continuity:final .local/docker-context ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (#0 building wit...g docker driver:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 931B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.13-slim
+#2 ...
+
+#3 [internal] load metadata for docker.io/library/node:24-bookworm-slim
+#3 DONE 1.4s
+
+#2 [internal] load metadata for docker.io/library/python:3.13-slim
+#2 DONE 1.4s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 257B done
+#4 DONE 0.0s
+
+#5 [app 1/7] FROM 
+docker.io/library/python:3.13-slim@sha256:cf50a4f6ac4f026458b08d5222023d700ac806410dff5e9ca8728fa44f2b850f
+#5 resolve docker.io/library/python:3.13-slim@sha256:cf50a4f6ac4f026458b08d5222023d700ac806410dff5e9ca8728fa44f2b850f 
+0.1s done
+#5 DONE 0.1s
+
+#6 [frontend 1/7] FROM 
+docker.io/library/node:24-bookworm-slim@sha256:8cabefbd444809cf0e319b5831c65da1ea202200ca552a5e75fd7938a6f86658
+#6 resolve 
+docker.io/library/node:24-bookworm-slim@sha256:8cabefbd444809cf0e319b5831c65da1ea202200ca552a5e75fd7938a6f86658 0.1s 
+done
+#6 DONE 0.1s
+
+#7 [internal] load build context
+#7 transferring context: 59.55kB 0.0s done
+#7 DONE 0.0s
+
+#8 [app 2/7] WORKDIR /app
+#8 CACHED
+
+#9 [app 3/7] COPY backend/requirements.lock /app/backend/requirements.lock
+#9 CACHED
+
+#10 [app 4/7] RUN pip install --no-cache-dir -r /app/backend/requirements.lock
+#10 CACHED
+
+#11 [frontend 2/7] WORKDIR /build/frontend
+#11 CACHED
+
+#12 [frontend 4/7] RUN npm ci
+#12 CACHED
+
+#13 [frontend 6/7] COPY backend/continuity/api/walkthrough.jsonl /build/backend/continuity/api/walkthrough.jsonl
+#13 CACHED
+
+#14 [frontend 5/7] COPY frontend/ ./
+#14 CACHED
+
+#15 [frontend 3/7] COPY frontend/package.json frontend/package-lock.json ./
+#15 CACHED
+
+#16 [frontend 7/7] RUN npm run build
+#16 CACHED
+
+#17 [app 5/7] COPY backend/ /app/backend/
+#17 DONE 0.1s
+
+#18 [app 6/7] RUN pip install --no-cache-dir --no-deps -e /app/backend && useradd --create-home continuity     && 
+chown -R continuity:continuity /app
+#18 0.995 Obtaining file:///app/backend
+#18 0.996   Installing build dependencies: started
+#18 2.349   Installing build dependencies: finished with status 'done'
+#18 2.350   Checking if build backend supports build_editable: started
+#18 2.433   Checking if build backend supports build_editable: finished with status 'done'
+#18 2.433   Getting requirements to build editable: started
+#18 2.635   Getting requirements to build editable: finished with status 'done'
+#18 2.635   Installing backend dependencies: started
+#18 3.512   Installing backend dependencies: finished with status 'done'
+#18 3.513   Preparing editable metadata (pyproject.toml): started
+#18 3.812   Preparing editable metadata (pyproject.toml): finished with status 'done'
+#18 3.817 Building wheels for collected packages: continuity
+#18 3.818   Building editable for continuity (pyproject.toml): started
+#18 3.909   Building editable for continuity (pyproject.toml): finished with status 'done'
+#18 3.909   Created wheel for continuity: filename=continuity-0.1.0-py3-none-any.whl size=1217 
+sha256=46757a6917a3d49003d6e682115dbda5f68fd2d9e25a70265a8188ee5ccdb9e9
+#18 3.909   Stored in directory: 
+/tmp/pip-ephem-wheel-cache-bc__lwg_/wheels/c3/31/7f/e5e6a0036ffcd936a9a7d4deb877314efac8ec07be1d305c78
+#18 3.911 Successfully built continuity
+#18 3.947 Installing collected packages: continuity
+#18 3.966 Successfully installed continuity-0.1.0
+#18 3.966 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the 
+system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment 
+instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want 
+to suppress this warning.
+#18 3.967 
+#18 3.967 [notice] A new release of pip is available: 26.2.1 -> 26.2.2
+#18 3.967 [notice] To update, run: pip install --upgrade pip
+#18 DONE 8.7s
+
+#19 [app 7/7] COPY --from=frontend /build/frontend/dist /app/frontend/dist
+#19 DONE 0.1s
+
+#20 exporting to image
+#20 exporting layers
+#20 exporting layers 0.3s done
+#20 exporting manifest sha256:67e1cb83fed0654860056212fedb88f66e43bf82a1d206c74531bd59ef87c5ef 0.0s done
+#20 exporting config sha256:7616ae35baf194d74b89f9f0902d7e267e115fb59b030b518a44bcc1bbd802dd 0.0s done
+#20 exporting attestation manifest sha256:4f021d5d41d485a40267deb3a023c025a95d1b9e595f196908671a1dea46b362 0.1s done
+#20 exporting manifest list sha256:2c9f5c5a451fca944bf013ad78513eb64ebec6c807f9c8719bcbcdc9b9d258c3
+#20 exporting manifest list sha256:2c9f5c5a451fca944bf013ad78513eb64ebec6c807f9c8719bcbcdc9b9d258c3 0.0s done
+#20 naming to docker.io/library/continuity:final done
+#20 unpacking to docker.io/library/continuity:final
+#20 unpacking to docker.io/library/continuity:final 0.2s done
+#20 DONE 0.7s

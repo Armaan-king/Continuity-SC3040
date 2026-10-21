@@ -13,7 +13,7 @@ from __future__ import annotations
 from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException, Request
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 from .auth import current_user, store_of
 from .store import Project, Thread, User
@@ -23,6 +23,13 @@ router = APIRouter(prefix="/projects", tags=["projects"])
 
 class NewProject(BaseModel):
     name: str = Field(min_length=1, max_length=200)
+
+    @field_validator("name")
+    @classmethod
+    def strip_name(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError("Project name cannot be blank")
+        return value.strip()
 
 
 class ProjectView(BaseModel):
@@ -89,6 +96,7 @@ async def list_threads(
     store = store_of(request)
     if await store.project_for_user(project_id, user.id) is None:
         raise HTTPException(404, "no such project")
+    await store.recover_stale_runs()
     return [_thread_view(t) for t in await store.threads_for_project(project_id, user.id)]
 
 
@@ -106,5 +114,11 @@ async def rename_project(
 async def delete_project(
     project_id: str, request: Request, user: User = Depends(current_user)
 ) -> None:
-    if not await store_of(request).delete_project(project_id, user.id):
+    store = store_of(request)
+    for thread in await store.threads_for_project(project_id, user.id):
+        await request.app.state.runs.stop(thread.id, user.id)
+        checkpointer = getattr(request.app.state.graph, "checkpointer", None)
+        if checkpointer is not None:
+            await checkpointer.adelete_thread(thread.id)
+    if not await store.delete_project(project_id, user.id):
         raise HTTPException(404, "no such project")

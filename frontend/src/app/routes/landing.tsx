@@ -225,7 +225,7 @@ const WALKTHROUGH_VIDEO_ID = 'bX3DZ_12Y54'
 
 export default function LandingRoute() {
   const navigate = useNavigate()
-  const { user, signOut } = useAuth()
+  const { user, signOut, runtime } = useAuth()
   const [email, setEmail] = useState('')
   const [scrolled, setScrolled] = useState(false)
   const replay = useHeroReplay()
@@ -239,7 +239,7 @@ export default function LandingRoute() {
 
   const submitEmail = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    navigate('/signup', { state: { email } })
+    navigate(runtime?.accounts === false ? '/design' : '/signup', { state: { email } })
   }
 
   return (
@@ -265,7 +265,7 @@ export default function LandingRoute() {
                 </button>
               </div>
             ) : null}
-            <Link className="bg-primary-container px-lg py-sm font-label-caps text-label-caps text-on-primary-fixed hover:bg-primary-fixed" to="/signup">GET_STARTED</Link>
+            <Link className="bg-primary-container px-lg py-sm font-label-caps text-label-caps text-on-primary-fixed hover:bg-primary-fixed" to={runtime?.accounts === false ? "/design" : "/signup"}>GET_STARTED</Link>
           </div>
         </div>
       </header>
@@ -326,7 +326,7 @@ export default function LandingRoute() {
 
         <Reveal>
           <section className="bg-surface-container-low py-[112px]">
-            <div className="mx-auto flex w-full max-w-7xl flex-col items-start justify-between gap-xl px-lg md:flex-row md:items-center"><div><p className="font-label-caps text-label-caps text-surface-tint">START A BOARD</p><h2 className="mt-sm font-display-mono text-[30px] text-on-surface">Bring the brief.</h2><p className="mt-sm max-w-md text-on-surface-variant">Describe what you need; the first run sources, checks, and assembles a board you can inspect.</p></div><Link className="bg-primary-container px-xl py-md font-label-caps text-label-caps text-on-primary-fixed hover:bg-primary-fixed" to="/signup">DESIGN A BOARD — ABOUT TWO MINUTES</Link></div>
+            <div className="mx-auto flex w-full max-w-7xl flex-col items-start justify-between gap-xl px-lg md:flex-row md:items-center"><div><p className="font-label-caps text-label-caps text-surface-tint">START A BOARD</p><h2 className="mt-sm font-display-mono text-[30px] text-on-surface">Bring the brief.</h2><p className="mt-sm max-w-md text-on-surface-variant">Describe what you need; the first run sources, checks, and assembles a board you can inspect.</p></div><Link className="bg-primary-container px-xl py-md font-label-caps text-label-caps text-on-primary-fixed hover:bg-primary-fixed" to={runtime?.accounts === false ? "/design" : "/signup"}>DESIGN A BOARD — ABOUT TWO MINUTES</Link></div>
           </section>
         </Reveal>
       </main>

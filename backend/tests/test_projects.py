@@ -500,7 +500,7 @@ def test_an_awaiting_thread_hydrates_its_board_trace_and_real_pending_question()
     assert body["question"] == question
 
 
-def test_an_abandoned_thread_hydrates_its_board_trace_and_is_resumable():
+def test_completed_checkpoint_cannot_be_reexecuted_by_changing_its_status():
     async def go():
         async with a_store() as store:
             async with signed_in() as http:
@@ -515,7 +515,7 @@ def test_an_abandoned_thread_hydrates_its_board_trace_and_is_resumable():
     assert body["status"] == "abandoned"
     assert body["slots"]
     assert body["trace"]
-    assert body["resumable"] is True
+    assert body["resumable"] is False
 
 
 def test_hydrated_parts_use_the_event_part_serialiser():
@@ -622,6 +622,10 @@ def test_continue_refuses_non_continuable_statuses(status):
 
 def test_continue_reenters_with_none_and_keeps_the_persisted_sequence():
     class ContinuationGraph:
+        async def aget_state(self, config):
+            from types import SimpleNamespace
+            return SimpleNamespace(next=("continue",))
+
         def __init__(self):
             self.payloads = []
 

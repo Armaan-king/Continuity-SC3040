@@ -259,8 +259,8 @@ def test_without_an_llm_the_payload_fields_still_arrive(monkeypatch):
     assert part.stock == 20760
     assert part.package == "DFN-4-EP(1.5x1.5)"
     assert part.raw == SPECS
-    assert part.vmin is None, "unparsed, so the engine reports it as unchecked"
-    assert part.provenance == {}
+    assert part.vmin == 1.08
+    assert part.provenance["vmin"] == "Voltage - Supply"
 
 
 def test_the_datasheet_falls_back_to_the_product_page(monkeypatch):
@@ -311,7 +311,7 @@ def test_a_dossier_value_fills_a_field_absent_from_the_live_payload(monkeypatch)
     async def lookup(_mpn):
         return [{"field": "temp_max", "value": "125.0", "source": "TI datasheet SLVS123"}]
 
-    part = asyncio.run(normalize.normalize(CANDIDATE, use_cache=False, dossier_lookup=lookup))
+    part = asyncio.run(normalize.normalize(replace(CANDIDATE, specs={}), use_cache=False, dossier_lookup=lookup))
 
     assert part.temp_max == 125.0
     assert part.provenance["temp_max"] == (
@@ -327,7 +327,7 @@ def test_an_empty_dossier_keeps_today_s_missing_field_behaviour(monkeypatch):
     async def lookup(_mpn):
         return []
 
-    part = asyncio.run(normalize.normalize(CANDIDATE, use_cache=False, dossier_lookup=lookup))
+    part = asyncio.run(normalize.normalize(replace(CANDIDATE, specs={}), use_cache=False, dossier_lookup=lookup))
 
     assert part.temp_max is None
     assert part.provenance == {}

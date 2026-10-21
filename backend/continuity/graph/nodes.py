@@ -110,7 +110,11 @@ async def parse_requirements(state: DesignState, config) -> DesignState:
     prompt = state.get("prompt", "")
     _emit(ev.reasoning(None, "Reading the brief."))
 
-    board_plan = await planner.plan_board(prompt) or planner.fallback_plan(prompt)
+    board_plan = await planner.plan_board(prompt)
+    if board_plan is None:
+        _emit(ev.reasoning(None, "AI planning is unavailable. Using a basic rule-based plan; "
+                           "review the requested parts and every unchecked result."))
+        board_plan = planner.fallback_plan(prompt)
     labels = _listing([board_plan.slots[s].label for s in board_plan.order])
     _emit(ev.reasoning(None, f"{len(board_plan.slots)} parts to source: {labels}."))
 

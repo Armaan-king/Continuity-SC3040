@@ -1,0 +1,3 @@
+{"test": "real-ai", "configured": true, "provider": "ollama", "model": "continuity-local", "mode": "ai"}
+{"case": "measurement-extraction", "result": "PASS", "response": {"vmin": 1.8, "vmax": 3.6}}
+{"case": "board-planning", "result": "PASS", "slots": ["regulator", "mcu", "sensor", "display"], "input_source": "usb-5v", "elapsed_seconds": 10.73}

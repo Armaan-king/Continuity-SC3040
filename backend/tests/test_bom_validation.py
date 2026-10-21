@@ -132,19 +132,19 @@ def test_no_brief_keeps_exact_requirements_defaults(monkeypatch):
 def test_unavailable_requirements_model_falls_back_to_defaults(monkeypatch):
     monkeypatch.setattr(bom_module.llm, "available", lambda: False)
 
-    assert run(bom_module.requirements_from_brief("industrial")) == Requirements()
+    assert run(bom_module.requirements_from_brief("industrial")) == Requirements(temp_range=(-40, 85))
 
 
 def test_unparseable_requirements_reply_falls_back_to_defaults(monkeypatch):
     _requirements_reply(monkeypatch, ValueError("not JSON"))
 
-    assert run(bom_module.requirements_from_brief("industrial")) == Requirements()
+    assert run(bom_module.requirements_from_brief("industrial")) == Requirements(temp_range=(-40, 85))
 
 
 def test_unusable_requirements_reply_falls_back_to_defaults(monkeypatch):
     _requirements_reply(monkeypatch, {"ambient_c": float("nan")})
 
-    assert run(bom_module.requirements_from_brief("industrial")) == Requirements()
+    assert run(bom_module.requirements_from_brief("industrial")) == Requirements(temp_range=(-40, 85))
 
 
 def test_requirements_reply_ignores_slots_and_rails(monkeypatch):

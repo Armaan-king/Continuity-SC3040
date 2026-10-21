@@ -52,7 +52,7 @@ def load(tool: str, arguments: dict[str, Any]) -> Any | None:
     path = _path(tool, key_for(tool, arguments))
     if not path.exists():
         return None
-    return json.loads(path.read_text())["response"]
+    return json.loads(path.read_text(encoding="utf-8"))["response"]
 
 
 def save(tool: str, arguments: dict[str, Any], response: Any) -> None:
@@ -63,7 +63,8 @@ def save(tool: str, arguments: dict[str, Any], response: Any) -> None:
             {"tool": tool, "arguments": arguments, "response": response},
             indent=1,
             ensure_ascii=False,
-        )
+        ),
+        encoding="utf-8",
     )
 
 

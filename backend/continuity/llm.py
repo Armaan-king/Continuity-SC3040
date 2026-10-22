@@ -5,19 +5,16 @@ from __future__ import annotations
 import asyncio
 import copy
 import json
-import logging
 import math
 import os
 import re
-import time
 from dataclasses import dataclass
 from typing import Any
 from urllib.parse import urlsplit
 
-from . import env
+from . import ai_activity, env
 from .settings import integer
 
-log = logging.getLogger(__name__)
 INTERNATIONAL_URL = "https://api.z.ai/api/paas/v4"
 MAINLAND_URL = "https://open.bigmodel.cn/api/paas/v4"
 API_KEY_ENV = "CONTINUITY_LLM_API_KEY"
@@ -143,7 +140,8 @@ def public_status() -> dict[str, Any]:
     config = configuration()
     return {"configured": config.enabled, "provider": config.provider,
             "model": config.model if config.enabled else None,
-            "mode": "ai" if config.enabled else "rules"}
+            "mode": "ai" if config.enabled else "rules",
+            "activity": ai_activity.status(config)}
 
 
 def parse_json(text: str) -> dict[str, Any]:
@@ -169,6 +167,7 @@ async def complete_json(
     # stays execution-local; user briefs never leak through a process-wide cache.
     async with context.llm_lock:
         if key in context.llm_cache:
+            ai_activity.notify({"status": "cached", "provider": config.provider, "model": config.model})
             return copy.deepcopy(context.llm_cache[key])
         if context.llm_unavailable:
             raise LLMUnavailable(context.llm_unavailable)
@@ -211,7 +210,6 @@ async def _complete_json(system: str, user: str, *, temperature: float, effort: 
             if schema:
                 parameters["response_format"] = {"type": "json_schema", "json_schema": {
                     "name": "continuity_response", "strict": True, "schema": schema}}
-    started = time.monotonic()
     failure = "unusable response"
     context = current.get()
     async with AsyncOpenAI(api_key=config.key, base_url=config.base_url,
@@ -225,18 +223,21 @@ async def _complete_json(system: str, user: str, *, temperature: float, effort: 
                 context.llm_calls += 1
                 context.llm_tokens += reservation
             delay = float(1 + attempt)
+            receipt = ai_activity.started(config, context.thread_id if context else None)
+            http_status = None
             try:
                 response = await client.chat.completions.create(**parameters)
+                http_status = 200
                 result = parse_json(response.choices[0].message.content or "")
                 usage = response.usage
                 if context and usage and isinstance(usage.total_tokens, int):
                     context.llm_tokens += usage.total_tokens - reservation
-                log.info("llm provider=%s model=%s elapsed_ms=%d tokens=%s",
-                         config.provider, config.model, (time.monotonic() - started) * 1000,
-                         usage.total_tokens if usage else "unknown")
+                ai_activity.finished(receipt, "success", http_status=200,
+                                     tokens=usage.total_tokens if usage else None)
                 return result
             except APIStatusError as exc:
                 failure = http_failure(exc.status_code, exc.body)
+                ai_activity.finished(receipt, "error", http_status=exc.status_code, reason=failure)
                 if exc.status_code not in {408, 409, 429} and exc.status_code < 500:
                     if context:
                         context.llm_unavailable = f"{config.provider}: {failure}."
@@ -255,8 +256,17 @@ async def _complete_json(system: str, user: str, *, temperature: float, effort: 
                     delay = max(delay, retry_after)
             except (APIConnectionError, APITimeoutError):
                 failure = "provider connection failed or timed out"
+                ai_activity.finished(receipt, "error", reason=failure)
             except (ValueError, IndexError, TypeError):
                 failure = "provider did not return a valid JSON object"
+                ai_activity.finished(receipt, "error", http_status=http_status, reason=failure)
+            except asyncio.CancelledError:
+                ai_activity.finished(receipt, "cancelled", http_status=http_status)
+                raise
+            except Exception:
+                ai_activity.finished(receipt, "error", http_status=http_status,
+                                     reason="unexpected provider response or client error")
+                raise
             if attempt + 1 < attempts:
                 await asyncio.sleep(delay)
     # Never echo provider response bodies, which can contain prompts or secrets.

@@ -78,6 +78,31 @@ Invoke-RestMethod 'https://YOUR-SERVICE.onrender.com/api/runtime'
 
 Readiness should return `status: ready` and `persistence: postgres`. Runtime reports whether AI is configured. Then register a new account, create a project, complete or intentionally stop a design, reload the project, and check its saved state. Export the BOM of a completed run. These steps verify more than database connectivity alone.
 
+To verify actual AI traffic, inspect `ai.activity` in `/api/runtime`. `configured: true`
+only means credentials are present. `activity.last_request.status` starts as `not_tested`,
+then records `started`, `success`, `error`, or `cancelled`. `success` means the provider
+returned a parseable JSON object; it does not certify the plan or electrical design.
+`requests` counts attempted, succeeded, failed, and cancelled HTTP requests. Retries
+count separately; cache hits do not. These are service-wide counters for the current
+process/configuration, reset by a restart or changed model/key, not historical account
+usage. No network call is made by reading this endpoint.
+
+The design timeline records actual provider responses (including model and token usage
+when returned), cache reuse, and failures. The separate **AI plan accepted after structural
+checks** message appears only after the planner accepts a model response. The existing
+**AI planning is unavailable** warning remains when it falls back. Reopening an old run
+replays its saved timeline; it makes no new planning request and cannot retroactively
+gain provider receipts that were not recorded at the time.
+
+In Render logs, search for `ai_request` to see starts and outcomes, `supplier_request`
+for live versus recorded supplier lookups, and `part_specs` for cached, AI-classified,
+or deterministically parsed specifications. AI receipts include a request ID and run
+thread ID for correlation; prompts, API keys, and provider response bodies are excluded.
+Supplier lookups go through `pcbparts.dev`; `CONTINUITY_FIXTURES=1` explicitly enables
+recorded replay. Cached specification parsing is separate from recorded supplier mode.
+Deploy these logging changes manually on services without automatic deployment. No new
+environment variables or Neon migrations are required.
+
 For Gemini, `/api/runtime` should show `ai.configured: true`, `ai.provider: gemini`, and your selected model (by default `gemini-3.8-flash`). This confirms configuration only. Run a design and check that planning succeeds without the basic-planning warning or a `planning failed` log. If Google returns HTTP 404, verify the model, base URL, and model access for the Google project associated with your key. Google currently limits [Gemini 2.5 access](https://ai.google.dev/gemini-api/docs/deprecations) to previous active users; a missing model is not evidence that AI was manually disabled. The endpoint and model used here follow [Google's compatibility guide](https://ai.google.dev/gemini-api/docs/openai).
 
 The pytest and browser integration suites clear or seed data. Run them only against separate disposable databases, never the Neon database holding users' projects.

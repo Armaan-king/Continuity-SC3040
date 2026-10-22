@@ -6,6 +6,7 @@ import logging
 from typing import Any, AsyncIterator, Sequence
 
 from ..engine.models import PartSpec
+from .. import ai_activity
 from ..graph import nodes
 from ..parts import dossier, normalize
 from . import bom, events
@@ -47,7 +48,13 @@ async def _run(
 
     lookup_token = normalize.set_dossier_lookup(dossier_lookup if store is not None else None)
 
-    async def pump() -> None:
+    def ai_receipt(receipt: dict) -> None:
+        text, level = ai_activity.message(receipt)
+        event = stream.reasoning(None, text, level=level)
+        event["ai"] = receipt
+        nodes._emit(event)
+
+    async def pump_events() -> None:
         nonlocal outcome, summary
         try:
             async for mode, chunk in graph.astream(
@@ -114,6 +121,12 @@ async def _run(
                 if outcome == "done":
                     FINDING_RECORDERS.pop(thread_id, None)
             await queue.put(None)
+
+    async def pump() -> None:
+        # Keep the observer's ContextVar token inside this task, even on cancellation.
+        # Graph tasks inherit it; their receipts use the same ordered stream writer.
+        with ai_activity.observe(ai_receipt):
+            await pump_events()
 
     task = asyncio.create_task(pump())
     task.add_done_callback(lambda _: queue.put_nowait(None))

@@ -34,7 +34,7 @@ from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.types import Command
 from pydantic import BaseModel, Field, ValidationError
 
-from .. import env, llm
+from .. import env, llm, logging_setup
 from ..settings import Settings
 from ..engine.models import Slot
 from ..graph.build import build
@@ -57,6 +57,7 @@ log = logging.getLogger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Validate settings and own database, graph, and run-manager resources."""
+    logging_setup.configure()
     settings = Settings.read()
     llm.configuration()
     app.state.runs = RunManager(settings.max_active_runs, settings.run_timeout_seconds)
@@ -331,12 +332,12 @@ async def readiness(request: Request):
 
 @app.get("/runtime")
 async def runtime(request: Request) -> dict[str, Any]:
-    from ..parts import research
+    from ..parts import fixtures, research
     return {"accounts": request.app.state.store is not None,
             "persistence": "postgres" if request.app.state.store else "memory",
             "ai": llm.public_status(),
             "research": research.status(),
-            "parts": "recorded" if env.flag("CONTINUITY_FIXTURES") else "live"}
+            "parts": "recorded" if fixtures.replaying() else "live"}
 
 
 def _owner(user: Any) -> str:

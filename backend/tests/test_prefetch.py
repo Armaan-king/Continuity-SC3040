@@ -194,6 +194,8 @@ def test_cancelled_prefetch_never_claims_that_its_search_finished(monkeypatch):
 
     assert [frame["text"] for frame in frames if frame["type"] == "reasoning"] == [
         "Reading the brief.",
+        "AI plan accepted after structural checks. Component compatibility still needs validation.",
+        "Supplier mode: live JLCPCB lookups through pcbparts.dev. Previously parsed specifications may be reused from cache.",
         "1 parts to source: Part_0.",
         "In the background, searching JLCPCB for “query-part_0”.",
     ]

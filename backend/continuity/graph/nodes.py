@@ -118,6 +118,13 @@ async def parse_requirements(state: DesignState, config) -> DesignState:
                            + "Using a basic rule-based plan; review the requested parts and every unchecked result.",
                            level="warning"))
         board_plan = planner.fallback_plan(prompt)
+    else:
+        _emit(ev.reasoning(None, "AI plan accepted after structural checks. Component compatibility still needs validation."))
+    from ..parts import fixtures
+    if fixtures.replaying():
+        _emit(ev.reasoning(None, "Supplier mode: recorded fixtures. No live JLCPCB lookup will be made.", level="warning"))
+    else:
+        _emit(ev.reasoning(None, "Supplier mode: live JLCPCB lookups through pcbparts.dev. Previously parsed specifications may be reused from cache."))
     labels = _listing([board_plan.slots[s].label for s in board_plan.order])
     _emit(ev.reasoning(None, f"{len(board_plan.slots)} parts to source: {labels}."))
 

@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import logging
 from collections import deque
 from typing import Any
 
@@ -23,6 +24,7 @@ import httpx
 
 from . import fixtures
 
+log = logging.getLogger(__name__)
 ENDPOINT = "https://pcbparts.dev/mcp"
 HEALTH = "https://pcbparts.dev/health"
 
@@ -111,6 +113,7 @@ async def call_tool(tool: str, arguments: dict[str, Any]) -> Any:
     arguments = {k: v for k, v in arguments.items() if v is not None}
 
     if fixtures.replaying():
+        log.info("supplier_request mode=recorded tool=%s", tool)
         return fixtures.require(tool, arguments)
 
     payload = {
@@ -127,11 +130,13 @@ async def call_tool(tool: str, arguments: dict[str, Any]) -> Any:
     last_error: Exception | None = None
     for attempt in range(MAX_ATTEMPTS):
         await _limiter.wait()
+        log.info("supplier_request mode=live tool=%s attempt=%d", tool, attempt + 1)
         try:
             async with httpx.AsyncClient(timeout=TIMEOUT_S) as http:
                 response = await http.post(ENDPOINT, json=payload, headers=headers)
                 response.raise_for_status()
                 result = _unwrap(_parse_sse(response.text), tool)
+                log.info("supplier_response mode=live tool=%s status=success", tool)
         except ToolError:
             raise  # the server understood us and said no; retrying will not help
         except Exception as error:  # network, timeout, malformed body

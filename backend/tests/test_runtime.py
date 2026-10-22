@@ -23,7 +23,9 @@ def clean_environment(monkeypatch):
 
 
 def test_missing_keys_explicitly_select_rules(clean_environment):
-    assert llm.public_status() == {"configured": False, "provider": "disabled", "model": None, "mode": "rules"}
+    status = llm.public_status()
+    assert {key: status[key] for key in ("configured", "provider", "model", "mode")} == {
+        "configured": False, "provider": "disabled", "model": None, "mode": "rules"}
 
 
 def test_native_groq_key_selects_compatible_endpoint(clean_environment, monkeypatch):
@@ -105,7 +107,8 @@ def test_gemini_request_uses_native_key_endpoint_and_selected_model(
         **kwargs, http_client=httpx.AsyncClient(transport=httpx.MockTransport(respond))))
     assert asyncio.run(llm.complete_json("Test", "Hello")) == {"ok": True}
     assert len(requests) == 1
-    assert llm.public_status() == {
+    status = llm.public_status()
+    assert {key: status[key] for key in ("configured", "provider", "model", "mode")} == {
         "configured": True, "provider": "gemini", "model": expected_model, "mode": "ai",
     }
 

@@ -391,8 +391,10 @@ async def normalize(
     }, sort_keys=True).encode()).hexdigest()
     cached = _load(candidate.mpn, fingerprint=fingerprint) if use_cache else None
     if cached is not None:
+        classification_source = "cache"
         fields, provenance = cached
     elif not llm.available() or (known_role := _role_from_listing(candidate)) is not None:
+        classification_source = "supplier_parser"
         from .specifications import parse
         fields, provenance = parse(candidate.specs)
         if (known_role := _role_from_listing(candidate)) is not None:
@@ -401,6 +403,7 @@ async def normalize(
         try:
             reply = await llm.complete_json(SYSTEM, _prompt(candidate))
             fields, provenance = validate(reply, candidate.specs)
+            classification_source = "ai"
             if use_cache:
                 _save(candidate.mpn, fields, provenance, fingerprint=fingerprint)
         except (llm.LLMUnavailable, ValueError, json.JSONDecodeError) as error:
@@ -410,9 +413,11 @@ async def normalize(
             # part with no published specs is the kind of thing nobody notices until
             # the board is wrong.
             log.warning("normalisation failed for %s: %s", candidate.mpn, error)
+            classification_source = "supplier_parser_after_ai_failure"
             from .specifications import parse
             fields, provenance = parse(candidate.specs)
 
+    log.info("part_specs mpn=%s classification_source=%s", candidate.mpn, classification_source)
     from .specifications import parse
     verified, verified_sources = parse(candidate.specs)
     fields.update(verified)

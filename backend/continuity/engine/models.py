@@ -46,6 +46,8 @@ RULE_NAMES = (
     "temperature_rating",
     "energy_budget",
     "rail_coverage",
+    "data_integrity",
+    "power_topology",
 )
 
 
@@ -392,6 +394,9 @@ class Slot:
     repair_count: int = 0
     """Escalates above MAX_REPAIRS. See `policy`."""
 
+    quantity: int = 1
+    """Physical instances represented by this slot; connections remain unique."""
+
     def with_part(self, part: PartSpec, status: SlotStatus = "pass") -> "Slot":
         return replace(self, part=part, status=status)
 
@@ -490,10 +495,8 @@ class Board:
 
     def input_rail(self, slot_id: str) -> Rail | None:
         """The rail feeding `slot_id` — the one it is a member of, not the one it makes."""
-        for rail in self.rails.values():
-            if slot_id in rail.members:
-                return rail
-        return None
+        matches = [rail for rail in self.rails.values() if slot_id in rail.members]
+        return matches[0] if len(matches) == 1 else None
 
     def sources_a_rail(self, slot_id: str) -> bool:
         """Whether this slot makes a rail — i.e. whether it is a regulator on this board."""

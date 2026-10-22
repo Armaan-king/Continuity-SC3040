@@ -138,8 +138,10 @@ def test_apply_research_narrates_search_count_and_read_before_candidate(monkeypa
 
     asyncio.run(nodes.apply(state, _config("apply-narration")))
 
-    assert normalisation_reasoning_counts == [3]
+    assert normalisation_reasoning_counts == [3, 4, 5]
     assert [event["type"] for event in emitted] == [
+        "reasoning",
+        "reasoning",
         "reasoning",
         "reasoning",
         "reasoning",
@@ -149,6 +151,8 @@ def test_apply_research_narrates_search_count_and_read_before_candidate(monkeypa
         "Re-searching with topology=buck.",
         "3 viable candidates.",
         "Reading specs, lifecycle, and datasheet for PART-A.",
+        "Reading specs, lifecycle, and datasheet for PART-B.",
+        "Reading specs, lifecycle, and datasheet for PART-C.",
     ]
 
 

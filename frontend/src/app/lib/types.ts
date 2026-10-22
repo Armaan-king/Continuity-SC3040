@@ -111,6 +111,8 @@ export type CheckRule =
   /** Reports a part the power tree never mentions, and which rail-based checks it
    *  therefore missed. Always `warn` — a gap in what is known, not a fault. */
   | 'rail_coverage'
+  | 'data_integrity'
+  | 'power_topology'
 
 export type RepairAction =
   | 'swap'

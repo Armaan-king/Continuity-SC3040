@@ -282,10 +282,12 @@ def test_conflicts_are_engine_driven_and_each_gets_a_repair():
     assert [c["rule"] for c in conflicts] == [
         "availability",
         "current_budget",
-        "thermal_dissipation",
     ]
     assert len(repairs) == len(conflicts)
-    assert repairs[-1]["action"] == "change_topology"
+    # Comparing replacements against the whole board skips the overheating LDO.
+    assert repairs[-1]["constraint"]["i_out_min"] > 0.6
+    assert not [f for f in frames if f["type"] == "question"]
+    assert any(f["type"] == "selection" and f.get("part", {}).get("mpn") == "TPS62825DMQR" for f in frames)
 
 
 def test_a_conflict_carries_verbatim_evidence():
@@ -308,12 +310,13 @@ def test_involved_is_participation_not_blame():
 
 
 def test_done_reports_what_actually_happened():
-    summary = next(f for f in run(stream("/design", {"prompt": DEMO})) if f["type"] == "done")[
+    frames = run(stream("/design", {"prompt": DEMO}))
+    summary = next(f for f in frames if f["type"] == "done")[
         "summary"
     ]
 
     assert summary["slots"] == 4
-    assert summary["conflicts_resolved"] == 3
+    assert summary["conflicts_resolved"] == len([f for f in frames if f["type"] == "repair"]) == 2
 
 
 # ── interrupt and resume ──────────────────────────────────────────────────────
@@ -366,7 +369,7 @@ def test_export_reflects_the_repaired_board_not_the_first_guess():
 
     body = run(go()).text
 
-    assert "TPS62825DMQR" in body, "the buck converter that resolved conflict 3"
+    assert "TPS62825DMQR" in body, "the buck converter selected after checking the whole board"
     assert "SHT31-DIS-B" in body, "the in-stock sensor that resolved conflict 1"
     assert "SHT40-AD1B-R2" not in body, "the out-of-stock part must not survive"
     assert "AP2114H" not in body

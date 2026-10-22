@@ -68,6 +68,18 @@ Numeric model output must agree with an independent parser of explicit supplier 
 
 Declared signal nets separate controllers and protocols. Connections inferred from a BOM remain unconfirmed until reviewed; supported protocol alone is not physical connectivity. Passing current/thermal/energy checks based only on typical load current become unknown. New waivers bind rule, subject, scope and evidence/detail hash; earlier checkpoint pairs remain readable for compatibility. Requirement edits and restores do not carry waivers forward automatically.
 
+### Deterministic engine, ruleset `2026-10-engine-2`
+
+`engine/integrity.py` checks finite measurements, valid ranges and quantities, and power topology before arithmetic. It excludes invalid measurements from an evaluation copy while retaining the original evidence in the saved document. Duplicate consumers, missing sources, multiple supplies and power cycles produce explicit findings. Multi-output sources contribute all loads to upstream demand, but their individual output ratings remain unverified.
+
+`engine/draw.py` carries known partial loads through cascaded supplies, so an unknown load cannot erase an already provable overload. It converts switching-stage output power to input current and uses the declared component quantity once per load. An assumed conversion efficiency cannot by itself establish an input-current failure: the ideal-conversion lower bound must also exceed capacity. Otherwise the input budget is UNKNOWN. Typical-only load uncertainty propagates through upstream checks and battery estimates.
+
+`engine/signals.py` evaluates explicitly declared nets: controller presence, protocol capability, role mismatch, UART fan-out and GPIO demand per independent bus. Shared I²C devices share two signal pins; separate buses each consume two. Multiple controllers without assignments, unconfirmed nets, missing interface data and grouped component instances remain unchecked. Generated boards without declared signal nets retain the existing capability checks; those are not proof of physical wiring.
+
+`engine/repairs.py` derives voltage, output-current margin, temperature range and converter-direction constraints from the current board. The graph still fences AI and fallback proposals through the same repair policy. Constrained searches compare up to three candidates against all board checks before placement, prioritize hard failures and uncertainty ahead of commercial preferences, and retain previously tried identities across checkpoints. Exhausted options escalate for a user decision.
+
+Slot quantities are explicit in new revision documents. Reading an older BOM revision converts its repeated-member representation using the saved quantities, preventing double counting. Existing immutable revisions are not rewritten. The ruleset version changes, but no SQL migration or hosting-variable change is required.
+
 ## Research and selection
 
 Exa is an optional adapter in `parts/research.py`, configured with server-only `EXA_API_KEY`. It uses native `/search` (`auto`, highlights) for discovery and `/contents` (bounded text) to inspect source context. It does not invent domain/category filters. Public HTTPS URLs, per-URL retrieval statuses, response size and timeouts are checked. Retrieved text is untrusted and visibly unverified, with its retrieval time, content hash and source URL preserved.

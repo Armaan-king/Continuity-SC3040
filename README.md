@@ -32,6 +32,8 @@ The project gets a short name derived from your brief, while the full descriptio
 
 After a run completes, open **Review design**. The report distinguishes **PASS**, **FAIL**, and **UNKNOWN**, shows the evidence behind each check, and keeps accepted failures visible. A completed run can still need review.
 
+The engine checks measurement consistency and power topology before calculating electrical limits. It follows loads through cascaded rails, includes BOM quantities, checks converter direction, and budgets GPIO separately for declared signal nets. Missing measurements, ambiguous connections, and typical-only current figures stay visible as uncertainty. Repairs use the actual board requirements and compare replacements against the whole board, while avoiding components already tried in that run.
+
 When Exa research is enabled, supporting documents include source links, retrieved text, and verification labels. Read those alongside the report's validation limits. Under **Requirements**, confirm the power and signal connections against your circuit, then save to revalidate.
 
 [![Retrieved source text, attribution, verification labels, and validation limits](docs/media/research-connections-poster.png)](docs/media/research-connections.mp4)
@@ -79,6 +81,8 @@ For development without the app container, see [backend setup](backend/README.md
 ## AI options
 
 The Python rule engine makes the compatibility decisions. Optional AI plans functional blocks, interprets specifications, proposes repairs, and interprets clarification answers. The app uses an OpenAI-compatible client protocol; that does not mean it calls OpenAI.
+
+Gemini can suggest a repair, and Exa can retrieve supporting documents or help discover alternatives. The deterministic engine checks the resulting parts and connections. Its checks still run when the model is unavailable; basic planning remains limited and needs review. Changing the AI provider later does not replace the electrical rules.
 
 | Mode | Configuration | API key |
 | --- | --- | --- |
@@ -150,7 +154,9 @@ npm --prefix frontend run build
 npm --prefix frontend run test:e2e
 ```
 
-Use the backend virtual environment's Python. Set `CONTINUITY_TEST_DB` to a disposable PostgreSQL database to include integration tests. The store tests truncate their test tables. Browser tests need a separate disposable `E2E_DATABASE_URL`; they seed a known account. See the [architecture verification report](docs/ARCHITECTURE_VALIDATION.md) for the latest implementation results and the [original validation report](docs/VALIDATION.md) for earlier checks. GitHub Actions repeats backend, database, frontend, and Chromium checks.
+Use the backend virtual environment's Python. Set `CONTINUITY_TEST_DB` to a disposable PostgreSQL database to include integration tests. The store tests truncate their test tables. Browser tests need a separate disposable `E2E_DATABASE_URL`; they seed a known account. See the [engine verification report](docs/ENGINE_VALIDATION.md) for the latest results and the [original validation report](docs/VALIDATION.md) for earlier checks. GitHub Actions repeats backend, database, frontend, and Chromium checks.
+
+The [engine verification](docs/ENGINE_VALIDATION.md) records **873 passing backend tests**, including **40 new engine regression cases**, **5 optional external-service skips**, and **26 passing browser tests**. Frontend lint and the production build passed. This upgrade keeps the interface and configured AI provider; automated checks use controlled component data and do not establish live Gemini availability or hardware correctness.
 
 The [architecture and Exa verification](docs/ARCHITECTURE_VALIDATION.md) covers **830 distinct passing backend tests** across the full and final targeted runs, **5 optional external-service skips**, and **26 passing browser tests**. Live Exa Search and Contents also passed. Earlier smoke runs exercised real parts lookup and local Ollama inference. These are dated results, not a claim that external services always succeed. [Review recording checks](docs/media/README.md#review-feature-verification) and [original workflow recording checks](docs/media/README.md#verification) document the README videos separately.
 

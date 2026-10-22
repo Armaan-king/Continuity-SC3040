@@ -12,7 +12,7 @@ from ..planner import topology
 from ..planner.requirements import explicit_requirements
 
 SCHEMA_VERSION = 1
-RULESET_VERSION = "2026-10-evidence-1"
+RULESET_VERSION = "2026-10-engine-2"
 
 
 def digest(value: Any) -> str:
@@ -27,6 +27,7 @@ def board_from_document(document: dict) -> Board:
     slots = {}
     for key, value in raw["slots"].items():
         item = dict(value)
+        item.setdefault("quantity", document.get("quantities", {}).get(key, 1))
         part = item.get("part")
         if part:
             part = {k: v for k, v in part.items() if k in part_keys}
@@ -35,6 +36,10 @@ def board_from_document(document: dict) -> Board:
             item["part"] = PartSpec(**part)
         slots[key] = Slot(**item)
     rails = {key: Rail(**{**value, "members": tuple(value["members"])}) for key, value in raw["rails"].items()}
+    # Older BOM documents encoded quantities by repeating rail members. Migrate on
+    # read so restoring a revision cannot multiply the same quantity twice.
+    if document.get("origin") == "bom" and any("quantity" not in s for s in raw["slots"].values()):
+        rails = {key: replace(rail, members=tuple(dict.fromkeys(rail.members))) for key, rail in rails.items()}
     nets = tuple(SignalNet(**{**net, "ports": tuple(Port(**port) for port in net["ports"])}) for net in raw.get("signal_nets", []))
     return Board(requirements, slots, rails, nets)
 
@@ -42,37 +47,6 @@ def board_from_document(document: dict) -> Board:
 def evaluate(board: Board) -> list[Verdict]:
     """One evaluation boundary for imports, generation, and revision edits."""
     result = rules.evaluate(board)
-    if board.signal_nets:
-        # Evaluate protocol support against the declared net instead of assuming all
-        # controllers on a board share a physical bus. Pin-level timing remains outside scope.
-        from ..engine.buses import master_satisfies_bus
-        result = [v for v in result if v.rule != "interface_role_match"]
-        connected = {port.component for net in board.signal_nets for port in net.ports}
-        for key, slot in board.slots.items():
-            if slot.part and slot.part.interfaces and key not in connected:
-                result.append(Verdict("interface_role_match", "warn",
-                    "No signal connection has been declared for this component.", key, unchecked=True))
-        for net in board.signal_nets:
-            for port in net.ports:
-                part = board.part(port.component)
-                supported = part and any(master_satisfies_bus(net.protocol, bus) for bus in part.interfaces)
-                unknown = not part or not part.interfaces or net.basis != "confirmed"
-                result.append(Verdict("interface_role_match", "warn" if unknown else "pass" if supported else "fail",
-                    f"{port.component} on {net.protocol} net {net.id}: " + ("connection or interface is unverified." if unknown else "protocol supported; physical pin assignment still requires review." if supported else "protocol is not supported."),
-                    port.component, involved=tuple(p.component for p in net.ports), scope=net.id, unchecked=unknown,
-                    evidence=part.cite(port.component, "interfaces") if part else ()))
-    for index, verdict in enumerate(result):
-        rail = board.rails.get(verdict.scope) if verdict.scope else None
-        if verdict.status == "pass" and rail and rail.basis and rail.basis.startswith("Inferred from BOM"):
-            result[index] = replace(verdict, status="warn", unchecked=True,
-                detail=verdict.detail + " The inferred power connection has not been confirmed.")
-            continue
-        if verdict.status == "pass" and verdict.rule in {"current_budget", "thermal_dissipation", "energy_budget"}:
-            typical_only = [board.part(key) for key in verdict.involved if board.part(key)
-                            and board.part(key).i_peak is None and board.part(key).i_typ is not None]
-            if typical_only:
-                result[index] = replace(verdict, status="warn", unchecked=True,
-                    detail=verdict.detail + " Only typical current is known for some loads; worst-case operation is unverified.")
     for slot in board.slots.values():
         if slot.part is None:
             result.append(Verdict("availability", "warn", f"No exact component has been resolved for {slot.label}.", slot.id, unchecked=True))
@@ -88,8 +62,11 @@ def document(board: Board, *, prompt: str = "", verdicts: list[Verdict] | None =
              confirmed: list[str] | None = None, decisions: list[dict] | None = None) -> dict:
     from ..api import events
 
+    if quantities:
+        board = replace(board, slots={key: replace(slot, quantity=quantities.get(key, slot.quantity))
+                                      for key, slot in board.slots.items()})
     verdicts = evaluate(board) if verdicts is None else verdicts
-    quantities = quantities or {}
+    quantities = quantities or {key: slot.quantity for key, slot in board.slots.items()}
     confirmed = confirmed or []
     rows = [events.bom_row(key, slot.part, quantities.get(key, 1))
             for key, slot in board.slots.items() if slot.part]
@@ -106,8 +83,11 @@ def document(board: Board, *, prompt: str = "", verdicts: list[Verdict] | None =
         })
     # A rule that produced no result is never counted as a passing check.
     seen = {finding["rule"] for finding in findings}
-    coverage = [{"rule": name, "outcome": "EVALUATED" if name in seen else "NOT_APPLICABLE",
-                 "note": "See individual findings." if name in seen else "No applicable check was emitted for this model."}
+    prechecked = {"data_integrity"} if any(s.part for s in board.slots.values()) else set()
+    if board.rails:
+        prechecked.add("power_topology")
+    coverage = [{"rule": name, "outcome": "EVALUATED" if name in seen | prechecked else "NOT_APPLICABLE",
+                 "note": "See individual findings." if name in seen else "Input checks found no inconsistencies." if name in prechecked else "No applicable check was emitted for this model."}
                 for name in RULE_NAMES]
     explicit = explicit_requirements(prompt)
     defaults = asdict(Requirements())

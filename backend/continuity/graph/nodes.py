@@ -687,48 +687,10 @@ def repair_slot_of(guarded: policy.Guarded) -> str:
 
 
 def _propose(state: DesignState, resolution: policy.Resolution):
-    """Deterministic fallback when no model is configured.
-
-    Encodes the one inference that matters — a linear regulator failing thermal fails
-    again however large the next one is — so the system still self-corrects without a
-    key. It is a floor, not a substitute: the model reaches conclusions this cannot.
-    """
-    from ..engine.models import Repair
-
-    slot_id = resolution.legal[0]
-    current = state["slots"][slot_id].part
-    remaining = _remaining(state, slot_id)
-
-    # A linear regulator that fails thermal will fail again however large the next one
-    # is — dissipation does not depend on the current rating. This is the one place the
-    # stub reviewer reaches a conclusion a "try the next part" policy structurally
-    # cannot, and it is what the real reviewer LLM will replace.
-    thermal = resolution.conflict.rule == "thermal_dissipation"
-    linear = current is not None and not current.is_switching
-    if thermal and linear:
-        return Repair(
-            slot=slot_id,
-            action="change_topology",
-            rationale=(
-                "Any linear regulator burns (Vin−Vout) × I as heat, so a larger one "
-                "fails the same way. Switching to a buck converter."
-            ),
-            constraint={
-                "topology": "buck",
-                "vout": current.vout if current else None,
-                "i_out_min": 1.0,
-                "efficiency_min": 0.85,
-            },
-        )
-
-    if not remaining:
-        return None
-    return Repair(
-        slot=slot_id,
-        action="swap",
-        rationale=f"Trying {remaining[0].mpn}, the next candidate that fits the slot.",
-        constraint={},
-    )
+    """Derive a bounded repair from the same board facts used by the checks."""
+    from ..engine import repairs
+    board = topology.Board(state["requirements"], state["slots"], state["rails"])
+    return repairs.propose(board, resolution, {key: _remaining(state, key) for key in resolution.legal})
 
 
 def after_apply(state: DesignState) -> str:
@@ -816,7 +778,14 @@ async def apply(state: DesignState, config) -> DesignState:
         }
 
     named = _named_candidate(constraint, candidates.get(slot_id, []))
+    attempted = {key: list(values) for key, values in state.get("attempted", {}).items()}
+    tried = set(attempted.get(slot_id, []))
+    if slots[slot_id].part:
+        tried.add(_part_identity(slots[slot_id].part))
+    attempted[slot_id] = sorted(tried)
     if named is not None:
+        if _part_identity(named) in tried:
+            return {"escalation": f"{named.mpn} was already tried for {label}; another component or requirement change is needed."}
         # The reviewer picked from the candidates it was shown. No search, no latency,
         # and no chance of the query returning the same failing part — which is what
         # happened repeatedly, because a distributor query cannot express
@@ -836,6 +805,7 @@ async def apply(state: DesignState, config) -> DesignState:
             "slots": slots,
             "candidates": candidates,
             "cursor": cursor,
+            "attempted": attempted,
             "constraint": None,
             "repair_action": None,
             "conflicts_resolved": state.get("conflicts_resolved", 0) + 1,
@@ -870,6 +840,7 @@ async def apply(state: DesignState, config) -> DesignState:
             "conflicts_resolved": state.get("conflicts_resolved", 0) + 1,
         }
 
+    compared = None
     if constraint:
         _emit(ev.reasoning(slot_id, _repair_search_message(label, constraint)))
         # The slot's own constraint says what kind of part this is; the repair says what
@@ -881,21 +852,31 @@ async def apply(state: DesignState, config) -> DesignState:
         )
         if subcategory := getattr(found, "rescue_subcategory", None):
             _emit(ev.reasoning(slot_id, _rescue_search_message(query, subcategory)))
+        unseen = [candidate for candidate in found if _part_identity(candidate) not in tried]
+        if len(unseen) != len(found):
+            _emit(ev.reasoning(slot_id, f"Excluded {len(found) - len(unseen)} previously tried candidate(s)."))
+        found = sourcing.SearchResults(unseen, demoted=getattr(found, "demoted", ()))
         _emit(ev.reasoning(slot_id, _candidate_count_message(len(found))))
         if not found:
-            return {"escalation": f"Nothing matches the revised {label.lower()} constraint."}
+            return {"escalation": f"No untried component matches the revised {label.lower()} constraint."}
         if len(found) < sourcing.MIN_CANDIDATES:
             _emit(ev.reasoning(slot_id, _thin_shortlist_message(len(found))))
         candidates[slot_id] = found
-        cursor[slot_id] = 0
+        board = topology.Board(state["requirements"], slots, state["rails"])
+        shortlist = found if isinstance(found, sourcing.SearchResults) else sourcing.SearchResults(found)
+        chosen, compared, _ = await sourcing.compare_candidates(shortlist, board, slot_id,
+            on_candidate=lambda candidate: _narrate_normalisation(ev, slot_id, candidate))
+        cursor[slot_id] = found.index(chosen)
     else:
-        cursor[slot_id] = cursor.get(slot_id, 0) + 1
-        if cursor[slot_id] >= len(candidates.get(slot_id, [])):
+        remaining = _remaining(state, slot_id)
+        if not remaining:
             return {"escalation": f"No further candidates for {label}."}
+        cursor[slot_id] = candidates[slot_id].index(remaining[0])
 
     chosen = candidates[slot_id][cursor[slot_id]]
-    _narrate_normalisation(ev, slot_id, chosen)
-    replacement = await sourcing.choose(chosen)
+    if compared is None:
+        _narrate_normalisation(ev, slot_id, chosen)
+    replacement = compared if compared is not None else await sourcing.choose(chosen)
     _emit(ev.candidate(slot_id, replacement))
 
     slots[slot_id] = replace(
@@ -908,6 +889,7 @@ async def apply(state: DesignState, config) -> DesignState:
         "slots": slots,
         "candidates": candidates,
         "cursor": cursor,
+        "attempted": attempted,
         "constraint": None,
         "repair_action": None,
         "conflicts_resolved": state.get("conflicts_resolved", 0) + 1,
@@ -952,10 +934,19 @@ def _added_slot_tier(category: str):
     return "peripherals"
 
 
+def _part_identity(part) -> str:
+    return "|".join(str(value or "").strip().casefold() for value in (part.manufacturer, part.mpn, part.package))
+
+
 def _remaining(state: DesignState, slot_id: str) -> list[Candidate]:
     """Candidates for a slot that have not been tried yet."""
     found = state.get("candidates", {}).get(slot_id, [])
-    return list(found[state.get("cursor", {}).get(slot_id, 0) + 1 :])
+    tried = set(state.get("attempted", {}).get(slot_id, []))
+    part = state["slots"][slot_id].part
+    if part:
+        tried.add(_part_identity(part))
+    return [candidate for candidate in found[state.get("cursor", {}).get(slot_id, 0) + 1 :]
+            if _part_identity(candidate) not in tried]
 
 
 # ── escalate ──────────────────────────────────────────────────────────────────

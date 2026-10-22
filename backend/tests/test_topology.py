@@ -21,7 +21,7 @@ def demo_slots():
         "regulator": slot("regulator", parts.ldo_600ma(), tier="power"),
         "mcu": slot("mcu", parts.esp32s3(), pinned=True),
         "sensor": slot("sensor", parts.sht31(), tier="peripherals", pinned=True),
-        "display": slot("display", parts.oled(i_peak=0.040), tier="peripherals", pinned=True),
+        "display": slot("display", parts.oled(i_typ=0.020, i_peak=0.040), tier="peripherals", pinned=True),
     }
 
 

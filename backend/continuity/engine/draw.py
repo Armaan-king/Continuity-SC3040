@@ -19,16 +19,15 @@ def consumers(board: Board, rail: Rail) -> list[tuple[str, PartSpec]]:
 
 
 def rail_draw(
-    board: Board, consumers: list[tuple[str, PartSpec]], seen: frozenset[str] = frozenset()
+    board: Board, consumers: list[tuple[str, PartSpec]], seen: frozenset[str] = frozenset(), *, ideal: bool = False
 ) -> tuple[float, list[str]]:
     total = 0.0
     unstated: list[str] = []
     for slot_id, part in consumers:
-        draw = consumer_draw(board, slot_id, part, seen)
-        if draw is None:
+        draw, incomplete = consumer_estimate(board, slot_id, part, seen, ideal=ideal)
+        total += draw
+        if incomplete:
             unstated.append(slot_id)
-        else:
-            total += draw
     return total, unstated
 
 
@@ -42,22 +41,34 @@ def consumer_draw(
     put a few hundred microamps on the input rail while a whole board hangs off its
     output.
     """
-    if slot_id in seen:
-        return None
+    total, incomplete = consumer_estimate(board, slot_id, part, seen)
+    return None if incomplete else total
 
-    # `reflected_draw` returns None for two unrelated reasons, and they must not be
-    # treated alike: *this part sources no rail* (so its own datasheet figure is the
-    # answer) and *what it feeds is unknown* (so nothing here is knowable). Falling back
-    # to `part.draw` in the second case reports a regulator's quiescent current as the
-    # whole draw on its input rail — a few hundred microamps standing in for an entire
-    # board — and the rail then passes its budget with confidence.
-    #
-    # Measured on a coin-cell beacon: the MCU published no current, so the 3V3 rail was
-    # honestly unchecked, and the 20 mA cell above it reported `0 mA of 20 mA (0%)` and
-    # passed. The one number that brief was about.
-    if board.sources_a_rail(slot_id):
-        return reflected_draw(board, slot_id, part, seen | {slot_id})
-    return part.draw
+
+def consumer_estimate(
+    board: Board, slot_id: str, part: PartSpec, seen: frozenset[str] = frozenset(), *, ideal: bool = False
+) -> tuple[float, bool]:
+    """Preserve the known load through a partial power tree; never count a load twice."""
+    if slot_id in seen:
+        return 0.0, True
+    downstream = [rail for rail in board.rails.values() if rail.source == slot_id]
+    if not downstream:
+        return (part.draw or 0.0) * board.slots[slot_id].quantity, part.draw is None
+    if part.regulation is None:
+        return 0.0, True
+    upstream = board.input_rail(slot_id)
+    if part.is_switching and (upstream is None or upstream.voltage <= 0):
+        return 0.0, True
+    total, incomplete = 0.0, board.slots[slot_id].quantity != 1
+    for rail in downstream:
+        load, missing = rail_draw(board, consumers(board, rail), seen | {slot_id}, ideal=ideal)
+        incomplete |= bool(missing) or any(not board.placed(key) for key in rail.members)
+        if part.is_switching:
+            eta = 1.0 if ideal and part.efficiency is None else part.conversion_efficiency
+            load *= rail.voltage / (eta * upstream.voltage)
+        total += load
+    return total, incomplete
+
 
 
 def reflected_draw(
@@ -69,23 +80,25 @@ def reflected_draw(
     700 mA from its input, which is exactly why the difference becomes heat. Switchers
     trade current for voltage, so the input figure is `(Vout × I) / (η × Vin)`.
     """
-    downstream = next((r for r in board.rails.values() if r.source == slot_id), None)
-    if downstream is None:
+    if not board.sources_a_rail(slot_id):
         return None
+    total, incomplete = consumer_estimate(board, slot_id, part, seen - {slot_id})
+    return None if incomplete else total
 
-    total, unstated = rail_draw(board, consumers(board, downstream), seen)
-    if unstated:
-        return None
 
-    if not part.is_switching:
-        return total
-
-    # The output voltage is the rail the regulator makes, not a figure on its datasheet —
-    # an adjustable part's range maximum here overstated the input current several-fold.
-    input_rail = board.input_rail(slot_id)
-    if input_rail is None or input_rail.voltage <= 0:
-        return None
-    return (downstream.voltage * total) / (part.conversion_efficiency * input_rail.voltage)
+def dependencies(board: Board, slots) -> tuple[str, ...]:
+    """All loads contributing to an upstream calculation, including cascaded rails."""
+    found = set(slots)
+    pending = list(slots)
+    while pending:
+        source = pending.pop()
+        for rail in board.rails.values():
+            if rail.source == source:
+                for member in rail.members:
+                    if member not in found:
+                        found.add(member)
+                        pending.append(member)
+    return tuple(sorted(found))
 
 
 def rail_limit(board: Board, rail: Rail) -> tuple[float | None, PartSpec | None]:

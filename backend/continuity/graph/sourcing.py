@@ -427,27 +427,30 @@ async def choose(candidate: Candidate) -> PartSpec:
     return PartSpec(**{**values, "interfaces": tuple(values.get("interfaces", ()))})
 
 
-async def compare_candidates(found: SearchResults, board, slot_id: str):
+async def compare_candidates(found: SearchResults, board, slot_id: str, *, on_candidate=None):
     """Validate a bounded shortlist against the same board before placement."""
     from ..designs.service import evaluate
     from ..engine.models import Board
+    baseline = {(v.rule, v.subject, v.scope) for v in evaluate(board) if v.failed}
     options = [candidate for candidate in found if candidate.mpn not in found.demoted][:3] or list(found[:1])
     ranked = []
     for candidate in options:
+        if on_candidate is not None:
+            on_candidate(candidate)
         part = await choose(candidate)
         slots = {**board.slots, slot_id: replace(board.slots[slot_id], part=part)}
-        findings = [v for v in evaluate(Board(board.requirements, slots, board.rails, board.signal_nets))
-                    if v.subject == slot_id or slot_id in v.involved]
+        findings = evaluate(Board(board.requirements, slots, board.rails, board.signal_nets))
+        failed = {(v.rule, v.subject, v.scope) for v in findings if v.failed}
         cost = part.unit_price if part.unit_price is not None else float("inf")
         stock = -(part.stock or 0)
         body = packages.body_mm(part.package)
         size = body[0] * body[1] if body else float("inf")
         preference = {"cost": cost, "size": size, "availability": stock}.get(board.requirements.priority, cost)
-        score = (sum(v.status == "fail" for v in findings), sum(v.unchecked for v in findings), preference)
+        score = (len(failed), len(failed - baseline), sum(v.unchecked for v in findings), preference)
         ranked.append((score, candidate, part))
     ranked.sort(key=lambda entry: entry[0])
     best = ranked[0]
-    return best[1], best[2], [{"mpn": c.mpn, "failures": score[0], "unknown": score[1],
+    return best[1], best[2], [{"mpn": c.mpn, "failures": score[0], "new_failures": score[1], "unknown": score[2],
                             "unit_price": p.unit_price, "stock": p.stock} for score, c, p in ranked]
 
 

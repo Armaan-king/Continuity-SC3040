@@ -1,4 +1,4 @@
-"""The six rules. Written by hand, never generated — physics does not vary by project.
+"""Deterministic electrical and sourcing checks with explicit uncertainty.
 
 R1–R5 are electrical. R6 is sourcing, and it flows through the identical resolution
 loop, which is the architectural claim: one loop handling a sold-out part and an
@@ -14,6 +14,8 @@ pass is the one failure mode that would make the whole engine untrustworthy.
 """
 
 from __future__ import annotations
+
+from dataclasses import replace
 
 from . import draw as rail_current
 from . import efficiency
@@ -161,6 +163,16 @@ def _check_source(board: Board, rail: Rail, slot_id: str, part: PartSpec) -> Ver
                 _supply_evidence(upstream, slot_id),
             )
 
+    upstream = board.input_rail(slot_id)
+    if upstream is None:
+        return verdict("warn", f"{part.mpn} has no unambiguous input supply; conversion to {at} is unchecked.", unchecked=True)
+    topology = (part.topology or "").strip().casefold()
+    if topology == "buck" and upstream.voltage < rail.voltage:
+        return verdict("fail", f"{part.mpn} is a buck converter and cannot raise {fmt.volts(upstream.voltage)} to {at}.",
+                       part.cite(slot_id, "topology") + _supply_evidence(upstream, slot_id))
+    if topology == "boost" and upstream.voltage > rail.voltage:
+        return verdict("fail", f"{part.mpn} is a boost converter and cannot regulate {fmt.volts(upstream.voltage)} down to {at}.",
+                       part.cite(slot_id, "topology") + _supply_evidence(upstream, slot_id))
     return verdict("pass", f"{part.mpn} supplies {_output_span(part)}, covering {at}.")
 
 
@@ -246,6 +258,9 @@ def interface_role_match(board: Board) -> list[Verdict]:
     FAIL unless a bus is shared; FAIL if two parts drive the same bus as master;
     WARN if there are more SPI peripherals than free GPIO for their chip selects.
     """
+    if board.signal_nets:
+        from .signals import interfaces
+        return interfaces(board)
     masters = _by_role(board, "master")
     peripherals = _by_role(board, "peripheral")
     verdicts: list[Verdict] = []
@@ -506,9 +521,16 @@ def _pin_demand(consumers: list[tuple[str, PartSpec]]) -> tuple[int, list[str]]:
 
 def pin_budget(board: Board) -> list[Verdict]:
     """FAIL if the peripherals ask for more GPIO than the controller offers."""
+    if board.signal_nets:
+        from .signals import pin_budgets
+        return pin_budgets(board)
     masters = _by_role(board, "master")
     if not masters:
         return []
+    if len(masters) > 1:
+        return [Verdict("pin_budget", "warn",
+            "Multiple controllers are present; declare signal nets to assign each peripheral and compute its controller's pin budget.",
+            key, unchecked=True, evidence=part.cite(key, "pins_available")) for key, part in masters]
     master_id, master = masters[0]
 
     # Every peripheral counts, including the ones that state no pin requirement — they
@@ -623,6 +645,10 @@ def _check_rail_current(board: Board, rail: Rail) -> Verdict | None:
         for row in part.cite(slot_id, "i_peak")
     )[:MAX_EVIDENCE_ROWS]
 
+    evidence += tuple(Evidence(key, "quantity", str(board.slots[key].quantity), "Board component quantity")
+                      for key in rail_current.dependencies(board, [s for s, _ in consumers])
+                      if board.slots[key].quantity != 1)
+
     if limit is None:
         return Verdict(
             rule="current_budget",
@@ -637,6 +663,18 @@ def _check_rail_current(board: Board, rail: Rail) -> Verdict | None:
 
     margin = board.requirements.current_margin
     required = draw * (1 + margin)
+    converter_keys = rail_current.dependencies(board, [key for key, _ in consumers])
+    assumed_conversion = [key for key in converter_keys if board.sources_a_rail(key)
+                          and (part := board.part(key)) and part.is_switching and part.efficiency is None]
+    if assumed_conversion:
+        evidence += tuple(row for key in assumed_conversion
+                          for row in efficiency_evidence(board.part(key), key, (ASSUMED_EFFICIENCY, ASSUMED_EFFICIENCY)))
+        ideal_draw, _ = rail_current.rail_draw(board, consumers, ideal=True)
+        if ideal_draw * (1 + margin) <= limit:
+            return Verdict("current_budget", "warn",
+                f"Estimated {fmt.milliamps(required)} including margin on {rail.id}, against {fmt.milliamps(limit)}. "
+                "Converter efficiency is assumed; the input-current budget requires measured efficiency at this load.",
+                subject, involved=involved, evidence=evidence, scope=rail.id, unchecked=True)
 
     # A rail can be over budget on the parts that *did* state a draw. Waiting for
     # complete data before deciding would report "unchecked" on a board that is already
@@ -675,7 +713,7 @@ def _check_rail_current(board: Board, rail: Rail) -> Verdict | None:
             involved=involved,
             evidence=evidence,
         )
-    headline = f"{fmt.milliamps(draw)} of {fmt.milliamps(limit)} ({fmt.percent(draw / limit)})"
+    headline = f"{fmt.milliamps(draw)} of {fmt.milliamps(limit)} ({fmt.percent(draw / limit) if limit else 'no capacity'})"
 
     if required > limit:
         return Verdict(
@@ -797,6 +835,10 @@ def _check_rail_thermal(board: Board, rail: Rail) -> Verdict | None:
 
     consumers = rail_current.consumers(board, rail)
     draw, unstated = rail_current.rail_draw(board, consumers)
+    if consumers and draw <= 0 and unstated:
+        return Verdict("thermal_dissipation", "warn",
+            f"The load on {rail.id} is unknown; regulator heating cannot be evaluated.",
+            rail.source, involved=(rail.source, *(key for key, _ in consumers)), scope=rail.id, unchecked=True)
     if not consumers or draw <= 0:
         return None
 
@@ -1353,7 +1395,34 @@ RULES = (
 
 def evaluate(board: Board) -> list[Verdict]:
     """Run every rule. Order is stable, so the event stream is reproducible."""
-    return [verdict for rule in RULES for verdict in rule(board)]
+    from .integrity import prepare
+    checked, issues = prepare(board)
+    if any(v.scope == "requirements" for v in issues):
+        return issues + [Verdict(rule.__name__, "warn", "Invalid operating requirements must be corrected before this check can run.",
+            next(iter(board.slots), "board"), unchecked=True) for rule in RULES]
+    verdicts = [verdict for rule in RULES for verdict in rule(checked)]
+    uncertain_power = any(v.rule == "power_topology" for v in issues)
+    for index, verdict in enumerate(verdicts):
+        if verdict.status != "pass":
+            continue
+        rail = checked.rails.get(verdict.scope)
+        reason = None
+        if rail and rail.basis and rail.basis.startswith("Inferred from BOM"):
+            reason = "The inferred power connection has not been confirmed."
+        elif uncertain_power and verdict.rule in {"voltage_overlap", "current_budget", "thermal_dissipation", "energy_budget"}:
+            reason = "Power topology is incomplete or ambiguous; review the connection findings."
+        elif verdict.rule in {"current_budget", "thermal_dissipation", "energy_budget"}:
+            dependencies = rail_current.dependencies(checked, verdict.involved)
+            loads = [checked.part(key) for key in dependencies]
+            if any(part and part.i_peak is None and part.i_typ is not None for part in loads):
+                reason = "Only typical current is known for some loads; worst-case operation is unverified."
+            elif any(not checked.placed(key) for key in dependencies):
+                reason = "Some connected loads have not been resolved; total demand is unknown."
+            elif verdict.rule == "energy_budget" and any(part and part.is_switching and part.efficiency is None for part in loads):
+                reason = "Battery runtime depends on converter efficiency that has not been verified."
+        if reason:
+            verdicts[index] = replace(verdict, status="warn", unchecked=True, detail=verdict.detail + " " + reason)
+    return issues + verdicts
 
 
 def failures(verdicts: list[Verdict]) -> list[Verdict]:

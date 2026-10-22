@@ -45,6 +45,8 @@ const CHECK_PASS_DETAIL: Record<CheckRule, string> = {
   temperature_rating: 'Part temperature grade covers the required range.',
   energy_budget: 'Supply capacity covers the runtime the brief asked for.',
   rail_coverage: 'Every placed part sits on a modelled power rail.',
+  data_integrity: 'Measurements are finite and internally consistent.',
+  power_topology: 'Power connections are unambiguous and acyclic.',
 }
 
 const REASONING_DELAYS = [420, 680, 860] as const

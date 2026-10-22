@@ -257,6 +257,7 @@ async def validate_bom(
             tier=_tier_for_part(by_index.get(index)),
             part=by_index.get(index),
             status="pending",
+            quantity=row.qty,
         )
         for index, row in enumerate(rows)
     }
@@ -269,7 +270,7 @@ async def validate_bom(
     declared_raw = await stage("bom_rails_v1", [(key, c.mpn) for key, c in resolved_for_inference],
                                lambda: infer_rails(resolved_for_inference))
     declared = [replace(rail, basis="Inferred from BOM; connection unconfirmed")
-                for rail in _weighted_rails(planner._clean_rails(declared_raw, slots, aliases), rows)]
+                for rail in planner._clean_rails(declared_raw, slots, aliases)]
     board = Board(requirements, slots, {rail.id: rail for rail in declared})
 
     yield stream.plan(slots.values(), topology.power_edges(board.rails))
@@ -341,15 +342,6 @@ async def _resolved_stage(row: BomRow):
         return asdict(candidate) if candidate else None
     value = await stage("bom_resolve_v1", row.mpn, work)
     return search.Candidate(**value) if value else None
-
-
-def _weighted_rails(rails: list[Rail], rows: list[BomRow]) -> list[Rail]:
-    """Represent a row quantity as repeated consumers for the unmodified rule engine."""
-    quantities = {_slot_id(index): row.qty for index, row in enumerate(rows)}
-    return [
-        replace(rail, members=tuple(member for member in rail.members for _ in range(quantities[member])))
-        for rail in rails
-    ]
 
 
 def _unchecked_rail_verdicts(slots: Mapping[str, Slot]) -> list[Verdict]:

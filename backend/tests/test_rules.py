@@ -1073,8 +1073,9 @@ def test_every_verdict_names_a_rule_the_contract_declares():
 
 def test_rule_names_and_functions_agree():
     from continuity.engine.models import RULE_NAMES
+    from continuity.engine.integrity import PRECHECK_NAMES
 
-    assert tuple(rule.__name__ for rule in rules.RULES) == RULE_NAMES
+    assert tuple(rule.__name__ for rule in rules.RULES) + PRECHECK_NAMES == RULE_NAMES
 
 
 def test_subject_is_always_among_the_involved_slots():

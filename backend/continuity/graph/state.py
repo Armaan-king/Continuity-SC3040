@@ -33,7 +33,10 @@ class DesignState(TypedDict, total=False):
     verdict rather than only the slot it just touched, and clears the flag."""
 
     candidates: Annotated[dict[str, list], _replace]
-    """Raw search hits per slot. Only the selected one is ever normalised."""
+    """Raw search hits per slot. A bounded shortlist may be normalised for comparison."""
+
+    attempted: Annotated[dict[str, list[str]], _replace]
+    """Component identities already placed, retained across repeated repair searches."""
 
     cursor: Annotated[dict[str, int], _replace]
     """Which candidate is currently in each slot."""

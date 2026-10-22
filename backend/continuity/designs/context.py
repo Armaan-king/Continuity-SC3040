@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from contextvars import ContextVar
+import asyncio
 from dataclasses import dataclass, field
 from typing import Any, Awaitable, Callable
 from .service import digest
@@ -13,6 +14,12 @@ class ExecutionContext:
     store: Any = None
     research_calls: int = 0
     research_cache: dict = field(default_factory=dict)
+    discovery_queries: set[str] = field(default_factory=set)
+    llm_cache: dict = field(default_factory=dict)
+    llm_lock: asyncio.Lock = field(default_factory=asyncio.Lock)
+    llm_calls: int = 0
+    llm_tokens: int = 0
+    llm_unavailable: str | None = None
 
 
 current: ContextVar[ExecutionContext | None] = ContextVar("design_execution", default=None)

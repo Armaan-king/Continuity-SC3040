@@ -34,8 +34,10 @@ from typing import Any, Mapping, Sequence
 from .. import llm
 from ..engine.models import Rail, Requirements, Slot, Tier
 from ..parts import categories
-from .topology import BATTERY_SOURCES, INPUT_SOURCES, capacity_of
+from .topology import BATTERY_SOURCES, INPUT_SOURCES
 from .requirements import explicit_requirements
+from .prompt import system as planning_system
+from .schema import PLAN_SCHEMA
 
 log = logging.getLogger(__name__)
 
@@ -63,147 +65,8 @@ class Plan:
     """Placement order: power first, then the controller, then what hangs off it."""
 
 
-SYSTEM = f"""You plan printed circuit boards. Given a description, return ONE JSON object
-describing the parts the board needs. You do not decide whether parts are compatible —
-another system does that.
+SYSTEM = planning_system(categories.prompt_lines(), sorted(INPUT_SOURCES), MAX_SLOTS)
 
-Completeness is part of your job:
-  Every bus peripheral needs a controller on the board. If the brief names a display,
-  sensor or memory and does not name a microcontroller, add one. A peripheral with
-  nothing to drive it is not a board.
-    GOOD: "industrial sensor with an OLED" → sensor, OLED, microcontroller
-    BAD:  "industrial sensor with an OLED" → sensor, OLED
-  Every functional block the user names gets a slot, however implausible. If the brief
-  says a 500 W amplifier on a wearable, plan the 500 W amplifier. You do not decide
-  whether the design is sensible — another system does that, and it can only report a
-  contradiction it can see. Dropping a part because it looks wrong hides the fault
-  instead of surfacing it.
-
-Return exactly these keys: input_source, input_voltage, temp_range, current_margin,
-priority, min_stock, ambient_c, lifetime_hours, slots, rails, links.
-
-slots: 2 to {MAX_SLOTS} objects, each with:
-  id       lowercase snake_case, unique, e.g. "regulator", "mcu", "imu"
-  label    2-4 words for a UI, e.g. "IMU Sensor"
-  tier     one of: power, core, peripherals, passives
-  pinned   true if the user named this function, false if it is an implementation
-           detail they did not ask for (regulators, level shifters, passives)
-  query    SHORT distributor search text — 2 to 4 words, part-shaped
-  category what KIND of part this is. Required on EVERY slot. One of:
-{categories.prompt_lines()}
-           This is filtered on properly, so it costs nothing to be right and it is the
-           only thing standing between a sensor slot and a fuse clip: searching for
-           "environmental sensor" really did return "5x20 Environmentally Friendly Fuse
-           Clip", because the words matched RoHS marketing copy. Do NOT put the category
-           in `query` — the text search cannot tell these apart.
-  topology for a regulator slot ONLY: "ldo", "buck", "boost" or "buck-boost". Say which
-           when the power tree decides it — a rail ABOVE its input needs "boost", a rail
-           below it can be "buck" or "ldo". Omit for anything that is not a regulator.
-           Do NOT put the topology in `query`; the distributor's text search ignores it
-           and this field is filtered on properly.
-
-CRITICAL — how to write `query`:
-  The distributor's search detects a component type from your words, restricts to that
-  category, then matches the REST of your words inside it. Extra words REDUCE results.
-    GOOD: "ESP32 module"  "3.3V LDO regulator"  "OLED display"  "IMU accelerometer"
-    BAD:  "ESP32-S3 wifi bluetooth module"   (returns nothing: "wifi" is not indexed)
-    BAD:  "small OLED display module I2C"    (returns nothing)
-  Never put interfaces, features or adjectives in the query.
-  Name the PART, never the application it serves. The index knows what a part measures,
-  not what it is for.
-    GOOD: "temperature humidity sensor"      BAD: "environmental sensor"
-    GOOD: "capacitive moisture sensor"       BAD: "soil sensor"
-  Both BAD lines return zero results, and "environmental sensor" then degrades into
-  "5x20 Environmentally Friendly Fuse Clip" — the words matched RoHS boilerplate.
-
-rails: the power tree. Each rail has:
-  id       e.g. "3V3", "5V", "1V8"
-  voltage  a number in volts
-  source   the slot id of the regulator producing it
-  members  slot ids powered by it (NOT the source itself)
-  Do NOT include the board's input supply as a rail; that is added separately.
-  A microcontroller is a LOAD, never a regulator or rail source. A USB-powered
-  3.3V board needs a separate regulator slot in tier "power", category "regulator".
-  Example: {{"id":"3V3","voltage":3.3,"source":"regulator","members":["mcu","sensor"]}}.
-  Every core/peripheral slot must appear in a rail's members.
-
-  A CHARGER counts as a source. If the board has an on-board battery charged by a charge
-  controller, declare the battery's rail with the charger as its `source` and everything
-  the battery powers as its `members` — the regulator, and the battery holder itself. Its
-  `voltage` is the charger's output, i.e. 4.2 for a single Li-ion cell, 3.6 for LiFePO4.
-  The board's input is then whatever feeds the CHARGER: the solar panel, or the USB port.
-  Without this the charge controller sits on no rail at all and nothing checks it.
-
-  For EVERY rail, compare its voltage against what feeds it before choosing the source
-  slot's `topology`. What feeds the first rail is the board input — `input_voltage` if
-  you set one, otherwise the voltage of the `input_source` you named:
-      2x AA is 3.0 V, a coin cell is 3.0 V, Li-ion is 3.7 V, USB is 5.0 V
-  Then:
-      rail voltage BELOW the input   → "ldo" or "buck"
-      rail voltage ABOVE the input   → "boost". Nothing else can do it.
-  A 3V3 rail on 2x AA cells is 3.3 V from 3.0 V, so that regulator is a BOOST. Getting
-  this wrong does not break the board — a later stage will catch it — but it wastes a
-  whole search, so do the subtraction now.
-
-links: array of [master_slot_id, peripheral_slot_id] pairs for data connections.
-
-input_source: choose the closest of: {", ".join(sorted(INPUT_SOURCES))}
-  If none of them fits what the user described, use "{UNRESOLVED}". Never invent
-  voltages or currents — pick a name from this list or say unresolved.
-
-input_voltage: the supply voltage in volts, IF the brief states or implies one.
-  Read it out of the words, including arithmetic the brief states: "two 18650 cells in
-  series" is 7.4, "48V industrial bus" is 48, "3S LiPo" is 11.1. Use null when the brief
-  names no voltage at all ("USB powered", "battery powered", "solar"). Never guess a
-  typical voltage for a named supply you were not given a figure for — input_source
-  already covers that case.
-
-temp_range: [min, max] in Celsius. Commercial [0,70]; industrial [-40,85].
-current_margin: 0.15 normally, 0.30 for battery or low-power designs.
-priority: one of {PRIORITIES}.
-min_stock: units they must be able to buy. 100 unless a production volume is stated.
-ambient_c: expected ambient temperature, 25 unless stated.
-lifetime_hours: how long the board must run on its own supply, in hours, ONLY when the
-  brief asks for it — "must last a year" is 8760, "a month between charges" is 730,
-  "runs for a week" is 168. Omit it entirely when no lifetime is stated. Do not infer one
-  from the word "battery": a battery board with no stated lifetime has no requirement.
-
-Return the JSON object and nothing else."""
-
-SYSTEM += """
-Here is a complete structural example for a USB motion sensor. Adapt the functions
-to the user's brief, but preserve this schema and declare every rail source as a slot:
-{
-  "input_source": "usb-5v", "input_voltage": null, "temp_range": [0,70],
-  "current_margin": 0.15, "priority": "cost", "min_stock": 100, "ambient_c": 25,
-  "slots": [
-    {"id":"regulator","label":"3.3V Regulator","tier":"power","pinned":false,
-     "query":"3.3V LDO regulator","category":"regulator","topology":"ldo"},
-    {"id":"mcu","label":"Microcontroller","tier":"core","pinned":false,
-     "query":"ESP32 module","category":"mcu"},
-    {"id":"imu","label":"Motion Sensor","tier":"peripherals","pinned":true,
-     "query":"IMU accelerometer","category":"sensor"}
-  ],
-  "rails":[{"id":"3V3","voltage":3.3,"source":"regulator","members":["mcu","imu"]}],
-  "links":[["mcu","imu"]]
-}
-"""
-
-
-# ── validation ────────────────────────────────────────────────────────────────
-
-
-"""Supplies where the board runs *off* a cell, so headroom is a lifetime question.
-
-Imported from `topology` rather than restated here: `power_source` uses the same set to
-decide whether a stated pack voltage may keep its cell chemistry's current ceiling. Two
-copies of one list is two things that must agree, and the one that drifts loses either a
-design margin or a current budget silently.
-
-`usb-5v+liion` is deliberately absent from it. A board with a battery *backup* is
-mains-powered in normal use, and the wider margin there rejects designs that are fine —
-the same double-conservatism that moved the default from 0.30 to 0.15 in the first place.
-"""
 BATTERY_MARGIN = 0.30
 """Current headroom a battery-fed board gets whatever the planner asked for.
 
@@ -412,7 +275,10 @@ def _clean_requirements(raw: Mapping[str, Any]) -> Requirements:
         ambient_c=int(ambient) if isinstance(ambient, (int, float)) else defaults.ambient_c,
         lifetime_hours=lifetime_hours,
         # Resolved here rather than in the engine, which imports no vocabulary of its own.
-        supply_capacity_mah=capacity_of(source),
+        supply_capacity_mah=(float(raw["supply_capacity_mah"])
+            if isinstance(raw.get("supply_capacity_mah"), (int, float))
+            and not isinstance(raw["supply_capacity_mah"], bool)
+            and 0 < raw["supply_capacity_mah"] <= 10000000 else None),
     )
 
 
@@ -501,15 +367,21 @@ async def plan_board(prompt: str) -> Plan | None:
     """Plan a board from a description. None when no usable plan came back."""
     if not llm.available():
         return None
-    request = prompt.strip()[:2000]
+    functions = requested_functions(prompt)
+    request = prompt.strip()[:2000] + ("\nRequired functions: " + ", ".join(item[1] for item in functions) if functions else "")
     for attempt in range(2):
         try:
-            reply = await llm.complete_json(SYSTEM, request)
+            reply = await llm.complete_json(SYSTEM, request, schema=PLAN_SCHEMA)
+            # Preserve explicit requirements even if the planner confuses USB charging
+            # with battery-powered operation. Never use a generic cell capacity.
+            explicit = explicit_requirements(prompt)
+            reply["supply_capacity_mah"] = explicit.get("supply_capacity_mah")
+            reply.update(explicit)
             plan = build_plan(reply)
         except (llm.LLMUnavailable, ValueError, json.JSONDecodeError) as error:
             log.warning("planning failed: %s", error)
             return None
-        issues = structural_issues(plan)
+        issues = structural_issues(plan, prompt)
         if not issues:
             return plan
         log.warning("planner structure rejected: %s", "; ".join(issues))
@@ -519,16 +391,37 @@ async def plan_board(prompt: str) -> Plan | None:
     return None
 
 
-def structural_issues(plan: Plan | None) -> list[str]:
+FUNCTIONS = (
+    (r"\b(?:button|pushbutton)\b", "button", "Arm / Control Button", "passives", "tactile switch", "switch"),
+    (r"\bled\b", "led", "Status LED", "passives", "indicator LED", "led"),
+    (r"\bbuzzer\b", "buzzer", "Alarm Buzzer", "peripherals", "active buzzer", "audio"),
+    (r"\b(?:usb[- ]?c?\s+charging|charge controller|battery charger)\b", "charger", "Battery Charger", "power", "Li-ion charger", "charger"),
+)
+
+
+def requested_functions(prompt: str) -> list[tuple]:
+    """Protect explicitly named support functions often dropped by compact plans."""
+    return [item for item in FUNCTIONS if re.search(item[0], prompt, re.I)
+            and not re.search(r"\b(?:no|without)\s+(?:an?\s+)?" + item[0], prompt, re.I)]
+
+
+def structural_issues(plan: Plan | None, prompt: str = "") -> list[str]:
     """Reject incomplete wiring before sourcing; electrical verdicts stay in the engine."""
     if plan is None:
         return ["At least two valid functional slots are required"]
     issues = []
+    descriptions = " ".join(f"{slot.id} {slot.label} {plan.queries.get(slot.id, '')} {(slot.constraint or {}).get('category', '')}" for slot in plan.slots.values()).lower()
+    for _, key, label, _, _, _ in requested_functions(prompt):
+        patterns = {"button": r"button|switch|keypad", "led": r"\bled\b|indicator", "buzzer": r"buzzer|sounder|speaker", "charger": r"charg"}
+        if not re.search(patterns[key], descriptions):
+            issues.append(f"Include a separate {label} slot explicitly requested in the brief")
     if not plan.rails:
         issues.append("Declare power rails and their regulator/charger source slots")
     supplied = {member for rail in plan.rails for member in rail.members}
     for rail in plan.rails:
         source = plan.slots[rail.source]
+        if plan.requirements.input_source in BATTERY_SOURCES and (source.constraint or {}).get("category") == "charger":
+            issues.append(f"Battery operation cannot use charger {source.id} as a constant supply; model the load regulator from the battery")
         if source.tier != "power":
             issues.append(f"Rail {rail.id} source {source.id} must be a separate power slot, not a load")
     for slot in plan.slots.values():
@@ -563,6 +456,9 @@ def fallback_plan(prompt: str) -> Plan:
         if any(k in text for k in keywords):
             wanted.append((slot_id, label, "peripherals", True, query, category))
 
+    for _, slot_id, label, tier, query, category in requested_functions(prompt):
+        wanted.append((slot_id, label, tier, True, query, category))
+
     # These slots are hardcoded, so their category is known rather than classified — and
     # this is the path a run takes when there is no key *or* when planning failed, which
     # is exactly when a wrong-category part is least likely to be noticed.
@@ -574,14 +470,16 @@ def fallback_plan(prompt: str) -> Plan:
         for slot_id, label, tier, pinned, _, category in wanted
     }
     queries = {slot_id: query for slot_id, _, _, _, query, _ in wanted}
-    loads = tuple(s for s in slots if s != "regulator")
+    # The charger requires its own input and battery path. Leave those unmodelled
+    # for review rather than pretending it is another load on the logic rail.
+    loads = tuple(s.id for s in slots.values() if s.tier != "power")
 
     return Plan(
         requirements=_clean_requirements({"input_source": _guess_source(text), **explicit_requirements(text)}),
         slots=slots,
         rails=[Rail(id="3V3", voltage=3.3, source="regulator", members=loads)],
         queries=queries,
-        links=tuple(("mcu", s) for s in loads if s != "mcu"),
+        links=tuple(("mcu", s) for s in loads if s in {"sensor", "display", "imu", "flash", "lora", "gps"}),
         order=placement_order(slots),
     )
 
@@ -602,6 +500,8 @@ def _guess_source(text: str) -> str:
         )
         if re.search(pattern, text)
     }
+    if explicit_requirements(text).get("input_source"):
+        return explicit_requirements(text)["input_source"]
     if usb and liion:
         candidates.add("usb-5v+liion")
     elif usb:

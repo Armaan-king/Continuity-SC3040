@@ -4,9 +4,13 @@ export type Counts = { pass: number; fail: number; unknown: number; accepted: nu
 export type RevisionSummary = { id: string; thread_id: string; parent_id: string | null; reason: string; created_at: string; counts: Counts; total: number; active: boolean }
 export type Finding = { id: string; rule: string; subject: string; scope: string | null; outcome: string; severity: string; accepted: boolean; detail: string; evidence: { field: string; value: string; source: string | null }[] }
 export type Requirement = { field: string; value: string | number | number[] | null; basis: string }
+export type ReviewQuestion = { field: string; title: string; why: string; unit: string; value: Requirement['value']; basis: string; minimum: number | null; maximum: number | null }
+export type ReviewTask = { id: string; kind: 'engineering' | 'evidence'; title: string; detail: string; subjects: string[]; finding_ids: string[]; fields: string[]; steps?: string[]; action: string }
+export type ReviewGuidance = { status: 'conflicts' | 'needs_review' | 'checks_complete'; note: string; questions: ReviewQuestion[]; tasks: ReviewTask[]; input_sources: { key: string; label: string }[] }
 export type Revision = RevisionSummary & {
   project_id: string
   content_hash: string
+  guidance?: ReviewGuidance
   document: {
     schema_version: number; ruleset_version: string; origin: string; prompt: string
     board: { slots: Record<string, { label: string }>; rails: Record<string, { voltage: number; source: string | null; members: string[] }>; signal_nets?: { id: string; protocol: string; ports: { component: string; role: string }[] }[] }

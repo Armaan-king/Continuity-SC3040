@@ -3,9 +3,22 @@
 import re
 
 
+def battery_primary(text: str) -> bool:
+    """An explicit battery-powered brief; USB charging is not a USB-only supply."""
+    return bool(re.search(r"battery[- ]powered|power(?:ed)?\s+(?:it\s+)?(?:from|by|with)\s+(?:a\s+)?(?:single\s+)?(?:rechargeable\s+)?(?:\d+(?:\.\d+)?\s*v\s+)?(?:li[- ]?ion\s+)?battery", text, re.I))
+
+
 def explicit_requirements(text: str) -> dict:
     text = text.lower()
     values = {}
+    capacity = re.search(r"\b(\d+(?:\.\d+)?)\s*mAh\b", text, re.I)
+    if capacity and 0 < float(capacity[1]) <= 10000000:
+        values["supply_capacity_mah"] = float(capacity[1])
+    if battery_primary(text) and re.search(r"li[- ]?ion|\b3\.7\s*v\b", text):
+        values["input_source"] = "battery-3v7"
+        volts = re.search(r"\b(\d+(?:\.\d+)?)\s*v\s+(?:li[- ]?ion\s+)?battery", text)
+        if volts:
+            values["input_voltage"] = float(volts[1])
     if re.search(r"\bindustrial\b", text):
         values["temp_range"] = (-40, 85)
     temperature = re.search(r"(-?\d+)\s*(?:°?c)?\s*(?:to|~)\s*(-?\d+)\s*°?c\b", text)

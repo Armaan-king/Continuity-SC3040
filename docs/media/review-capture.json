@@ -1,8 +1,8 @@
 {
-  "preparedAt": "2026-10-22T05:11:00.015378+00:00",
-  "projectId": "7779e3efd32f",
-  "threadId": "media-review-65da2eac29484bdba5889e4bcb240bcd",
-  "initialRevision": "04117d9f8cd74a7aa0ffb140e47707e5",
+  "preparedAt": "2026-10-22T11:00:39.880000+00:00",
+  "projectId": "6d3eff5297b4",
+  "threadId": "media-review-9a7e1a97709047eb919a84b151f11a8e",
+  "initialRevision": "c8e5aeb58b5d41e3a35d88a5ec6933c4",
   "referenceData": "Historical distributor fixtures; manually assembled reference board; AI planning disabled",
   "research": {
     "provider": "exa",
@@ -17,12 +17,12 @@
     ],
     "reusedForRetake": true
   },
-  "recordedAt": "2026-10-22T05:11:00.437Z",
+  "recordedAt": "2026-10-22T11:00:40.331Z",
   "viewport": {
     "width": 1440,
     "height": 900
   },
-  "source": "Real local production frontend and PostgreSQL; reference design; live Exa retrieval during preparation",
+  "source": "Real local production frontend and PostgreSQL; reference design; saved Exa retrieval reused without additional research calls",
   "clips": [
     {
       "name": "design-review",
@@ -33,38 +33,54 @@
           "title": "Reference board in the existing workspace"
         },
         {
-          "seconds": 6,
+          "seconds": 5,
           "title": "Validation report: passes, failures and unknowns"
         },
         {
-          "seconds": 12,
+          "seconds": 9,
+          "title": "Answer a review question and save a new revision"
+        },
+        {
+          "seconds": 9,
+          "title": "Return to the planning workspace with the revised board"
+        },
+        {
+          "seconds": 15,
           "title": "Edit a requirement and revalidate"
         },
         {
-          "seconds": 14,
+          "seconds": 17,
+          "title": "Return to the planning workspace with the revised board"
+        },
+        {
+          "seconds": 22,
           "title": "The 5 V supply creates a new voltage conflict"
         },
         {
-          "seconds": 20,
+          "seconds": 27,
           "title": "Compare revisions without losing the original design"
         },
         {
-          "seconds": 26,
+          "seconds": 34,
+          "title": "Return to the planning workspace with the revised board"
+        },
+        {
+          "seconds": 37,
           "title": "Restore creates a new revalidated revision"
         },
         {
-          "seconds": 32,
+          "seconds": 43,
           "title": "Export the same revision as a report and BOM"
         },
         {
-          "seconds": 35,
+          "seconds": 46,
           "title": "Reopen the workspace with the restored revision"
         }
       ],
       "browserErrors": [],
       "file": "design-review.mp4",
-      "duration": "00:00:39.67",
-      "bytes": 1211937
+      "duration": "00:00:50.21",
+      "bytes": 2858909
     },
     {
       "name": "research-connections",
@@ -83,29 +99,33 @@
           "title": "Review the limits of what the engine checked"
         },
         {
-          "seconds": 18,
+          "seconds": 17,
           "title": "Declare the signal connection against your circuit"
         },
         {
-          "seconds": 23,
+          "seconds": 21,
+          "title": "Return to the planning workspace with the revised board"
+        },
+        {
+          "seconds": 26,
           "title": "Validate the declared bus; physical pins still require review"
         }
       ],
       "browserErrors": [],
       "file": "research-connections.mp4",
-      "duration": "00:00:28.17",
-      "bytes": 1696640
+      "duration": "00:00:31.08",
+      "bytes": 1697764
     }
   ],
   "revisionVerification": {
-    "changedRevision": "8e05d99ee9f24f078d6333b52b2cfa66",
-    "restoredRevision": "98cf3e1ed3044072b8e686fdd6f76d26",
-    "exportedRevision": "98cf3e1ed3044072b8e686fdd6f76d26",
+    "changedRevision": "9d86690ef15c4ef882621ef2c18d9cf2",
+    "restoredRevision": "18b068addee74728afb8dca844e4574f",
+    "exportedRevision": "18b068addee74728afb8dca844e4574f",
     "restoredVoltage": 3.3,
     "historyPreserved": true
   },
   "connectionsVerification": {
-    "revision": "24fa0f2b80154a6bacbcc7f67a9ed425",
+    "revision": "a7df481ac79b4f8eadf3553a39f15ce0",
     "confirmedBus": "sensor-i2c",
     "reportCounts": {
       "fail": 1,
@@ -118,10 +138,10 @@
   "preview": {
     "file": "design-review.gif",
     "source": "design-review.mp4",
-    "startSeconds": 11,
-    "durationSeconds": 12,
+    "startSeconds": 14,
+    "durationSeconds": 16,
     "width": 960,
     "fps": 5,
-    "bytes": 919834
+    "bytes": 2195261
   }
 }

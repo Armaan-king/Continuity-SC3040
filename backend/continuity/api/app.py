@@ -44,7 +44,7 @@ from . import analytics_api, auth, bom, events, memory, projects, revisions
 from .memory import FindingRecorder
 from .store import Store
 from .runs import RunManager
-from .boards import recorded_board
+from .boards import recorded_board, revision_trace
 from .security import SecurityMiddleware
 from .state import BOMS, FINDING_RECORDERS, PROGRESS_TASKS, STREAMS
 from .execution import _run, _run_bom, _save_trace, _pending_question, _interrupt_frames, _with_heartbeats
@@ -500,6 +500,8 @@ async def thread_board(thread_id: str, request: Request) -> dict[str, Any]:
     if revision and thread.status == "done":
         document = revision["document"]
         trace = [event for event in await store.run_events(thread_id) if event.get("type") not in {"bom", "board"}]
+        if revision.get("parent_id") or not trace:
+            trace = revision_trace(revision, thread_id)
         return {**document["view"], "status": "done", "revision_id": revision["id"],
                 "summary": thread.summary, "bom": document["bom"], "checkpoint": "revision",
                 "trace": trace, "question": None, "resumable": False}

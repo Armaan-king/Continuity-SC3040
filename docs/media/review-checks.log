@@ -1,12 +1,15 @@
-README feature recording checks
-Recorded 2026-10-22 against the local app and disposable PostgreSQL.
+Review feature capture: production frontend, local PostgreSQL, AI disabled.
+Saved Exa response reused; no additional Exa requests.
 
-$ node frontend/scripts/record-review-demos.mjs
 design-review: Reference board in the existing workspace
 design-review: Validation report: passes, failures and unknowns
+design-review: Answer a review question and save a new revision
+design-review: Return to the planning workspace with the revised board
 design-review: Edit a requirement and revalidate
+design-review: Return to the planning workspace with the revised board
 design-review: The 5 V supply creates a new voltage conflict
 design-review: Compare revisions without losing the original design
+design-review: Return to the planning workspace with the revised board
 design-review: Restore creates a new revalidated revision
 design-review: Export the same revision as a report and BOM
 design-review: Reopen the workspace with the restored revision
@@ -14,21 +17,12 @@ research-connections: Review the saved reference design
 research-connections: Exa sources remain visibly unverified
 research-connections: Review the limits of what the engine checked
 research-connections: Declare the signal connection against your circuit
+research-connections: Return to the planning workspace with the revised board
 research-connections: Validate the declared bus; physical pins still require review
 PASS: both feature recordings; immutable revisions, restore, exports, evidence and declared connections verified
 
-$ node frontend/scripts/encode-review-demos.mjs
-PASS: design-review.mp4, 00:00:39.67, 1211937 bytes; all frames decoded
-PASS: research-connections.mp4, 00:00:28.17, 1696640 bytes; all frames decoded
+PASS: design-review.mp4, 00:00:50.21, 2858909 bytes; all frames decoded
+PASS: research-connections.mp4, 00:00:31.08, 1697764 bytes; all frames decoded
 PASS: animated preview and sanitized review-capture.json written
 
-$ npm.cmd --prefix frontend run lint
-> frontend@0.0.0 lint
-> oxlint
-exit code: 0
-
-PASS: Python capture seeder syntax parsed
-PASS: final chapter frames and both posters visually reviewed
-PASS: both JavaScript capture scripts passed node --check
-PASS: 39 local Markdown link targets exist
-PASS: 12 publication files checked for configured secrets and capture credentials
+Visual review: desktop and mobile report screenshots; video chapters for report, revised workspace and source evidence inspected.

@@ -1,0 +1,30 @@
+.venv/Scripts/python.exe : planner structure rejected: Declare power rails and their regulator/charger source slots;
+Connect mcu to a declared power rail
+At line:2 char:1
++ .venv/Scripts/python.exe tools/check_review_providers.py *> ../.local ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (planner structu...ared power rail:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+planner structure rejected: Connect arm_button to a declared power rail
+{
+  "provider": {
+    "configured": true,
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "mode": "ai"
+  },
+  "planning_pass": false,
+  "source": null,
+  "input_voltage": null,
+  "capacity_left_unknown": null,
+  "slots": {},
+  "groq_requests": 2,
+  "llm_accounted_tokens": 5038,
+  "research_pass": true,
+  "exa_requests": 2,
+  "exa_reported_cost_usd": 0.008,
+  "research_documents": 1,
+  "research_errors": [],
+  "cached_search_reused": true
+}

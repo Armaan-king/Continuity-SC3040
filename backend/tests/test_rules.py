@@ -499,7 +499,8 @@ def test_unstated_draw_reports_a_lower_bound_rather_than_a_pass():
     assert verdict.status == "warn"
     assert verdict.unchecked, "a required figure is unpublished, so the rule could not be evaluated"
     assert verdict.detail.startswith("At least")
-    assert "the real figure is higher" in verdict.detail
+    assert "Available headroom cannot be determined" in verdict.detail
+    assert "leaving" not in verdict.detail
 
 
 def test_a_provable_overload_fails_even_with_a_part_that_states_no_draw():

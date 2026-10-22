@@ -31,11 +31,12 @@ function StartedWorkspace({ projectId, request }: { projectId?: string; request:
 
 type RestoreState = 'loading' | 'ready' | 'live' | 'empty' | 'error'
 
-function RestoredWorkspace({ projectId, thread }: { projectId: string; thread: ProjectThread }) {
+function RestoredWorkspace({ projectId, thread, revisedRevision }: { projectId: string; thread: ProjectThread; revisedRevision?: string }) {
   const navigate = useNavigate()
   const session = useDesignSession()
   const { hydrate, reconnect } = session
   const [restoreState, setRestoreState] = useState<RestoreState>('loading')
+  const [revisionNotice, setRevisionNotice] = useState<string>()
 
   useEffect(() => {
     let active = true
@@ -59,6 +60,11 @@ function RestoredWorkspace({ projectId, thread }: { projectId: string; thread: P
         }
 
         hydrate(board, thread.id)
+        if (revisedRevision) {
+          setRevisionNotice(board.revision_id === revisedRevision
+            ? 'Revision saved and revalidated. Your graph, BOM and checks now use the revised design.'
+            : 'Your changes were saved. This workspace shows the current design; a newer revision or run may have replaced it.')
+        }
         setRestoreState('ready')
       } catch (error) {
         if (!active) {
@@ -84,7 +90,7 @@ function RestoredWorkspace({ projectId, thread }: { projectId: string; thread: P
     return () => {
       active = false
     }
-  }, [navigate, hydrate, reconnect, thread.id])
+  }, [navigate, hydrate, reconnect, thread.id, revisedRevision])
 
   if (restoreState === 'loading') {
     return null
@@ -111,7 +117,7 @@ function RestoredWorkspace({ projectId, thread }: { projectId: string; thread: P
     )
   }
 
-  return <WorkspaceView projectId={projectId} session={session} />
+  return <WorkspaceView projectId={projectId} session={session} revisionNotice={revisionNotice} />
 }
 
 /**
@@ -207,7 +213,7 @@ export default function DesignRoute() {
   return startedRequest ? (
     <StartedWorkspace projectId={projectId} request={startedRequest} />
   ) : latestThread ? (
-    <RestoredWorkspace projectId={projectId} thread={latestThread} />
+    <RestoredWorkspace projectId={projectId} thread={latestThread} revisedRevision={location.state?.revisedRevision} />
   ) : (
     <Workspace projectId={projectId} />
   )

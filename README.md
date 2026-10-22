@@ -30,7 +30,9 @@ The project gets a short name derived from your brief, while the full descriptio
 
 ### 3. Inspect the checks and their evidence
 
-After a run completes, open **Review design**. The report distinguishes **PASS**, **FAIL**, and **UNKNOWN**, shows the evidence behind each check, and keeps accepted failures visible. A completed run can still need review.
+After a run completes, open **Review design**. The report shows a visual check summary, questions about your design intent, and evidence tasks grouped by component. Filter **PASS**, **FAIL**, and **UNKNOWN** results or search for a component. Accepted failures retain their original result. Zero failures does not mean the board is ready when checks remain unknown.
+
+Questions ask for missing or unconfirmed requirements, such as battery capacity, runtime, operating temperature and current margin. Values already inferred by the planner are labelled as proposals to confirm. Supplier search cannot decide your intended operating conditions. Missing component measurements stay unknown until supported by evidence; a missing current is never presented as zero draw or 100% available headroom.
 
 The engine checks measurement consistency and power topology before calculating electrical limits. It follows loads through cascaded rails, includes BOM quantities, checks converter direction, and budgets GPIO separately for declared signal nets. Missing measurements, ambiguous connections, and typical-only current figures stay visible as uncertainty. Repairs use the actual board requirements and compare replacements against the whole board, while avoiding components already tried in that run.
 
@@ -42,13 +44,13 @@ When Exa research is enabled, supporting documents include source links, retriev
 
 ### 4. Refine, compare, and export
 
-Edit a constraint under **Requirements**, then **Save and revalidate** to see how it changes the results. **Revision history** lets you compare saved versions or restore an earlier design as a new, revalidated revision.
+Answer a review question or edit a constraint under **Requirements**, then save. The app creates a revalidated revision and returns to the planning workspace with its graph, BOM and updated checks loaded. A confirmation explains what changed; **Review design** brings you back to the remaining questions. Failed saves retain the entered answer for retry. **Revision history** lets you compare saved versions or restore an earlier design as a new, revalidated revision, also returning to the workspace.
 
 [![Change a requirement, inspect the resulting conflict, and compare saved revisions](docs/media/design-review.gif)](docs/media/design-review.mp4)
 
-*Watch: change the supply from 3.3 V to 5 V, inspect the new conflict, compare revisions, restore the earlier design, and export its report and BOM.*
+*Watch: answer a question, return to the revised workspace, change the supply from 3.3 V to 5 V, inspect the new conflict, compare revisions, restore the earlier design, and export its report and BOM.*
 
-Review the selected parts, prices, failures, and unchecked facts before exporting. The graph, report, and BOM exports identify the same saved design revision. Existing projects remain readable; versioned reports begin with new completed runs.
+Review the selected parts, prices, failures, and unchecked facts before exporting. The graph, current check trace, report, and BOM exports use the same saved design revision. Saving requirements rechecks the existing components; it does not silently launch a new AI sourcing run or replace them. Existing projects remain readable; versioned reports begin with new completed runs.
 
 ### 5. Return to your work
 
@@ -80,9 +82,9 @@ For development without the app container, see [backend setup](backend/README.md
 
 ## AI options
 
-The Python rule engine makes the compatibility decisions. Optional AI plans functional blocks, interprets specifications, proposes repairs, and interprets clarification answers. The app uses an OpenAI-compatible client protocol; that does not mean it calls OpenAI.
+The Python rule engine makes the compatibility decisions. Optional AI plans functional blocks, classifies ambiguous component roles, proposes repairs, and interprets clarification answers. Numeric measurements and interfaces come from parsed supplier data. The app uses an OpenAI-compatible client protocol; that does not mean it calls OpenAI.
 
-Gemini can suggest a repair, and Exa can retrieve supporting documents or help discover alternatives. The deterministic engine checks the resulting parts and connections. Its checks still run when the model is unavailable; basic planning remains limited and needs review. Changing the AI provider later does not replace the electrical rules.
+The configured model (Groq by default for hosting) can suggest a repair, and Exa can retrieve supporting documents or help discover alternatives. The deterministic engine checks the resulting parts and connections. Its checks still run when the model is unavailable; basic planning remains limited and needs review. Changing the AI provider later does not replace the electrical rules.
 
 | Mode | Configuration | API key |
 | --- | --- | --- |
@@ -110,11 +112,17 @@ Gemini defaults to `gemini-3.8-flash` through [Google's OpenAI-compatible endpoi
 
 ### Exa research
 
-Add `EXA_API_KEY` to **`backend/.env` for direct Python development** and **Render → Environment for hosting**. For Docker Compose, use the root `.env`. Gemini and Exa serve different purposes: Gemini handles planning, interpretation and repair proposals; Exa searches the web and retrieves documents. Keep `CONTINUITY_LLM_PROVIDER=gemini` and `GEMINI_API_KEY` for your existing Gemini setup.
+Add `EXA_API_KEY` to **`backend/.env` for direct Python development** and **Render → Environment for hosting**. For Docker Compose, use the root `.env`. Groq and Exa serve different purposes: Groq handles planning, interpretation and repair proposals; Exa searches the web and retrieves documents. They have separate keys and configuration. Other supported model providers can replace Groq without changing Exa.
 
-Exa uses native Search and Contents endpoints following the [build-with-exa skill](https://github.com/exa-labs/agent-skills/tree/main/skills/build-with-exa). Research runs when a part lacks evidence or supplier searches yield too few candidates. Retrieved documents include URLs, timestamps and hashes and remain unverified until reviewed; snippets cannot introduce numeric facts. The engine compares up to three resolved candidates against the same design before selecting one.
+Exa uses native Search and Contents endpoints following the [build-with-exa skill](https://github.com/exa-labs/agent-skills/tree/main/skills/build-with-exa). The engine compares up to three resolved candidates against the same design, then researches missing evidence for the selected candidate. Known datasheet URLs use Contents first; missing documents use Search. Exact part-number matching reduces evidence from a different variant. At most two distinct alternative-discovery queries per execution leave more of the shared budget for component evidence. Retrieved documents include URLs, timestamps and hashes and remain unverified; snippets cannot introduce numeric facts.
 
 Defaults are six Exa requests per run and a $0.12 **estimated** request budget, persisted across retries. Set `CONTINUITY_RESEARCH_MAX_CALLS`, `CONTINUITY_RESEARCH_BUDGET_USD`, or `CONTINUITY_RESEARCH_ENABLED=0` to control usage. Provider charges and account quotas remain authoritative. `/api/runtime` reports research configuration separately from its last request status.
+
+### Keeping AI calls useful and bounded
+
+The planner uses a versioned contract and [Groq strict structured output](https://console.groq.com/docs/structured-outputs) for the supported GPT-OSS models. Local validation checks referenced slots, rails and explicitly requested buttons, indicators, buzzer and charging functions. Battery-powered operation is preserved separately from USB charging; unstated battery capacity is left unanswered. These checks improve consistency but do not establish schematic correctness.
+
+Known supplier categories skip unnecessary role-classification calls. Identical model requests share one result within an execution, and an exhausted provider quota stops repeated calls for the remaining stages. `CONTINUITY_LLM_MAX_CALLS=40` and `CONTINUITY_LLM_TOKEN_BUDGET=120000` bound each execution, including retries. Token accounting reserves estimated input plus maximum output before a request and uses actual reported usage on success. These are application limits, not a dollar billing guarantee; a restarted execution gets a fresh LLM allowance. Saved stages and Exa reservations remain durable.
 
 [Groq setup](https://console.groq.com/docs/quickstart), [Ollama compatibility](https://docs.ollama.com/api/openai-compatibility), [xAI requirements](https://docs.x.ai/developers/quickstart). Grok is not a keyless free API.
 
@@ -156,9 +164,11 @@ npm --prefix frontend run build
 npm --prefix frontend run test:e2e
 ```
 
-Use the backend virtual environment's Python. Set `CONTINUITY_TEST_DB` to a disposable PostgreSQL database to include integration tests. The store tests truncate their test tables. Browser tests need a separate disposable `E2E_DATABASE_URL`; they seed a known account. See the [engine verification report](docs/ENGINE_VALIDATION.md) for the latest results and the [original validation report](docs/VALIDATION.md) for earlier checks. GitHub Actions repeats backend, database, frontend, and Chromium checks.
+Use the backend virtual environment's Python. Set `CONTINUITY_TEST_DB` to a disposable PostgreSQL database to include integration tests. The store tests truncate their test tables. Browser tests need a separate disposable `E2E_DATABASE_URL`; they seed a known account. See the [review and provider verification report](docs/REVIEW_VALIDATION.md) for the latest results and the [original validation report](docs/VALIDATION.md) for earlier checks. GitHub Actions repeats backend, database, frontend, and Chromium checks.
 
-The [engine verification](docs/ENGINE_VALIDATION.md) records **873 passing backend tests**, including **40 new engine regression cases**, **5 optional external-service skips**, and **26 passing browser tests**. Frontend lint and the production build passed. This upgrade keeps the interface and configured AI provider; automated checks use controlled component data and do not establish live Gemini availability or hardware correctness.
+The [review and provider verification](docs/REVIEW_VALIDATION.md) records **897 passing backend tests**, **5 optional external-service skips**, **28 passing browser tests**, passing lint/build, and bounded live Groq/Exa checks. It covers unknown questions, actual saved revisions and return navigation, mobile review, schema-constrained planning and request budgets. The final live bicycle-alarm plan preserved all seven requested functions in one Groq call; the Exa check used two requests. These checks do not establish hardware correctness.
+
+The earlier [engine verification](docs/ENGINE_VALIDATION.md) records **873 passing backend tests**, including **40 new engine regression cases**, and **26 passing browser tests** for the deterministic rule upgrade.
 
 The [architecture and Exa verification](docs/ARCHITECTURE_VALIDATION.md) covers **830 distinct passing backend tests** across the full and final targeted runs, **5 optional external-service skips**, and **26 passing browser tests**. Live Exa Search and Contents also passed. Earlier smoke runs exercised real parts lookup and local Ollama inference. These are dated results, not a claim that external services always succeed. [Review recording checks](docs/media/README.md#review-feature-verification) and [original workflow recording checks](docs/media/README.md#verification) document the README videos separately.
 

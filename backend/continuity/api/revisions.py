@@ -13,6 +13,8 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 from .auth import current_user, store_of
 from .store import User
 from ..designs import service
+from ..designs.guidance import review_guidance
+from ..planner import topology
 from ..engine.models import Port, SignalNet
 
 router = APIRouter()
@@ -31,9 +33,12 @@ class RequirementEdit(BaseModel):
     lifetime_hours: float | None = Field(default=None, gt=0, le=87600)
     supply_capacity_mah: float | None = Field(default=None, gt=0, le=10_000_000)
     max_package_mm: float | None = Field(default=None, gt=0, le=1000)
+    input_source: str | None = None
 
     @model_validator(mode="after")
     def valid_range(self):
+        if self.input_source is not None and self.input_source not in topology.INPUT_SOURCES:
+            raise ValueError("Choose a supported input source.")
         if self.temp_range and not -273 <= self.temp_range[0] < self.temp_range[1] <= 300:
             raise ValueError("Temperature range must have an increasing minimum and maximum.")
         return self
@@ -74,7 +79,9 @@ async def history(project_id: str, request: Request, user: User = Depends(curren
 
 @router.get("/revisions/{revision_id}")
 async def read(revision_id: str, request: Request, user: User = Depends(current_user)):
-    return await owned(request, revision_id, user)
+    revision = await owned(request, revision_id, user)
+    # Presentation guidance is derived separately; immutable documents/hashes stay intact.
+    return {**revision, "guidance": review_guidance(revision["document"])}
 
 
 @router.get("/revisions/{revision_id}/compare/{other_id}")
@@ -107,10 +114,18 @@ async def edit_requirements(revision_id: str, body: RequirementEdit, request: Re
         raise HTTPException(422, "Supply at least one valid requirement")
     requirements = replace(board.requirements, **changes)
     rails = dict(board.rails)
-    if "input_voltage" in changes:
+    if {"input_voltage", "input_source"} & changes.keys():
+        inputs = [rail for rail in rails.values() if rail.source is None]
+        if len(inputs) > 1:
+            raise HTTPException(422, "This design has multiple external rails; revise the circuit inputs individually.")
+        if "input_source" in changes and "input_voltage" not in changes:
+            requirements = replace(requirements, input_voltage=None)
+            changes["input_voltage"] = None
+        supply = topology.power_source(requirements)
         for key, rail in rails.items():
             if rail.source is None:
-                rails[key] = replace(rail, voltage=requirements.input_voltage, basis="User-confirmed input voltage")
+                rails[key] = replace(rail, voltage=supply.voltage, i_limit=supply.i_limit if "input_source" in changes else rail.i_limit,
+                                     basis="User-confirmed input selection; nominal supply model")
     board = replace(board, requirements=requirements, rails=rails)
     confirmed = list({row["field"] for row in original["requirements"] if row["basis"] == "confirmed"} | changes.keys())
     document = service.document(board, prompt=original["prompt"], origin=original["origin"],

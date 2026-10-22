@@ -12,7 +12,7 @@ from ..planner import topology
 from ..planner.requirements import explicit_requirements
 
 SCHEMA_VERSION = 1
-RULESET_VERSION = "2026-10-engine-2"
+RULESET_VERSION = "2026-10-review-3"
 
 
 def digest(value: Any) -> str:
@@ -92,7 +92,7 @@ def document(board: Board, *, prompt: str = "", verdicts: list[Verdict] | None =
     explicit = explicit_requirements(prompt)
     defaults = asdict(Requirements())
     requirements = [{"field": name, "value": value,
-                     "basis": "confirmed" if name in confirmed else "stated" if name in explicit and explicit[name] == value
+                     "basis": "confirmed" if name in confirmed else "stated" if name in explicit and (explicit[name] == value or isinstance(value, (list, tuple)) and list(explicit[name]) == list(value))
                      else "assumed" if value == defaults[name] else "inferred"}
                     for name, value in asdict(board.requirements).items()]
     evidence = [{"slot": key, "mpn": slot.part.mpn, "manufacturer": slot.part.manufacturer,

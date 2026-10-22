@@ -670,7 +670,7 @@ def _check_rail_current(board: Board, rail: Rail) -> Verdict | None:
         evidence += tuple(row for key in assumed_conversion
                           for row in efficiency_evidence(board.part(key), key, (ASSUMED_EFFICIENCY, ASSUMED_EFFICIENCY)))
         ideal_draw, _ = rail_current.rail_draw(board, consumers, ideal=True)
-        if ideal_draw * (1 + margin) <= limit:
+        if ideal_draw * (1 + margin) <= limit and not unstated:
             return Verdict("current_budget", "warn",
                 f"Estimated {fmt.milliamps(required)} including margin on {rail.id}, against {fmt.milliamps(limit)}. "
                 "Converter efficiency is assumed; the input-current budget requires measured efficiency at this load.",
@@ -699,15 +699,15 @@ def _check_rail_current(board: Board, rail: Rail) -> Verdict | None:
     if unstated:
         names = fmt.listing([board.part(s).mpn for s in unstated])  # type: ignore[union-attr]
         verb = "states" if len(unstated) == 1 else "state"
-        headroom = fmt.percent(1 - draw / limit) if limit else "?"
         return Verdict(
             rule="current_budget",
             scope=rail.id,
             status="warn",
             unchecked=True,
             detail=(
-                f"At least {fmt.milliamps(draw)} of {fmt.milliamps(limit)} on {rail.id}, "
-                f"leaving {headroom} — but {names} {verb} no draw, so the real figure is higher."
+                (f"At least {fmt.milliamps(draw)} known load on {rail.id}. " if draw > 0 else f"Load on {rail.id} is unknown. ")
+                + f"{supply} is rated {fmt.milliamps(limit)}, but {names} {verb} no draw. "
+                "Available headroom cannot be determined."
             ),
             subject=subject,
             involved=involved,

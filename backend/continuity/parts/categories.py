@@ -265,6 +265,11 @@ CATEGORIES: dict[str, Category] = {
         "indicator LEDs, optocouplers, LED drivers", "Optoelectronics", "LED Drivers",
         subcategories=("LED Indication - Discrete",),
     ),
+    "switch": _category(
+        "push buttons and tactile switches", "Switches",
+        subcategories=("Tactile Switches",),
+        defining_shelves=True,
+    ),
     "connector": _category(
         "headers, sockets, card slots, terminals, battery holders",
         "Connectors",

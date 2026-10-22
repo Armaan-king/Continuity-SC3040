@@ -422,8 +422,8 @@ async def choose(candidate: Candidate) -> PartSpec:
     )
     from ..designs.context import stage
     async def work():
-        return asdict(await normalize.normalize(candidate, fetch_missing_theta_ja=missing_theta_ja))
-    values = await stage("normalize_verified_v2", asdict(candidate), work)
+        return asdict(await normalize.normalize(candidate, fetch_missing_theta_ja=missing_theta_ja, research_missing=False))
+    values = await stage("normalize_classified_v3", asdict(candidate), work)
     return PartSpec(**{**values, "interfaces": tuple(values.get("interfaces", ()))})
 
 
@@ -450,7 +450,13 @@ async def compare_candidates(found: SearchResults, board, slot_id: str, *, on_ca
         ranked.append((score, candidate, part))
     ranked.sort(key=lambda entry: entry[0])
     best = ranked[0]
-    return best[1], best[2], [{"mpn": c.mpn, "failures": score[0], "new_failures": score[1], "unknown": score[2],
+    # Spend retrieval on the selected candidate, not all three compared parts.
+    from ..parts import research
+    chosen = best[2]
+    missing = research.missing_fields(chosen)
+    documents = chosen.research or await research.investigate(chosen, missing)
+    chosen = replace(chosen, research=documents)
+    return best[1], chosen, [{"mpn": c.mpn, "failures": score[0], "new_failures": score[1], "unknown": score[2],
                             "unit_price": p.unit_price, "stock": p.stock} for score, c, p in ranked]
 
 

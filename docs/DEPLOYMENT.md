@@ -29,6 +29,17 @@ Replace any Gemini model/base-URL values above. Remove `CONTINUITY_LLM_API_KEY` 
 
 Save the environment and **manually deploy the latest commit**. Updating GitHub or the local ignored `backend/.env` does not update the running service automatically. No GitHub account linking is required for an already configured public-repository service.
 
+The review and prompt update needs no additional Neon changes or mandatory environment variables. Optional application usage limits have these defaults:
+
+| Key | Default | Scope |
+| --- | --- | --- |
+| `CONTINUITY_LLM_MAX_CALLS` | `40` | Model HTTP attempts per execution, including retries |
+| `CONTINUITY_LLM_TOKEN_BUDGET` | `120000` | Estimated reserved tokens, replaced with actual reported usage after success |
+| `CONTINUITY_RESEARCH_MAX_CALLS` | `6` | Exa requests per run, persisted across restarts |
+| `CONTINUITY_RESEARCH_BUDGET_USD` | `0.12` | Exa estimated request budget, not a provider billing cap |
+
+Keep the existing Groq and Exa keys. Groq planning uses strict JSON Schema output on GPT-OSS; missing or invalid plans still fail explicitly into the basic fallback. Saving an answer or requirement revalidates stored components without additional model/research requests and returns to the updated planning workspace. Old reports retain their historical results; a saved edit creates a new revision using the current rules. New LLM executions get a fresh allowance, while saved stages avoid repeating completed work.
+
 After deployment, open `/api/runtime`. The `ai` object should report:
 
 ```json

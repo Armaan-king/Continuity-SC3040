@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import copy
 import json
 import logging
 import math
@@ -115,9 +116,31 @@ def parse_json(text: str) -> dict[str, Any]:
 
 
 async def complete_json(
-    system: str, user: str, *, temperature: float = 0.0, effort: str = MINIMAL
+    system: str, user: str, *, temperature: float = 0.0, effort: str = MINIMAL, schema: dict | None = None
 ) -> dict[str, Any]:
+    from .designs.context import current
+    from .designs.service import digest
+
+    context = current.get()
+    if context is None:
+        return await _complete_json(system, user, temperature=temperature, effort=effort, schema=schema)
+    config = configuration()
+    key = digest([config.provider, config.base_url, config.model, config.max_tokens, system, user, temperature, effort, schema])
+    # Serialize provider calls within a run and coalesce identical requests. The cache
+    # stays execution-local; user briefs never leak through a process-wide cache.
+    async with context.llm_lock:
+        if key in context.llm_cache:
+            return copy.deepcopy(context.llm_cache[key])
+        if context.llm_unavailable:
+            raise LLMUnavailable(context.llm_unavailable)
+        result = await _complete_json(system, user, temperature=temperature, effort=effort, schema=schema)
+        context.llm_cache[key] = copy.deepcopy(result)
+        return result
+
+
+async def _complete_json(system: str, user: str, *, temperature: float, effort: str, schema: dict | None = None) -> dict[str, Any]:
     from openai import APIConnectionError, APIStatusError, APITimeoutError, AsyncOpenAI
+    from .designs.context import current
 
     config = configuration()
     if not config.enabled:
@@ -139,16 +162,29 @@ async def complete_json(
             # GPT-OSS accepts low/medium/high, not the legacy "minimal" setting.
             # Low reasoning leaves more of the completion budget for the JSON result.
             parameters["reasoning_effort"] = effort if effort in {"low", "medium", "high"} else "low"
+            if schema:
+                parameters["response_format"] = {"type": "json_schema", "json_schema": {
+                    "name": "continuity_response", "strict": True, "schema": schema}}
     started = time.monotonic()
     failure = "unusable response"
+    context = current.get()
     async with AsyncOpenAI(api_key=config.key, base_url=config.base_url,
                            timeout=TIMEOUT_S, max_retries=0) as client:
         for attempt in range(MAX_ATTEMPTS):
+            reservation = (len(system) + len(user) + (len(json.dumps(schema)) if schema else 0)) // 3 + config.max_tokens
+            if context:
+                if (context.llm_calls >= integer("CONTINUITY_LLM_MAX_CALLS", 40, maximum=100)
+                        or context.llm_tokens + reservation > integer("CONTINUITY_LLM_TOKEN_BUDGET", 120000, maximum=1000000)):
+                    raise LLMUnavailable("The run's AI request or token budget is exhausted; unresolved work remains visible.")
+                context.llm_calls += 1
+                context.llm_tokens += reservation
             delay = float(1 + attempt)
             try:
                 response = await client.chat.completions.create(**parameters)
                 result = parse_json(response.choices[0].message.content or "")
                 usage = response.usage
+                if context and usage and isinstance(usage.total_tokens, int):
+                    context.llm_tokens += usage.total_tokens - reservation
                 log.info("llm provider=%s model=%s elapsed_ms=%d tokens=%s",
                          config.provider, config.model, (time.monotonic() - started) * 1000,
                          usage.total_tokens if usage else "unknown")
@@ -164,6 +200,8 @@ async def complete_json(
                 elif exc.status_code == 404:
                     failure += " (check the model ID and API base URL)"
                 if exc.status_code not in {408, 409, 429} and exc.status_code < 500:
+                    if context:
+                        context.llm_unavailable = f"{config.provider}: {failure}."
                     break
                 # Respect a short provider cooldown. A daily quota or long wait
                 # should use the fallback, not immediately repeat the same request.
@@ -173,6 +211,8 @@ async def complete_json(
                     retry_after = None
                 if retry_after is not None and math.isfinite(retry_after) and retry_after >= 0:
                     if retry_after > MAX_RETRY_DELAY_S:
+                        if context:
+                            context.llm_unavailable = f"{config.provider}: {failure}."
                         break
                     delay = max(delay, retry_after)
             except (APIConnectionError, APITimeoutError):
@@ -182,4 +222,6 @@ async def complete_json(
             if attempt + 1 < MAX_ATTEMPTS:
                 await asyncio.sleep(delay)
     # Never echo provider response bodies, which can contain prompts or secrets.
+    if context and "HTTP 429" in failure:
+        context.llm_unavailable = f"{config.provider}: {failure}."
     raise LLMUnavailable(f"{config.provider}: {failure}.")

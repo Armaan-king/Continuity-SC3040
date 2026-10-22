@@ -1,0 +1,68 @@
+{
+  "provider": {
+    "configured": true,
+    "provider": "groq",
+    "model": "openai/gpt-oss-120b",
+    "mode": "ai"
+  },
+  "planning_pass": true,
+  "source": "battery-3v7",
+  "input_voltage": 3.7,
+  "capacity_left_unknown": true,
+  "slots": {
+    "charger": "USB-C Li-ion Charger",
+    "regulator": "3.3V LDO Regulator",
+    "mcu": "Low Power MCU",
+    "accel": "Accelerometer Sensor",
+    "button": "Arm/Disarm Button",
+    "led": "Status LED",
+    "buzzer": "Alarm Buzzer"
+  },
+  "planner_reply_slots": [
+    [
+      {
+        "id": "charger",
+        "tier": "power",
+        "category": "charger"
+      },
+      {
+        "id": "regulator",
+        "tier": "power",
+        "category": "regulator"
+      },
+      {
+        "id": "mcu",
+        "tier": "core",
+        "category": "mcu"
+      },
+      {
+        "id": "accel",
+        "tier": "peripherals",
+        "category": "sensor"
+      },
+      {
+        "id": "button",
+        "tier": "passives",
+        "category": "switch"
+      },
+      {
+        "id": "led",
+        "tier": "peripherals",
+        "category": "led"
+      },
+      {
+        "id": "buzzer",
+        "tier": "peripherals",
+        "category": "audio"
+      }
+    ]
+  ],
+  "groq_requests": 1,
+  "llm_accounted_tokens": 3509,
+  "research_pass": false,
+  "exa_requests": 0,
+  "exa_reported_cost_usd": 0,
+  "research_documents": 0,
+  "research_errors": [],
+  "cached_search_reused": true
+}

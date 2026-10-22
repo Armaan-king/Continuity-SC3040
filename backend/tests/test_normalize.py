@@ -290,6 +290,21 @@ def test_a_real_datasheet_is_preferred_when_one_exists(monkeypatch):
     assert part.datasheet == "https://sensirion.com/sht40.pdf"
 
 
+def test_research_receives_the_enriched_datasheet_not_only_a_raw_candidate(monkeypatch):
+    from unittest.mock import AsyncMock
+    from continuity.parts import research
+
+    monkeypatch.setattr(normalize.llm, "available", lambda: False)
+    monkeypatch.setattr(normalize.search, "enrich", AsyncMock(return_value=normalize.search.Enrichment(datasheet="https://sensirion.com/sht40.pdf")))
+    investigate = AsyncMock(return_value=())
+    monkeypatch.setattr(research, "investigate", investigate)
+    part = asyncio.run(normalize.normalize(CANDIDATE, use_cache=False))
+    source_part, missing = investigate.call_args.args
+    assert source_part.datasheet == "https://sensirion.com/sht40.pdf"
+    assert source_part.mpn == part.mpn
+    assert "vmin" not in missing
+
+
 async def _plain(_mpn):
     return normalize.search.Enrichment()
 
@@ -508,7 +523,9 @@ def test_live_lookup_starts_before_the_llm_returns(monkeypatch):
 
     monkeypatch.setattr(normalize.search, "live_stock", live)
     monkeypatch.setattr(normalize.llm, "complete_json", reply)
-    asyncio.run(normalize.normalize(CANDIDATE, use_cache=False))
+    # An ambiguous supplier shelf exercises the model path; known sensor + interface
+    # now takes the cheaper deterministic classification path.
+    asyncio.run(normalize.normalize(replace(CANDIDATE, category="Unknown"), use_cache=False))
 
     assert events.index("live lookup started") < events.index("llm returned")
 

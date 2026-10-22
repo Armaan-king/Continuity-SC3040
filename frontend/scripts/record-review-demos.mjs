@@ -15,7 +15,7 @@ const output = path.join(root, 'docs/media')
 await mkdir(output, { recursive: true })
 const { credentials, ...session } = JSON.parse(await readFile(path.join(work, 'session.json'), 'utf8'))
 const report = { ...session, recordedAt: new Date().toISOString(), viewport: { width: 1440, height: 900 },
-  source: 'Real local production frontend and PostgreSQL; reference design; live Exa retrieval during preparation', clips: [] }
+  source: 'Real local production frontend and PostgreSQL; reference design; saved Exa retrieval reused without additional research calls', clips: [] }
 const browser = await chromium.launch()
 let context
 const reviewURL = `/projects/${session.projectId}/review`
@@ -26,7 +26,7 @@ async function settle(page, milliseconds = 2200) {
 }
 
 async function top(page) {
-  await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'smooth' }))
+  await page.getByRole('link', { name: 'Back to workspace' }).scrollIntoViewIfNeeded()
   await settle(page, 800)
 }
 
@@ -37,6 +37,15 @@ async function activeRevision(page) {
   const result = await page.request.get(`/api/revisions/${id}`)
   assert(result.ok())
   return result.json()
+}
+
+async function revisedWorkspace(page, mark) {
+  await expect(page).toHaveURL(`${baseURL}/design/${session.projectId}`)
+  await expect(page.getByTestId('revision-notice')).toContainText('Revision saved and revalidated')
+  mark('Return to the planning workspace with the revised board')
+  await settle(page, 3000)
+  await page.getByRole('link', { name: 'Review design', exact: true }).click()
+  await expect(page.getByRole('region', { name: 'Validation counts' })).toBeVisible()
 }
 
 async function capture(name, run) {
@@ -88,16 +97,24 @@ try {
     mark('Validation report: passes, failures and unknowns')
     await page.screenshot({ path: path.join(output, 'design-review-poster.png') })
     await settle(page, 3500)
+    const question = page.getByRole('form', { name: 'What operating temperature range must the device tolerate?' })
+    await question.scrollIntoViewIfNeeded()
+    mark('Answer a review question and save a new revision')
+    await question.getByRole('button', { name: 'Confirm & revalidate' }).click()
+    await revisedWorkspace(page, mark)
+    await expect(question).toHaveCount(0)
+    await top(page)
     await page.getByRole('button', { name: 'requirements', exact: true }).click()
     await settle(page)
     mark('Edit a requirement and revalidate')
     await page.getByRole('spinbutton', { name: 'input voltage', exact: true }).fill('5')
     await settle(page, 1800)
     await page.getByRole('button', { name: 'Save and revalidate', exact: true }).click()
+    await revisedWorkspace(page, mark)
     await expect(page.getByLabel('Viewing revision')).toContainText('Requirements updated and revalidated')
     await top(page)
     await page.getByRole('button', { name: 'report', exact: true }).click()
-    const sensorFinding = page.locator('article').filter({ hasText: 'voltage overlap · sensor' })
+    const sensorFinding = page.locator('article').filter({ hasText: 'voltage overlap' }).filter({ hasText: 'SHT40' })
     await expect(sensorFinding).toContainText('FAIL')
     await sensorFinding.scrollIntoViewIfNeeded()
     mark('The 5 V supply creates a new voltage conflict')
@@ -114,6 +131,7 @@ try {
     await expect(page.getByRole('button', { name: 'Restore this revision', exact: true })).toBeEnabled()
     await settle(page, 1800)
     await page.getByRole('button', { name: 'Restore this revision', exact: true }).click()
+    await revisedWorkspace(page, mark)
     await expect(page.getByLabel('Viewing revision')).toContainText('Earlier revision restored and revalidated')
     mark('Restore creates a new revalidated revision')
     await settle(page, 3500)
@@ -122,7 +140,8 @@ try {
     assert.equal(restored.document.board.requirements.input_voltage, 3.3)
     assert.equal(restored.parent_id, changed.id)
     await page.getByRole('button', { name: 'report', exact: true }).click()
-    await expect(page.locator('article').filter({ hasText: 'voltage overlap · sensor' })).toContainText('PASS')
+    await page.getByRole('button', { name: 'All checks', exact: true }).click()
+    await expect(page.locator('article').filter({ hasText: 'voltage overlap' }).filter({ hasText: 'SHT40' })).toContainText('PASS')
     await settle(page)
     mark('Export the same revision as a report and BOM')
     for (const [label, file] of [['Export report', 'report.json'], ['Export BOM', 'bom.csv']]) {
@@ -151,10 +170,12 @@ try {
     await settle(page)
     mark('Review the saved reference design')
     await settle(page, 2500)
-    const detail = page.locator('details').filter({ hasText: 'SHT40-AD1B-R2' })
+    const card = page.locator('#evidence-sensor')
+    await card.getByText('Inspect facts & documents', { exact: true }).click()
+    const detail = card.locator('details details').first()
     await detail.locator('summary').scrollIntoViewIfNeeded()
     await detail.locator('summary').click()
-    await expect(detail).toContainText('Requires verification')
+    await expect(detail).toContainText('requires verification')
     await detail.evaluate(element => element.scrollIntoView({ block: 'start', behavior: 'smooth' }))
     mark('Exa sources remain visibly unverified')
     await settle(page, 3000)
@@ -180,11 +201,14 @@ try {
     await page.getByRole('button', { name: 'Save connections and revalidate', exact: true }).scrollIntoViewIfNeeded()
     await settle(page, 3500)
     await page.getByRole('button', { name: 'Save connections and revalidate', exact: true }).click()
+    await revisedWorkspace(page, mark)
     await expect(page.getByLabel('Viewing revision')).toContainText('Connections updated and revalidated')
     await top(page)
     await page.getByRole('button', { name: 'report', exact: true }).click()
-    const interfaceFinding = page.locator('article').filter({ hasText: 'interface role match · sensor · sensor-i2c' })
-    await expect(interfaceFinding).toContainText('physical pin assignment still requires review')
+    await page.getByRole('button', { name: 'All checks', exact: true }).click()
+    const sensorChecks = page.getByRole('heading', { name: 'Humidity Sensor', exact: true }).locator('..').locator('..')
+    const interfaceFinding = sensorChecks.locator('article').filter({ hasText: 'interface role match' }).filter({ hasText: 'sensor-i2c' })
+    await expect(interfaceFinding).toContainText('physical pins and timing still require review')
     await interfaceFinding.scrollIntoViewIfNeeded()
     mark('Validate the declared bus; physical pins still require review')
     await settle(page, 4500)

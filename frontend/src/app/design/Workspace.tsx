@@ -28,6 +28,7 @@ type WorkspaceViewProps = {
   walkthrough?: boolean
   walkthroughStep?: number
   session: DesignSession
+  revisionNotice?: string
   tourConflict?: TourConflict
   tourConflictOpen?: boolean
   tourConflictSlots?: Slot[]
@@ -60,6 +61,7 @@ export function WorkspaceView({
   walkthrough = false,
   walkthroughStep,
   session,
+  revisionNotice,
   tourConflict,
   tourConflictOpen = false,
   tourConflictSlots,
@@ -246,6 +248,10 @@ export function WorkspaceView({
           </button>
         </div>
       </header>
+      {revisionNotice && <div role="status" data-testid="revision-notice" className="flex-shrink-0 border-b border-primary-container/30 bg-primary-container/5 px-lg py-3 text-body-sm">
+        <span className="text-primary-container">{revisionNotice}</span>
+        <span className="ml-2 text-on-surface-variant">Open Review design to answer remaining questions or inspect unresolved checks.</span>
+      </div>}
 
       <div className="flex flex-1 min-h-0 overflow-hidden">
         <main className="flex flex-1 min-h-0 p-gutter gap-gutter bg-background overflow-hidden relative">

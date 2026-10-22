@@ -7,7 +7,7 @@ The recordings follow the reader's path through the app: introduction, project c
 | [Guided walkthrough](guided-walkthrough.mp4) | Account creation and the seven-step introduction provided by the current app |
 | [Project workflow](project-workflow.mp4) | Sign in, create a project, enter a brief, source real parts, review a repaired conflict, export CSV, reopen and reload the saved board, visit analytics and memory, and sign out |
 | [Exa evidence and connections](research-connections.mp4) | Inspect an actual retrieved document and its verification label, review limits, declare I²C controller/peripheral connections, confirm reference power connections, and revalidate |
-| [Design review and revisions](design-review.mp4) | Open the report, change 3.3 V to 5 V, inspect the voltage conflict, compare revisions, restore, export JSON/CSV, and reload the workspace |
+| [Design review and revisions](design-review.mp4) | Open the visual report, answer a requirement question, return to the revised workspace, change 3.3 V to 5 V, inspect the voltage conflict, compare revisions, restore, export JSON/CSV, and reload |
 | [Walkthrough animated preview](walkthrough.gif) | A short excerpt of the guided walkthrough, sized for the main README |
 | [Review animated preview](design-review.gif) | A short excerpt showing the requirement edit, new conflict and comparison |
 | [Workflow capture metadata](capture.json) | Recording time, viewport, video durations, approximate chapters, file sizes, and verified run outcome |
@@ -17,7 +17,7 @@ The guided walkthrough intentionally replays the app's existing historical examp
 
 The project workflow uses **basic planning with AI disabled** and live distributor requests. It accepts no warnings on the user's behalf. A completed workflow can still have unchecked facts; its result is not a manufacturing certification.
 
-The **review and research clips** use a manually assembled reference board with an ESP32 module and SHT40 sensor. Measurements, prices and stock come from committed historical distributor fixtures, parsed by the current deterministic parser. The app's normal database, revision commands, validation, exports and restoration are real; HTTP responses are not mocked. The board retains a controller temperature failure and unknown checks. No warning is silently accepted to make the demonstration appear successful.
+The **review and research clips** use a manually assembled reference board with an ESP32 module and SHT40 sensor. Measurements, prices and stock come from saved distributor fixtures, parsed by the current deterministic parser. They are historical recording inputs, not current inventory claims; later recordings may show different saved prices or stock. The app's normal database, revision commands, validation, exports and restoration are real; HTTP responses are not mocked. The board retains a controller temperature failure and unknown checks. No warning is silently accepted to make the demonstration appear successful.
 
 Exa Search and Contents were called during preparation, returning an Ampheo source page for SHT40-AD1B-R2. The visual retake reused that actual response, including its retrieval timestamp, and made no further Exa calls. The UI labels its text **Requires verification**; displaying a source does not establish its claims. Gemini/AI planning was disabled throughout capture. These clips do not demonstrate fresh live supplier stock, AI-generated planning, physical electrical verification, or restart recovery.
 
@@ -77,9 +77,9 @@ Review the videos, screenshots, metadata, and README together before committing.
 
 ## Review feature verification
 
-The capture assertions verify that the 5 V edit creates new voltage failures; the original revision remains available; restore creates a new child revision at 3.3 V; report, CSV and reloaded workspace identify the same revision; and saved signal connections are revalidated. Exa content remains unverified after connection confirmation. Both recordings finish without unexpected browser errors. FFmpeg decodes every published MP4/GIF frame, and sampled chapter frames are inspected for legibility. [Review capture checks](review-checks.log).
+The capture assertions verify that answering a question, editing a requirement, restoring a revision and saving connections each return to the revised planning workspace. The 5 V edit creates new voltage failures; the original revision remains available; restore creates a new child revision at 3.3 V; report, CSV and reloaded workspace identify the same revision; and saved signal connections are revalidated. Exa content remains unverified after connection confirmation. Both recordings finish without unexpected browser errors. FFmpeg decodes every published MP4/GIF frame, and sampled chapter frames are inspected for legibility. [Review capture checks](review-checks.log).
 
-The review video is approximately 40 seconds; evidence and connections approximately 28 seconds. Exact durations and chapter timestamps are in [review-capture.json](review-capture.json). Visual review prompted a retake to bring the evidence and connection controls into view more clearly. Only the verified final takes are published.
+The review video is approximately 50 seconds; evidence and connections approximately 31 seconds. Exact durations and chapter timestamps are in [review-capture.json](review-capture.json). Retakes updated selectors and expected validation wording after the review redesign; they reused the saved Exa response. Only the verified final takes are published.
 
 ### Re-record the review features
 

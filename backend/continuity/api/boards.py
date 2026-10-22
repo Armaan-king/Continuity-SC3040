@@ -5,6 +5,30 @@ from __future__ import annotations
 from typing import Any
 
 
+def revision_trace(revision: dict[str, Any], thread_id: str) -> list[dict[str, Any]]:
+    """Present saved findings after an edit; never replay stale run checks as current.
+
+    These are display events, not appended to the run log. Its original trace and
+    immutable revisions remain available for history and audit.
+    """
+    from .events import EventStream
+    from ..engine.models import Evidence, Verdict
+
+    stream = EventStream(thread_id)
+    result = [stream.reasoning(None, "Saved revision revalidated. The following checks use the current requirements, components and connections. No new AI sourcing run was started.")]
+    for finding in revision["document"]["report"]["findings"]:
+        failed = finding["outcome"] == "FAIL"
+        accepted = finding.get("accepted", False)
+        result.append(stream.check(Verdict(
+            rule=finding["rule"], subject=finding["subject"], scope=finding.get("scope"),
+            status="fail" if failed and not accepted else "warn" if finding["severity"] == "warning" or accepted else "pass",
+            detail=finding["detail"], unchecked=finding["outcome"] == "UNKNOWN",
+            accepted=accepted, original_status="fail" if failed and accepted else None,
+            evidence=tuple(Evidence(**item) for item in finding["evidence"]),
+        )))
+    return result
+
+
 def recorded_board(trace: list[dict[str, Any]]) -> dict[str, Any] | None:
     for event in reversed(trace):
         if event.get("type") == "board":

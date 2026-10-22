@@ -42,6 +42,9 @@ def test_revision_edit_export_and_ownership():
             board = (await http.get("/threads/revision-reference/board")).json()
             assert board["revision_id"] == updated
             assert board["summary"]["failures"] >= 1
+            trace_voltage = next(e for e in board["trace"] if e["type"] == "check" and e["rule"] == "voltage_overlap")
+            assert trace_voltage["status"] == "fail"
+            assert trace_voltage["detail"] == voltage["detail"]
             exported = await http.get(f"/revisions/{updated}/bom.csv")
             assert updated in exported.text and "REFERENCE-SENSOR" in exported.text
             assert (await http.get(f"/revisions/{updated}/report.json")).json()["revision_id"] == updated
@@ -51,6 +54,9 @@ def test_revision_edit_export_and_ownership():
             assert restored_id not in {original, updated}
             restored_document = (await http.get(f"/revisions/{restored_id}")).json()
             assert restored_document["parent_id"] == updated
+            restored_board = (await http.get("/threads/revision-reference/board")).json()
+            assert restored_board["revision_id"] == restored_id
+            assert next(e for e in restored_board["trace"] if e["type"] == "check" and e["rule"] == "voltage_overlap")["status"] == "pass"
             assert restored_document["document"]["board"]["requirements"]["input_voltage"] == before["document"]["board"]["requirements"]["input_voltage"]
             assert (await http.get(f"/revisions/{original}")).json() == before
             async with signed_in("other@example.com") as other:
@@ -58,6 +64,43 @@ def test_revision_edit_export_and_ownership():
                     assert (await other.get(path)).status_code == 404
             await store.delete_project(project.id, user.id)
             assert await store.revision_for_user(updated, user.id) is None
+    asyncio.run(go())
+
+
+def test_answering_review_question_confirms_requirement_without_rewriting_history():
+    async def go():
+        async with a_store() as store, signed_in() as http:
+            _, _, original = await seed(store, http)
+            before = (await http.get(f"/revisions/{original}")).json()
+            assert 'temp_range' in {q['field'] for q in before['guidance']['questions']}
+            saved = await http.post(f"/revisions/{original}/requirements", json={
+                'expected_revision': original, 'temp_range': [-10, 60]})
+            assert saved.status_code == 200
+            after = (await http.get(f"/revisions/{saved.json()['revision_id']}")).json()
+            assert 'temp_range' not in {q['field'] for q in after['guidance']['questions']}
+            requirement = next(r for r in after['document']['requirements'] if r['field'] == 'temp_range')
+            assert requirement['basis'] == 'confirmed'
+            assert requirement['value'] == [-10, 60]
+            assert (await http.get(f"/revisions/{original}")).json() == before
+            stale = await http.post(f"/revisions/{original}/requirements", json={
+                'expected_revision': original, 'lifetime_hours': 72})
+            assert stale.status_code == 409
+    asyncio.run(go())
+
+
+def test_unknown_answers_and_supply_selection_are_validated():
+    async def go():
+        async with a_store() as store, signed_in() as http:
+            _, _, original = await seed(store, http)
+            for changes in ({'temp_range': [70, 0]}, {'supply_capacity_mah': -1}, {'input_source': 'invented'}, {'current_margin': None}):
+                response = await http.post(f"/revisions/{original}/requirements", json={'expected_revision': original, **changes})
+                assert response.status_code == 422
+            response = await http.post(f"/revisions/{original}/requirements", json={
+                'expected_revision': original, 'input_source': 'battery-3v7'})
+            assert response.status_code == 200
+            after = (await http.get(f"/revisions/{response.json()['revision_id']}")).json()
+            assert after['document']['board']['rails']['input']['voltage'] == 3.7
+            assert after['document']['board']['requirements']['supply_capacity_mah'] is None
     asyncio.run(go())
 
 

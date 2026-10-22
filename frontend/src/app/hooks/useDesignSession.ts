@@ -33,7 +33,7 @@ export type EventSource = {
     requestId?: string,
   ) => void
   startDemo: (onEvent: (event: DesignEvent) => void) => void
-  answer: (text: string) => void
+  answer: (text: string, question?: QuestionEvent) => void
   continueRun: (threadId: string, onEvent: (event: DesignEvent) => void) => void
   restore: (threadId: string, onEvent: (event: DesignEvent) => void, lastSeq?: number) => void
   reconnect: (threadId: string, onEvent: (event: DesignEvent) => void) => void
@@ -144,6 +144,7 @@ function updateSlotStatus(slots: Slot[], slotId: string, update: (slot: Slot) =>
 }
 
 function inferConflictSlot(event: ConflictEvent) {
+  if (event.subject) return event.subject
   if (event.evidence[0]?.slot) {
     return event.evidence[0].slot
   }
@@ -168,6 +169,9 @@ export function useDesignSession() {
   const [canContinue, setCanContinue] = useState(false)
   const [activeRepair, setActiveRepair] = useState<ActiveRepair>(null)
   const [slotConflictVariant, setSlotConflictVariant] = useState<Record<string, SlotConflictVariant>>({})
+  const [threadId, setThreadId] = useState<string | null>(null)
+  const finalBoardRef = useRef(false)
+  const answeringRef = useRef(false)
 
   const threadRef = useRef<string | null>(null)
   const lastSeqRef = useRef<number>(-1)
@@ -417,6 +421,9 @@ export function useDesignSession() {
     setReasoning([])
     setInFlightReasoningSeq(null)
     setSummary(null)
+    setThreadId(null)
+    finalBoardRef.current = false
+    answeringRef.current = false
     repairedRef.current = false
     setBom(null)
     setQuestion(null)
@@ -431,15 +438,18 @@ export function useDesignSession() {
   const handleEvent = useCallback(
     (event: DesignEvent) => {
       if (event.type === 'error' && event.seq < 0) {
+        answeringRef.current = false
         setReasoning((previous) => [...previous, event])
-        setStatus('error')
-        setCanContinue(event.recoverable && threadRef.current !== null)
+        setQuestion(event.retry_question ?? null)
+        setStatus(event.retry_question ? 'paused' : 'error')
+        setCanContinue(!event.retry_question && event.recoverable && threadRef.current !== null)
         flushPresentationFlow()
         disposePresentationFlow()
         return
       }
       if (threadRef.current === null) {
         threadRef.current = event.thread_id
+        setThreadId(event.thread_id)
       }
 
       if (event.thread_id !== threadRef.current) {
@@ -451,6 +461,7 @@ export function useDesignSession() {
       }
 
       lastSeqRef.current = event.seq
+      answeringRef.current = false
 
       // Replaying a resumed run can include a question that was already answered.
       // A later event supersedes that historical pause.
@@ -464,6 +475,22 @@ export function useDesignSession() {
       }
 
       switch (event.type) {
+        case 'board': {
+          flushPresentationFlow()
+          disposePresentationFlow()
+          finalBoardRef.current = true
+          setSlots(event.slots)
+          setEdges(event.edges)
+          setSupply(event.supply)
+          setRevealedSlotIds(new Set(event.slots.map((slot) => slot.id)))
+          const detail = event.conflicts[0]
+          setConflict(detail ? {
+            ...detail, type: 'conflict', seq: event.seq, thread_id: event.thread_id,
+            alternatives: [], repair_slot: null, repair_action: null,
+            target_slot: detail.subject ?? detail.involved[0] ?? null, beat: 1,
+          } : null)
+          return
+        }
         case 'plan': {
           setSlots((previous) => mergePlanSlots(previous, event.slots))
           setEdges((previous) => mergePlanEdges(previous, event.edges))
@@ -626,12 +653,18 @@ export function useDesignSession() {
           // a part. It has been on the wire since the vanishing-slot fix and nothing read
           // it, so a board missing a slot still reported "0 pending".
           setSummary(event.summary)
+          if (finalBoardRef.current) {
+            setQuestion(null)
+            setStatus('done')
+            setCanContinue(false)
+            return
+          }
           const activeConflict = conflictRef.current
           const keepEscalatedConflict = activeConflict?.repair_action === 'escalate'
 
           setQuestion(null)
           setStatus('done')
-          setConflict(keepEscalatedConflict ? activeConflict : null)
+          setConflict(keepEscalatedConflict || !repairedRef.current ? activeConflict : null)
           setSlots((previous) =>
             previous.map((slot) => {
               if (slot.status !== 'conflict') {
@@ -713,11 +746,22 @@ export function useDesignSession() {
     (board: ThreadBoard, threadId: string) => {
       resetSessionState()
       threadRef.current = threadId
+      setThreadId(threadId)
       lastSeqRef.current = board.trace.reduce((lastSeq, event) => Math.max(lastSeq, event.seq), -1)
       source.restore(threadId, handleEvent, lastSeqRef.current)
       setSlots(board.slots)
       setEdges(board.edges)
       setSupply(board.supply ?? null)
+      const detail = board.conflicts?.[0] ?? [...board.trace].reverse().find(
+        (event): event is ConflictEvent => event.type === 'conflict' && board.slots.some(
+          (slot) => slot.status === 'conflict' && slot.id === inferConflictSlot(event),
+        ),
+      )
+      if (detail) setConflict({
+        ...detail, type: 'conflict', seq: lastSeqRef.current, thread_id: threadId,
+        alternatives: [], repair_slot: null, repair_action: null,
+        target_slot: detail.subject ?? detail.involved[0] ?? null, beat: 1,
+      })
       // Only what the run actually reached. Revealing every declared slot is right for a
       // *finished* board, and wrong for one that stopped part-way: continuing an
       // interrupted run redrew all five empty frames at once, which is exactly the
@@ -726,7 +770,7 @@ export function useDesignSession() {
       setRevealedSlotIds(
         new Set(
           board.slots
-            .filter((slot) => slot.part !== null || slot.status === 'pass' || slot.status === 'conflict')
+            .filter((slot) => board.status === 'done' || slot.part !== null || slot.status === 'pass' || slot.status === 'conflict')
             .map((slot) => slot.id),
         ),
       )
@@ -768,18 +812,19 @@ export function useDesignSession() {
 
   const answer = useCallback(
     (text: string) => {
-      if (status === 'paused') {
-        setStatus('running')
-      }
+      if (status !== 'paused' || !question || !text.trim() || answeringRef.current) return
+      answeringRef.current = true
+      setStatus('running')
       setQuestion(null)
-      source.answer(text)
+      source.answer(text, question)
     },
-    [status],
+    [status, question],
   )
 
   const reconnect = useCallback((threadId: string) => {
     resetSessionState()
     threadRef.current = threadId
+    setThreadId(threadId)
     setStatus('running')
     source.reconnect(threadId, handleEvent)
   }, [handleEvent, resetSessionState])
@@ -814,6 +859,7 @@ export function useDesignSession() {
   }, [disposePresentationFlow])
 
   return {
+    threadId,
     slots,
     edges,
     supply,

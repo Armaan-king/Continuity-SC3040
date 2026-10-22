@@ -78,7 +78,7 @@ class FindingRecorder:
         involved = event.get("involved")
         if not isinstance(involved, list) or not involved or not isinstance(involved[0], str):
             return
-        slot = involved[0]
+        slot = event.get("subject") or involved[0]
         selected = self._selections.get(slot)
         rule = event.get("rule")
         verdict = event.get("message")

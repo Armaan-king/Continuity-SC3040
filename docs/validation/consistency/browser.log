@@ -1,0 +1,66 @@
+
+> frontend@0.0.0 test:e2e
+> playwright test
+
+npm.cmd : [WebServer] INFO:     Started server process [19712]
+At line:8 char:1
++ npm.cmd --prefix frontend run test:e2e 2>&1 | Tee-Object -FilePath do ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([WebServer] INF...process [19712]:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[WebServer] INFO:     Waiting for application startup.
+[WebServer] INFO:     Application startup complete.
+[WebServer] INFO:     Uvicorn running on http://127.0.0.1:8020 (Press CTRL+C to quit)
+[WebServer] (node:75272) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:76464) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:73264) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+Seeded e2e@continuity.dev: 25 completed runs, 3 excluded, 5 projects.
+
+Running 24 tests using 1 worker
+
+(node:62900) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 [chromium] › e2e\analytics.spec.ts:11:3 › validation analytics › a signed-out visitor is sent to sign in (3.4s)
+  ok  2 [chromium] › e2e\analytics.spec.ts:16:3 › validation analytics › the side rail opens the analysis from the projects page (589ms)
+  ok  3 [chromium] › e2e\analytics.spec.ts:27:3 › validation analytics › the overview counts only completed runs and names what was excluded (506ms)
+  ok  4 [chromium] › e2e\analytics.spec.ts:37:3 › validation analytics › every rule shows all four outcomes, and a mostly-unchecked rate is withheld with its reason (507ms)
+  ok  5 [chromium] › e2e\analytics.spec.ts:54:3 › validation analytics › hovering a bar segment shows its count and share (879ms)
+  ok  6 [chromium] › e2e\analytics.spec.ts:65:3 › validation analytics › repair effectiveness, supply exposure and recurring conflicts are all reported (659ms)
+  ok  7 [chromium] › e2e\analytics.spec.ts:85:3 › validation analytics › every figure on screen matches the API it was computed from (823ms)
+  ok  8 [chromium] › e2e\analytics.spec.ts:102:3 › validation analytics › viewing the analysis changes nothing (929ms)
+  ok  9 [chromium] › e2e\analytics.spec.ts:114:3 › validation analytics › an engineer with no completed runs sees an empty state, not an error (444ms)
+  ok 10 [chromium] › e2e\analytics.spec.ts:122:3 › validation analytics › when retrieval fails the page says so and shows no partial analysis (911ms)
+[WebServer] closing returned connection: <psycopg.AsyncConnection [ACTIVE] (host=127.0.0.1 port=55433 user=continuity 
+database=continuity_e2e) at 0x1a678d04ec0>
+[WebServer] Deserializing unregistered type continuity.engine.models.Requirements from checkpoint. This will be 
+blocked in a future version. Set LANGGRAPH_STRICT_MSGPACK=true to block now, or add to allowed_msgpack_modules to 
+allow explicitly: [('continuity.engine.models', 'Requirements')]
+[WebServer] Deserializing unregistered type continuity.engine.models.Slot from checkpoint. This will be blocked in a 
+future version. Set LANGGRAPH_STRICT_MSGPACK=true to block now, or add to allowed_msgpack_modules to allow explicitly: 
+[('continuity.engine.models', 'Slot')]
+[WebServer] Deserializing unregistered type continuity.engine.models.Rail from checkpoint. This will be blocked in a 
+future version. Set LANGGRAPH_STRICT_MSGPACK=true to block now, or add to allowed_msgpack_modules to allow explicitly: 
+[('continuity.engine.models', 'Rail')]
+[WebServer] Deserializing unregistered type continuity.planner.plan.Plan from checkpoint. This will be blocked in a 
+future version. Set LANGGRAPH_STRICT_MSGPACK=true to block now, or add to allowed_msgpack_modules to allow explicitly: 
+[('continuity.planner.plan', 'Plan')]
+  ok 11 [chromium] › e2e\consistency.spec.ts:4:1 › a conversational brief gets a stable name across workspace, projects and reload (1.0s)
+  ok 12 [chromium] › e2e\consistency.spec.ts:25:1 › starting a board preserves a name chosen by its owner (1.9s)
+  ok 13 [chromium] › e2e\consistency.spec.ts:36:1 › a failed clarification submission keeps the question available for retry (597ms)
+  ok 14 [chromium] › e2e\consistency.spec.ts:60:1 › final board preserves unresolved conflicts even after an earlier repair (533ms)
+  ok 15 [chromium] › e2e\regression.spec.ts:13:1 › the landing page renders (487ms)
+  ok 16 [chromium] › e2e\regression.spec.ts:20:1 › wrong credentials are refused without signing in (458ms)
+  ok 17 [chromium] › e2e\regression.spec.ts:28:1 › signing in lists every project, and signing out ends the session (799ms)
+  ok 18 [chromium] › e2e\regression.spec.ts:44:1 › a finished board opens with its trace and bill of materials, and exports as CSV (1.1s)
+  ok 19 [chromium] › e2e\regression.spec.ts:64:1 › the server-side CSV export still answers for a finished run (137ms)
+  ok 20 [chromium] › e2e\regression.spec.ts:77:1 › memory shows the parts and boards from past runs (464ms)
+  ok 21 [chromium] › e2e\regression.spec.ts:88:1 › the guided walkthrough still replays for a new account (4.9s)
+  ok 22 [chromium] › e2e\runtime.spec.ts:4:1 › local mode opens a usable brief screen without requiring an account (421ms)
+  ok 23 [chromium] › e2e\runtime.spec.ts:16:1 › local sign-in explains persistence and provides a working workspace link (455ms)
+  ok 24 [chromium] › e2e\runtime.spec.ts:27:1 › a dropped stream reconnects using the cursor without starting another design (487ms)
+
+  24 passed (34.0s)

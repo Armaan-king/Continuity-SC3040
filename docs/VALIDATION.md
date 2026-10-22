@@ -1,5 +1,7 @@
 # Validation report — 21 October 2026
 
+For the later naming and pipeline fixes, see the [22 October consistency verification](CONSISTENCY_VALIDATION.md). This report records the earlier architecture implementation.
+
 Implementation was completed before testing began. Failures found during verification were corrected and affected checks were rerun. Logs include unsuccessful attempts as well as the final results.
 
 ## Final results

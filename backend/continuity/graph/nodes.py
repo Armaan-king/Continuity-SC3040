@@ -504,7 +504,7 @@ def validate(state: DesignState, config) -> DesignState:
         # draw, so the real figure is higher") named the regulator as its subject and was
         # dropped. The board reported zero conflicts on the one number the brief was about.
         #
-        # A pass for another slot is noise; anything else is information the reader needs.
+        # A changed pass also matters: it replaces an earlier warning or stale rail draw.
         # The client keys checks by (rule, subject, scope), so re-sending one on a later
         # pass replaces it rather than accumulating.
         # …but only when it is *new or changed*. `validate` runs after every placement, so
@@ -516,9 +516,11 @@ def validate(state: DesignState, config) -> DesignState:
             (v.rule, v.subject, v.scope): v for v in (state.get("verdicts") or [])
         }
         for verdict in verdicts:
-            if verdict.subject == current or verdict.status == "pass":
+            if verdict.subject == current:
                 continue
             before = previous.get((verdict.rule, verdict.subject, verdict.scope))
+            if verdict.status == "pass" and before is None:
+                continue
             if before is not None and (before.status, before.detail) == (
                 verdict.status,
                 verdict.detail,
@@ -1116,6 +1118,10 @@ def finalize(state: DesignState, config) -> DesignState:
         rows.append(events.bom_row(slot_id, slot.part))
         total += slot.part.unit_price or 0.0
 
+    board = topology.Board(state["requirements"], state["slots"], state["rails"])
+    verdicts = state.get("verdicts") or []
+    _emit(ev.board(state["slots"].values(), topology.resolved_edges(board, verdicts), verdicts,
+                   topology.supply_node(topology.power_source(state["requirements"]))))
     _emit(ev.bom(rows, total))
     _emit(
         ev.done(
@@ -1123,6 +1129,8 @@ def finalize(state: DesignState, config) -> DesignState:
             placed=len(rows),
             conflicts_resolved=state.get("conflicts_resolved", 0),
             elapsed_s=time.time() - state.get("started_at", time.time()),
+            verdicts=verdicts,
+            stopped=bool(state.get("stopped")),
         )
     )
     thread_id = _thread_id(config)

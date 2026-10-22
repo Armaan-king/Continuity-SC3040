@@ -455,6 +455,35 @@ def test_a_finished_thread_hydrates_its_checkpointed_board():
     assert {edge["from"] for edge in body["edges"]} & {"__supply"}
     assert body["bom"]["rows"] == next(frame["rows"] for frame in frames if frame["type"] == "bom")
     assert body["summary"] == next(frame["summary"] for frame in frames if frame["type"] == "done")
+    final = next(frame for frame in frames if frame["type"] == "board")
+    assert body["slots"] == final["slots"]
+    assert body["edges"] == final["edges"]
+    assert body["conflicts"] == final["conflicts"]
+
+
+def test_uploaded_bom_restores_graph_and_failures_without_a_checkpoint(monkeypatch):
+    from tests import parts
+    from tests.test_bom_validation import _install_parts, _no_rails
+    _install_parts(monkeypatch, {"COMMERCIAL": parts.oled(mpn="COMMERCIAL", temp_min=0, temp_max=70)})
+    _no_rails(monkeypatch)
+    async def go():
+        async with a_store():
+            async with signed_in() as http:
+                project = (await http.post("/projects", json={"name": "Untitled board"})).json()
+                frames = await frames_of(http, "/bom/validate", {
+                    "bom": "mpn,qty\nCOMMERCIAL,3", "prompt": "Industrial display",
+                    "project_id": project["id"],
+                })
+                board = (await http.get(f"/threads/{frames[0]['thread_id']}/board")).json()
+                assert board["checkpoint"] == "recorded"
+                assert board["status"] == "done"
+                assert board["slots"][0]["status"] == "conflict"
+                assert board["slots"][0]["part"]["mpn"] == "COMMERCIAL"
+                assert board["bom"]["rows"][0]["qty"] == 3
+                assert board["summary"]["failures"] >= 1
+                assert any(c["rule"] == "temperature_rating" for c in board["conflicts"])
+                assert board["slots"] == next(f["slots"] for f in frames if f["type"] == "board")
+    run(go())
 
 
 def test_a_finished_thread_hydrates_its_trace_in_order_without_bom_frames():

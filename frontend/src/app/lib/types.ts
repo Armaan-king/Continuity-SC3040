@@ -189,6 +189,7 @@ export type ConflictEvent = EventBase<'conflict'> & {
   edge: string | null
   message: string
   evidence: Evidence[]
+  subject?: string
   edges?: EdgePatch[]
 }
 
@@ -203,7 +204,7 @@ export type RepairEvent = EventBase<'repair'> & {
 export type SelectionEvent = EventBase<'selection'> & {
   slot: string
   part: PartSpec
-  status: 'pass'
+  status: 'pass' | 'conflict'
   edges?: EdgePatch[]
 }
 
@@ -234,6 +235,15 @@ export type BomEvent = EventBase<'bom'> & {
   currency: string
 }
 
+export type BoardConflict = Omit<ConflictEvent, 'type' | 'seq' | 'thread_id'>
+
+export type BoardEvent = EventBase<'board'> & {
+  slots: Slot[]
+  edges: Edge[]
+  supply: SupplyNode | null
+  conflicts: BoardConflict[]
+}
+
 export type DoneEvent = EventBase<'done'> & {
   summary: {
     slots: number
@@ -242,12 +252,17 @@ export type DoneEvent = EventBase<'done'> & {
     placed?: number
     conflicts_resolved: number
     elapsed_s: number
+    failures?: number
+    warnings?: number
+    unchecked?: number
+    stopped?: boolean
   }
 }
 
 export type ErrorEvent = EventBase<'error'> & {
   message: string
   recoverable: boolean
+  retry_question?: QuestionEvent
 }
 
 export type DesignEvent =
@@ -261,5 +276,6 @@ export type DesignEvent =
   | SelectionEvent
   | QuestionEvent
   | BomEvent
+  | BoardEvent
   | DoneEvent
   | ErrorEvent

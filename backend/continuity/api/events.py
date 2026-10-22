@@ -128,6 +128,7 @@ class EventStream:
         event = self._event(
             "conflict",
             rule=verdict.rule,
+            subject=verdict.subject,
             involved=list(verdict.involved),
             edge=edge,
             message=verdict.detail,
@@ -176,8 +177,25 @@ class EventStream:
     def bom(self, rows: list[dict[str, Any]], total: float, currency: str = "USD") -> dict[str, Any]:
         return self._event("bom", rows=rows, total=round(total, 2), currency=currency)
 
+    def board(self, slots: Iterable[Slot], edges: Iterable[Edge], verdicts: Iterable[Verdict],
+              supply: dict[str, Any] | None = None) -> dict[str, Any]:
+        """Authoritative final state, shared by the live view and saved-board restore."""
+        failures = [v for v in verdicts if v.status == "fail"]
+        failing = {v.subject for v in failures}
+        return self._event(
+            "board", slots=[{**board_slot(s), "status": (
+                "pending" if s.part is None else "conflict" if s.id in failing else "pass"
+            )} for s in slots], edges=[_edge(e) for e in edges], supply=supply,
+            conflicts=[{
+                "rule": v.rule, "involved": list(v.involved), "edge": v.scope,
+                "message": v.detail, "subject": v.subject,
+                "evidence": [asdict(e) for e in v.evidence],
+            } for v in failures],
+        )
+
     def done(
-        self, slots: int, conflicts_resolved: int, elapsed_s: float, placed: int | None = None
+        self, slots: int, conflicts_resolved: int, elapsed_s: float, placed: int | None = None,
+        *, verdicts: Iterable[Verdict] | None = None, stopped: bool = False,
     ) -> dict[str, Any]:
         """`slots` is what was *planned*; `placed` is what actually reached the BOM.
 
@@ -185,7 +203,7 @@ class EventStream:
         derived from the survivors and could never disagree with itself. A board that
         lost a slot to an empty search reported complete.
         """
-        return self._event(
+        event = self._event(
             "done",
             summary={
                 "slots": slots,
@@ -194,6 +212,15 @@ class EventStream:
                 "elapsed_s": round(elapsed_s, 1),
             },
         )
+        if verdicts is not None:
+            results = list(verdicts)
+            event["summary"].update(
+                failures=sum(v.status == "fail" for v in results),
+                warnings=sum(v.status == "warn" and not v.unchecked for v in results),
+                unchecked=sum(v.unchecked for v in results),
+                stopped=stopped,
+            )
+        return event
 
     def error(self, message: str, recoverable: bool = True) -> dict[str, Any]:
         return self._event("error", message=message, recoverable=recoverable)
@@ -204,6 +231,13 @@ class EventStream:
 
 def _slot(slot: Slot) -> dict[str, Any]:
     return {"id": slot.id, "label": slot.label, "tier": slot.tier, "pinned": slot.pinned}
+
+
+def board_slot(slot: Slot) -> dict[str, Any]:
+    return {**_slot(slot), "status": slot.status,
+            "part": _part(slot.part) if slot.part else None,
+            "constraint": dict(slot.constraint) if slot.constraint is not None else None,
+            "repair_count": slot.repair_count}
 
 
 def _edge(edge: Edge) -> dict[str, Any]:

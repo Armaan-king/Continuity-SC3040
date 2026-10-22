@@ -76,3 +76,29 @@ def test_timeout_ends_stream_with_sanitized_monotonic_error():
         assert not event["recoverable"]
         assert manager.runs["continued"].finished
     asyncio.run(go())
+
+
+def test_question_is_not_visible_until_producer_has_persisted_the_pause():
+    async def go():
+        manager = RunManager()
+        pending = asyncio.Event()
+        persisted = asyncio.Event()
+        stream = EventStream("pause")
+        async def produce():
+            yield frame(stream.question("supply", "Which supply?", ["USB"]))
+            pending.set()
+            await persisted.wait()
+        await manager.start("pause", "owner", produce())
+        await pending.wait()
+        assert manager.runs["pause"].frames == []
+        subscription = manager.subscribe("pause", "owner")
+        delivery = asyncio.create_task(anext(subscription))
+        await asyncio.sleep(0)
+        assert not delivery.done()
+        persisted.set()
+        assert '"type":"question"' in await delivery
+        # A user can answer immediately without the previous run occupying admission.
+        manager.admit("owner")
+        await subscription.aclose()
+        await manager.close()
+    asyncio.run(go())

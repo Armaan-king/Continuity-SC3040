@@ -8,6 +8,7 @@ import { ChatPanel } from './ChatPanel'
 import { ComponentGraph } from './ComponentGraph'
 import { ConflictPanel } from './ConflictPanel'
 import { Wordmark } from '../shell/Wordmark'
+import { getProject } from '../lib/api'
 
 
 export type DesignSession = ReturnType<typeof useDesignSession>
@@ -65,6 +66,7 @@ export function WorkspaceView({
 }: WorkspaceViewProps) {
   const [isConflictOpen, setIsConflictOpen] = useState(false)
   const [didAutoOpenConflict, setDidAutoOpenConflict] = useState(false)
+  const [projectName, setProjectName] = useState(walkthrough ? 'Guided walkthrough' : 'Circuit design')
   const {
     slots,
     edges,
@@ -87,7 +89,17 @@ export function WorkspaceView({
     answer,
     continueRun,
     cancel,
+    threadId,
   } = session
+
+  useEffect(() => {
+    if (!projectId) return
+    let active = true
+    getProject(projectId).then((project) => {
+      if (active) setProjectName(project.name)
+    }).catch(() => undefined)
+    return () => { active = false }
+  }, [projectId, threadId])
 
   const handleStartRef = useRef<(prompt: string) => void>(() => undefined)
 
@@ -193,13 +205,13 @@ export function WorkspaceView({
 
         <div className="hidden md:flex items-center h-full space-x-md">
           <div className="flex items-center bg-surface-container-high rounded px-sm py-1 border border-outline-variant">
-            <span className="font-label-caps text-label-caps text-on-surface-variant uppercase mr-sm">
-              CONTINUITY-01
+            <span className="font-label-caps text-label-caps text-on-surface-variant uppercase mr-sm max-w-[240px] truncate" title={projectName} data-testid="workspace-project-name">
+              {projectName}
             </span>
             <span className="h-3 w-px bg-outline-variant mx-sm"></span>
             <div className="flex items-center gap-xs">
-              <span className="w-2 h-2 rounded-pill bg-error animate-pulse"></span>
-              <span className="font-body-sm text-body-sm text-error font-medium">{conflictCount} conflict</span>
+              <span className={`w-2 h-2 rounded-pill ${conflictCount > 0 ? 'bg-error animate-pulse' : 'border border-outline-variant'}`}></span>
+              <span className={`font-body-sm text-body-sm ${conflictCount > 0 ? 'text-error' : 'text-on-surface-variant'} font-medium`}>{conflictCount} conflict{conflictCount === 1 ? '' : 's'}</span>
             </div>
             <span className="text-on-surface-variant mx-1 text-[10px]">•</span>
             <div className="flex items-center gap-xs">

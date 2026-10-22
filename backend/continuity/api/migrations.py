@@ -33,6 +33,9 @@ async def migrate(pool) -> None:
                         raise RuntimeError(f"Migration {version} was modified after application")
                     continue
                 await conn.execute(sql)
+                if version == "003_project_names":
+                    from .project_names import upgrade_legacy_names
+                    await upgrade_legacy_names(conn)
                 await conn.execute(
                     "INSERT INTO schema_migrations (version, checksum) VALUES (%s, %s)",
                     (version, checksum),

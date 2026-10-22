@@ -1,13 +1,11 @@
 import { useEffect, useMemo, useRef, useState, type ChangeEvent, type FormEvent, type KeyboardEvent } from 'react'
 import { Link } from 'react-router'
 
-import { updateProject } from '../lib/api'
 import { useAuth } from '../hooks/useAuth'
 import { PcbBackground } from '../shell/PcbBackground'
 import { Wordmark } from '../shell/Wordmark'
 
 type BriefEntryProps = {
-  projectId?: string
   onStarted: (brief: string, bom?: string) => void
   walkthroughBrief?: string
 }
@@ -23,17 +21,7 @@ const SAMPLE_BRIEFS = [
   'BLE beacon on a coin cell, must last a year',
 ]
 
-function deriveProjectName(brief: string) {
-  return brief
-    .trim()
-    .split(/\s+/)
-    .slice(0, 6)
-    .join(' ')
-    .trim()
-    .slice(0, 64)
-}
-
-export function BriefEntry({ projectId, onStarted, walkthroughBrief }: BriefEntryProps) {
+export function BriefEntry({ onStarted, walkthroughBrief }: BriefEntryProps) {
   const { runtime } = useAuth()
   const [brief, setBrief] = useState('')
   const [attachment, setAttachment] = useState<BomAttachment | null>(null)
@@ -103,15 +91,6 @@ export function BriefEntry({ projectId, onStarted, walkthroughBrief }: BriefEntr
     }
 
     setSubmitting(true)
-
-    const nextName = deriveProjectName(trimmedBrief)
-    if (projectId && nextName) {
-      try {
-        await updateProject(projectId, nextName)
-      } catch {
-        // naming failure must not block the run start
-      }
-    }
 
     onStarted(trimmedBrief, attachment?.text)
   }

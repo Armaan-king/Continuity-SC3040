@@ -1,4 +1,4 @@
-import type { DesignEvent } from './types'
+import type { DesignEvent, QuestionEvent } from './types'
 import { API_BASE, responseError } from './config'
 import { getThreadBoard } from './api'
 
@@ -129,13 +129,14 @@ export function releaseWalkthroughReplay(milestone: WalkthroughReplayMilestone) 
  * producing a frame would leave the session stuck on `running` with nothing on screen
  * explaining why, which is worse than a visible failure.
  */
-function emitError(message: string, recoverable = false) {
+function emitError(message: string, recoverable = false, retryQuestion?: QuestionEvent) {
   emit({
     type: 'error',
     seq: -1,
     thread_id: threadId ?? '',
     message,
     recoverable,
+    retry_question: retryQuestion,
   } as DesignEvent)
 }
 
@@ -218,14 +219,15 @@ async function reconnectStream(signal: AbortSignal) {
   }
 }
 
-async function post(path: string, payload: unknown, signal: AbortSignal) {
+async function post(path: string, payload: unknown, signal: AbortSignal, retryQuestion?: QuestionEvent) {
   const response = await fetch(`${API_BASE}${path}`, {
     method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload), signal,
   })
   if (signal.aborted) return
   if (!response.ok) {
-    emitError(await responseError(response), response.status >= 500)
+    emitError(await responseError(response), response.status >= 500,
+      [401, 403, 404].includes(response.status) ? undefined : retryQuestion)
     return
   }
   threadId = response.headers.get('X-Thread-ID') ?? threadId
@@ -340,16 +342,16 @@ export const sseClient = {
    * stream — the sequence continues where the first left off rather than restarting,
    * which is why the hook's seq gate does not discard everything after a resume.
    */
-  answer(text: string) {
+  answer(text: string, question?: QuestionEvent) {
     if (!threadId) return
     reset()
     controller = new AbortController()
     const { signal } = controller
 
-    post('/resume', { thread_id: threadId, answer: text }, signal).catch(
+    post('/resume', { thread_id: threadId, answer: text }, signal, question).catch(
       (error: unknown) => {
         if (signal.aborted) return
-        emitError(error instanceof Error ? error.message : 'Could not send the answer.')
+        emitError(error instanceof Error ? error.message : 'Could not send the answer.', false, question)
       },
     )
   },

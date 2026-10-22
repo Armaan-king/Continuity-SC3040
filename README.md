@@ -26,6 +26,10 @@ These are screen recordings of the current production build, not a public deploy
 5. **Review and export.** Inspect selected parts, prices, failures, warnings, and unchecked facts before choosing **Export BOM**. Completion describes the workflow, not a guarantee that a board is ready to manufacture.
 6. **Return to your work.** Reopen a project to restore its board, trace, and BOM. **Memory** connects parts, boards, and earlier findings; **Analytics** summarizes validation outcomes across your designs.
 
+Project names are derived from the subject of the brief: `I want to make a small temperature monitor with an OLED` becomes **Temperature Monitor**. The full brief remains saved, and names you choose through **Rename project** are preserved. The workspace, project list, and memory use the same saved name.
+
+A completed run may still **need review**. Its summary distinguishes failed checks, warnings, and unchecked facts. Unresolved conflicts remain visible after completion and when you reopen the board, including uploaded BOMs. If sending a clarification answer fails, the question remains available to retry.
+
 Closing a browser view does not cancel its server-side run. The event stream reconnects using its saved cursor; you can explicitly cancel a run or recover an eligible checkpoint after interrupted execution. Fresh sourcing needs internet access to the distributor.
 
 ## Start locally
@@ -120,6 +124,8 @@ npm --prefix frontend run test:e2e
 Use the backend virtual environment's Python. Set `CONTINUITY_TEST_DB` to a disposable PostgreSQL database to include integration tests. The store tests truncate their test tables. Browser tests need a separate disposable `E2E_DATABASE_URL`; they seed a known account. See [validation report](docs/VALIDATION.md) for the results produced during this update. GitHub Actions repeats backend, database, frontend, and Chromium checks.
 
 The recorded implementation verification produced **779 backend passes, 5 optional external-service skips, and 20 browser passes**. Separate smoke runs exercised real parts lookup and local Ollama inference. These are dated results, not a claim that external services always succeed. [Current media capture checks](docs/media/README.md#verification) document the README recordings separately.
+
+The subsequent [consistency update](docs/CONSISTENCY_VALIDATION.md) passed **796 backend tests and 25 browser tests**, with 5 opt-in external-service skips. Its logs cover project naming, preserved custom names, clarification retries, final-board restoration, and BOM replacement/export consistency.
 
 ## License and attribution
 

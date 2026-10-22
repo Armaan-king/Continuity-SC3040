@@ -22,7 +22,7 @@ def test_migrations_repeat_and_owner_constraints_are_enforced():
                 await store.create_thread("wrong-owner", project.id, bob.id, "USB sensor")
             async with store.pool.connection() as conn:
                 cursor = await conn.execute("SELECT count(*) FROM schema_migrations")
-                assert (await cursor.fetchone())[0] == 2
+                assert (await cursor.fetchone())[0] == 3
     asyncio.run(go())
 
 

@@ -77,15 +77,20 @@ export function BomTable({ bom, slots }: BomTableProps) {
   //
   // Every `selection` event already carries the whole part, so nothing here is invented —
   // the same fields the server would have written are read from the part the graph is
-  // drawing. Where a server row exists it wins, keeping any quantity it computed.
+  // drawing. A saved row wins only while it still names that same part.
   const rows = useMemo(() => {
     const fromServer = new Map((bom?.rows ?? []).map((row) => [row.slot, row]))
     const live = slots
-      .map((slot) => fromServer.get(slot.id) ?? rowFromSlot(slot))
+      .map((slot) => {
+        const saved = fromServer.get(slot.id)
+        if (saved && saved.mpn === slot.part?.mpn) return saved
+        const current = rowFromSlot(slot)
+        return current ? { ...current, qty: saved?.qty ?? current.qty } : null
+      })
       .filter((row): row is BomRow => row !== null)
     // A row the board no longer has a slot for — a repair that renamed one — would
     // otherwise disappear from a finished bill of materials.
-    const seen = new Set(live.map((row) => row.slot))
+    const seen = new Set(slots.map((slot) => slot.id))
     return [...live, ...(bom?.rows ?? []).filter((row) => !seen.has(row.slot))]
   }, [bom, slots])
 

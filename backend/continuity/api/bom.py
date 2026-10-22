@@ -303,6 +303,7 @@ async def validate_bom(
     for verdict in rules.failures(verdicts):
         yield stream.conflict(verdict, edge=verdict.scope)
 
+    yield stream.board(slots.values(), topology.resolved_edges(board, verdicts), verdicts)
     bom_rows = [events.bom_row(_slot_id(index), part, rows[index].qty) for index, part in by_index.items()]
     yield stream.bom(bom_rows, sum((part.unit_price or 0.0) * rows[index].qty for index, part in by_index.items()))
     yield stream.done(
@@ -310,6 +311,7 @@ async def validate_bom(
         placed=len(by_index),
         conflicts_resolved=0,
         elapsed_s=time.time() - started_at,
+        verdicts=verdicts,
     )
 
 

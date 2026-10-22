@@ -44,6 +44,7 @@ from . import analytics_api, auth, bom, events, memory, projects
 from .memory import FindingRecorder
 from .store import Store
 from .runs import RunManager
+from .boards import recorded_board
 from .security import SecurityMiddleware
 from .state import BOMS, FINDING_RECORDERS, PROGRESS_TASKS, STREAMS
 from .execution import _run, _run_bom, _save_trace, _pending_question, _interrupt_frames, _with_heartbeats
@@ -494,6 +495,9 @@ async def thread_board(thread_id: str, request: Request) -> dict[str, Any]:
     trace = [event for event in await store.run_events(thread_id) if event.get("type") != "bom"]
     question = _pending_question(snapshot, thread)
     resumable = bool(snapshot and snapshot.next) and thread.status in {"awaiting", "abandoned", "error"}
+    if thread.status == "done" and any(event.get("type") == "board" for event in trace):
+        return _bom_only_board(thread, trace, question, resumable,
+                               checkpoint="available" if values else "unavailable")
     if values is None:
         return _bom_only_board(thread, trace, question, resumable)
 
@@ -552,16 +556,7 @@ async def _checkpoint_values(graph: Any, thread_id: str) -> dict[str, Any] | Non
 
 
 def _slot(slot: Slot) -> dict[str, Any]:
-    return {
-        "id": slot.id,
-        "label": slot.label,
-        "tier": slot.tier,
-        "pinned": slot.pinned,
-        "status": slot.status,
-        "part": events._part(slot.part) if slot.part is not None else None,
-        "constraint": dict(slot.constraint) if slot.constraint is not None else None,
-        "repair_count": slot.repair_count,
-    }
+    return events.board_slot(slot)
 
 
 def _board_bom(rows: list[dict[str, Any]]) -> dict[str, Any]:
@@ -589,13 +584,15 @@ def _bom_only_board(
     question reported its board as lost, and a genuinely lost board looked equally normal.
     """
     rows = thread.bom if thread.bom is not None else BOMS.get(thread.id, [])
+    recorded = recorded_board(trace or [])
     return {
         "status": thread.status,
         "summary": thread.summary,
         "slots": [],
         "edges": [],
+        **(recorded or {}),
         "bom": _board_bom(rows),
-        "checkpoint": checkpoint,
+        "checkpoint": "recorded" if recorded and checkpoint != "available" else checkpoint,
         "trace": trace or [],
         "question": question,
         "resumable": resumable,

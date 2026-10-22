@@ -71,6 +71,7 @@ class RunManager:
         context = execution_lease.set((thread_id, token) if store else None)
         outcome = "abandoned"
         failure = False
+        terminal_event: dict | None = None
 
         async def renew() -> None:
             while True:
@@ -79,6 +80,7 @@ class RunManager:
                     raise RuntimeError("Execution lease expired")
 
         async def consume() -> None:
+            nonlocal terminal_event
             async for frame in producer:
                 for line in frame.splitlines():
                     if not line.startswith("data: "):
@@ -89,8 +91,11 @@ class RunManager:
                     if len(run.frames) >= 10000:
                         raise RuntimeError("Run event limit exceeded")
                     run.cursor = event["seq"]
-                    run.frames.append(event)
-                    run.changed.set()
+                    if event["type"] in {"done", "question", "error"}:
+                        terminal_event = event
+                    else:
+                        run.frames.append(event)
+                        run.changed.set()
 
         worker = asyncio.create_task(consume())
         lease = asyncio.create_task(renew())
@@ -113,13 +118,15 @@ class RunManager:
                 event = {"type": "error", "thread_id": thread_id, "seq": run.cursor + 1,
                          "message": "The run stopped. Reopen the project to recover its saved checkpoint.",
                          "recoverable": store is not None}
-                run.frames.append(event)
+                terminal_event = event
                 if store:
                     try:
                         await store.append_stream_event(thread_id, token, event)
                     except Exception:
                         log.exception("Could not persist run failure: %s", thread_id)
-            if run.frames:
+            if terminal_event:
+                outcome = {"done": "done", "question": "awaiting", "error": "error"}[terminal_event["type"]]
+            elif run.frames:
                 outcome = {"done": "done", "question": "awaiting", "error": "error"}.get(
                     run.frames[-1]["type"], "abandoned")
             if store:
@@ -128,6 +135,11 @@ class RunManager:
                 except Exception:
                     log.exception("Could not release run lease: %s", thread_id)
             execution_lease.reset(context)
+            # A visible question must already be answerable; a visible completion must
+            # already have its summary and BOM saved. Publish after producer persistence
+            # and lease release, rather than racing a fast answer or navigation.
+            if terminal_event:
+                run.frames.append(terminal_event)
             run.finished = True
             run.touched = time.monotonic()
             run.changed.set()

@@ -1,4 +1,4 @@
-import type { BomRow, DesignEvent, Edge, QuestionEvent, Slot, SupplyNode } from './types'
+import type { BoardConflict, BomRow, DesignEvent, DoneEvent, Edge, QuestionEvent, Slot, SupplyNode } from './types'
 
 import { API_BASE, responseError } from './config'
 
@@ -26,12 +26,7 @@ export type Project = {
   updated_at: string
 }
 
-export type ThreadSummary = {
-  slots: number
-  placed: number
-  conflicts_resolved: number
-  elapsed_s: number
-}
+export type ThreadSummary = DoneEvent['summary']
 
 export type ProjectThread = {
   id: string
@@ -52,7 +47,8 @@ export type ThreadBoard = {
     total: number
     currency: string
   } | null
-  checkpoint: 'available' | 'unavailable' | 'not_loaded'
+  checkpoint: 'available' | 'unavailable' | 'not_loaded' | 'not_planned' | 'recorded'
+  conflicts?: BoardConflict[]
   trace: DesignEvent[]
   question: QuestionEvent | null
   resumable: boolean

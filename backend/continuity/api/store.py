@@ -22,6 +22,7 @@ from psycopg.types.json import Json
 from psycopg_pool import AsyncConnectionPool
 
 from .findings import Finding
+from .project_names import UNTITLED, project_name
 from ..parts.dossier import DOSSIER_FIELDS
 
 SCHEMA = Path(__file__).with_name("schema.sql")
@@ -252,11 +253,12 @@ class Store:
         async with self.pool.connection() as conn:
             cursor = await conn.cursor(row_factory=dict_row).execute(
                 """
-                INSERT INTO projects (id, user_id, name, is_walkthrough)
-                VALUES (%s, %s, %s, %s)
+                INSERT INTO projects (id, user_id, name, is_walkthrough, name_source)
+                VALUES (%s, %s, %s, %s, %s)
                 RETURNING id, user_id, name, created_at, updated_at
                 """,
-                (new_id(), user_id, name, is_walkthrough),
+                (new_id(), user_id, name, is_walkthrough,
+                 "generated" if name == UNTITLED and not is_walkthrough else "manual"),
             )
             row = await cursor.fetchone()
         return Project(**row)
@@ -362,7 +364,7 @@ class Store:
     async def rename_project(self, project_id: str, user_id: str, name: str) -> bool:
         async with self.pool.connection() as conn:
             cursor = await conn.execute(
-                "UPDATE projects SET name = %s, updated_at = now() WHERE id = %s AND user_id = %s",
+                "UPDATE projects SET name = %s, name_source = 'manual', updated_at = now() WHERE id = %s AND user_id = %s",
                 (name, project_id, user_id),
             )
             return cursor.rowcount > 0
@@ -380,18 +382,24 @@ class Store:
         self, thread_id: str, project_id: str, user_id: str, prompt: str
     ) -> bool:
         async with self.pool.connection() as conn:
-            cursor = await conn.execute(
-                """
-                INSERT INTO threads (id, project_id, user_id, prompt)
-                VALUES (%s, %s, %s, %s)
-                ON CONFLICT (id) DO NOTHING
-                """,
-                (thread_id, project_id, user_id, prompt),
-            )
-            await conn.execute(
-                "UPDATE projects SET updated_at = now() WHERE id = %s", (project_id,)
-            )
-            return cursor.rowcount == 1
+            async with conn.transaction():
+                cursor = await conn.execute(
+                    """
+                    INSERT INTO threads (id, project_id, user_id, prompt)
+                    VALUES (%s, %s, %s, %s)
+                    ON CONFLICT (id) DO NOTHING
+                    """,
+                    (thread_id, project_id, user_id, prompt),
+                )
+                if cursor.rowcount != 1:
+                    return False
+                await conn.execute(
+                    """UPDATE projects SET updated_at = now(), name = CASE
+                        WHEN name_source = 'generated' AND name = %s THEN %s ELSE name END
+                        WHERE id = %s AND user_id = %s""",
+                    (UNTITLED, project_name(prompt), project_id, user_id),
+                )
+                return True
 
     async def thread_for_user(self, thread_id: str, user_id: str) -> Thread | None:
         async with self.pool.connection() as conn:

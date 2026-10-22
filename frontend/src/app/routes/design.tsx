@@ -200,7 +200,6 @@ export default function DesignRoute() {
           setStartedRequest({ brief, bom })
           setMode('workspace')
         }}
-        projectId={projectId}
       />
     )
   }

@@ -100,6 +100,14 @@ function statusBadgeFromLatestThread(latestThread: ProjectThread | null): Status
   }
 
   if (status === 'done' || status === 'completed') {
+    const summary = latestThread.summary
+    if (summary?.stopped) return {
+      label: 'Stopped', dotClassName: 'bg-outline', textClassName: 'text-on-surface-variant',
+    }
+    if (summary && ((summary.failures ?? 0) > 0 || (summary.warnings ?? 0) > 0 ||
+      (summary.unchecked ?? 0) > 0 || (summary.placed ?? summary.slots) < summary.slots)) return {
+      label: 'Needs review', dotClassName: 'bg-tertiary-container', textClassName: 'text-tertiary-fixed-dim',
+    }
     if (latestThread.summary && latestThread.summary.conflicts_resolved > 0) {
       return {
         label: conflictResolvedLabel(latestThread.summary.conflicts_resolved),
@@ -127,7 +135,7 @@ function shortageLabelFromLatestThread(latestThread: ProjectThread | null): stri
     return null
   }
 
-  const missingCount = latestThread.summary.slots - latestThread.summary.placed
+  const missingCount = latestThread.summary.slots - (latestThread.summary.placed ?? latestThread.summary.slots)
   if (missingCount <= 0) {
     return null
   }

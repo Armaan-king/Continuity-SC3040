@@ -217,6 +217,14 @@ export function ChatPanel({
 
   const composerRunning = status === 'running'
   const awaitingAnswer = status === 'paused'
+  const needsReview = Boolean(summary && ((summary.failures ?? 0) > 0 ||
+    (summary.warnings ?? 0) > 0 || (summary.unchecked ?? 0) > 0 ||
+    (summary.placed ?? summary.slots) < summary.slots || summary.stopped))
+  const reviewDetail = summary ? [
+    summary.failures ? `${summary.failures} failed` : '',
+    summary.warnings ? `${summary.warnings} warning${summary.warnings === 1 ? '' : 's'}` : '',
+    summary.unchecked ? `${summary.unchecked} unchecked` : '',
+  ].filter(Boolean).join(', ') : ''
 
   const statusIcon = composerRunning
     ? 'progress_activity'
@@ -225,7 +233,7 @@ export function ChatPanel({
       : status === 'error'
         ? 'error'
         : status === 'done'
-          ? 'check_circle'
+          ? needsReview ? 'info' : 'check_circle'
           : 'radio_button_unchecked'
   const statusIconClassName = composerRunning
     ? 'text-primary-container spinner'
@@ -234,7 +242,7 @@ export function ChatPanel({
       : status === 'error'
         ? 'text-error'
         : status === 'done'
-          ? 'text-[#4ade80]'
+          ? needsReview ? 'text-tertiary-container' : 'text-[#4ade80]'
           : 'text-on-surface-variant'
   const statusText = composerRunning
     ? 'Running…'
@@ -244,7 +252,7 @@ export function ChatPanel({
         ? 'The run stopped — see the log below.'
         : status === 'done'
           ? summary
-            ? `Complete — ${summary.placed ?? summary.slots}/${summary.slots} placed, ${summary.conflicts_resolved} resolved.`
+            ? `${summary.stopped ? 'Stopped' : 'Complete'} — ${summary.placed ?? summary.slots}/${summary.slots} placed, ${summary.conflicts_resolved} resolved.${reviewDetail ? ` Review: ${reviewDetail}.` : ''}`
             : 'Run complete.'
           : 'Ready.'
 
@@ -276,7 +284,7 @@ export function ChatPanel({
             <span className={`material-symbols-outlined text-[16px] ${statusIconClassName}`}>
               {statusIcon}
             </span>
-            <span className="font-data-tabular text-[11px] text-on-surface-variant truncate">
+            <span className="font-data-tabular text-[11px] text-on-surface-variant line-clamp-3" title={statusText}>
               {statusText}
             </span>
           </div>
@@ -338,7 +346,7 @@ export function ChatPanel({
               detail={detail}
               icon={icon}
               iconClassName={iconClassName}
-              key={`${item.type}-${item.seq}`}
+              key={`${item.type}-${item.seq}-${index}`}
               spinner={isActiveLine}
               text={text}
             />
@@ -389,12 +397,14 @@ export function ChatPanel({
                     }
                   }}
                   placeholder="Or type reasoning..."
+                  maxLength={2000}
                   type="text"
                   value={answerText}
                 />
                 <button
                   className="px-sm border border-outline-variant rounded text-[11px] font-data-tabular hover:border-primary"
                   onClick={submitAnswer}
+                  disabled={!answerText.trim()}
                   type="button"
                 >
                   Send
@@ -432,13 +442,13 @@ export function ChatPanel({
                 Highlight in Graph{' '}
                 <span className="material-symbols-outlined text-[12px]">arrow_forward</span>
               </button>
-              <button
+              {status === 'running' ? <button
                 className="text-[10px] font-label-caps uppercase-label text-on-surface-variant hover:text-on-surface"
                 onClick={onCancel}
                 type="button"
               >
                 Cancel Run
-              </button>
+              </button> : null}
             </div>
           </div>
         ) : null}

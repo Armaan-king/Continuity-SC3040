@@ -5,7 +5,7 @@ This repository configures one Render Free Docker web service and an external Ne
 ## Deploy
 
 1. Open a Neon project and database in your own account (or create them). Click **Connect**, select the database branch, database, and role, and turn **Connection pooling off**. Copy the **direct** PostgreSQL URL with its TLS parameters, including `sslmode=require`, rather than a `-pooler` hostname. Keep the full URL in deployment secrets.
-2. Push this revision to `Armaan-king/Continuity-SC3040`.
+2. Push this revision to `Armaan-king/FUZE`.
 3. In Render, choose **New → Blueprint** and connect that repository. Use Git branch `main` and Blueprint path `render.yaml`. Render reads the configuration, builds `Dockerfile`, and creates `continuity-sc3040` on the Free instance type. The Dockerfile supplies the build and start commands.
 4. Set `DATABASE_URL` to the Neon connection string when prompted. The Blueprint sets production mode and secure, same-site session cookies.
 5. The Blueprint selects Groq's `openai/gpt-oss-120b`; supply `GROQ_API_KEY` privately. For Gemini instead, set `CONTINUITY_LLM_PROVIDER=gemini`, `CONTINUITY_LLM_MODEL=gemini-3.8-flash`, and `GEMINI_API_KEY`, and remove any old base-URL override or set it to `https://generativelanguage.googleapis.com/v1beta/openai/`. Add optional `EXA_API_KEY` for research. Without model credentials the service uses basic planning. Do not set a browser `VITE_*` key.

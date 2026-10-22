@@ -1,6 +1,7 @@
 import asyncio
 import os
 from dataclasses import replace
+from unittest.mock import AsyncMock
 
 import pytest
 
@@ -9,6 +10,7 @@ from continuity.designs import service
 from continuity.designs.context import ExecutionContext, current, stage
 from tests.test_projects import a_store, signed_in
 from tests.test_verified_architecture import sensor_board
+from continuity import llm
 
 pytestmark = pytest.mark.skipif(not os.environ.get("CONTINUITY_TEST_DB"), reason="requires disposable PostgreSQL")
 
@@ -85,6 +87,39 @@ def test_answering_review_question_confirms_requirement_without_rewriting_histor
             stale = await http.post(f"/revisions/{original}/requirements", json={
                 'expected_revision': original, 'lifetime_hours': 72})
             assert stale.status_code == 409
+    asyncio.run(go())
+
+
+def test_answer_preview_is_owned_read_only_validated_and_requires_current_revision(monkeypatch):
+    completion = AsyncMock(return_value={'edits': [{
+        'field': 'temp_range', 'value': -10, 'upper': 60, 'quote': '-10 to 60 C'}], 'unhandled': []})
+    monkeypatch.setattr(llm, 'complete_json', completion)
+
+    async def go():
+        async with a_store() as store, signed_in() as http:
+            _, project, original = await seed(store, http)
+            path = f'/revisions/{original}/answer-proposal'
+            payload = {'expected_revision': original, 'prompt': 'Use -10 to 60 C'}
+            before = (await http.get(f'/revisions/{original}')).json()
+            preview = await http.post(path, json=payload)
+            assert preview.status_code == 200, preview.text
+            assert preview.json()['changes'] == {'temp_range': [-10, 60]}
+            assert (await http.get(f'/revisions/{original}')).json() == before
+            assert len((await http.get(f'/projects/{project.id}/revisions')).json()['revisions']) == 1
+            async with signed_in('stranger@example.com') as other:
+                assert (await other.post(path, json=payload)).status_code == 404
+            completion.assert_awaited_once()
+            completion.return_value['edits'][0]['value'] = 70
+            assert (await http.post(path, json=payload)).status_code == 422
+            completion.side_effect = llm.LLMUnavailable('quota')
+            unavailable = await http.post(path, json=payload)
+            assert unavailable.status_code == 503
+            assert 'enter values directly' in unavailable.json()['detail']
+            assert len((await http.get(f'/projects/{project.id}/revisions')).json()['revisions']) == 1
+            await http.post(f'/revisions/{original}/requirements', json={'expected_revision': original, 'current_margin': 0.5})
+            completion.reset_mock()
+            assert (await http.post(path, json=payload)).status_code == 409
+            completion.assert_not_awaited()
     asyncio.run(go())
 
 

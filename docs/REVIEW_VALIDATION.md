@@ -40,6 +40,24 @@ Regression coverage includes immutable revisions and ownership, stale-write reje
 
 ## Live provider checks
 
+### Guided answers and batch confirmation
+
+The subsequent review update adds example goals, **Write your own**, **Not sure yet**, and one **Confirm all & revalidate** action. Filled answers share one validated request and immutable revision; wholly blank questions remain open. Invalid ranges prevent the entire save, duplicate submissions are blocked while saving, and unsuccessful requests retain every draft. Mobile inputs and the bulk action stack vertically to avoid clipped values.
+
+**None of these? Describe a change** previews answers to open questions using the configured model. Output is restricted to five requirement fields, supporting quotes must occur in the request, and the normal requirements validator checks bounds. The user reviews the proposal, adds it to the draft, then confirms the values. This is interpretation of user requirements, not verification of component facts. Unsupported requests remain visible. It does not replace components or edit a circuit through free text. AI downtime leaves direct answers usable. Production preview requests are limited to five per client address per minute, separately from sign-in attempts; direct saves are unaffected.
+
+| Check | Result | Output |
+| --- | --- | --- |
+| Focused backend/provider/revision/security regressions, disposable PostgreSQL | 64 passed | [Backend log](validation/review/guided-backend.log) |
+| Complete Chromium regression suite | 33 passed | [Browser log](validation/review/guided-browser.log) |
+| Review suite after mobile layout correction | 8 passed | [Mobile verification](validation/review/guided-mobile.log) |
+| Frontend lint and production build | Passed; existing bundle-size warning | [Build log](validation/review/guided-build.log) |
+| One capped live Groq preview, no database writes | Correctly interpreted all five supplied answers; 1 request, 1,089 accounted tokens; no Exa calls | [Live output](validation/review/guided-live.log) |
+
+Browser proposal responses are controlled fixtures; revision saves, PostgreSQL persistence, revalidation and workspace restoration use the real application. Backend tests cover ownership, stale revisions, invalid/duplicate/unsupported fields, missing supporting quotes, provider failure and preview throttling. An initial backend test invocation could not access the system pytest temporary directory; rerunning with a workspace-local `--basetemp` passed. Desktop and 390 px mobile screenshots were inspected.
+
+### Earlier planning and retrieval checks
+
 `backend/tools/check_review_providers.py` deliberately makes a small planning/retrieval check, without creating production projects or sourcing a whole board. It caps Groq at three attempts and 24,000 accounted tokens, and Exa at two requests with a $0.04 estimated allowance. It reads secrets from the existing private environment and prints no credentials.
 
 ```powershell

@@ -59,6 +59,17 @@ def test_confirmed_answers_leave_missing_component_evidence_open():
     assert any(f['outcome'] == 'UNKNOWN' and f['rule'] == 'energy_budget' for f in updated['report']['findings'])
 
 
+def test_options_are_goals_not_assumed_battery_capacity():
+    original = bicycle_document()
+    questions = {q['field']: q for q in review_guidance(original)['questions']}
+    assert questions['supply_capacity_mah']['options'] == []
+    assert questions['supply_capacity_mah']['value'] is None
+    assert questions['lifetime_hours']['value'] is None
+    assert [o['value'] for o in questions['lifetime_hours']['options']] == [24, 72, 168]
+    assert questions['current_margin']['options'][1] == {'label': '30%', 'value': 0.3}
+    assert original['board']['requirements']['lifetime_hours'] is None
+
+
 def test_no_current_data_never_displays_zero_load_or_full_headroom():
     document = bicycle_document()
     current_findings = [f for f in document['report']['findings'] if f['rule'] == 'current_budget']

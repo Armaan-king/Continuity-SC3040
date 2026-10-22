@@ -27,16 +27,18 @@ class SecurityMiddleware:
             same_host = urlsplit(origin).netloc == headers.get("host")
             if not same_host and origin.rstrip("/") not in settings.origins:
                 return await JSONResponse({"detail": "Request origin is not allowed."}, 403)(scope, receive, send)
-        if settings.environment == "production" and scope["path"].endswith(("/auth/login", "/auth/register")):
+        proposal = scope["method"] == "POST" and scope["path"].endswith("/answer-proposal")
+        if settings.environment == "production" and (proposal or scope["path"].endswith(("/auth/login", "/auth/register"))):
             client = scope.get("client")
-            key = client[0] if client else "unknown"
+            key = ("proposal:" if proposal else "auth:") + (client[0] if client else "unknown")
             now = time.monotonic()
             attempts = self.attempts.setdefault(key, deque())
             self.attempts.move_to_end(key)
             while attempts and attempts[0] <= now - 60:
                 attempts.popleft()
-            if len(attempts) >= 10:
-                return await JSONResponse({"detail": "Too many sign-in attempts. Try again in a minute."},
+            if len(attempts) >= (5 if proposal else 10):
+                message = "Too many preview requests. Try again in a minute; direct answers still work." if proposal else "Too many sign-in attempts. Try again in a minute."
+                return await JSONResponse({"detail": message},
                                           429, headers={"Retry-After": "60"})(scope, receive, send)
             attempts.append(now)
             while len(self.attempts) > 10000:

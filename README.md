@@ -44,7 +44,9 @@ When Exa research is enabled, supporting documents include source links, retriev
 
 ### 4. Refine, compare, and export
 
-Answer a review question or edit a constraint under **Requirements**, then save. The app creates a revalidated revision and returns to the planning workspace with its graph, BOM and updated checks loaded. A confirmation explains what changed; **Review design** brings you back to the remaining questions. Failed saves retain the entered answer for retry. **Revision history** lets you compare saved versions or restore an earlier design as a new, revalidated revision, also returning to the workspace.
+Choose an example target on each review question, select **Write your own**, or choose **Not sure yet** to leave it open. The choices describe your design goals; battery capacity still needs the selected battery's actual rating. **None of these? Describe a change** lets you answer the open questions in your own words. The configured AI provider previews exact values and flags requests it cannot apply. **Use these answers** puts them into the form for review without saving. Options and direct answers work without AI calls.
+
+Choose **Confirm all & revalidate** to save every filled value in one revision, including displayed proposals. Blank fields stay unanswered. You can also confirm one question individually or edit constraints under **Requirements**. Invalid answers block the entire batch, and failed saves retain every entry for retry. The app returns to the planning workspace with the revised graph, BOM and checks loaded; **Review design** brings you back to the remaining questions. **Revision history** lets you compare saved versions or restore an earlier design as a new, revalidated revision.
 
 [![Change a requirement, inspect the resulting conflict, and compare saved revisions](docs/media/design-review.gif)](docs/media/design-review.mp4)
 

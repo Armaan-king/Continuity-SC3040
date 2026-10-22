@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router'
-import { updateRequirements, type Revision, type ReviewQuestion } from '../lib/revisions'
+import type { Revision } from '../lib/revisions'
+import ReviewAnswers from './ReviewAnswers'
 
 const panel = 'rounded-xl border border-outline-variant bg-surface-container-low'
 const button = 'rounded-md border border-outline-variant px-4 py-2 text-body-sm transition-colors hover:border-primary-container hover:text-primary-container disabled:opacity-40'
@@ -52,11 +53,8 @@ export default function Report({ revision, active, onSaved, onRequirements }: {
       ].map(([key, title, icon]) => <div key={key} className="flex items-center gap-3 p-5"><span className={key === 'fail' && counts.fail ? 'text-error' : 'text-on-surface-variant'}><Icon name={icon} /></span><div><strong className="text-2xl tabular-nums">{counts[key as keyof typeof counts]}</strong><p className="text-xs text-on-surface-variant">{title}</p></div></div>)}</div>
     </section>
 
-    {!!guidance?.questions.length && <section aria-labelledby="review-questions">
-      <div className="mb-4 flex items-center justify-between gap-3"><div><p className="text-xs uppercase tracking-widest text-primary-container">01 / Your design intent</p><h2 id="review-questions" className="mt-1 text-xl">A few things only you can tell us</h2></div><span className="rounded-full border border-outline-variant px-3 py-1 text-xs">{guidance.questions.length} questions</span></div>
-      <p className="mb-4 text-body-sm text-on-surface-variant">Answer what you know. Unanswered items stay open. Each confirmation saves a revalidated revision and returns you to the planning workspace.</p>
-      <div className="grid gap-4 md:grid-cols-2">{guidance.questions.map(question => <QuestionCard key={`${revision.id}-${question.field}`} question={question} revision={revision} active={active} onSaved={onSaved} />)}</div>
-    </section>}
+    {!!guidance?.questions.length && <ReviewAnswers questions={guidance.questions}
+      revision={revision} active={active} onSaved={onSaved} />}
 
     {!!tasks.length && <section aria-labelledby="review-actions">
       <p className="text-xs uppercase tracking-widest text-primary-container">02 / Next actions</p><h2 id="review-actions" className="mb-4 mt-1 text-xl">Close the evidence gaps</h2>
@@ -66,6 +64,11 @@ export default function Report({ revision, active, onSaved, onRequirements }: {
         {!!task.fields.length && <div className="mt-3 flex flex-wrap gap-2">{task.fields.map(field => <span key={field} className="rounded bg-surface-container px-2 py-1 text-xs text-on-surface-variant">{field}</span>)}</div>}
         {task.steps && <details className="mt-3 text-body-sm"><summary className="cursor-pointer text-on-surface-variant">What to verify</summary><ul className="mt-2 list-disc space-y-2 pl-5 text-on-surface-variant">{task.steps.map(step => <li key={step}>{step}</li>)}</ul></details>}
         {task.action === 'connections' ? <button className={`${button} mt-4`} onClick={onRequirements}>Review requirements & connections</button> : task.action === 'workspace' ? <Link className={`${button} mt-4 inline-block`} to={`/design/${revision.project_id}`}>Inspect unresolved component</Link> : <a className={`${button} mt-4 inline-block`} href={`#evidence-${task.subjects[0]}`}>Inspect saved sources</a>}
+        <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-xs">
+          {task.action !== 'connections' && <button className="text-primary-container underline" onClick={onRequirements}>Change requirements or connections</button>}
+          {task.action !== 'workspace' && <Link className="text-primary-container underline" to={`/design/${revision.project_id}`}>Review in workspace</Link>}
+        </div>
+        <p className="mt-3 text-xs leading-relaxed text-on-surface-variant">If you cannot verify this yet, leave it open. Editing a target does not supply missing component evidence.</p>
       </div>)}</div>
     </section>}
 
@@ -97,27 +100,4 @@ export default function Report({ revision, active, onSaved, onRequirements }: {
     </section>
     <section className={`${panel} p-6`}><div className="flex items-center gap-2"><Icon name="frame_inspect" /><h2>Validation scope</h2></div><div className="mt-3 grid gap-3 md:grid-cols-2">{report.limitations.map(item => <p key={item} className="text-body-sm leading-relaxed text-on-surface-variant">{item}</p>)}</div><div className="mt-4 flex flex-wrap gap-2">{report.coverage.filter(item => item.outcome === 'NOT_APPLICABLE').map(item => <span key={item.rule} title={item.note} className="rounded border border-outline-variant px-3 py-2 text-xs text-on-surface-variant">{words(item.rule)} · no check emitted</span>)}</div></section>
   </>
-}
-
-function QuestionCard({ question, revision, active, onSaved }: { question: ReviewQuestion; revision: Revision; active: string; onSaved: (id: string) => Promise<void> }) {
-  const range = question.field === 'temp_range'
-  // Present defaults as proposals that need explicit confirmation, never as answers.
-  const [value, setValue] = useState(question.value === null ? '' : Array.isArray(question.value) ? String(question.value[0]) : String(question.value))
-  const [upper, setUpper] = useState(Array.isArray(question.value) ? String(question.value[1]) : '')
-  const [busy, setBusy] = useState(false)
-  const [error, setError] = useState('')
-  async function submit(event: React.FormEvent) {
-    event.preventDefault(); setBusy(true); setError('')
-    try {
-      const result = await updateRequirements(revision.id, active, { [question.field]: range ? [Number(value), Number(upper)] : Number(value) })
-      await onSaved(result.revision_id)
-    } catch (e) { setError(e instanceof Error ? e.message : 'Could not save answer') }
-    finally { setBusy(false) }
-  }
-  return <form aria-label={question.title} onSubmit={submit} className={`${panel} flex flex-col p-5`}>
-    <div className="mb-3 flex items-center gap-2 text-xs text-tertiary-container"><Icon name="chat_bubble" />{question.value === null ? 'Your input needed' : `Confirm ${question.basis} value`}</div>
-    <h3 className="text-body-md">{question.title}</h3><p className="mt-2 mb-4 flex-1 text-body-sm leading-relaxed text-on-surface-variant">{question.why}</p>
-    <div className="flex flex-wrap items-center gap-2"><input required type="number" step={range ? '1' : 'any'} min={question.minimum ?? undefined} max={question.maximum ?? undefined} aria-label={range ? 'Minimum operating temperature' : question.title} className="input-field review-field w-28 min-w-0 flex-1" value={value} onChange={e => setValue(e.target.value)} />{range && <><span className="text-xs">to</span><input required type="number" step="1" min={question.minimum ?? undefined} max={question.maximum ?? undefined} aria-label="Maximum operating temperature" className="input-field review-field w-28 min-w-0 flex-1" value={upper} onChange={e => setUpper(e.target.value)} /></>}<span className="text-xs text-on-surface-variant">{question.unit}</span><button className={`${button} text-primary-container`} disabled={busy || revision.id !== active || !value.trim() || (range && !upper.trim())}>{busy ? 'Validating…' : 'Confirm & revalidate'}</button></div>
-    {revision.id !== active && <p className="mt-2 text-xs text-outline">Select the current revision to answer.</p>}{error && <p role="alert" className="mt-2 text-body-sm text-error">{error}</p>}
-  </form>
 }

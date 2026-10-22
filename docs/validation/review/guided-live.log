@@ -1,0 +1,18 @@
+{
+  "pass": true,
+  "changes": {
+    "current_margin": 0.3,
+    "max_package_mm": 25.0,
+    "lifetime_hours": 72.0,
+    "temp_range": [
+      -10,
+      60
+    ],
+    "supply_capacity_mah": 1200.0
+  },
+  "unhandled": [],
+  "groq_requests": 1,
+  "accounted_tokens": 1089,
+  "exa_requests": 0,
+  "database_writes": 0
+}

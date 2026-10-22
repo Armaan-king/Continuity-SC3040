@@ -1,7 +1,8 @@
-"""Add one clearly labelled reference design to the disposable browser-test account."""
+"""Add reference designs to the disposable browser-test account."""
 import asyncio
 import os
 import sys
+from dataclasses import replace
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -31,6 +32,14 @@ async def main():
         async with pool.connection() as conn:
             async with conn.transaction():
                 await commit_revision(conn, "review-e2e-reference", document(board), "Reference fixture")
+        battery_project = await store.create_project(user.id, "Battery answers reference")
+        await store.create_thread("review-e2e-battery", battery_project.id, user.id, "Compact battery-powered reference")
+        await store.save_progress("review-e2e-battery", 0, "done")
+        battery = replace(board, requirements=Requirements(input_source="battery-3v7", input_voltage=3.7),
+                          rails={"input": replace(board.rails["input"], voltage=3.7)})
+        async with pool.connection() as conn:
+            async with conn.transaction():
+                await commit_revision(conn, "review-e2e-battery", document(battery, prompt="Compact battery-powered reference"), "Reference fixture")
     print("Seeded versioned reference design for browser validation.")
 
 

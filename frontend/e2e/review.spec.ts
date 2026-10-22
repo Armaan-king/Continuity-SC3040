@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { test, expect, type Page } from '@playwright/test'
 import { signIn, API_URL, watchConsole } from './helpers'
 
 test('requirements produce an immutable revision shared by report, graph and exports', async ({ page }) => {
@@ -82,4 +82,201 @@ test('a rejected revision stays editable and preserves the answer for retry', as
   await expect(page).toHaveURL(`/projects/${project.id}/review`)
   await expect(page.getByRole('spinbutton', { name: 'input voltage', exact: true })).toHaveValue('4.2')
   await expect(page.getByRole('button', { name: 'Save and revalidate', exact: true })).toBeEnabled()
+})
+
+async function openBatteryReview(page: Page) {
+  await signIn(page, 'review-e2e@continuity.dev')
+  const projects = await (await page.request.get(`${API_URL}/projects`)).json()
+  const project = projects.find((item: { name: string }) => item.name === 'Battery answers reference')
+  const history = await (await page.request.get(`${API_URL}/projects/${project.id}/revisions`)).json()
+  const original = history.revisions.at(-1)
+  const active = history.revisions.find((item: { active: boolean }) => item.active)
+  if (active.id !== original.id) {
+    const restored = await page.request.post(`${API_URL}/revisions/${original.id}/restore`, { data: { expected_revision: active.id } })
+    expect(restored.ok()).toBeTruthy()
+  }
+  const before = await (await page.request.get(`${API_URL}/projects/${project.id}/revisions`)).json()
+  await page.goto(`/projects/${project.id}/review`)
+  await expect(page.getByRole('button', { name: 'Confirm all & revalidate', exact: true })).toBeVisible()
+  return { project, before }
+}
+
+const runtimeQuestion = 'How long should it run between charges or battery changes?'
+const capacityQuestion = "What is the selected battery's rated capacity?"
+const marginQuestion = 'What current design margin should validation use?'
+const packageQuestion = 'What is the maximum individual component package dimension?'
+
+test('confirm all saves every answer in one revision and returns to that workspace', async ({ page }) => {
+  const { project, before } = await openBatteryReview(page)
+  await page.getByRole('spinbutton', { name: runtimeQuestion, exact: true }).fill('72')
+  await page.getByRole('spinbutton', { name: capacityQuestion, exact: true }).fill('1200')
+  await page.getByRole('spinbutton', { name: marginQuestion, exact: true }).fill('0.30')
+  await page.getByRole('spinbutton', { name: packageQuestion, exact: true }).fill('25')
+  await page.getByLabel('Minimum operating temperature').fill('-10')
+  await page.getByLabel('Maximum operating temperature').fill('60')
+  const section = page.getByRole('region', { name: 'A few things only you can tell us' })
+  await section.screenshot({ path: 'test-results/review-batch-desktop.png' })
+  await page.setViewportSize({ width: 390, height: 844 })
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBeTruthy()
+  await section.screenshot({ path: 'test-results/review-batch-mobile.png' })
+  const requests: Record<string, unknown>[] = []
+  page.on('request', request => {
+    if (request.method() === 'POST' && /\/revisions\/[^/]+\/requirements$/.test(request.url())) requests.push(request.postDataJSON())
+  })
+  await page.getByRole('button', { name: 'Confirm all & revalidate', exact: true }).click()
+  await expect(page).toHaveURL(`/design/${project.id}`)
+  await expect(page.getByTestId('revision-notice')).toContainText('Revision saved and revalidated')
+  const values = { lifetime_hours: 72, supply_capacity_mah: 1200, current_margin: 0.3, max_package_mm: 25, temp_range: [-10, 60] }
+  expect(requests).toEqual([{ expected_revision: before.revisions.find((item: { active: boolean }) => item.active).id, ...values }])
+  const after = await (await page.request.get(`${API_URL}/projects/${project.id}/revisions`)).json()
+  expect(after.revisions).toHaveLength(before.revisions.length + 1)
+  const active = after.revisions.find((item: { active: boolean }) => item.active)
+  const saved = await (await page.request.get(`${API_URL}/revisions/${active.id}`)).json()
+  for (const [field, value] of Object.entries(values)) {
+    expect(saved.document.requirements.find((item: { field: string }) => item.field === field)).toMatchObject({ value, basis: 'confirmed' })
+  }
+  expect(saved.guidance.questions).toHaveLength(0)
+  expect(saved.document.report.counts.unknown).toBeGreaterThan(0)
+  const board = await (await page.request.get(`${API_URL}/threads/${active.thread_id}/board`)).json()
+  expect(board.revision_id).toBe(active.id)
+  await page.reload()
+  await expect(page.getByRole('link', { name: 'Review design', exact: true })).toBeVisible()
+})
+
+test('batch validation is atomic, preserves drafts on failure and leaves blank answers unknown', async ({ page }) => {
+  const { project, before } = await openBatteryReview(page)
+  await page.getByRole('spinbutton', { name: capacityQuestion, exact: true }).fill('1200')
+  await page.getByRole('spinbutton', { name: marginQuestion, exact: true }).fill('0')
+  await page.getByLabel('Minimum operating temperature').fill('70')
+  await page.getByLabel('Maximum operating temperature').fill('60')
+  const requests: Record<string, unknown>[] = []
+  page.on('request', request => {
+    if (request.method() === 'POST' && /\/revisions\/[^/]+\/requirements$/.test(request.url())) requests.push(request.postDataJSON())
+  })
+  const confirm = page.getByRole('button', { name: 'Confirm all & revalidate', exact: true })
+  await confirm.click()
+  await expect(page.getByRole('alert')).toContainText('No answers were saved')
+  expect(requests).toHaveLength(0)
+  await page.getByLabel('Minimum operating temperature').fill('-10')
+  await page.getByLabel('Maximum operating temperature').fill('')
+  await confirm.click()
+  expect(await page.getByLabel('Maximum operating temperature').evaluate((input: HTMLInputElement) => input.validity.valueMissing)).toBeTruthy()
+  expect(requests).toHaveLength(0)
+  await page.getByLabel('Maximum operating temperature').fill('60')
+  let release!: () => void
+  const responseGate = new Promise<void>(resolve => { release = resolve })
+  await page.route('**/revisions/*/requirements', async route => {
+    await responseGate
+    await route.fulfill({ status: 503, contentType: 'application/json', body: JSON.stringify({ detail: 'Temporary save failure. Please retry.' }) })
+  })
+  const pending = page.waitForRequest(request => request.method() === 'POST' && request.url().endsWith('/requirements'))
+  await confirm.click()
+  await pending
+  await expect(page.getByRole('button', { name: 'Validating answers…' })).toBeDisabled()
+  for (const individual of await page.getByRole('button', { name: 'Confirm & revalidate', exact: true }).all()) await expect(individual).toBeDisabled()
+  release()
+  await expect(page.getByRole('alert')).toContainText('Temporary save failure')
+  await expect(page.getByRole('spinbutton', { name: capacityQuestion, exact: true })).toHaveValue('1200')
+  await expect(page.getByRole('spinbutton', { name: marginQuestion, exact: true })).toHaveValue('0')
+  await expect(page).toHaveURL(`/projects/${project.id}/review`)
+  await page.unroute('**/revisions/*/requirements')
+  await confirm.click()
+  await expect(page).toHaveURL(`/design/${project.id}`)
+  const after = await (await page.request.get(`${API_URL}/projects/${project.id}/revisions`)).json()
+  expect(after.revisions).toHaveLength(before.revisions.length + 1)
+  const active = after.revisions.find((item: { active: boolean }) => item.active)
+  const saved = await (await page.request.get(`${API_URL}/revisions/${active.id}`)).json()
+  expect(saved.guidance.questions.map((question: { field: string }) => question.field)).toEqual(['lifetime_hours', 'max_package_mm'])
+  expect(saved.document.board.requirements.lifetime_hours).toBeNull()
+  expect(requests.at(-1)).not.toHaveProperty('lifetime_hours')
+  expect(requests.at(-1)).not.toHaveProperty('max_package_mm')
+})
+
+test('choices are editable goals and not-sure answers remain open after bulk confirmation', async ({ page }) => {
+  const { project } = await openBatteryReview(page)
+  const runtime = page.getByRole('form', { name: runtimeQuestion, exact: true })
+  await runtime.getByRole('button', { name: '3 days', exact: true }).click()
+  await expect(runtime.getByRole('spinbutton')).toHaveValue('72')
+  await runtime.getByRole('button', { name: 'Write your own', exact: true }).click()
+  await expect(runtime.getByRole('spinbutton')).toBeFocused()
+  await runtime.getByRole('spinbutton').fill('96')
+  await expect(runtime.getByRole('button', { name: '3 days', exact: true })).toHaveAttribute('aria-pressed', 'false')
+  const capacity = page.getByRole('form', { name: capacityQuestion, exact: true })
+  await expect(capacity).toContainText('no capacity is assumed')
+  await expect(capacity.getByRole('button')).toHaveCount(3)
+  await capacity.getByRole('button', { name: 'Not sure yet' }).click()
+  await page.getByRole('form', { name: marginQuestion, exact: true }).getByRole('button', { name: '50%', exact: true }).click()
+  await page.getByRole('form', { name: /What operating temperature range/ }).getByRole('button', { name: 'Not sure yet' }).click()
+  await page.getByRole('form', { name: packageQuestion, exact: true }).getByRole('button', { name: 'Not sure yet' }).click()
+  await page.getByRole('button', { name: 'Confirm all & revalidate', exact: true }).click()
+  await expect(page).toHaveURL(`/design/${project.id}`)
+  const history = await (await page.request.get(`${API_URL}/projects/${project.id}/revisions`)).json()
+  const active = history.revisions.find((item: { active: boolean }) => item.active)
+  const saved = await (await page.request.get(`${API_URL}/revisions/${active.id}`)).json()
+  expect(saved.document.board.requirements.lifetime_hours).toBe(96)
+  expect(saved.document.board.requirements.current_margin).toBe(0.5)
+  expect(saved.document.board.requirements.supply_capacity_mah).toBeNull()
+  expect(saved.guidance.questions.map((q: { field: string }) => q.field)).toEqual(['supply_capacity_mah', 'temp_range', 'max_package_mm'])
+})
+
+test('a written request previews answers, then saves one real revision after confirmation', async ({ page }) => {
+  const { project, before } = await openBatteryReview(page)
+  await page.getByRole('form', { name: packageQuestion, exact: true }).getByRole('button', { name: '15 mm' }).click()
+  await page.getByText('None of these? Describe a change', { exact: true }).click()
+  await page.getByLabel('Your requirement changes').fill('Run for 3 days with a 30% current margin. Replace the buzzer.')
+  let previews = 0
+  await page.route('**/revisions/*/answer-proposal', route => {
+    previews += 1
+    return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({
+      changes: { lifetime_hours: 72, current_margin: 0.3 },
+      quotes: { lifetime_hours: 'Run for 3 days', current_margin: '30% current margin' },
+      unhandled: ['Component replacement requires the workspace.'],
+    }) })
+  })
+  await page.getByRole('button', { name: 'Preview proposed answers' }).click()
+  await expect(page.getByRole('region', { name: 'Proposed answers' })).toContainText('72 hours')
+  await expect(page.getByRole('region', { name: 'Proposed answers' })).toContainText('Component replacement requires the workspace')
+  await expect(page.getByRole('button', { name: 'Confirm all & revalidate', exact: true })).toBeDisabled()
+  await expect(page.getByRole('spinbutton', { name: runtimeQuestion, exact: true })).toHaveValue('')
+  const stillUnchanged = await (await page.request.get(`${API_URL}/projects/${project.id}/revisions`)).json()
+  expect(stillUnchanged).toEqual(before)
+  await page.setViewportSize({ width: 390, height: 844 })
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBeTruthy()
+  await page.getByRole('region', { name: 'Proposed answers' }).screenshot({ path: 'test-results/review-proposal-mobile.png' })
+  await page.getByRole('button', { name: 'Use these answers' }).click()
+  await expect(page.getByText('Component replacement requires the workspace.', { exact: true })).toBeVisible()
+  await expect(page.getByRole('spinbutton', { name: runtimeQuestion, exact: true })).toHaveValue('72')
+  await expect(page.getByRole('spinbutton', { name: packageQuestion, exact: true })).toHaveValue('15')
+  await page.getByRole('button', { name: 'Confirm all & revalidate', exact: true }).click()
+  await expect(page).toHaveURL(`/design/${project.id}`)
+  await expect(page.getByTestId('revision-notice')).toContainText('Revision saved and revalidated')
+  const after = await (await page.request.get(`${API_URL}/projects/${project.id}/revisions`)).json()
+  expect(after.revisions).toHaveLength(before.revisions.length + 1)
+  const saved = await (await page.request.get(`${API_URL}/revisions/${after.revisions.find((r: { active: boolean }) => r.active).id}`)).json()
+  expect(saved.document.board.requirements.lifetime_hours).toBe(72)
+  expect(saved.document.board.requirements.max_package_mm).toBe(15)
+  expect(previews).toBe(1)
+})
+
+test('unavailable or unsupported written answers preserve drafts and allow direct input', async ({ page }) => {
+  await openBatteryReview(page)
+  await page.getByRole('spinbutton', { name: capacityQuestion, exact: true }).fill('1200')
+  await page.getByText('None of these? Describe a change', { exact: true }).click()
+  const request = page.getByLabel('Your requirement changes')
+  await request.fill('Replace the buzzer')
+  const preview = page.getByRole('button', { name: 'Preview proposed answers' })
+  await page.route('**/revisions/*/answer-proposal', route => route.fulfill({ status: 503, contentType: 'application/json', body: JSON.stringify({ detail: 'AI unavailable. Enter values directly.' }) }))
+  await preview.click()
+  await expect(page.getByRole('alert')).toContainText('Enter values directly')
+  await expect(request).toHaveValue('Replace the buzzer')
+  await expect(page.getByRole('spinbutton', { name: capacityQuestion, exact: true })).toHaveValue('1200')
+  await expect(page.getByRole('button', { name: 'Confirm all & revalidate', exact: true })).toBeEnabled()
+  await page.unroute('**/revisions/*/answer-proposal')
+  await page.route('**/revisions/*/answer-proposal', route => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ changes: {}, quotes: {}, unhandled: ['Component replacement requires the workspace.'] }) }))
+  await preview.click()
+  await expect(page.getByRole('region', { name: 'Proposed answers' })).toContainText('No requirement values were proposed')
+  await expect(page.getByRole('button', { name: 'Use these answers' })).toHaveCount(0)
+  await page.getByRole('button', { name: 'Discard proposal' }).click()
+  await expect(page.getByRole('button', { name: 'Confirm all & revalidate', exact: true })).toBeEnabled()
+  await expect(page.getByRole('spinbutton', { name: capacityQuestion, exact: true })).toHaveValue('1200')
 })

@@ -7,6 +7,14 @@ from __future__ import annotations
 
 import re
 
+# Examples of user-selected goals, never defaults or retrieved component facts.
+ANSWER_OPTIONS = {
+    "lifetime_hours": [("1 day", 24), ("3 days", 72), ("1 week", 168)],
+    "temp_range": [("0 to 40 °C", [0, 40]), ("−10 to 60 °C", [-10, 60]), ("−40 to 85 °C", [-40, 85])],
+    "current_margin": [("15%", 0.15), ("30%", 0.30), ("50%", 0.50)],
+    "max_package_mm": [("10 mm", 10), ("15 mm", 15), ("25 mm", 25)],
+}
+
 
 def battery_brief(prompt: str, source: str = "") -> bool:
     return "battery" in source or "liion" in source or bool(re.search(
@@ -26,7 +34,8 @@ def review_guidance(document: dict) -> dict:
         if values.get(field) is None or bases.get(field) not in {"confirmed", "stated"}:
             questions.append({"field": field, "title": title, "why": why, "unit": unit,
                               "value": values.get(field), "basis": bases.get(field, "assumed"),
-                              "minimum": minimum, "maximum": maximum})
+                              "minimum": minimum, "maximum": maximum,
+                              "options": [{"label": label, "value": value} for label, value in ANSWER_OPTIONS.get(field, [])]})
 
     if battery:
         ask("lifetime_hours", "How long should it run between charges or battery changes?",

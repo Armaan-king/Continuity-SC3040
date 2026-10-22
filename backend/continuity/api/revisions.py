@@ -16,6 +16,8 @@ from ..designs import service
 from ..designs.guidance import review_guidance
 from ..planner import topology
 from ..engine.models import Port, SignalNet
+from .. import llm
+from ..designs.answer_proposals import propose_answers
 
 router = APIRouter()
 
@@ -46,6 +48,11 @@ class RequirementEdit(BaseModel):
 
 class RestoreRequest(BaseModel):
     expected_revision: str = Field(min_length=1, max_length=128)
+
+
+class AnswerRequest(RestoreRequest):
+    model_config = ConfigDict(extra="forbid")
+    prompt: str = Field(min_length=1, max_length=2000, pattern=r"\S")
 
 
 class NetInput(BaseModel):
@@ -98,6 +105,26 @@ async def save(request: Request, user: User, revision: dict, document: dict, rea
     except ValueError as error:
         raise HTTPException(409, str(error)) from error
     return {"revision_id": revision_id, "project_id": revision["project_id"]}
+
+
+@router.post("/revisions/{revision_id}/answer-proposal")
+async def preview_answers(revision_id: str, body: AnswerRequest, request: Request, user: User = Depends(current_user)):
+    revision = await owned(request, revision_id, user)
+    history = await store_of(request).revisions_for_project(revision["project_id"], user.id)
+    if revision_id != body.expected_revision or not any(row["id"] == revision_id and row["active"] for row in history):
+        raise HTTPException(409, "Reload the current revision before proposing answers.")
+    questions = review_guidance(revision["document"])["questions"]
+    if not questions:
+        raise HTTPException(422, "There are no open questions. Edit confirmed values under Requirements.")
+    try:
+        proposal = await propose_answers(body.prompt, questions)
+        # Use the save contract before showing a proposal. Nothing is persisted here.
+        RequirementEdit.model_validate({"expected_revision": revision_id, **proposal["changes"]})
+    except llm.LLMUnavailable as error:
+        raise HTTPException(503, "AI could not interpret this request. Your text is kept; choose an option or enter values directly.") from error
+    except ValueError as error:
+        raise HTTPException(422, "Could not produce a valid proposal. State exact values and units, or use the fields directly.") from error
+    return proposal
 
 
 @router.post("/revisions/{revision_id}/requirements")

@@ -1,0 +1,113 @@
+{
+  "recordedAt": "2026-10-22T03:03:20.334Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "source": "Local production build; PostgreSQL; basic planning; real distributor requests",
+  "clips": [
+    {
+      "name": "guided-walkthrough",
+      "chapters": [
+        {
+          "seconds": 0,
+          "title": "Landing page"
+        },
+        {
+          "seconds": 2,
+          "title": "Create an account"
+        },
+        {
+          "seconds": 4,
+          "title": "Recorded example: brief and board graph"
+        },
+        {
+          "seconds": 11,
+          "title": "It shows its working"
+        },
+        {
+          "seconds": 15,
+          "title": "A conflict has a verdict"
+        },
+        {
+          "seconds": 19,
+          "title": "The check log is still here"
+        },
+        {
+          "seconds": 23,
+          "title": "Parts, prices, and export"
+        },
+        {
+          "seconds": 27,
+          "title": "Memory keeps the finding"
+        }
+      ],
+      "browserErrors": [],
+      "result": "PASS",
+      "file": "guided-walkthrough.mp4",
+      "duration": "00:00:34.38",
+      "bytes": 1791557
+    },
+    {
+      "name": "project-workflow",
+      "chapters": [
+        {
+          "seconds": 0,
+          "title": "Sign in to saved projects"
+        },
+        {
+          "seconds": 2,
+          "title": "Describe a board; basic planning is active"
+        },
+        {
+          "seconds": 6,
+          "title": "Live parts lookup and electrical checks"
+        },
+        {
+          "seconds": 26,
+          "title": "Inspect and export the bill of materials"
+        },
+        {
+          "seconds": 29,
+          "title": "Reopen a saved project"
+        },
+        {
+          "seconds": 33,
+          "title": "Review validation analytics"
+        },
+        {
+          "seconds": 36,
+          "title": "Explore remembered boards and parts"
+        },
+        {
+          "seconds": 40,
+          "title": "Sign out"
+        }
+      ],
+      "browserErrors": [],
+      "result": "PASS",
+      "file": "project-workflow.mp4",
+      "duration": "00:00:40.96",
+      "bytes": 2282441
+    }
+  ],
+  "liveRun": {
+    "status": "done",
+    "summary": {
+      "slots": 3,
+      "placed": 3,
+      "elapsed_s": 17.3,
+      "conflicts_resolved": 1
+    },
+    "acceptedWarnings": 0
+  },
+  "preview": {
+    "file": "walkthrough.gif",
+    "source": "guided-walkthrough.mp4",
+    "startSeconds": 10,
+    "durationSeconds": 19,
+    "width": 960,
+    "fps": 6,
+    "bytes": 4316358
+  }
+}

@@ -34,7 +34,7 @@ const steps: WalkthroughStep[] = [
   {
     selector: '[data-tour="trace"]',
     heading: 'It shows its working',
-    body: 'Each line is a real check against a real part — voltage, current, interfaces, stock.',
+    body: 'Each line replays a recorded check against a part — voltage, current, interfaces, stock. This example does not fetch fresh inventory.',
   },
   {
     selector: '[data-tour="drawer"]',
@@ -49,7 +49,7 @@ const steps: WalkthroughStep[] = [
   {
     selector: '[data-tour="bom-export"]',
     heading: 'Parts, prices, and export',
-    body: 'The bill of materials is made of real selected parts and current prices. Export it when the board is ready to hand off.',
+    body: 'The bill of materials shows selected parts and prices from this recorded example. In your own projects, export the BOM after reviewing the findings.',
   },
   {
     selector: '[data-tour="memory-detail"]',

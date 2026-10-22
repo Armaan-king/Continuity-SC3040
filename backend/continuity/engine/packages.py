@@ -25,7 +25,7 @@ from __future__ import annotations
 
 import re
 
-THETA_JA_SOURCE = "Continuity package table (JESD51-2 low-K board, approximate)"
+THETA_JA_SOURCE = "FUZE package table (JESD51-2 low-K board, approximate)"
 
 _ALNUM = re.compile(r"[^A-Z0-9]")
 

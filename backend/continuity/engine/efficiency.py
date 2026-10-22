@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from .models import PartSpec
 
-BAND_SOURCE = "Continuity efficiency band (topology and rectifier type, approximate)"
+BAND_SOURCE = "FUZE efficiency band (topology and rectifier type, approximate)"
 
 _BANDS: dict[tuple[str, bool | None], tuple[float, float]] = {
     ("buck", True): (0.85, 0.95),

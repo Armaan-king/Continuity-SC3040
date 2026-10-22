@@ -144,9 +144,9 @@ reflected input current come out overstated. Erring the other way passes boards 
 cook. Stated exactly like θJA and an inferred supply: assumed, and said out loud.
 """
 
-ASSUMED_EFFICIENCY_SOURCE = "Continuity assumption — no efficiency published"
+ASSUMED_EFFICIENCY_SOURCE = "FUZE assumption — no efficiency published"
 
-DOSSIER_SOURCE = "Continuity dossier — learned in an earlier run"
+DOSSIER_SOURCE = "FUZE dossier — learned in an earlier run"
 """Prefix marking a field carried forward from a past run rather than this run's listing.
 
 It lives here, beside the other source strings, because both the engine and `parts` have
@@ -154,6 +154,11 @@ to recognise it and `engine` may not import `parts`. Matching it as a literal in
 modules is how it first arrived; a reworded string would then have silently stopped being
 recognised while every test still passed.
 """
+
+
+def is_dossier_source(source: str) -> bool:
+    """Saved provenance from before the rename must retain its original meaning."""
+    return source.startswith((DOSSIER_SOURCE, "Continuity dossier — learned in an earlier run"))
 
 
 @dataclass(frozen=True)
@@ -312,7 +317,7 @@ class PartSpec:
             value = getattr(self, name, None)
             if value is None:
                 continue
-            if raw_key is not None and raw_key.startswith(DOSSIER_SOURCE):
+            if raw_key is not None and is_dossier_source(raw_key):
                 display_value = listing(value) if isinstance(value, tuple) else str(value)
                 rows.append(Evidence(slot, f"{name} (dossier)", display_value, raw_key))
                 continue

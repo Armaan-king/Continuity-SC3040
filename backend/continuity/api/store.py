@@ -98,7 +98,7 @@ def _fold(email: str) -> str:
     return email.strip().lower()
 
 
-WALKTHROUGH_PROJECT_NAME = "Welcome to Continuity"
+WALKTHROUGH_PROJECT_NAME = "Welcome to FUZE"
 SCRATCH_PROJECT_NAME = "Scratch designs"
 
 

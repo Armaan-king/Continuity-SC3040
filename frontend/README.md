@@ -1,6 +1,6 @@
 # Frontend
 
-React 19, TypeScript, Vite and Tailwind power the existing Continuity interface. Design state is reduced from typed SSE events; presentation timing remains in the frontend.
+React 19, TypeScript, Vite and Tailwind power the FUZE interface. Design state is reduced from typed SSE events; presentation timing remains in the frontend.
 
 Use Node 24. From the repository root:
 

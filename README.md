@@ -1,8 +1,10 @@
-# Continuity
+# FUZE
 
-Continuity turns a circuit-board brief or an existing bill of materials into a workspace for sourcing parts, checking electrical constraints, and reviewing repairs. Follow a design from its first description through the board graph, supporting evidence, saved revisions, and an exported BOM.
+FUZE turns a circuit-board brief or an existing bill of materials into a workspace for sourcing parts, checking electrical constraints, and reviewing repairs. Follow a design from its first description through the board graph, supporting evidence, saved revisions, and an exported BOM.
 
 [Open the app](https://continuity-sc3040.onrender.com) · [Run locally](#start-locally) · [Deployment guide](docs/DEPLOYMENT.md)
+
+**Demo availability:** The app runs on Render's free tier and is not always immediately available. It sleeps after 15 minutes without traffic and usually takes about a minute to wake when you visit. Please allow the initial loading page to finish. [Render's free-service behavior](https://render.com/docs/free#spinning-down-on-idle).
 
 ## Walk through the app
 
@@ -70,9 +72,11 @@ Closing the browser does not cancel a server-side run. The event stream reconnec
 
 All four videos were captured against the local app with PostgreSQL and AI planning disabled. The evidence and revision clips use a reference board that retains its remaining failures and unknowns. [Recording details, chapters, and reproduction](docs/media/README.md).
 
+These recordings predate the FUZE rename, so their branding differs from the current app.
+
 ## Capabilities and limits
 
-Continuity assists design review. Compatibility verdicts come from Python rules; missing specifications remain unchecked, and accepted failures remain visible. Exa retrieves supporting documents, while admitted research facts require manufacturer-source and identity checks, supporting passages and independent parsing. A completed run is not a manufacturing certification.
+FUZE assists design review. Compatibility verdicts come from Python rules; missing specifications remain unchecked, and accepted failures remain visible. Exa retrieves supporting documents, while admitted research facts require manufacturer-source and identity checks, supporting passages and independent parsing. A completed run is not a manufacturing certification.
 
 Fresh sourcing needs internet access, and supplier availability and prices can change after a run. The recordings identify historical data where it is used. The supported deployment uses one backend worker; load testing and multi-replica operation are outside the current verification.
 

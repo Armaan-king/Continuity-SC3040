@@ -139,7 +139,7 @@ try {
     const downloadEvent = page.waitForEvent('download')
     await page.getByRole('button', { name: 'Export BOM' }).click()
     const download = await downloadEvent
-    const csvPath = path.join(work, 'continuity-bom.csv')
+    const csvPath = path.join(work, 'fuze-bom.csv')
     await download.saveAs(csvPath)
     assert.match(await readFile(csvPath, 'utf8'), /^part_number,description,qty,unit_price/)
     const stored = await page.request.get(`/api/threads/${thread.id}/board`)

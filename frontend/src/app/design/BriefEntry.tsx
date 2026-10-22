@@ -178,7 +178,7 @@ export function BriefEntry({ onStarted, walkthroughBrief }: BriefEntryProps) {
               What are you building?
             </h1>
             <p className="font-body-md text-on-surface-variant">
-              Describe the board in plain language. Continuity will plan it, source real parts,
+              Describe the board in plain language. FUZE will plan it, source real parts,
               and tell you what does not fit.
             </p>
           </div>

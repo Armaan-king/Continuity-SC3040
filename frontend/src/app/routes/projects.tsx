@@ -456,7 +456,7 @@ export default function ProjectsRoute() {
                 </div>
                 <h2 className="font-headline-sm text-headline-sm text-on-surface mb-sm">No projects yet</h2>
                 <p className="font-body-md text-body-md text-on-surface-variant max-w-md mb-xl">
-                  Describe a board and Continuity will source and validate it
+                  Describe a board and FUZE will source and validate it
                 </p>
                 <button
                   className="bg-primary-container text-on-primary-fixed px-xl py-sm rounded-DEFAULT font-label-caps text-label-caps hover:bg-primary-fixed transition-colors flex items-center gap-sm"

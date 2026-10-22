@@ -272,7 +272,7 @@ export default function LandingRoute() {
             <div>
               <div className="mb-lg inline-flex bg-surface-container-high px-sm py-xs font-data-tabular text-data-tabular text-surface-tint">SYS.STATUS: ONLINE</div>
               <h1 className="max-w-xl font-display-mono text-[44px] font-bold leading-[1.02] tracking-[-0.045em] text-on-surface sm:text-[58px] lg:text-[64px]">Find out your regulator overheats before you order 5,000 boards.</h1>
-              <p className="mt-lg max-w-lg text-[18px] leading-7 text-on-surface-variant">Describe the board in plain language. Continuity sources real JLCPCB parts, checks the whole board — voltage, current, thermal, interfaces, pin budget, stock — and repairs what fails.</p>
+              <p className="mt-lg max-w-lg text-[18px] leading-7 text-on-surface-variant">Describe the board in plain language. FUZE finds components across supplier catalogues and web sources, checks the modeled electrical constraints, and helps you revise the design. Missing evidence stays visible.</p>
               <form className="mt-xl flex max-w-md flex-col gap-sm sm:flex-row" onSubmit={submitEmail}>
                 <div className="relative min-w-0 flex-1"><input className="h-full w-full border border-outline-variant bg-surface-container-lowest px-md py-md pr-[52px] font-data-tabular text-data-tabular text-on-background placeholder:text-outline focus:border-primary-container focus:outline-none" onChange={(event) => setEmail(event.target.value)} placeholder="ENTER_WORK_EMAIL" type="email" value={email} /><span className="pointer-events-none absolute right-md top-1/2 -translate-y-1/2 font-data-tabular text-data-tabular text-outline">.com</span></div>
                 <button className="bg-primary-container px-xl py-md font-label-caps text-label-caps text-on-primary-fixed hover:bg-primary-fixed" type="submit">GET_STARTED</button>
@@ -307,7 +307,7 @@ export default function LandingRoute() {
         <Reveal>
           <section className="bg-surface-container-low py-[112px]">
             <div className="mx-auto grid w-full max-w-7xl gap-xl px-lg lg:grid-cols-[0.7fr_1.3fr]">
-              <div><p className="font-label-caps text-label-caps text-surface-tint">MEMORY</p><h2 className="mt-md font-display-mono text-[30px] leading-tight text-on-surface">Where else did I use this?</h2><p className="mt-md max-w-md text-[16px] leading-7 text-on-surface-variant">Continuity remembers parts and decisions across boards, so you can trace where a part was used and whether it ever caused a finding.</p></div>
+              <div><p className="font-label-caps text-label-caps text-surface-tint">MEMORY</p><h2 className="mt-md font-display-mono text-[30px] leading-tight text-on-surface">Where else did I use this?</h2><p className="mt-md max-w-md text-[16px] leading-7 text-on-surface-variant">FUZE remembers parts and decisions across boards, so you can trace where a part was used and whether it ever caused a finding.</p></div>
               <div><LandingMemoryGraph /><p className="mt-sm font-data-tabular text-[10px] text-outline">ILLUSTRATIVE SAMPLE / RECORDED WALKTHROUGH PARTS, NOT YOUR DATA</p></div>
             </div>
           </section>

@@ -13,7 +13,7 @@ const ICON_SIZE: Record<WordmarkSize, string> = {
 }
 
 /**
- * The one Continuity wordmark. Every screen renders this and nothing renders its own.
+ * The one FUZE wordmark. Every screen renders this and nothing renders its own.
  *
  * There were four before: `developer_board` in copper-container on the projects and design
  * headers, `memory` in copper on the landing and auth pages, and no glyph at all on the
@@ -33,7 +33,7 @@ export function Wordmark({ size = 'md' }: { size?: WordmarkSize }) {
       >
         developer_board
       </span>
-      <span className={TEXT_SIZE[size]}>CONTINUITY</span>
+      <span className={TEXT_SIZE[size]}>FUZE</span>
     </div>
   )
 }

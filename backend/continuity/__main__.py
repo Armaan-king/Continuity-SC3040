@@ -13,7 +13,7 @@ def loop_factory(use_subprocess: bool = False):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Run Continuity")
+    parser = argparse.ArgumentParser(description="Run FUZE")
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=int(os.environ.get("PORT", "8000")))
     parser.add_argument("--api-only", action="store_true")

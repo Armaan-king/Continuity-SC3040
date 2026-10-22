@@ -26,6 +26,7 @@ from .models import (
     ASSUMED_EFFICIENCY,
     ASSUMED_EFFICIENCY_SOURCE,
     DOSSIER_SOURCE,
+    is_dossier_source,
     Board,
     Evidence,
     PartSpec,
@@ -919,7 +920,7 @@ def _check_rail_thermal(board: Board, rail: Rail) -> Verdict | None:
     # run never opened that datasheet. Labelling it "(datasheet)" and putting the quoted
     # line in `source` would tell the screen a datasheet was consulted here and print the
     # quote twice. Name the dossier instead, exactly as the package table names itself.
-    theta_from_dossier = regulator.provenance.get("theta_ja", "").startswith(DOSSIER_SOURCE)
+    theta_from_dossier = is_dossier_source(regulator.provenance.get("theta_ja", ""))
     theta_evidence = (
         Evidence(
             subject,

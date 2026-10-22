@@ -1250,7 +1250,7 @@ def test_an_efficiency_band_is_named_in_evidence():
     bounded = next(e for e in verdict.evidence if e.field == "efficiency (bounded)")
 
     assert bounded.value == "75%–95%"
-    assert "Continuity efficiency band" in (bounded.source or "")
+    assert "FUZE efficiency band" in (bounded.source or "")
 
 
 def test_a_stated_efficiency_beats_the_band():

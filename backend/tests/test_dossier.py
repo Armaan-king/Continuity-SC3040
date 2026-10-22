@@ -2,8 +2,30 @@
 
 from __future__ import annotations
 
-from continuity.engine.models import PartSpec
+import pytest
+
+from continuity.engine import rules
+from continuity.engine.models import DOSSIER_SOURCE, PartSpec
 from continuity.parts.dossier import DOSSIER_FIELDS, facts_from_part
+from tests import parts
+from tests.boards import usb_board
+
+
+@pytest.mark.parametrize("source", [DOSSIER_SOURCE, "Continuity dossier — learned in an earlier run"])
+def test_saved_dossier_facts_remain_distinct_from_new_datasheet_evidence(source):
+    regulator = parts.ap2112k(
+        theta_ja=62.0,
+        theta_ja_source_line="Junction-to-ambient thermal resistance 62.0 C/W",
+        provenance={"theta_ja": source + ": earlier thermal measurement"},
+    )
+    citation, = regulator.cite("regulator", "theta_ja")
+    assert citation.field == "theta_ja (dossier)"
+    assert citation.source == regulator.provenance["theta_ja"]
+
+    board = usb_board(regulator=regulator, loads={"mcu": parts.esp32s3()})
+    thermal_rows = [row for verdict in rules.thermal_dissipation(board) for row in verdict.evidence]
+    assert any(row.field == "θJA (dossier)" for row in thermal_rows)
+    assert not any(row.field == "θJA (datasheet)" for row in thermal_rows)
 
 
 def test_facts_from_part_keeps_only_known_nonempty_part_properties():

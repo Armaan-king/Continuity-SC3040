@@ -200,7 +200,7 @@ async def edit_connections(revision_id: str, body: ConnectionsEdit, request: Req
 async def report(revision_id: str, request: Request, user: User = Depends(current_user)):
     revision = await owned(request, revision_id, user)
     return JSONResponse({"revision_id": revision_id, "content_hash": revision["content_hash"], **revision["document"]},
-        headers={"Content-Disposition": f'attachment; filename="continuity-{revision_id}-report.json"'})
+        headers={"Content-Disposition": f'attachment; filename="fuze-{revision_id}-report.json"'})
 
 
 @router.get("/revisions/{revision_id}/bom.csv")
@@ -212,4 +212,4 @@ async def export(revision_id: str, request: Request, user: User = Depends(curren
     writer.writeheader()
     writer.writerows({**row, "revision_id": revision_id} for row in rows)
     return PlainTextResponse(buffer.getvalue(), media_type="text/csv",
-        headers={"Content-Disposition": f'attachment; filename="continuity-{revision_id}.csv"'})
+        headers={"Content-Disposition": f'attachment; filename="fuze-{revision_id}.csv"'})

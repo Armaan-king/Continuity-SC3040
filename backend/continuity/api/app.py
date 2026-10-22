@@ -122,7 +122,7 @@ async def lifespan(app: FastAPI):
         await pool.close()
 
 
-app = FastAPI(title="Continuity", version="0.1.0", lifespan=lifespan)
+app = FastAPI(title="FUZE", version="0.1.0", lifespan=lifespan)
 
 # The defaults, so the app is usable the moment it is imported. `httpx.ASGITransport`
 # does not run lifespan events, which is how the offline suite drives this app — without
@@ -687,13 +687,13 @@ async def export(thread_id: str, request: Request) -> PlainTextResponse:
     return PlainTextResponse(
         buffer.getvalue(),
         media_type="text/csv",
-        headers={"Content-Disposition": f'attachment; filename="continuity-{thread_id}.csv"'},
+        headers={"Content-Disposition": f'attachment; filename="fuze-{thread_id}.csv"'},
     )
 
 
 
 WALKTHROUGH = Path(__file__).with_name("walkthrough.jsonl")
-WALKTHROUGH_NAME = "Welcome to Continuity"
+WALKTHROUGH_NAME = "Welcome to FUZE"
 """The project the walkthrough leaves behind, and the name it appears under."""
 
 

@@ -13,6 +13,7 @@ const PROJECTS = ['Weather station', 'Solar data logger', 'Motor controller', 'B
 test('the landing page renders', async ({ page }) => {
   const errors = watchConsole(page)
   await page.goto('/')
+  await expect(page).toHaveTitle('FUZE')
   await expect(page.getByRole('heading', { level: 1 })).toContainText('regulator overheats')
   expect(errors).toEqual([])
 })
@@ -55,7 +56,7 @@ test('a finished board opens with its trace and bill of materials, and exports a
   const download = page.waitForEvent('download')
   await page.getByRole('button', { name: 'Export BOM' }).click()
   const file = await download
-  expect(file.suggestedFilename()).toBe('continuity-bom.csv')
+  expect(file.suggestedFilename()).toBe('fuze-bom.csv')
   const csv = await (await file.createReadStream()).toArray()
   expect(Buffer.concat(csv).toString()).toMatch(/^part_number,description,qty,unit_price/)
   expect(errors).toEqual([])

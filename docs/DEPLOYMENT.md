@@ -37,8 +37,11 @@ The review and prompt update needs no additional Neon changes or mandatory envir
 | `CONTINUITY_LLM_TOKEN_BUDGET` | `120000` | Estimated reserved tokens, replaced with actual reported usage after success |
 | `CONTINUITY_RESEARCH_MAX_CALLS` | `6` | Exa requests per run, persisted across restarts |
 | `CONTINUITY_RESEARCH_BUDGET_USD` | `0.12` | Exa estimated request budget, not a provider billing cap |
+| `CONTINUITY_EVIDENCE_MAX_PARTS` | `3` | Batched specification extractions per execution; each has one model attempt and at most 2,048 output tokens |
 
 Keep the existing Groq and Exa keys. Groq planning uses strict JSON Schema output on GPT-OSS; missing or invalid plans still fail explicitly into the basic fallback. Saving an answer or requirement revalidates stored components without additional model/research requests and returns to the updated planning workspace. Old reports retain their historical results; a saved edit creates a new revision using the current rules. New LLM executions get a fresh allowance, while saved stages avoid repeating completed work.
+
+The source-fact update requires a **manual Render deployment** and no Neon migration or mandatory new variables. New designs and BOM imports can use validated research facts. Existing saved revisions retain their original evidence; requirement edits do not launch paid research. For a smaller research allowance, set `CONTINUITY_EVIDENCE_MAX_PARTS=1`, `CONTINUITY_RESEARCH_MAX_CALLS=2` and `CONTINUITY_RESEARCH_BUDGET_USD=0.04`; this may leave more components unresolved. Do not increase limits just to clear unknown results.
 
 After deployment, open `/api/runtime`. The `ai` object should report:
 

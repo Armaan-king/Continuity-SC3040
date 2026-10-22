@@ -65,13 +65,15 @@ def review_guidance(document: dict) -> dict:
         "temperature_rating": ("operating temperature rating", "Find the exact device and package's operating rating; absolute maximum ratings are not operating conditions."),
         "footprint": ("package dimensions", "Check package dimensions and the actual footprint against the manufacturer's drawing."),
         "availability": ("exact component and availability", "Resolve an exact manufacturer part and current supplier listing before ordering."),
+        "data_integrity": ("conflicting or invalid specifications", "Compare the quoted manufacturer and supplier evidence for the exact component. Resolve source disagreements before using the disputed fields."),
         "energy_budget": ("battery and operating currents", "Confirm battery capacity, required runtime and currents. The engine does not model sleep/alarm duty cycles."),
     }
     for finding in document["report"]["findings"]:
         if finding["outcome"] != "UNKNOWN":
             continue
         rule, subject = finding["rule"], finding["subject"]
-        engineering = rule in {"rail_coverage", "power_topology", "data_integrity"}
+        engineering = rule in {"rail_coverage", "power_topology", "data_integrity"} and not (
+            rule == "data_integrity" and finding.get("scope") == "research")
         kind = "engineering" if engineering else "evidence"
         key = (kind, subject)
         if key not in grouped:
@@ -87,7 +89,8 @@ def review_guidance(document: dict) -> dict:
         field, step = recipes.get(rule, (rule.replace("_", " "), "Review this unchecked result against the circuit and supporting sources."))
         if field not in task["fields"]:
             task["fields"].append(field)
-            task["steps"].append(step)
+            if step not in task["steps"]:
+                task["steps"].append(step)
     tasks.extend(grouped.values())
     counts = document["report"]["counts"]
     status = "conflicts" if counts["fail"] else "needs_review" if counts["unknown"] or counts["accepted"] or tasks or questions else "checks_complete"

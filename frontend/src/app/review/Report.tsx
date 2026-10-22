@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router'
 import type { Revision } from '../lib/revisions'
 import ReviewAnswers from './ReviewAnswers'
+import ResearchSource from './ResearchSource'
 
 const panel = 'rounded-xl border border-outline-variant bg-surface-container-low'
 const button = 'rounded-md border border-outline-variant px-4 py-2 text-body-sm transition-colors hover:border-primary-container hover:text-primary-container disabled:opacity-40'
@@ -90,11 +91,11 @@ export default function Report({ revision, active, onSaved, onRequirements }: {
     <section aria-labelledby="review-evidence"><p className="text-xs uppercase tracking-widest text-primary-container">04 / Traceable sources</p><h2 id="review-evidence" className="mb-4 mt-1 text-xl">Evidence and research</h2>
       <div className="grid gap-4 md:grid-cols-2">{evidence.map(part => <div id={`evidence-${part.slot}`} key={part.slot} className={`${panel} scroll-mt-6 p-5 min-w-0`}>
         <div className="flex items-start gap-3"><span className="text-primary-container"><Icon name="memory" /></span><div className="min-w-0"><h3 className="break-words">{part.mpn}</h3><p className="text-xs text-on-surface-variant">{part.manufacturer} · {part.slot}</p></div></div>
-        <div className="my-4 flex flex-wrap gap-3 text-xs"><span>{Object.keys(part.facts).length} verified fields</span><span className="text-on-surface-variant">{part.documents.length} research documents</span></div>
+        <div className="my-4 flex flex-wrap gap-3 text-xs"><span>{Object.keys(part.facts).length} source-backed {Object.keys(part.facts).length === 1 ? 'field' : 'fields'}</span><span className="text-on-surface-variant">{part.documents.length} research {part.documents.length === 1 ? 'document' : 'documents'}</span></div>
         <details><summary className="cursor-pointer text-body-sm text-primary-container">Inspect facts & documents</summary>
-          {Object.entries(part.facts).map(([field, fact]) => <div key={field} className="mt-3 border-t border-outline-variant pt-3 text-body-sm break-words"><p>{words(field)}: {String(fact.value)}</p><p className="text-xs text-on-surface-variant">{fact.original}</p>{safeSource(fact.source) && <a className="text-xs underline text-primary-container" href={safeSource(fact.source)} target="_blank" rel="noreferrer">Supplier source ↗</a>}</div>)}
+          {Object.entries(part.facts).map(([field, fact]) => <div key={field} className="mt-3 border-t border-outline-variant pt-3 text-body-sm break-words"><p>{words(field)}: {String(fact.value)}</p><p className="text-xs text-on-surface-variant">{fact.method === 'research_source_checked' ? 'Research · source checked' : 'Supplier · parsed parameter'}</p><p className="mt-1 text-xs text-on-surface-variant">{fact.original}</p>{safeSource(fact.source) && <a className="text-xs underline text-primary-container" href={safeSource(fact.source)} target="_blank" rel="noreferrer">{fact.method === 'research_source_checked' ? 'Manufacturer source ↗' : 'Supplier source ↗'}</a>}</div>)}
           {!part.documents.length && <p className="mt-4 text-body-sm text-on-surface-variant">No research document was saved. Missing specifications remain open.</p>}
-          {part.documents.map((doc, index) => <details key={`${doc.url}-${index}`} className="mt-4 border-t border-outline-variant pt-3"><summary className="cursor-pointer break-words text-body-sm">{doc.title}</summary><p className="my-2 text-xs text-tertiary-container">Research lead · requires verification</p><p className="mb-2 text-xs text-on-surface-variant">Retrieved {new Date(doc.retrieved_at).toLocaleString()} · {doc.question}</p><a href={safeSource(doc.url)} target="_blank" rel="noreferrer" className="text-body-sm text-primary-container underline">Open document ↗</a><pre className="mt-3 whitespace-pre-wrap break-words text-xs max-h-64 overflow-y-auto">{doc.text}</pre></details>)}
+          {part.documents.map((doc, index) => <ResearchSource key={`${doc.url}-${index}`} document={doc} />)}
         </details>
       </div>)}</div>
     </section>

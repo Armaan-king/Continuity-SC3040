@@ -13,7 +13,12 @@ class ExecutionContext:
     thread_id: str
     store: Any = None
     research_calls: int = 0
+    evidence_parts: int = 0
+    evidence_cache: dict = field(default_factory=dict)
+    evidence_lock: asyncio.Lock = field(default_factory=asyncio.Lock)
     research_cache: dict = field(default_factory=dict)
+    researched_parts: dict = field(default_factory=dict)
+    research_lock: asyncio.Lock = field(default_factory=asyncio.Lock)
     discovery_queries: set[str] = field(default_factory=set)
     llm_cache: dict = field(default_factory=dict)
     llm_lock: asyncio.Lock = field(default_factory=asyncio.Lock)

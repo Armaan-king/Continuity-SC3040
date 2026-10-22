@@ -489,7 +489,7 @@ async def normalize(
     )
     if research_missing:
         # Use the enriched part so a known datasheet goes straight to Contents.
-        part = replace(part, research=await research.investigate(part, research.missing_fields(part)))
+        part = await research.enrich(part)
     return part
 
 

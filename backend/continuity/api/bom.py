@@ -329,7 +329,9 @@ async def _normalise(candidate: search.Candidate):
         async def work():
             return asdict(await normalize.normalize(candidate))
         from ..parts.specifications import PARSER_VERSION
-        values = await stage("normalize_verified_v2", {"candidate": asdict(candidate), "parser": PARSER_VERSION}, work)
+        from ..parts.evidence import VERSION as EVIDENCE_VERSION
+        values = await stage("normalize_verified_v2", {"candidate": asdict(candidate), "parser": PARSER_VERSION,
+                                                       "evidence": EVIDENCE_VERSION}, work)
         return PartSpec(**{**values, "interfaces": tuple(values.get("interfaces", ()))})
     except Exception as error:  # one malformed result must not hide the rest of a BOM
         log.warning("BOM normalisation failed for %s: %s", candidate.mpn, error)

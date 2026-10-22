@@ -57,7 +57,7 @@ def test_exact_mcu_supplier_omission_stays_unknown_and_does_not_request_a_waiver
 
 
 @pytest.mark.parametrize('name', ['Interface', 'Interface Type', 'Connectivity', 'Serial Interface', 'Communication Interface'])
-@pytest.mark.parametrize('value', ['IIC', 'I²C', 'TWI', 'i2c'])
+@pytest.mark.parametrize('value', ['IIC', 'I²C', 'I₂C', 'I 2 C', 'I-2-C', 'Ｉ２Ｃ', 'TWI', 'i2c'])
 def test_explicit_supplier_i2c_aliases_keep_their_source(name, value):
     parsed, provenance = specifications.parse({name: value})
     assert parsed['interfaces'] == ('I2C',)
@@ -69,10 +69,13 @@ def test_explicit_supplier_i2c_aliases_keep_their_source(name, value):
     ('SMBus / UART', ('SMBUS', 'UART')),
     ('1-Wire, Single Bus', ('1-WIRE',)),
     ('RS485, RS-422, LIN', ('RS-485', 'RS-422', 'LIN')),
+    ('RS–485, CAN‑FD, USART', ('RS-485', 'CAN-FD', 'USART')),
     ('I2S, I²S', ('I2S',)),
     ('SPI, no I2C', ('SPI',)),
     ('No I2C', ()), ('I2C not supported', ()), ('I2C optional', ()),
     ('High-speed peripheral interface', ()), ('N/A', ()),
+    ('I2G, SP1', ()),
+    ('CAN-XL', ()),
 ])
 def test_interface_tokens_are_explicit_and_not_negated(value, expected):
     parsed, _ = specifications.parse({'Interface': value})
@@ -151,3 +154,27 @@ def test_saved_normalization_stage_cannot_reintroduce_the_old_parse(monkeypatch)
     asyncio.run(go())
     normalizer.assert_awaited_once()
     assert len(saved) == 2
+
+
+def test_usart_support_is_directional_and_can_fd_is_not_assumed_classical_can():
+    from continuity.engine.buses import master_satisfies_bus
+    assert master_satisfies_bus('UART', 'USART')
+    assert not master_satisfies_bus('USART', 'UART')
+    assert not master_satisfies_bus('CAN-FD', 'CAN')
+
+
+@pytest.mark.parametrize(('name', 'value', 'field', 'expected'), [
+    ('Voltage – Supply', '3300mV—3600mV', 'vmin', 3.3),
+    ('Operating Temperature', '−40℃—+85℃', 'temp_min', -40),
+    ('Supply Current', '50μA', 'i_typ', 0.00005),
+    ('Supply Current', '50µA', 'i_typ', 0.00005),
+    ('Supply Voltage', '１．８Ｖ～３．６Ｖ', 'vmax', 3.6),
+])
+def test_unicode_measurements_preserve_the_original_source(name, value, field, expected):
+    parsed, sources = specifications.parse({name: value})
+    assert parsed[field] == pytest.approx(expected)
+    assert sources[field] == name
+
+
+def test_ambiguous_decimal_comma_is_not_silently_reinterpreted():
+    assert specifications.measurements('3,3V', 'V') == []

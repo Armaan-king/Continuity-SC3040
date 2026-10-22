@@ -2,6 +2,8 @@
 
 Verified locally on 22 October 2026. This update fixes a false interface conflict between an MC9S08AW60CFGE controller and an I²C peripheral. Production Neon data was not used.
 
+This records the earlier interface-only update. The subsequent [source-fact pipeline](SOURCE_FACTS_VALIDATION.md) adds validated research extraction and broader Unicode normalization; its scope and tests supersede the extraction limitations below.
+
 ## Diagnosis
 
 A public supplier lookup for MC9S08AW60CFGE (C5193889) returned clock, temperature and generic feature fields, but no interface parameter. The legacy capability rule treated the empty controller interface list as proof that no compatible bus existed.

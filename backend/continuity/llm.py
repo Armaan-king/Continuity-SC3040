@@ -116,16 +116,17 @@ def parse_json(text: str) -> dict[str, Any]:
 
 
 async def complete_json(
-    system: str, user: str, *, temperature: float = 0.0, effort: str = MINIMAL, schema: dict | None = None
+    system: str, user: str, *, temperature: float = 0.0, effort: str = MINIMAL, schema: dict | None = None,
+    max_tokens: int | None = None, max_attempts: int | None = None
 ) -> dict[str, Any]:
     from .designs.context import current
     from .designs.service import digest
 
     context = current.get()
     if context is None:
-        return await _complete_json(system, user, temperature=temperature, effort=effort, schema=schema)
+        return await _complete_json(system, user, temperature=temperature, effort=effort, schema=schema, max_tokens=max_tokens, max_attempts=max_attempts)
     config = configuration()
-    key = digest([config.provider, config.base_url, config.model, config.max_tokens, system, user, temperature, effort, schema])
+    key = digest([config.provider, config.base_url, config.model, config.max_tokens, max_tokens, max_attempts, system, user, temperature, effort, schema])
     # Serialize provider calls within a run and coalesce identical requests. The cache
     # stays execution-local; user briefs never leak through a process-wide cache.
     async with context.llm_lock:
@@ -133,16 +134,23 @@ async def complete_json(
             return copy.deepcopy(context.llm_cache[key])
         if context.llm_unavailable:
             raise LLMUnavailable(context.llm_unavailable)
-        result = await _complete_json(system, user, temperature=temperature, effort=effort, schema=schema)
+        result = await _complete_json(system, user, temperature=temperature, effort=effort, schema=schema, max_tokens=max_tokens, max_attempts=max_attempts)
         context.llm_cache[key] = copy.deepcopy(result)
         return result
 
 
-async def _complete_json(system: str, user: str, *, temperature: float, effort: str, schema: dict | None = None) -> dict[str, Any]:
+async def _complete_json(system: str, user: str, *, temperature: float, effort: str, schema: dict | None = None,
+                         max_tokens: int | None = None, max_attempts: int | None = None) -> dict[str, Any]:
     from openai import APIConnectionError, APIStatusError, APITimeoutError, AsyncOpenAI
     from .designs.context import current
 
     config = configuration()
+    if max_tokens is not None and (isinstance(max_tokens, bool) or not isinstance(max_tokens, int) or max_tokens < 1):
+        raise ValueError("max_tokens must be a positive integer")
+    output_limit = min(config.max_tokens, max_tokens) if max_tokens is not None else config.max_tokens
+    if max_attempts is not None and (isinstance(max_attempts, bool) or not isinstance(max_attempts, int) or max_attempts < 1):
+        raise ValueError("max_attempts must be a positive integer")
+    attempts = min(MAX_ATTEMPTS, max_attempts) if max_attempts is not None else MAX_ATTEMPTS
     if not config.enabled:
         raise LLMUnavailable("AI is not configured; using the rule-based fallback.")
     parameters: dict[str, Any] = {
@@ -150,7 +158,7 @@ async def _complete_json(system: str, user: str, *, temperature: float, effort: 
         "messages": [{"role": "system", "content": system + "\nReturn only a JSON object."},
                      {"role": "user", "content": user}],
         "temperature": temperature,
-        "max_tokens": config.max_tokens,
+        "max_tokens": output_limit,
     }
     if config.provider == "zai":
         parameters["reasoning_effort"] = effort
@@ -170,8 +178,8 @@ async def _complete_json(system: str, user: str, *, temperature: float, effort: 
     context = current.get()
     async with AsyncOpenAI(api_key=config.key, base_url=config.base_url,
                            timeout=TIMEOUT_S, max_retries=0) as client:
-        for attempt in range(MAX_ATTEMPTS):
-            reservation = (len(system) + len(user) + (len(json.dumps(schema)) if schema else 0)) // 3 + config.max_tokens
+        for attempt in range(attempts):
+            reservation = (len(system) + len(user) + (len(json.dumps(schema)) if schema else 0)) // 3 + output_limit
             if context:
                 if (context.llm_calls >= integer("CONTINUITY_LLM_MAX_CALLS", 40, maximum=100)
                         or context.llm_tokens + reservation > integer("CONTINUITY_LLM_TOKEN_BUDGET", 120000, maximum=1000000)):
@@ -219,7 +227,7 @@ async def _complete_json(system: str, user: str, *, temperature: float, effort: 
                 failure = "provider connection failed or timed out"
             except (ValueError, IndexError, TypeError):
                 failure = "provider did not return a valid JSON object"
-            if attempt + 1 < MAX_ATTEMPTS:
+            if attempt + 1 < attempts:
                 await asyncio.sleep(delay)
     # Never echo provider response bodies, which can contain prompts or secrets.
     if context and "HTTP 429" in failure:

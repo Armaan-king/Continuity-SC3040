@@ -34,11 +34,11 @@ After a run completes, open **Review design**. The report shows a visual check s
 
 Questions ask for missing or unconfirmed requirements, such as battery capacity, runtime, operating temperature and current margin. Values already inferred by the planner are labelled as proposals to confirm. Supplier search cannot decide your intended operating conditions. Missing component measurements stay unknown until supported by evidence; a missing current is never presented as zero draw or 100% available headroom.
 
-Missing controller interface data also stays **UNKNOWN**, rather than becoming a claimed incompatibility. Explicit IIC, I²C and TWI specifications are recognized as I²C. When research is enabled, missing interfaces are included in the datasheet questions; a retrieved document still needs verification before its claims can become rule inputs.
+Missing controller interface data also stays **UNKNOWN**, rather than becoming a claimed incompatibility. Explicit IIC, I²C, I₂C and TWI specifications are recognized as I²C. Research now extracts proposed facts from manufacturer documents and checks the passages and component identity before admitting them to the rules. Conflicting or conditional claims stay visible for review.
 
 The engine checks measurement consistency and power topology before calculating electrical limits. It follows loads through cascaded rails, includes BOM quantities, checks converter direction, and budgets GPIO separately for declared signal nets. Missing measurements, ambiguous connections, and typical-only current figures stay visible as uncertainty. Repairs use the actual board requirements and compare replacements against the whole board, while avoiding components already tried in that run.
 
-When Exa research is enabled, supporting documents include source links, retrieved text, and verification labels. Read those alongside the report's validation limits. Under **Requirements**, confirm the power and signal connections against your circuit, then save to revalidate.
+When Exa research is enabled, supporting documents include source links, retrieved text, and verification labels. Evidence cards distinguish facts **used by checks**, **conflicting claims excluded from checks**, and claims that **need review**. Source checks apply to individual facts, not the whole document. Under **Requirements**, confirm the power and signal connections against your circuit, then save to revalidate.
 
 [![Retrieved source text, attribution, verification labels, and validation limits](docs/media/research-connections-poster.png)](docs/media/research-connections.mp4)
 
@@ -66,7 +66,7 @@ All four videos were captured against the local app with PostgreSQL and AI plann
 
 ## Capabilities and limits
 
-Continuity assists design review. Compatibility verdicts come from Python rules; missing specifications remain unchecked, and accepted failures remain visible. Exa retrieves supporting documents, while numeric checks require independently parsed source measurements. A completed run is not a manufacturing certification.
+Continuity assists design review. Compatibility verdicts come from Python rules; missing specifications remain unchecked, and accepted failures remain visible. Exa retrieves supporting documents, while admitted research facts require manufacturer-source and identity checks, supporting passages and independent parsing. A completed run is not a manufacturing certification.
 
 Fresh sourcing needs internet access, and supplier availability and prices can change after a run. The recordings identify historical data where it is used. The supported deployment uses one backend worker; load testing and multi-replica operation are outside the current verification.
 
@@ -86,7 +86,7 @@ For development without the app container, see [backend setup](backend/README.md
 
 ## AI options
 
-The Python rule engine makes the compatibility decisions. Optional AI plans functional blocks, classifies ambiguous component roles, proposes repairs, and interprets clarification answers. Numeric measurements and interfaces come from parsed supplier data. The app uses an OpenAI-compatible client protocol; that does not mean it calls OpenAI.
+The Python rule engine makes the compatibility decisions. Optional AI plans functional blocks, classifies ambiguous component roles, proposes repairs, interprets clarification answers and locates specification passages. Measurements and interfaces come from parsed supplier data or source-checked manufacturer research. The app uses an OpenAI-compatible client protocol; that does not mean it calls OpenAI.
 
 The configured model (Groq by default for hosting) can suggest a repair, and Exa can retrieve supporting documents or help discover alternatives. The deterministic engine checks the resulting parts and connections. Its checks still run when the model is unavailable; basic planning remains limited and needs review. Changing the AI provider later does not replace the electrical rules.
 
@@ -118,9 +118,11 @@ Gemini defaults to `gemini-3.8-flash` through [Google's OpenAI-compatible endpoi
 
 Add `EXA_API_KEY` to **`backend/.env` for direct Python development** and **Render → Environment for hosting**. For Docker Compose, use the root `.env`. Groq and Exa serve different purposes: Groq handles planning, interpretation and repair proposals; Exa searches the web and retrieves documents. They have separate keys and configuration. Other supported model providers can replace Groq without changing Exa.
 
-Exa uses native Search and Contents endpoints following the [build-with-exa skill](https://github.com/exa-labs/agent-skills/tree/main/skills/build-with-exa). The engine compares up to three resolved candidates against the same design, then researches missing evidence for the selected candidate. Known datasheet URLs use Contents first; missing documents use Search. Exact part-number matching reduces evidence from a different variant. At most two distinct alternative-discovery queries per execution leave more of the shared budget for component evidence. Retrieved documents include URLs, timestamps and hashes and remain unverified; snippets cannot introduce numeric facts.
+Exa uses native Search and Contents endpoints following the [build-with-exa skill](https://github.com/exa-labs/agent-skills/tree/main/skills/build-with-exa). Known datasheet URLs use Contents first; otherwise Search prefers manufacturer sources. Groq extracts up to eight claims from at most two documents in one bounded request. Code then checks source authority, exact identity, quotations, operating conditions and parseable measurements. Supplier-linked manufacturer family documents can establish positive interface support; package-dependent numbers require exact-part evidence. Search snippets alone never populate specifications.
 
-Defaults are six Exa requests per run and a $0.12 **estimated** request budget, persisted across retries. Set `CONTINUITY_RESEARCH_MAX_CALLS`, `CONTINUITY_RESEARCH_BUDGET_USD`, or `CONTINUITY_RESEARCH_ENABLED=0` to control usage. Provider charges and account quotas remain authoritative. `/api/runtime` reports research configuration separately from its last request status.
+The engine reranks candidates after research adds facts, and may inspect one fallback within the same budget. Contradictory measurements clear the affected range and create an UNKNOWN finding. Current and efficiency claims remain review-only until their operating conditions can be matched. Unknown manufacturers, ambiguous variants and unparseable tables remain research leads. [Validation, supported scope and live-check cost](docs/SOURCE_FACTS_VALIDATION.md).
+
+Defaults are six Exa requests per run and a $0.12 **estimated** request budget, persisted across retries. `CONTINUITY_EVIDENCE_MAX_PARTS=3` limits extraction attempts per execution, each with at most 2,048 output tokens and no automatic model retry. Paid retrieval is skipped when extraction cannot proceed; completed work is reused before checking the remaining allowance. Set `CONTINUITY_RESEARCH_MAX_CALLS`, `CONTINUITY_RESEARCH_BUDGET_USD`, or `CONTINUITY_RESEARCH_ENABLED=0` to control usage. Provider charges and account quotas remain authoritative. `/api/runtime` reports research configuration separately from its last request status.
 
 ### Keeping AI calls useful and bounded
 

@@ -290,6 +290,15 @@ class PartSpec:
         rows: list[Evidence] = []
         seen: set[str] = set()
         for name in normalised_fields:
+            fact = self.fact_evidence.get(name, {})
+            if fact.get("method") == "research_source_checked":
+                for source in fact.get("supporting_sources", [fact]):
+                    quote = str(source.get("original", ""))
+                    key = str(source.get("source", "")) + quote
+                    if quote and key not in seen:
+                        seen.add(key)
+                        rows.append(Evidence(slot, f"{name} (source checked)", quote, source.get("source")))
+                continue
             raw_key = self.provenance.get(name)
             if raw_key is not None and raw_key in self.raw:
                 # vmin and vmax routinely share one parameter ("2.5V ~ 6.0V"); quoting it

@@ -1,0 +1,57 @@
+{
+  "passed": false,
+  "before_unknown": 2,
+  "after": [
+    {
+      "subject": "light",
+      "status": "pass",
+      "unchecked": false
+    }
+  ],
+  "interfaces": [
+    "I2C",
+    "SPI"
+  ],
+  "cache_reused": false,
+  "exa_requests": 1,
+  "groq_requests": 1,
+  "accounted_tokens": 3018,
+  "exa_reported_cost_usd": 0.001,
+  "sources": [
+    {
+      "url": "https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf",
+      "characters": 24000,
+      "extraction_status": "complete",
+      "claims": [
+        {
+          "group": "interfaces",
+          "status": "source_checked",
+          "reason": "",
+          "quote": "IIC \u2014 Inter-integrated circuit bus module to 8-Bit HCS08 Central Processor Unit (CPU) operate at up to 100 kbps",
+          "identity_basis": "supplier_linked_family"
+        },
+        {
+          "group": "interfaces",
+          "status": "needs_review",
+          "reason": "Operating conditions or variant restrictions require review.",
+          "quote": "SCI \u2014 Two serial communications interface modules with optional 13-bit break",
+          "identity_basis": null
+        },
+        {
+          "group": "interfaces",
+          "status": "source_checked",
+          "reason": "",
+          "quote": "SPI \u2014 Serial peripheral interface module",
+          "identity_basis": "supplier_linked_family"
+        },
+        {
+          "group": "gpio",
+          "status": "needs_review",
+          "reason": "Exact part or supplier-linked family applicability could not be established.",
+          "quote": "Up to 54 general-purpose input/output (I/O)",
+          "identity_basis": null
+        }
+      ]
+    }
+  ]
+}

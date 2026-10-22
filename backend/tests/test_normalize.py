@@ -296,13 +296,13 @@ def test_research_receives_the_enriched_datasheet_not_only_a_raw_candidate(monke
 
     monkeypatch.setattr(normalize.llm, "available", lambda: False)
     monkeypatch.setattr(normalize.search, "enrich", AsyncMock(return_value=normalize.search.Enrichment(datasheet="https://sensirion.com/sht40.pdf")))
-    investigate = AsyncMock(return_value=())
-    monkeypatch.setattr(research, "investigate", investigate)
+    enrich = AsyncMock(side_effect=lambda part: part)
+    monkeypatch.setattr(research, "enrich", enrich)
     part = asyncio.run(normalize.normalize(CANDIDATE, use_cache=False))
-    source_part, missing = investigate.call_args.args
+    source_part = enrich.call_args.args[0]
     assert source_part.datasheet == "https://sensirion.com/sht40.pdf"
     assert source_part.mpn == part.mpn
-    assert "vmin" not in missing
+    assert "vmin" not in research.missing_fields(source_part)
 
 
 async def _plain(_mpn):

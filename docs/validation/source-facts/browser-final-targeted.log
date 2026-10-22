@@ -1,0 +1,37 @@
+
+> frontend@0.0.0 test:e2e
+> playwright test research-facts.spec.ts regression.spec.ts
+
+npm.cmd : [WebServer] INFO:     Started server process [62492]
+At line:4 char:1
++ npm.cmd run test:e2e -- research-facts.spec.ts regression.spec.ts *>  ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([WebServer] INF...process [62492]:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+[WebServer] INFO:     Waiting for application startup.
+[WebServer] INFO:     Application startup complete.
+[WebServer] INFO:     Uvicorn running on http://127.0.0.1:8020 (Press CTRL+C to quit)
+[WebServer] (node:76676) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:72796) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:68700) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+Seeded e2e@continuity.dev: 25 completed runs, 3 excluded, 5 projects.
+Seeded versioned reference design for browser validation.
+
+Running 8 tests using 1 worker
+
+(node:51700) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [chromium] › e2e\regression.spec.ts:13:1 › the landing page renders (827ms)
+  ok 2 [chromium] › e2e\regression.spec.ts:20:1 › wrong credentials are refused without signing in (492ms)
+  ok 3 [chromium] › e2e\regression.spec.ts:28:1 › signing in lists every project, and signing out ends the session (1.3s)
+  ok 4 [chromium] › e2e\regression.spec.ts:44:1 › a finished board opens with its trace and bill of materials, and exports as CSV (1.4s)
+  ok 5 [chromium] › e2e\regression.spec.ts:64:1 › the server-side CSV export still answers for a finished run (224ms)
+  ok 6 [chromium] › e2e\regression.spec.ts:77:1 › memory shows the parts and boards from past runs (669ms)
+  ok 7 [chromium] › e2e\regression.spec.ts:88:1 › the guided walkthrough still replays for a new account (5.1s)
+  ok 8 [chromium] › e2e\research-facts.spec.ts:4:1 › source-checked facts, conflicts and pending claims remain distinct in saved research (1.9s)
+
+  8 passed (24.5s)

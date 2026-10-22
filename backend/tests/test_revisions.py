@@ -15,6 +15,33 @@ from continuity import llm
 pytestmark = pytest.mark.skipif(not os.environ.get("CONTINUITY_TEST_DB"), reason="requires disposable PostgreSQL")
 
 
+def test_research_facts_and_conflicts_survive_persistence_edit_and_export(monkeypatch):
+    from tests.test_research_facts import PART, apply, board, claim
+    model = AsyncMock()
+    monkeypatch.setattr(llm, 'complete_json', model)
+    supply = {**claim(), 'group': 'supply', 'parameter': 'Supply Voltage', 'value': '1.8V~3.6V',
+              'quote': 'Supply Voltage: 1.8V~3.6V'}
+    enriched = apply(replace(PART, vmin=1.8, vmax=5.5), [claim(), supply])
+    async def go():
+        async with a_store() as store, signed_in() as http:
+            user, project, _ = await seed(store, http)
+            async with store.pool.connection() as conn:
+                async with conn.transaction():
+                    original = await commit_revision(conn, 'revision-reference', service.document(board(enriched)), 'Research fixture')
+            saved = (await http.get(f'/revisions/{original}')).json()
+            assert saved['document']['evidence'][0]['facts']['interfaces']['method'] == 'research_source_checked'
+            response = await http.post(f'/revisions/{original}/requirements', json={'expected_revision': original, 'current_margin': 0.3})
+            assert response.status_code == 200
+            revision = response.json()['revision_id']
+            exported = (await http.get(f'/revisions/{revision}/report.json')).json()
+            assert exported['evidence'][0]['documents'][0]['claims'][0]['quote'] == claim()['quote']
+            assert exported['board']['slots']['mcu']['part']['vmax'] is None
+            assert exported['evidence'][0]['documents'][0]['claims'][1]['status'] == 'conflict'
+            assert (await http.get(f'/revisions/{original}')).json() == saved
+    asyncio.run(go())
+    model.assert_not_awaited()
+
+
 async def seed(store, http):
     user = await store.user_by_email("sparsh@example.com")
     project = await store.create_project(user.id, "Revision reference")

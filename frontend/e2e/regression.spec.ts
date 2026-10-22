@@ -79,7 +79,7 @@ test('memory shows the parts and boards from past runs', async ({ page }) => {
   await signIn(page)
   await page.goto('/memory')
 
-  await expect(page.getByRole('button', { name: 'MEMORY' })).toBeVisible()
+  await expect(page.getByRole('button', { name: 'MEMORY', exact: true })).toBeVisible()
   await expect(page.getByText(/\d+ PARTS · \d+ BOARDS/)).toBeVisible()
   await expect(page.getByRole('main').locator('canvas')).toBeVisible()
   expect(errors).toEqual([])

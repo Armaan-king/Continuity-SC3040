@@ -12,6 +12,7 @@ from continuity.api.auth import hasher
 from continuity.api.revision_store import commit_revision
 from continuity.designs.service import document
 from continuity.engine.models import Board, Requirements, Rail, Slot, PartSpec
+from continuity.parts.evidence import apply_claims
 
 
 async def main():
@@ -40,6 +41,26 @@ async def main():
         async with pool.connection() as conn:
             async with conn.transaction():
                 await commit_revision(conn, "review-e2e-battery", document(battery, prompt="Compact battery-powered reference"), "Reference fixture")
+        research_project = await store.create_project(user.id, "Research evidence reference")
+        await store.create_thread("review-e2e-research", research_project.id, user.id, "Controlled evidence fixture")
+        await store.save_progress("review-e2e-research", 0, "done")
+        controller = PartSpec('TEST-CONTROLLER-01', 'NXP', 'Synthetic browser-test component', 'Microcontrollers',
+                              role='master', vmin=1.8, vmax=5.5)
+        claims = [{"document": 0, "subject": controller.mpn, "identity_quote": controller.mpn,
+                   "group": group, "parameter": parameter, "value": value, "quote": quote, "conditions": ""}
+                  for group, parameter, value, quote in [
+                      ('interfaces', 'Interface', 'IIC', 'TEST-CONTROLLER-01 supports IIC interfaces.'),
+                      ('supply', 'Supply Voltage', '1.8V~3.6V', 'Supply Voltage: 1.8V~3.6V'),
+                      ('current', 'Operating Current', '5mA', 'Operating Current: 5mA')]]
+        # Controlled fixture; this URL is never fetched and these are not live facts.
+        source = {'url': 'https://www.nxp.com/continuity-test-fixture', 'title': 'Controlled evidence fixture (not live)',
+                  'text': '\n'.join(c['identity_quote'] + '\n' + c['quote'] for c in claims),
+                  'content_kind': 'text', 'retrieved_at': '2026-10-22T12:00:00Z', 'question': 'Synthetic evidence validation'}
+        controller = apply_claims(controller, (source,), {'claims': claims})
+        research_board = replace(board, slots={**board.slots, 'mcu': Slot('mcu', 'Controller', 'core', part=controller)})
+        async with pool.connection() as conn:
+            async with conn.transaction():
+                await commit_revision(conn, 'review-e2e-research', document(research_board), 'Controlled evidence fixture')
     print("Seeded versioned reference design for browser validation.")
 
 

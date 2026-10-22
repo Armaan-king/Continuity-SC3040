@@ -8,6 +8,9 @@ export type ReviewQuestion = { field: string; title: string; why: string; unit: 
 export type AnswerProposal = { changes: Record<string, number | number[]>; quotes: Record<string, string>; unhandled: string[] }
 export type ReviewTask = { id: string; kind: 'engineering' | 'evidence'; title: string; detail: string; subjects: string[]; finding_ids: string[]; fields: string[]; steps?: string[]; action: string }
 export type ReviewGuidance = { status: 'conflicts' | 'needs_review' | 'checks_complete'; note: string; questions: ReviewQuestion[]; tasks: ReviewTask[]; input_sources: { key: string; label: string }[] }
+export type ResearchClaim = { parameter: string; value: string; quote: string; status: string; reason: string; identity_basis?: string; conditions?: string; previous_values?: Record<string, unknown> }
+export type ResearchDocument = { url: string; title: string; text: string; retrieved_at: string; verification: string; question: string; extraction_status?: string; claims?: ResearchClaim[] }
+export type SourceFact = { value: unknown; original: string; source: string; method: string; identity_basis?: string; retrieved_at?: string }
 export type Revision = RevisionSummary & {
   project_id: string
   content_hash: string
@@ -18,7 +21,7 @@ export type Revision = RevisionSummary & {
     requirements: Requirement[]
     report: { findings: Finding[]; counts: Counts; coverage: { rule: string; outcome: string; note: string }[]; limitations: string[] }
     bom: { total: number; currency: string }
-    evidence: { slot: string; mpn: string; manufacturer: string; facts: Record<string, { value: unknown; original: string; source: string; method: string }>; documents: { url: string; title: string; text: string; retrieved_at: string; verification: string; question: string }[] }[]
+    evidence: { slot: string; mpn: string; manufacturer: string; facts: Record<string, SourceFact>; documents: ResearchDocument[] }[]
   }
 }
 export type Comparison = { connections_changed: boolean; components: { slot: string; before: string[] | null; after: string[] | null }[]; requirements: { field: string; before: unknown; after: unknown }[]; cost_delta: number; before: Counts; after: Counts }

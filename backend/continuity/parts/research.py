@@ -11,6 +11,7 @@ import math
 import os
 import re
 from datetime import datetime, timezone
+from dataclasses import asdict
 from urllib.parse import urlsplit
 
 import httpx
@@ -33,7 +34,8 @@ def configured() -> bool:
 
 def status() -> dict:
     return {"configured": configured(), "provider": "exa", "last_request": dict(_last_status),
-            "max_calls_per_run": integer("CONTINUITY_RESEARCH_MAX_CALLS", 6, maximum=20)}
+            "max_calls_per_run": integer("CONTINUITY_RESEARCH_MAX_CALLS", 6, maximum=20),
+            "max_extractions_per_execution": integer("CONTINUITY_EVIDENCE_MAX_PARTS", 3, maximum=10)}
 
 
 def public_url(value: object) -> str | None:
@@ -110,6 +112,7 @@ async def _request(path: str, payload: dict) -> dict:
                 continue
             text = text[:MAX_DOCUMENT_CHARS]
             documents.append({"url": url, "title": str(item.get("title") or url)[:300], "text": text,
+                              "content_kind": "text" if item.get("text") else "highlights",
                               "retrieved_at": now, "content_hash": digest(text), "verification": "unverified"})
         cost = body.get("costDollars") or {}
         cost_value = cost.get("total", 0) if isinstance(cost, dict) else 0
@@ -165,6 +168,17 @@ def _matches(document: dict, mpn: str) -> bool:
                           document["text"] + " " + document["title"], re.I))
 
 
+def _related(document: dict, candidate) -> bool:
+    """Discovery can include family documents; admission still checks applicability."""
+    from .evidence import manufacturer_source
+    if _matches(document, candidate.mpn):
+        return True
+    if not manufacturer_source(candidate, document["url"]):
+        return False
+    tokens = re.findall(r"\b[A-Za-z][A-Za-z0-9-]{5,}\b", document["title"] + " " + document["text"])
+    return any(re.search(r"\d", token) and candidate.mpn.upper().startswith(token.upper()) for token in tokens)
+
+
 async def investigate(candidate, missing: list[str]) -> tuple[dict, ...]:
     if not configured() or not missing:
         return ()
@@ -172,27 +186,65 @@ async def investigate(candidate, missing: list[str]) -> tuple[dict, ...]:
     known = public_url(getattr(candidate, "datasheet", None))
     if known and known != getattr(candidate, "product_url", None):
         direct = await read_documents([known])
-        matching = [d for d in direct["documents"] if _matches(d, candidate.mpn)]
+        matching = [d for d in direct["documents"] if _related(d, candidate)]
         if matching:
-            return tuple({**d, "question": ", ".join(missing), "mpn": candidate.mpn} for d in matching)
+            return tuple({**d, "supplier_linked": d["url"] == known,
+                          "question": ", ".join(missing), "mpn": candidate.mpn} for d in matching)
     query = f"{candidate.manufacturer} {candidate.mpn} {candidate.package or ''} manufacturer datasheet {' '.join(missing[:4])}"
     found = await search_documents(query)
     documents = found["documents"]
-    matching = [d for d in documents if _matches(d, candidate.mpn)]
+    from .evidence import manufacturer_source
+    matching = sorted((d for d in documents if _related(d, candidate)),
+                      key=lambda d: not manufacturer_source(candidate, d["url"]))
     if matching:
-        full = await read_documents([matching[0]["url"]])
-        documents = [d for d in full["documents"] if _matches(d, candidate.mpn)] or matching
+        # At most two documents in one Contents call; inspect disagreements without
+        # paying for a separate extraction request for each individual field.
+        full = await read_documents([d["url"] for d in matching[:2]])
+        documents = [d for d in full["documents"] if _related(d, candidate)] or matching[:2]
     else:
         documents = []
-    # Documents are presented for review. Numeric facts are NOT promoted from snippets
-    # or model interpretations; structured supplier measurements remain the rule inputs.
-    return tuple({**d, "question": ", ".join(missing), "mpn": candidate.mpn} for d in documents[:3])
+    # Retrieval is not admission. evidence.enrich checks passages and applicability.
+    return tuple({**d, "supplier_linked": False, "question": ", ".join(missing), "mpn": candidate.mpn} for d in documents[:2])
+
+
+async def enrich(part):
+    from . import evidence
+    from ..designs.context import stage
+    from ..engine.models import PartSpec
+    context = current.get()
+    inputs = {"version": evidence.VERSION, "part": asdict(part)}
+
+    async def work():
+        # Check this only after cache/stage lookup: exhausting the allowance must
+        # never hide facts already paid for earlier in this execution.
+        if not part.research and (not llm.available() or (context and (context.llm_unavailable or
+                context.llm_calls >= integer("CONTINUITY_LLM_MAX_CALLS", 40, maximum=100) or
+                context.llm_tokens + evidence.token_reservation() > integer("CONTINUITY_LLM_TOKEN_BUDGET", 120000, maximum=1000000) or
+                context.evidence_parts >= integer("CONTINUITY_EVIDENCE_MAX_PARTS", 3, maximum=10)))):
+            return None
+        documents = part.research or await investigate(part, missing_fields(part))
+        return asdict(await evidence.enrich(part, documents))
+
+    key = digest(inputs)
+    if context:
+        async with context.research_lock:
+            if key not in context.researched_parts:
+                context.researched_parts[key] = await stage("researched_part", inputs, work)
+            saved = context.researched_parts[key]
+    else:
+        saved = await work()
+    return PartSpec(**{**saved, "interfaces": tuple(saved.get("interfaces", ())),
+                       "research": tuple(saved.get("research", ()))}) if saved is not None else part
 
 
 async def discover(query: str, purpose: str | None = None) -> list:
     """Find named alternatives, then resolve every one against the supplier catalogue."""
     from . import search
+    if not llm.available():
+        return []
     context = current.get()
+    if context and context.llm_unavailable:
+        return []
     key = digest([query, purpose])
     if context:
         # Preserve most of the shared retrieval budget for selected-part evidence.

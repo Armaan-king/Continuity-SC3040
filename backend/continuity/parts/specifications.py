@@ -7,16 +7,18 @@ Nominal voltages are not promoted to operating ranges, and missing facts stay mi
 from __future__ import annotations
 
 import re
+import unicodedata
 from collections.abc import Mapping
 from ..engine.buses import listed_interfaces
 
-PARSER_VERSION = "verified-3"
+PARSER_VERSION = "verified-4"
 
 NUMBER = r"([+-]?(?:\d+(?:\.\d+)?|\.\d+))"
 SCALE = {"": 1.0, "m": 1e-3, "u": 1e-6, "µ": 1e-6, "μ": 1e-6, "n": 1e-9}
 
 
 def measurements(value: str, unit: str) -> list[float]:
+    value = unicodedata.normalize('NFKC', value).translate(str.maketrans('−–—‑‐‒', '------'))
     expression = NUMBER + r"\s*([muµμn]?)\s*" + unit
     single = re.fullmatch(expression, value.strip(), re.I)
     if single:
@@ -48,7 +50,8 @@ def parse(specs: Mapping[str, str]) -> tuple[dict, dict]:
     for source, raw in specs.items():
         if not isinstance(raw, str):
             continue
-        name = re.sub(r"\s+", " ", source.lower().replace(" - ", " ")).strip()
+        label = unicodedata.normalize('NFKC', source).translate(str.maketrans('−–—‑‐‒', '------'))
+        name = re.sub(r"\s+", " ", label.lower().replace(" - ", " ")).strip()
         if name in {"voltage supply", "supply voltage", "operating voltage", "voltage input", "input voltage"}:
             values = measurements(raw, "V")
             if len(values) == 2 and values[0] >= 0:

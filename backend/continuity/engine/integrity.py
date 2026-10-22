@@ -46,6 +46,14 @@ def prepare(board: Board) -> tuple[Board, list[Verdict]]:
         part = slot.part
         if part is None:
             continue
+        disputed = [claim for doc in part.research for claim in doc.get("claims", [])
+                    if claim.get("status") == "conflict"]
+        if disputed:
+            findings.append(Verdict("data_integrity", "warn",
+                f"{part.mpn}: source specifications disagree; disputed measurements are excluded until reviewed.",
+                key, scope="research", unchecked=True,
+                evidence=tuple(Evidence(key, claim.get("parameter", "research"), claim.get("quote", ""), doc.get("url"))
+                               for doc in part.research for claim in doc.get("claims", []) if claim.get("status") == "conflict")))
         invalid = set()
         for name in (*NONNEGATIVE, *POSITIVE, *SIGNED):
             value = getattr(part, name)

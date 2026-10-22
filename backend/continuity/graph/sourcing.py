@@ -435,10 +435,8 @@ async def compare_candidates(found: SearchResults, board, slot_id: str, *, on_ca
     baseline = {(v.rule, v.subject, v.scope) for v in evaluate(board) if v.failed}
     options = [candidate for candidate in found if candidate.mpn not in found.demoted][:3] or list(found[:1])
     ranked = []
-    for candidate in options:
-        if on_candidate is not None:
-            on_candidate(candidate)
-        part = await choose(candidate)
+
+    def score_part(part):
         slots = {**board.slots, slot_id: replace(board.slots[slot_id], part=part)}
         findings = evaluate(Board(board.requirements, slots, board.rails, board.signal_nets))
         failed = {(v.rule, v.subject, v.scope) for v in findings if v.failed}
@@ -447,17 +445,28 @@ async def compare_candidates(found: SearchResults, board, slot_id: str, *, on_ca
         body = packages.body_mm(part.package)
         size = body[0] * body[1] if body else float("inf")
         preference = {"cost": cost, "size": size, "availability": stock}.get(board.requirements.priority, cost)
-        score = (len(failed), len(failed - baseline), sum(v.unchecked for v in findings), preference)
-        ranked.append((score, candidate, part))
+        return (len(failed), len(failed - baseline), sum(v.unchecked for v in findings), preference)
+
+    for candidate in options:
+        if on_candidate is not None:
+            on_candidate(candidate)
+        part = await choose(candidate)
+        ranked.append((score_part(part), candidate, part))
     ranked.sort(key=lambda entry: entry[0])
-    best = ranked[0]
-    # Spend retrieval on the selected candidate, not all three compared parts.
+    # Research the leading candidate, then rerank using the new facts. If it now
+    # loses, allow one researched fallback within the same shared request budget.
     from ..parts import research
-    chosen = best[2]
-    missing = research.missing_fields(chosen)
-    documents = chosen.research or await research.investigate(chosen, missing)
-    chosen = replace(chosen, research=documents)
-    return best[1], chosen, [{"mpn": c.mpn, "failures": score[0], "new_failures": score[1], "unknown": score[2],
+    inspected = set()
+    for _ in range(2):
+        best = ranked[0]
+        if best[1].mpn in inspected:
+            break
+        inspected.add(best[1].mpn)
+        chosen = await research.enrich(best[2])
+        ranked[0] = (score_part(chosen), best[1], chosen)
+        ranked.sort(key=lambda entry: entry[0])
+    best = ranked[0]
+    return best[1], best[2], [{"mpn": c.mpn, "failures": score[0], "new_failures": score[1], "unknown": score[2],
                             "unit_price": p.unit_price, "stock": p.stock} for score, c, p in ranked]
 
 

@@ -127,6 +127,22 @@ def json_completion():
     })
 
 
+def test_extraction_completion_cap_is_applied_and_cannot_raise_the_server_limit(clean_environment, monkeypatch):
+    requests = []
+    groq_transport(monkeypatch, lambda request: requests.append(request) or json_completion())
+    asyncio.run(llm.complete_json('test', 'bounded', max_tokens=2048))
+    asyncio.run(llm.complete_json('test', 'bounded', max_tokens=99999))
+    assert [json.loads(r.content)['max_completion_tokens'] for r in requests] == [2048, 4096]
+
+
+def test_extraction_single_attempt_does_not_retry_provider_failure(clean_environment, monkeypatch):
+    requests = []
+    groq_transport(monkeypatch, lambda request: requests.append(request) or httpx.Response(503, json={'error': {'message': 'unavailable'}}))
+    with pytest.raises(llm.LLMUnavailable):
+        asyncio.run(llm.complete_json('test', 'bounded', max_attempts=1))
+    assert len(requests) == 1
+
+
 @pytest.mark.parametrize("model,effort,expected", [
     ("openai/gpt-oss-120b", "minimal", "low"),
     ("openai/gpt-oss-20b", "medium", "medium"),

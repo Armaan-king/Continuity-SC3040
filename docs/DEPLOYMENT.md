@@ -103,6 +103,23 @@ recorded replay. Cached specification parsing is separate from recorded supplier
 Deploy these logging changes manually on services without automatic deployment. No new
 environment variables or Neon migrations are required.
 
+For normal sourcing across suppliers, keep `EXA_API_KEY` in Render and leave
+`CONTINUITY_RESEARCH_ENABLED` unset or set to `1`. Keep `CONTINUITY_FIXTURES` unset or
+`0`. After manually deploying the updated code, `/api/runtime` should report
+`research.sourcing: "web_and_catalogue"`. Existing six-request/$0.12 estimated limits
+are unchanged; they cover both discovery and evidence retrieval. Neon needs no
+configuration or schema changes for this update.
+
+Search Render logs for `exa_request` to see actual search/Contents starts, HTTP outcomes,
+usable-document counts, partial retrieval and reported cost. `exa_discovery` reports
+how many product identities survived source checks. `research.activity` separates HTTP
+counts from cache hits and skipped work; its `last_event` may be a cache or budget
+notice while `last_request` remains the last actual HTTP attempt. These counters reset
+with the process or credentials and do not replace Exa's billing dashboard. The design
+timeline carries the same receipts without keys, queries, retrieved text or raw errors.
+An HTTP success is not a compatibility verdict. Start a new design to observe the new
+pipeline; historical runs retain their original events and selections.
+
 For Gemini, `/api/runtime` should show `ai.configured: true`, `ai.provider: gemini`, and your selected model (by default `gemini-3.8-flash`). This confirms configuration only. Run a design and check that planning succeeds without the basic-planning warning or a `planning failed` log. If Google returns HTTP 404, verify the model, base URL, and model access for the Google project associated with your key. Google currently limits [Gemini 2.5 access](https://ai.google.dev/gemini-api/docs/deprecations) to previous active users; a missing model is not evidence that AI was manually disabled. The endpoint and model used here follow [Google's compatibility guide](https://ai.google.dev/gemini-api/docs/openai).
 
 The pytest and browser integration suites clear or seed data. Run them only against separate disposable databases, never the Neon database holding users' projects.

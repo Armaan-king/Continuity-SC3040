@@ -1,8 +1,7 @@
 """Finding real parts for a slot, and re-finding them under a repair's constraint.
 
-Replaces `catalogue.py`. Same shape from the graph's point of view — ask for a slot's
-candidates, take the first, take the next one on repair — but the parts are now fetched
-from JLCPCB and typed by the normaliser.
+Searches JLCPCB and, when configured, independent web sources through Exa.
+Both sources enter the same bounded comparison and deterministic validation.
 
 ## Bounded validation before selection
 
@@ -21,6 +20,8 @@ no new search, no new latency.
 from __future__ import annotations
 
 from contextlib import contextmanager
+import asyncio
+import logging
 from contextvars import ContextVar
 from dataclasses import asdict, replace
 import re
@@ -31,6 +32,8 @@ from ..engine import packages
 from ..engine.models import Alternative, PartSpec
 from ..parts import categories, datasheet, normalize, payload
 from ..parts.search import Candidate, SpecFilter, search
+
+log = logging.getLogger(__name__)
 
 CANDIDATES_PER_SLOT = 6
 """Enough that a repair has somewhere to go without a fresh search."""
@@ -144,13 +147,76 @@ async def find(
     board: str | None = None,
     exclude: frozenset[str] = frozenset(),
 ) -> list[Candidate]:
-    """Candidates for a slot, best-first. Applies constraint pushdown when given one.
+    """Search the web and catalogue independently, then compare a mixed shortlist."""
+    from ..parts import alternatives as web_search, research
+    constraint = dict(constraint or {})
+    broaden = web_enabled()
+    if not broaden:
+        from ..parts import fixtures
+        research.activity.no_request("discovery", "skipped", reason="fixtures" if fixtures.replaying() else "disabled")
+    jobs = [_find_catalogue(query, constraint=constraint, exclude=exclude)]
+    if broaden:
+        jobs.append(web_search.search_candidates(query, purpose or query, board or "", constraint, exclude=exclude))
+    results = await asyncio.gather(*jobs, return_exceptions=True)
+    catalogue = results[0]
+    if isinstance(catalogue, BaseException):
+        if isinstance(catalogue, asyncio.CancelledError):
+            raise catalogue
+        if not broaden:
+            raise catalogue
+        log.warning("Catalogue search failed; retaining independent web results")
+        catalogue = SearchResults([])
+    web = results[1] if broaden else []
+    if isinstance(web, BaseException):
+        if isinstance(web, asyncio.CancelledError):
+            raise web
+        log.warning("Web discovery failed; retaining independent catalogue results")
+        web = []
+    shortlist = mixed_candidates(catalogue, web, exclude=exclude)[:CANDIDATES_PER_SLOT]
+    demoted = ()
+    if purpose and len(shortlist) > 1:
+        shortlist, demoted = rank_by_fitness(shortlist, await interpret.unfit_candidates(
+            purpose=purpose, query=query, candidates=shortlist, board=board))
+    return SearchResults(shortlist, rescue_subcategory=getattr(catalogue, "rescue_subcategory", None), demoted=demoted)
 
-    `purpose` is what the slot is *for* — its label. Supplying it enables one last filter
-    that asks whether each candidate is the right **kind** of part, which neither the text
-    query nor the category filter can decide; see `interpret.unfit_candidates`. Omitting it
-    keeps the previous behaviour exactly, which is what every offline test relies on.
-    """
+
+def web_enabled() -> bool:
+    from ..parts import fixtures, research
+    return research.configured() and not fixtures.replaying()
+
+
+def source_label() -> str:
+    return "JLCPCB and independent web sources through Exa" if web_enabled() else "JLCPCB"
+
+
+def mixed_candidates(catalogue: Sequence[Candidate], web: Sequence[Candidate], *,
+                     exclude: frozenset[str] = frozenset()) -> list[Candidate]:
+    """Interleave sources so a full catalogue cannot crowd web products out."""
+    identity = lambda candidate: (candidate.manufacturer.casefold(), candidate.mpn.casefold())
+    by_identity = {identity(candidate): candidate for candidate in catalogue}
+    web_rows = []
+    for candidate in web:
+        match = by_identity.get(identity(candidate))
+        merged = replace(match, web=candidate.web) if match else candidate
+        by_identity[identity(candidate)] = merged
+        web_rows.append(merged)
+    catalogue = [by_identity[identity(candidate)] for candidate in catalogue]
+    mixed, seen = [], set()
+    # One web candidate gets compared even when the supplier already has six hits.
+    for index in range(max(len(catalogue), len(web_rows))):
+        for source in (web_rows, catalogue):
+            if index < len(source):
+                candidate = source[index]
+                key = identity(candidate)
+                if key not in seen and candidate.mpn.casefold() not in exclude:
+                    mixed.append(candidate)
+                    seen.add(key)
+    return mixed
+
+
+async def _find_catalogue(query: str, *, constraint: Mapping[str, Any] | None = None,
+                          exclude: frozenset[str] = frozenset()) -> SearchResults:
+    """Catalogue-only filtering and one bounded category rescue."""
     constraint = constraint or {}
     refined, filters, package = _push_down(query, constraint)
 
@@ -191,28 +257,9 @@ async def find(
         # on a motor brief that still placed a 2-input AND gate after the shelves were
         # declared defining.
         found = _on_defining_shelf(found, constraint)
-    if len(found) < MIN_CANDIDATES:
-        from ..parts import research
-        discovered = viable(await research.discover(query, purpose), constraint)
-        identities = {(c.manufacturer.casefold(), c.mpn.casefold(), c.package) for c in found}
-        found.extend(c for c in discovered if (c.manufacturer.casefold(), c.mpn.casefold(), c.package) not in identities)
     found = [candidate for candidate in found if candidate.mpn.casefold() not in exclude]
     shortlist = found[:CANDIDATES_PER_SLOT]
-    demoted: tuple[str, ...] = ()
-    # A single-candidate shortlist cannot be reordered, so a judgement about it can only
-    # produce a misleading line on screen — measured: the classifier called a genuine buck
-    # regulator "not a buck regulator" because its fixed output was the wrong voltage.
-    if purpose and len(shortlist) > 1:
-        shortlist, demoted = rank_by_fitness(
-            shortlist,
-            await interpret.unfit_candidates(
-                purpose=purpose, query=query, candidates=shortlist, board=board
-            ),
-        )
-
-    return SearchResults(
-        shortlist, rescue_subcategory=rescue_subcategory, demoted=demoted
-    )
+    return SearchResults(shortlist, rescue_subcategory=rescue_subcategory)
 
 
 def rank_by_fitness(
@@ -424,9 +471,16 @@ async def choose(candidate: Candidate) -> PartSpec:
     )
     from ..designs.context import stage
     async def work():
-        return asdict(await normalize.normalize(candidate, fetch_missing_theta_ja=missing_theta_ja, research_missing=False))
+        if candidate.web and not candidate.lcsc:
+            from ..parts.alternatives import candidate_part
+            return asdict(await candidate_part(candidate))
+        part = await normalize.normalize(candidate, fetch_missing_theta_ja=missing_theta_ja, research_missing=False)
+        if candidate.web:
+            from ..parts.alternatives import candidate_part
+            part = await candidate_part(candidate, part)
+        return asdict(part)
     from ..parts.specifications import PARSER_VERSION
-    values = await stage("normalize_classified_v3", {"candidate": asdict(candidate), "parser": PARSER_VERSION}, work)
+    values = await stage("normalize_multi_source_v1", {"candidate": asdict(candidate), "parser": PARSER_VERSION}, work)
     return PartSpec(**{**values, "interfaces": tuple(values.get("interfaces", ()))})
 
 
@@ -435,7 +489,14 @@ async def compare_candidates(found: SearchResults, board, slot_id: str, *, on_ca
     from ..designs.service import evaluate
     from ..engine.models import Board
     baseline = {(v.rule, v.subject, v.scope) for v in evaluate(board) if v.failed}
-    options = [candidate for candidate in found if candidate.mpn not in found.demoted][:3] or list(found[:1])
+    eligible = [candidate for candidate in found if candidate.mpn not in found.demoted]
+    options = eligible[:3] or list(found[:1])
+    # Fitness ranking cannot crowd an entire source out of the electrical comparison.
+    for predicate in (lambda c: bool(c.web), lambda c: bool(c.lcsc)):
+        if not any(predicate(c) for c in options):
+            other = next((c for c in eligible if predicate(c)), None)
+            if other is not None:
+                options = [*options[:2], other]
     ranked = []
 
     def score_part(part):
@@ -468,7 +529,8 @@ async def compare_candidates(found: SearchResults, board, slot_id: str, *, on_ca
         ranked[0] = (score_part(chosen), best[1], chosen)
         ranked.sort(key=lambda entry: entry[0])
     best = ranked[0]
-    return best[1], best[2], [{"mpn": c.mpn, "failures": score[0], "new_failures": score[1], "unknown": score[2],
+    return best[1], best[2], [{"mpn": c.mpn, "source": c.source, "source_url": c.product_url,
+                            "failures": score[0], "new_failures": score[1], "unknown": score[2],
                             "unit_price": p.unit_price, "stock": p.stock} for score, c, p in ranked]
 
 
@@ -492,7 +554,7 @@ def alternatives(
                 unit_price=candidate.unit_price,
                 currency="USD",
                 stock=candidate.stock,
-                lead_time_days=0,
+                lead_time_days=0 if candidate.lcsc else None,
                 datasheet=candidate.product_url,
             )
         )
@@ -507,7 +569,7 @@ def alternatives(
                 unit_price=chosen.unit_price,
                 currency="USD",
                 stock=chosen.stock,
-                lead_time_days=0,
+                lead_time_days=0 if chosen.lcsc else None,
                 datasheet=chosen.product_url,
             ),
         )
@@ -516,4 +578,5 @@ def alternatives(
 
 def _summarise(candidate: Candidate) -> str:
     price = f"${candidate.unit_price:.2f}" if candidate.unit_price else "price unknown"
-    return f"{price}, {candidate.stock:,} in stock"
+    stock = f"{candidate.stock:,} in stock" if candidate.stock is not None else "stock unknown"
+    return f"{price}, {stock}"

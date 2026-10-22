@@ -5,6 +5,7 @@ Only public document URLs enter retrieval. Retrieved text is untrusted source da
 """
 from __future__ import annotations
 
+import asyncio
 import ipaddress
 import json
 import math
@@ -20,11 +21,11 @@ from .. import env, llm
 from ..settings import integer
 from ..designs.context import current
 from ..designs.service import digest
+from . import fixtures, research_activity as activity
 
 ENDPOINT = "https://api.exa.ai"
 MAX_RESPONSE_BYTES = 2_000_000
 MAX_DOCUMENT_CHARS = 24_000
-_last_status: dict = {"status": "not_tested", "at": None}
 
 
 def configured() -> bool:
@@ -33,7 +34,11 @@ def configured() -> bool:
 
 
 def status() -> dict:
-    return {"configured": configured(), "provider": "exa", "last_request": dict(_last_status),
+    enabled = configured()
+    observed = activity.status()
+    return {"configured": enabled, "provider": "exa", "last_request": observed["last_request"],
+            "activity": observed,
+            "sourcing": "recorded" if fixtures.replaying() else "web_and_catalogue" if enabled else "catalogue_only",
             "max_calls_per_run": integer("CONTINUITY_RESEARCH_MAX_CALLS", 6, maximum=20),
             "max_extractions_per_execution": integer("CONTINUITY_EVIDENCE_MAX_PARTS", 3, maximum=10)}
 
@@ -59,14 +64,30 @@ def public_url(value: object) -> str | None:
 
 
 async def _request(path: str, payload: dict) -> dict:
-    if not configured() or env.flag("CONTINUITY_FIXTURES"):
+    context = current.get()
+    if context is None:
+        return await _request_once(path, payload)
+    # Parallel slot prefetches can ask the same question. Share the first response
+    # rather than spending twice or treating its in-flight reservation as a failure.
+    key = digest([path, payload])
+    async with context.research_request_locks.setdefault(key, asyncio.Lock()):
+        return await _request_once(path, payload)
+
+
+async def _request_once(path: str, payload: dict) -> dict:
+    operation = "search" if path == "/search" else "contents"
+    if not configured() or fixtures.replaying():
+        activity.no_request(operation, "skipped", reason="fixtures" if fixtures.replaying() else "disabled")
         return {"documents": [], "error": "disabled"}
     context = current.get()
     # No implicit unbounded requests outside a run. CLI smoke checks create a context.
     if context is None:
+        activity.no_request(operation, "skipped", reason="no_run_context")
         return {"documents": [], "error": "no_run_context"}
     key = digest([path, payload])
     if key in context.research_cache:
+        activity.no_request(operation, "cached", source="execution", reason=(
+            "cached_failure" if context.research_cache[key].get("error") else None))
         return context.research_cache[key]
     limit = integer("CONTINUITY_RESEARCH_MAX_CALLS", 6, maximum=20)
     try:
@@ -79,19 +100,27 @@ async def _request(path: str, payload: dict) -> dict:
     if context.store:
         cached = await context.store.research_result(context.thread_id, key)
         if cached is not None:
+            context.research_cache[key] = cached
+            activity.no_request(operation, "cached", source="saved_run", reason="cached_failure" if cached.get("error") else None)
             return cached
         if not await context.store.reserve_research(context.thread_id, key, limit, budget):
+            activity.no_request(operation, "skipped", reason="budget_or_duplicate_request")
             return {"documents": [], "error": "budget_or_duplicate_request"}
     else:
-        if context.research_calls >= limit or (context.research_calls + 1) * 0.02 > budget + 1e-9:
+        if context.research_calls >= limit or context.research_cost_usd + 0.02 > budget + 1e-9:
+            activity.no_request(operation, "skipped", reason="budget_exhausted")
             return {"documents": [], "error": "budget_exhausted"}
         context.research_calls += 1
+        context.research_cost_usd += 0.02
     now = datetime.now(timezone.utc).isoformat()
     result: dict
+    receipt = activity.started(operation)
+    http_status = None
     try:
         async with httpx.AsyncClient(timeout=httpx.Timeout(20, connect=5), follow_redirects=False) as client:
             async with client.stream("POST", ENDPOINT + path,
                     headers={"x-api-key": os.environ["EXA_API_KEY"], "Content-Type": "application/json"}, json=payload) as response:
+                http_status = response.status_code
                 response.raise_for_status()
                 data = bytearray()
                 async for chunk in response.aiter_bytes():
@@ -101,14 +130,17 @@ async def _request(path: str, payload: dict) -> dict:
         body = json.loads(data)
         if not isinstance(body, dict):
             raise ValueError("invalid_response")
-        failed = {s.get("id") for s in body.get("statuses", []) if isinstance(s, dict) and s.get("status") != "success"}
+        statuses, results = body.get("statuses", []), body.get("results", [])
+        if not isinstance(statuses, list) or not isinstance(results, list):
+            raise ValueError("invalid_response")
+        failed = {s.get("id") for s in statuses if isinstance(s, dict) and s.get("status") != "success"}
         documents = []
-        for item in body.get("results", [])[:10]:
+        for item in results[:10]:
             if not isinstance(item, dict) or not (url := public_url(item.get("url"))) or url in failed or item.get("id") in failed:
                 continue
             excerpts = item.get("highlights")
             text = item.get("text") or ("\n".join(x for x in excerpts if isinstance(x, str)) if isinstance(excerpts, list) else "")
-            if not isinstance(text, str):
+            if not isinstance(text, str) or not text.strip():
                 continue
             text = text[:MAX_DOCUMENT_CHARS]
             documents.append({"url": url, "title": str(item.get("title") or url)[:300], "text": text,
@@ -123,15 +155,21 @@ async def _request(path: str, payload: dict) -> dict:
                   "partial": bool(failed)}
         if isinstance(body.get("output"), dict):
             result["output"] = body["output"]
-        _last_status.update(status="success", at=now)
+        activity.finished(receipt, "success", http_status=http_status, documents=len(documents), partial=bool(failed),
+                          cost_usd=max(0, cost_value) if isinstance(cost, dict) and "total" in cost else None)
     except (httpx.HTTPError, ValueError, TypeError, KeyError) as error:
         # Do not log request headers, keys, prompts, or provider error bodies.
         code = error.response.status_code if isinstance(error, httpx.HTTPStatusError) else None
         result = {"documents": [], "error": f"http_{code}" if code else "retrieval_failed", "cost_usd": 0}
-        _last_status.update(status=result["error"], at=now)
+        activity.finished(receipt, "error", http_status=http_status, reason=result["error"])
+    except asyncio.CancelledError:
+        activity.finished(receipt, "cancelled", http_status=http_status)
+        raise
     context.research_cache[key] = result
     if context.store:
         await context.store.complete_research(context.thread_id, key, result)
+    else:
+        context.research_cost_usd += max(0, result.get("cost_usd", 0) - 0.02)
     return result
 
 
@@ -142,6 +180,7 @@ async def search_documents(query: str) -> dict:
 async def read_documents(urls: list[str]) -> dict:
     safe = list(dict.fromkeys(url for value in urls if (url := public_url(value))))[:2]
     if not safe:
+        activity.no_request("contents", "skipped", reason="no_public_urls")
         return {"documents": [], "error": "no_public_urls"}
     # Complete context is needed to distinguish operating conditions and table headings.
     return await _request("/contents", {"urls": safe, "text": {"maxCharacters": MAX_DOCUMENT_CHARS}})
@@ -183,6 +222,7 @@ def _related(document: dict, candidate) -> bool:
 
 async def investigate(candidate, missing: list[str]) -> tuple[dict, ...]:
     if not configured() or not missing:
+        activity.no_request("evidence", "skipped", reason="disabled" if not configured() else "evidence_complete")
         return ()
     # A supplier-provided datasheet URL saves a search. Identity must still match.
     known = public_url(getattr(candidate, "datasheet", None))
@@ -214,6 +254,9 @@ async def enrich(part):
     from ..designs.context import stage
     from ..engine.models import PartSpec
     context = current.get()
+    if part.research and all(doc.get("extraction_status") for doc in part.research):
+        activity.no_request("evidence", "cached", source="component")
+        return part
     inputs = {"version": evidence.VERSION, "part": asdict(part)}
 
     async def work():
@@ -223,6 +266,8 @@ async def enrich(part):
                 context.llm_calls >= integer("CONTINUITY_LLM_MAX_CALLS", 40, maximum=100) or
                 context.llm_tokens + evidence.token_reservation() > integer("CONTINUITY_LLM_TOKEN_BUDGET", 120000, maximum=1000000) or
                 context.evidence_parts >= integer("CONTINUITY_EVIDENCE_MAX_PARTS", 3, maximum=10)))):
+            activity.no_request("evidence", "skipped", reason=("ai_unavailable"
+                if not llm.available() or (context and context.llm_unavailable) else "evidence_budget"))
             return None
         documents = part.research or await investigate(part, missing_fields(part))
         return asdict(await evidence.enrich(part, documents))
@@ -232,6 +277,8 @@ async def enrich(part):
         async with context.research_lock:
             if key not in context.researched_parts:
                 context.researched_parts[key] = await stage("researched_part", inputs, work)
+            else:
+                activity.no_request("evidence", "cached", source="execution")
             saved = context.researched_parts[key]
     else:
         saved = await work()
@@ -243,14 +290,17 @@ async def discover(query: str, purpose: str | None = None) -> list:
     """Find named alternatives, then resolve every one against the supplier catalogue."""
     from . import search
     if not llm.available():
+        activity.no_request("discovery", "skipped", reason="ai_unavailable")
         return []
     context = current.get()
     if context and context.llm_unavailable:
+        activity.no_request("discovery", "skipped", reason="ai_unavailable")
         return []
     key = digest([query, purpose])
     if context:
         # Preserve most of the shared retrieval budget for selected-part evidence.
         if key not in context.discovery_queries and len(context.discovery_queries) >= 2:
+            activity.no_request("discovery", "skipped", reason="discovery_budget")
             return []
         context.discovery_queries.add(key)
     found = await search_documents(f"{query} {purpose or ''} electronic component manufacturer part number datasheet alternatives")

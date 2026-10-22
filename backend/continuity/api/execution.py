@@ -51,7 +51,7 @@ async def _run(
     def ai_receipt(receipt: dict) -> None:
         text, level = ai_activity.message(receipt)
         event = stream.reasoning(None, text, level=level)
-        event["ai"] = receipt
+        event["research" if receipt["provider"] == "exa" else "ai"] = receipt
         nodes._emit(event)
 
     async def pump_events() -> None:

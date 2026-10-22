@@ -88,7 +88,7 @@ async def _prefetch(
     board: str | None = None,
 ) -> sourcing.SearchResults:
     """Search ahead of placement without presenting it as active slot work."""
-    _emit(ev.reasoning(slot_id, f"In the background, searching JLCPCB for “{query}”."))
+    _emit(ev.reasoning(slot_id, f"In the background, searching {sourcing.source_label()} for “{query}”."))
     return await sourcing.find(query, constraint=constraint, purpose=purpose, board=board)
 
 
@@ -125,6 +125,8 @@ async def parse_requirements(state: DesignState, config) -> DesignState:
         _emit(ev.reasoning(None, "Supplier mode: recorded fixtures. No live JLCPCB lookup will be made.", level="warning"))
     else:
         _emit(ev.reasoning(None, "Supplier mode: live JLCPCB lookups through pcbparts.dev. Previously parsed specifications may be reused from cache."))
+    if sourcing.web_enabled():
+        _emit(ev.reasoning(None, "Web sourcing is active: Exa searches manufacturer and distributor sources alongside JLCPCB. Independent products enter the same comparison; research limits and missing evidence remain visible."))
     labels = _listing([board_plan.slots[s].label for s in board_plan.order])
     _emit(ev.reasoning(None, f"{len(board_plan.slots)} parts to source: {labels}."))
 
@@ -352,6 +354,9 @@ def _candidate_count_message(count: int) -> str:
 
 
 def _normalisation_messages(candidate: Candidate) -> tuple[str, ...]:
+    if candidate.web:
+        return (f"Reading retrieved source documents for {candidate.mpn}"
+                + (" alongside its JLCPCB specifications." if candidate.lcsc else "; no JLCPCB listing is required."),)
     return (f"Reading specs, lifecycle, and datasheet for {candidate.mpn}.",)
 
 
@@ -395,7 +400,7 @@ async def _find_with_narration(
 
 
 async def select(state: DesignState, config) -> DesignState:
-    """Search a distributor for the next slot, and type the best hit."""
+    """Search enabled sources and compare candidates for the next slot."""
     ev = _events(config)
     pending = list(state["pending"])
     slot_id = pending.pop(0)
@@ -405,7 +410,7 @@ async def select(state: DesignState, config) -> DesignState:
     query = state["plan"].queries.get(slot_id, label)
     # The query, not the label. A slot labelled "Environmental Sensor" was searched as
     # "environmental sensor" and returned fuse clips; the label gave no way to see that.
-    _emit(ev.reasoning(slot_id, f"Searching JLCPCB for “{query}”."))
+    _emit(ev.reasoning(slot_id, f"Searching {sourcing.source_label()} for “{query}”."))
     thread_id = _thread_id(config)
     tasks = PREFETCHES.get(thread_id, {}) if thread_id is not None else {}
     prefetched = tasks.pop(slot_id, None)
@@ -438,6 +443,10 @@ async def select(state: DesignState, config) -> DesignState:
     if subcategory := getattr(found, "rescue_subcategory", None):
         _emit(ev.reasoning(slot_id, _rescue_search_message(query, subcategory)))
     _emit(ev.reasoning(slot_id, _candidate_count_message(len(found))))
+    if any(c.web for c in found):
+        web_count = sum(bool(c.web) for c in found)
+        catalogue_count = sum(bool(c.lcsc) for c in found)
+        _emit(ev.reasoning(slot_id, f"Shortlist includes {web_count} web-discovered and {catalogue_count} JLCPCB-listed candidates (a product can appear in both). Source discovery does not establish compatibility."))
 
     if not found:
         # A slot with no candidates used to be popped off `pending` and forgotten: the
@@ -454,7 +463,7 @@ async def select(state: DesignState, config) -> DesignState:
             rule="availability",
             status="warn",
             detail=(
-                f"No part found for {label} — searched JLCPCB for “{query}”"
+                f"No part found for {label} — searched available sources for “{query}”"
                 f"{_within(slot_id, slots)}."
             ),
             subject=slot_id,
@@ -471,14 +480,19 @@ async def select(state: DesignState, config) -> DesignState:
 
     if len(found) < sourcing.MIN_CANDIDATES:
         _emit(ev.reasoning(slot_id, _thin_shortlist_message(len(found))))
-    _narrate_normalisation(ev, slot_id, found[0])
-    if isinstance(found, sourcing.SearchResults) and len(found) > 1 and not slots[slot_id].pinned:
+    # A pinned function must be retained; it does not mandate the first search hit.
+    if isinstance(found, sourcing.SearchResults) and len(found) > 1:
         candidate, part, comparison = await sourcing.compare_candidates(
-            found, topology.Board(state["requirements"], slots, state["rails"]), slot_id)
+            found, topology.Board(state["requirements"], slots, state["rails"]), slot_id,
+            on_candidate=lambda item: _narrate_normalisation(ev, slot_id, item))
         found = [candidate, *(item for item in found if item is not candidate)]
         _emit(ev._event("comparison", slot=slot_id, candidates=comparison, selected=part.mpn))
         _emit(ev.reasoning(slot_id, f"Compared {len(comparison)} candidates against this design; selected {part.mpn}."))
+        if candidate.web:
+            _emit(ev.reasoning(slot_id, f"Selected {part.mpn} from " +
+                               ("JLCPCB with independent web evidence." if candidate.lcsc else "independent web research. Availability and unsupported specifications remain unknown.")))
     else:
+        _narrate_normalisation(ev, slot_id, found[0])
         part = await sourcing.choose(found[0])
     _emit(ev.candidate(slot_id, part))
 

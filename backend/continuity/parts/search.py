@@ -69,9 +69,16 @@ class Candidate:
     unit_price: float | None
     library_type: str | None
     specs: Mapping[str, str] = field(default_factory=dict)
+    web: Mapping[str, Any] | None = None
+
+    @property
+    def source(self) -> str:
+        return "jlcpcb+exa" if self.lcsc and self.web else "exa" if self.web else "jlcpcb"
 
     @property
     def product_url(self) -> str:
+        if self.web and not self.lcsc:
+            return str(self.web["source"])
         return f"https://jlcpcb.com/partdetail/{self.lcsc}"
 
 

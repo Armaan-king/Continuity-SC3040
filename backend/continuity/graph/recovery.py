@@ -93,7 +93,9 @@ def catalogue_offer(candidate, index):
     return {"action": f"Try alternative {index}: {candidate.mpn}",
             "label": f"{candidate.mpn} · {candidate.manufacturer}",
             "summary": candidate.description[:300], "source": candidate.product_url,
-            "verification": "Catalogue candidate; not yet checked on this board", "candidate": candidate}
+            "verification": ("Web and catalogue candidate" if candidate.source == "jlcpcb+exa" else
+                             "Web candidate" if candidate.web else "Catalogue candidate")
+                            + "; not yet checked on this board", "candidate": candidate}
 
 
 def known_alternatives(state, key):

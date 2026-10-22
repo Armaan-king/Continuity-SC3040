@@ -84,6 +84,9 @@ def finished(attempt: dict, outcome: str, *, http_status: int | None = None,
 
 def message(receipt: dict) -> tuple[str, str | None]:
     """A receipt is a provider response, never a claim that the board is correct."""
+    if receipt["provider"] == "exa":
+        from .parts.research_activity import message as research_message
+        return research_message(receipt)
     provider = {"groq": "Groq", "gemini": "Gemini", "zai": "Z.ai", "ollama": "Ollama"}.get(
         receipt["provider"], receipt["provider"])
     if receipt["status"] == "cached":

@@ -13,6 +13,8 @@ class ExecutionContext:
     thread_id: str
     store: Any = None
     research_calls: int = 0
+    research_cost_usd: float = 0.0
+    research_request_locks: dict[str, asyncio.Lock] = field(default_factory=dict)
     evidence_parts: int = 0
     evidence_cache: dict = field(default_factory=dict)
     evidence_lock: asyncio.Lock = field(default_factory=asyncio.Lock)

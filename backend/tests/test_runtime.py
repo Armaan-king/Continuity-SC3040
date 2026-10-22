@@ -32,6 +32,7 @@ def test_native_groq_key_selects_compatible_endpoint(clean_environment, monkeypa
     assert config.enabled
     assert config.provider == "groq"
     assert config.base_url == "https://api.groq.com/openai/v1"
+    assert config.model == "openai/gpt-oss-120b"
     assert "test-secret" not in str(llm.public_status())
 
 
@@ -107,6 +108,81 @@ def test_gemini_request_uses_native_key_endpoint_and_selected_model(
     assert llm.public_status() == {
         "configured": True, "provider": "gemini", "model": expected_model, "mode": "ai",
     }
+
+
+def groq_transport(monkeypatch, respond):
+    import openai
+    client_type = openai.AsyncOpenAI
+    monkeypatch.setenv("CONTINUITY_LLM_PROVIDER", "groq")
+    monkeypatch.setenv("GROQ_API_KEY", "test-groq-secret")
+    monkeypatch.setattr(openai, "AsyncOpenAI", lambda **kwargs: client_type(
+        **kwargs, http_client=httpx.AsyncClient(transport=httpx.MockTransport(respond))))
+
+
+def json_completion():
+    return httpx.Response(200, json={
+        "id": "test-completion", "object": "chat.completion", "created": 0,
+        "model": "openai/gpt-oss-120b", "choices": [{"index": 0, "finish_reason": "stop",
+            "message": {"role": "assistant", "content": '{"ok":true}'}}],
+    })
+
+
+@pytest.mark.parametrize("model,effort,expected", [
+    ("openai/gpt-oss-120b", "minimal", "low"),
+    ("openai/gpt-oss-20b", "medium", "medium"),
+    ("another-groq-model", "low", None),
+])
+def test_groq_request_uses_native_key_json_and_supported_reasoning(clean_environment, monkeypatch, model, effort, expected):
+    monkeypatch.setenv("CONTINUITY_LLM_API_KEY", "stale-other-provider-key")
+    monkeypatch.setenv("GEMINI_API_KEY", "unused-gemini-key")
+    monkeypatch.setenv("CONTINUITY_LLM_MODEL", model)
+    requests = []
+    def respond(request):
+        requests.append(request)
+        assert str(request.url) == "https://api.groq.com/openai/v1/chat/completions"
+        assert request.headers["Authorization"] == "Bearer test-groq-secret"
+        payload = json.loads(request.content)
+        assert payload["model"] == model
+        assert payload["max_completion_tokens"] == 4096
+        assert "max_tokens" not in payload
+        assert payload["response_format"] == {"type": "json_object"}
+        assert payload.get("reasoning_effort") == expected
+        return json_completion()
+    groq_transport(monkeypatch, respond)
+    assert asyncio.run(llm.complete_json("Test", "Return JSON", effort=effort)) == {"ok": True}
+    assert len(requests) == 1
+
+
+def test_short_provider_cooldown_is_respected(clean_environment, monkeypatch):
+    requests = []
+    def respond(request):
+        requests.append(request)
+        if len(requests) == 1:
+            return httpx.Response(429, headers={"Retry-After": "3.5"}, json={"error": {"message": "quota"}})
+        return json_completion()
+    groq_transport(monkeypatch, respond)
+    sleep = AsyncMock()
+    monkeypatch.setattr(llm.asyncio, "sleep", sleep)
+    assert asyncio.run(llm.complete_json("Test", "Hello")) == {"ok": True}
+    sleep.assert_awaited_once_with(3.5)
+    assert len(requests) == 2
+
+
+@pytest.mark.parametrize("status,retry_after,reason", [(429, "3600", "quota"), (401, None, "API key"), (404, None, "model ID")])
+def test_nonretryable_failure_is_sanitized_and_not_repeated(clean_environment, monkeypatch, status, retry_after, reason):
+    requests = []
+    def respond(request):
+        requests.append(request)
+        return httpx.Response(status, headers={"Retry-After": retry_after} if retry_after else {},
+                              json={"error": {"message": "test-groq-secret provider echoed input"}})
+    groq_transport(monkeypatch, respond)
+    sleep = AsyncMock()
+    monkeypatch.setattr(llm.asyncio, "sleep", sleep)
+    with pytest.raises(llm.LLMUnavailable, match=reason) as error:
+        asyncio.run(llm.complete_json("Test", "Hello"))
+    assert "test-groq-secret" not in str(error.value)
+    assert len(requests) == 1
+    sleep.assert_not_awaited()
 
 
 def test_explicit_ranges_and_units_keep_provenance():

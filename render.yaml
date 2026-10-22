@@ -19,7 +19,13 @@ services:
       - key: CONTINUITY_COOKIE_SAMESITE
         value: lax
       - key: CONTINUITY_LLM_PROVIDER
-        value: auto
+        value: groq
+      - key: CONTINUITY_LLM_MODEL
+        value: openai/gpt-oss-120b
+      - key: CONTINUITY_LLM_MAX_TOKENS
+        value: "4096"
+      - key: GROQ_API_KEY
+        sync: false
       - key: CONTINUITY_MAX_ACTIVE_RUNS
         value: "2"
       - key: CONTINUITY_RUN_TIMEOUT_SECONDS
@@ -28,8 +34,8 @@ services:
         value: "6"
       - key: CONTINUITY_RESEARCH_BUDGET_USD
         value: "0.12"
-# Optional server secrets, added through Render's Environment panel:
-# GROQ_API_KEY or GEMINI_API_KEY; EXA_API_KEY enables optional research.
+# GROQ_API_KEY is supplied privately through Render's Environment panel.
+# Optional server secrets: GEMINI_API_KEY for Gemini; EXA_API_KEY for research.
 # For Gemini, set CONTINUITY_LLM_PROVIDER=gemini. Its default is gemini-3.8-flash.
 # Existing CONTINUITY_LLM_MODEL / CONTINUITY_LLM_BASE_URL values override defaults;
 # remove stale overrides or update them as described in docs/DEPLOYMENT.md.

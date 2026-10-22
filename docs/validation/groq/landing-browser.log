@@ -1,0 +1,23 @@
+> frontend@0.0.0 test:e2e
+> playwright test --grep the landing page renders
+
+[WebServer] INFO:     Started server process [17896]
+[WebServer] INFO:     Waiting for application startup.
+[WebServer] INFO:     Application startup complete.
+[WebServer] INFO:     Uvicorn running on http://127.0.0.1:8020 (Press CTRL+C to quit)
+[WebServer] (node:64048) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:80176) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:77228) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+Seeded e2e@continuity.dev: 25 completed runs, 3 excluded, 5 projects.
+Seeded versioned reference design for browser validation.
+
+Running 1 test using 1 worker
+
+(node:71844) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [chromium] › e2e\regression.spec.ts:13:1 › the landing page renders (3.4s)
+
+  1 passed (12.6s)

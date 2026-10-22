@@ -88,7 +88,7 @@ Gemini can suggest a repair, and Exa can retrieve supporting documents or help d
 | --- | --- | --- |
 | Basic rules | `CONTINUITY_LLM_PROVIDER=disabled` | None |
 | Local Ollama | `CONTINUITY_LLM_PROVIDER=ollama` | None; download a model locally |
-| Groq | `CONTINUITY_LLM_PROVIDER=groq`, `GROQ_API_KEY` | Required; provider quotas apply |
+| Groq GPT-OSS 120B | `CONTINUITY_LLM_PROVIDER=groq`, `GROQ_API_KEY` | Required; Free Plan quotas apply |
 | Gemini 3.8 Flash | `CONTINUITY_LLM_PROVIDER=gemini`, `GEMINI_API_KEY` | Required; provider quotas apply |
 | Existing Z.ai setup | `CONTINUITY_LLM_PROVIDER=zai`, `ZAI_API_KEY` | Required |
 | Compatible endpoint | `custom`, base URL, model, generic key | Provider-dependent |
@@ -103,6 +103,8 @@ ollama create continuity-local -f backend/Modelfile
 Set `CONTINUITY_LLM_PROVIDER=ollama` in `backend/.env` when running Python directly. For the Docker app, set it in the root `.env` together with `CONTINUITY_LLM_BASE_URL=http://host.docker.internal:11434/v1`. Run Ollama on the host and allow the container to reach it. Do not try to run a model inside the free Render container.
 
 For hosted AI, configure the provider and key as server environment variables. Never put secrets in `VITE_*`, source files, or the browser. With no configured key, `auto` selects basic planning. It recognizes a limited set of functions and parses explicit measurements; missing facts remain unchecked.
+
+Groq defaults to `openai/gpt-oss-120b` at `https://api.groq.com/openai/v1`, using JSON output and low reasoning effort. The [published Free Plan limits](https://console.groq.com/docs/rate-limits) include 30 requests/minute, 1,000/day, 8,000 tokens/minute and 200,000/day for this model. Your Groq account's plan determines billing; selecting the model does not force free billing on a paid account. A board run makes multiple model calls. Short provider cooldowns are respected; exhausted quotas still trigger the labelled basic fallback. See [the Render switch instructions](docs/DEPLOYMENT.md#switch-the-existing-render-service-to-groq).
 
 Gemini defaults to `gemini-3.8-flash` through [Google's OpenAI-compatible endpoint](https://ai.google.dev/gemini-api/docs/openai). `CONTINUITY_LLM_MODEL` and `CONTINUITY_LLM_BASE_URL` override those defaults; existing Render overrides must be updated or removed when upgrading. `/api/runtime` shows the selected configuration, not whether Google has accepted a request. See [deployment verification](docs/DEPLOYMENT.md#verify-the-deployed-service) for the hosted checks.
 
@@ -161,6 +163,8 @@ The [engine verification](docs/ENGINE_VALIDATION.md) records **873 passing backe
 The [architecture and Exa verification](docs/ARCHITECTURE_VALIDATION.md) covers **830 distinct passing backend tests** across the full and final targeted runs, **5 optional external-service skips**, and **26 passing browser tests**. Live Exa Search and Contents also passed. Earlier smoke runs exercised real parts lookup and local Ollama inference. These are dated results, not a claim that external services always succeed. [Review recording checks](docs/media/README.md#review-feature-verification) and [original workflow recording checks](docs/media/README.md#verification) document the README videos separately.
 
 The [consistency verification](docs/CONSISTENCY_VALIDATION.md) records earlier checks for project naming, clarification retries, saved boards, and BOM replacement/export. To reproduce the opt-in live research check, run `python tools/check_research.py` from `backend`; it makes at most one Search and one Contents request.
+
+The [Groq verification](docs/GROQ_VALIDATION.md) records successful live JSON extraction and board planning with GPT-OSS 120B, 150 targeted backend tests, and the landing-page check after removing the old embedded hackathon video. The provider's Free Plan eligibility and the account's actual billing plan are separate; test success does not establish the latter.
 
 ## License and attribution
 

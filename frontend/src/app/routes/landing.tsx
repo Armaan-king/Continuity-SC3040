@@ -219,10 +219,6 @@ function Reveal({ children, className = '' }: { children: ReactNode; className?:
   return <div className={`${className} transition-[opacity,transform] duration-[400ms] ease-out ${shown ? 'translate-y-0 opacity-100' : 'translate-y-2.5 opacity-0'}`} ref={ref}>{children}</div>
 }
 
-// The published walkthrough: youtu.be/bX3DZ_12Y54. Embedded via youtube-nocookie, so a
-// visitor who never presses play is not handed a tracking cookie by the landing page.
-const WALKTHROUGH_VIDEO_ID = 'bX3DZ_12Y54'
-
 export default function LandingRoute() {
   const navigate = useNavigate()
   const { user, signOut, runtime } = useAuth()
@@ -314,13 +310,6 @@ export default function LandingRoute() {
               <div><p className="font-label-caps text-label-caps text-surface-tint">MEMORY</p><h2 className="mt-md font-display-mono text-[30px] leading-tight text-on-surface">Where else did I use this?</h2><p className="mt-md max-w-md text-[16px] leading-7 text-on-surface-variant">Continuity remembers parts and decisions across boards, so you can trace where a part was used and whether it ever caused a finding.</p></div>
               <div><LandingMemoryGraph /><p className="mt-sm font-data-tabular text-[10px] text-outline">ILLUSTRATIVE SAMPLE / RECORDED WALKTHROUGH PARTS, NOT YOUR DATA</p></div>
             </div>
-          </section>
-        </Reveal>
-
-        <Reveal>
-          <section className="mx-auto w-full max-w-7xl px-lg py-[132px]">
-            <p className="font-label-caps text-label-caps text-surface-tint">WALKTHROUGH / VIDEO</p>
-            <div className="mt-md bg-surface-container-lowest p-xl">{WALKTHROUGH_VIDEO_ID ? <iframe allowFullScreen className="aspect-video w-full" src={`https://www.youtube-nocookie.com/embed/${WALKTHROUGH_VIDEO_ID}`} title="Continuity walkthrough" /> : <p className="font-data-tabular text-data-tabular text-on-surface-variant">VIDEO_PENDING / YOUTUBE_ID_NOT_SET</p>}</div>
           </section>
         </Reveal>
 

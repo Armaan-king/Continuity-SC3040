@@ -8,10 +8,38 @@ This repository configures one Render Free Docker web service and an external Ne
 2. Push this revision to `Armaan-king/Continuity-SC3040`.
 3. In Render, choose **New → Blueprint** and connect that repository. Use Git branch `main` and Blueprint path `render.yaml`. Render reads the configuration, builds `Dockerfile`, and creates `continuity-sc3040` on the Free instance type. The Dockerfile supplies the build and start commands.
 4. Set `DATABASE_URL` to the Neon connection string when prompted. The Blueprint sets production mode and secure, same-site session cookies.
-5. For Gemini, set `CONTINUITY_LLM_PROVIDER=gemini` and `GEMINI_API_KEY`. The default model is `gemini-3.8-flash` at `https://generativelanguage.googleapis.com/v1beta/openai/`. Remove old `CONTINUITY_LLM_MODEL` and `CONTINUITY_LLM_BASE_URL` overrides, or set them to these values, then save and deploy. Add optional `EXA_API_KEY` for research. Existing Groq configuration remains supported. Without model credentials the service uses basic planning. Do not set a browser `VITE_*` key.
+5. The Blueprint selects Groq's `openai/gpt-oss-120b`; supply `GROQ_API_KEY` privately. For Gemini instead, set `CONTINUITY_LLM_PROVIDER=gemini`, `CONTINUITY_LLM_MODEL=gemini-3.8-flash`, and `GEMINI_API_KEY`, and remove any old base-URL override or set it to `https://generativelanguage.googleapis.com/v1beta/openai/`. Add optional `EXA_API_KEY` for research. Without model credentials the service uses basic planning. Do not set a browser `VITE_*` key.
 6. Wait for the deployment health check at `/api/ready`. Open the Render URL, register an account, create a project, and reload it to verify persistence. `/api/runtime` describes AI configuration and persistence without exposing credentials.
 
 No separate static frontend service, CORS wildcard, build-time API hostname, or cross-site cookie is required. Existing split deployments can be retired after verifying this one. The new Blueprint does not automatically delete old services.
+
+## Switch the existing Render service to Groq
+
+For the existing manually deployed service, open **Render → Continuity-SC3040 → Environment** and set:
+
+| Key | Value |
+| --- | --- |
+| `CONTINUITY_LLM_PROVIDER` | `groq` |
+| `CONTINUITY_LLM_MODEL` | `openai/gpt-oss-120b` |
+| `CONTINUITY_LLM_BASE_URL` | `https://api.groq.com/openai/v1` |
+| `CONTINUITY_LLM_MAX_TOKENS` | `4096` |
+| `GROQ_API_KEY` | Your private Groq API key |
+
+Replace any Gemini model/base-URL values above. Remove `CONTINUITY_LLM_API_KEY` if it contains an older provider's key; the dedicated Groq key takes precedence in this version. A stored `GEMINI_API_KEY` is not selected when the provider is explicitly `groq`. Keep the existing `DATABASE_URL`, `EXA_API_KEY`, production mode and cookie settings. Neon needs no changes.
+
+Save the environment and **manually deploy the latest commit**. Updating GitHub or the local ignored `backend/.env` does not update the running service automatically. No GitHub account linking is required for an already configured public-repository service.
+
+After deployment, open `/api/runtime`. The `ai` object should report:
+
+```json
+{"configured":true,"provider":"groq","model":"openai/gpt-oss-120b","mode":"ai"}
+```
+
+This confirms selection, not successful inference. Run a new small design and check the planning trace. HTTP 401/403 indicates a key or permission problem; HTTP 404 indicates a model/endpoint problem; HTTP 429 indicates rate/token quotas; HTTP 5xx indicates a provider-side availability problem. The app retries a short numeric `Retry-After` once (up to 30 seconds); longer waits use the explicit fallback.
+
+Groq lists this model on its [Free Plan](https://console.groq.com/docs/rate-limits), currently 30 requests/minute, 1,000/day, 8,000 tokens/minute and 200,000/day. Stay on Groq's Free Plan for free usage. The app cannot infer your billing plan from an API key, and the model ID does not make a paid account's calls free. It never upgrades your Groq plan or purchases credits. Free-tier capacity and availability are not guaranteed.
+
+For direct local Python use, store the same variables in the gitignored `backend/.env`. For Docker Compose, supply them through the root `.env` or shell environment; `compose.yaml` forwards the Groq key and token budget. Do not put the key in `render.yaml` or commit it.
 
 ## Finding the right Neon project
 

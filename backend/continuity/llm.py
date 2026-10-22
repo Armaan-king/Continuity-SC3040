@@ -5,6 +5,7 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
+import math
 import os
 import re
 import time
@@ -21,13 +22,14 @@ MAINLAND_URL = "https://open.bigmodel.cn/api/paas/v4"
 API_KEY_ENV = "CONTINUITY_LLM_API_KEY"
 TIMEOUT_S = 60.0
 MAX_ATTEMPTS = 2
+MAX_RETRY_DELAY_S = 30.0
 MINIMAL, LOW = "minimal", "low"
 _FENCE = re.compile(r"^\s*```(?:json)?\s*|\s*```\s*$", re.MULTILINE)
 
 # provider -> (base URL, default model, native key variable)
 PROVIDERS = {
     "zai": (INTERNATIONAL_URL, "glm-5.2", "ZAI_API_KEY"),
-    "groq": ("https://api.groq.com/openai/v1", "llama-3.3-70b-versatile", "GROQ_API_KEY"),
+    "groq": ("https://api.groq.com/openai/v1", "openai/gpt-oss-120b", "GROQ_API_KEY"),
     "gemini": ("https://generativelanguage.googleapis.com/v1beta/openai", "gemini-3.8-flash", "GEMINI_API_KEY"),
     "ollama": ("http://localhost:11434/v1", "continuity-local", "OLLAMA_API_KEY"),
     "custom": ("", "", API_KEY_ENV),
@@ -65,7 +67,9 @@ def configuration() -> LLMConfig:
     endpoint, default_model, key_variable = PROVIDERS[provider]
     endpoint = (os.environ.get("CONTINUITY_LLM_BASE_URL") or endpoint).rstrip("/")
     model_name = (os.environ.get("CONTINUITY_LLM_MODEL") or default_model).strip()
-    key = os.environ.get(API_KEY_ENV) or (os.environ.get(key_variable) if key_variable else None)
+    # A provider's own credential must win over a leftover generic key from a
+    # previous deployment. Custom and legacy configurations still accept the generic key.
+    key = (os.environ.get(key_variable) if key_variable else None) or os.environ.get(API_KEY_ENV)
     if provider == "ollama":
         key = key or "ollama"
     if provider != "disabled":
@@ -129,11 +133,18 @@ async def complete_json(
         parameters["reasoning_effort"] = effort
     elif config.provider in {"groq", "gemini", "ollama"}:
         parameters["response_format"] = {"type": "json_object"}
+    if config.provider == "groq":
+        parameters["max_completion_tokens"] = parameters.pop("max_tokens")
+        if config.model in {"openai/gpt-oss-120b", "openai/gpt-oss-20b"}:
+            # GPT-OSS accepts low/medium/high, not the legacy "minimal" setting.
+            # Low reasoning leaves more of the completion budget for the JSON result.
+            parameters["reasoning_effort"] = effort if effort in {"low", "medium", "high"} else "low"
     started = time.monotonic()
     failure = "unusable response"
     async with AsyncOpenAI(api_key=config.key, base_url=config.base_url,
                            timeout=TIMEOUT_S, max_retries=0) as client:
         for attempt in range(MAX_ATTEMPTS):
+            delay = float(1 + attempt)
             try:
                 response = await client.chat.completions.create(**parameters)
                 result = parse_json(response.choices[0].message.content or "")
@@ -144,13 +155,31 @@ async def complete_json(
                 return result
             except APIStatusError as exc:
                 failure = f"provider returned HTTP {exc.status_code}"
+                if exc.status_code == 429:
+                    failure += " (rate or token quota exceeded; check the provider's usage limits)"
+                elif exc.status_code >= 500:
+                    failure += " (provider temporarily unavailable)"
+                elif exc.status_code in {401, 403}:
+                    failure += " (check the selected provider's API key and model permissions)"
+                elif exc.status_code == 404:
+                    failure += " (check the model ID and API base URL)"
                 if exc.status_code not in {408, 409, 429} and exc.status_code < 500:
                     break
+                # Respect a short provider cooldown. A daily quota or long wait
+                # should use the fallback, not immediately repeat the same request.
+                try:
+                    retry_after = float(exc.response.headers.get("retry-after", ""))
+                except ValueError:
+                    retry_after = None
+                if retry_after is not None and math.isfinite(retry_after) and retry_after >= 0:
+                    if retry_after > MAX_RETRY_DELAY_S:
+                        break
+                    delay = max(delay, retry_after)
             except (APIConnectionError, APITimeoutError):
                 failure = "provider connection failed or timed out"
-            except (ValueError, IndexError):
+            except (ValueError, IndexError, TypeError):
                 failure = "provider did not return a valid JSON object"
             if attempt + 1 < MAX_ATTEMPTS:
-                await asyncio.sleep(1 + attempt)
+                await asyncio.sleep(delay)
     # Never echo provider response bodies, which can contain prompts or secrets.
-    raise LLMUnavailable(f"{config.provider}: {failure}. Check the server's AI configuration.")
+    raise LLMUnavailable(f"{config.provider}: {failure}.")

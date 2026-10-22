@@ -7,15 +7,15 @@ from unittest.mock import AsyncMock
 import httpx
 import pytest
 
-from continuity import llm
-from continuity.designs import service
-from continuity.designs.context import ExecutionContext, current
-from continuity.designs.guidance import review_guidance
-from continuity.engine.models import Board, PartSpec, Rail, Requirements, Slot
-from continuity.engine import rules
-from continuity.planner import plan as planner
-from continuity.planner.requirements import explicit_requirements
-from continuity.parts import research
+from fuze import llm
+from fuze.designs import service
+from fuze.designs.context import ExecutionContext, current
+from fuze.designs.guidance import review_guidance
+from fuze.engine.models import Board, PartSpec, Rail, Requirements, Slot
+from fuze.engine import rules
+from fuze.planner import plan as planner
+from fuze.planner.requirements import explicit_requirements
+from fuze.parts import research
 from tests.test_planner import GOOD
 from tests.test_runtime import groq_transport, json_completion, clean_environment
 
@@ -136,7 +136,7 @@ def test_concurrent_identical_completions_are_coalesced_and_results_are_not_shar
     assert len(requests) == 1
 
 
-@pytest.mark.parametrize('setting,value', [('CONTINUITY_LLM_MAX_CALLS', '1'), ('CONTINUITY_LLM_TOKEN_BUDGET', '5000')])
+@pytest.mark.parametrize('setting,value', [('FUZE_LLM_MAX_CALLS', '1'), ('FUZE_LLM_TOKEN_BUDGET', '5000')])
 def test_model_run_budgets_stop_new_requests(clean_environment, monkeypatch, setting, value):
     requests = []
     groq_transport(monkeypatch, lambda request: requests.append(request) or json_completion())
@@ -170,7 +170,7 @@ def test_exhausted_provider_quota_does_not_repeat_for_every_part(clean_environme
 
 def test_groq_planner_uses_strict_schema_for_tiers_and_categories(clean_environment, monkeypatch):
     import json
-    from continuity.planner.schema import PLAN_SCHEMA
+    from fuze.planner.schema import PLAN_SCHEMA
     requests = []
     groq_transport(monkeypatch, lambda request: requests.append(request) or json_completion())
     asyncio.run(llm.complete_json('system', 'input', schema=PLAN_SCHEMA))

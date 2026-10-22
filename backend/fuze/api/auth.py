@@ -15,7 +15,7 @@ Only the SHA-256 of the token is stored. The cookie value itself is never writte
 not part of that comparison, so `localhost:5173 → localhost:8000` is same-site and works
 unchanged in development. Split them across domains (`*.vercel.app` calling `*.fly.dev`)
 and Lax stops sending the cookie at all: that deployment needs
-`CONTINUITY_COOKIE_SAMESITE=none` together with `CONTINUITY_COOKIE_SECURE=1`, because
+`FUZE_COOKIE_SAMESITE=none` together with `FUZE_COOKIE_SECURE=1`, because
 browsers refuse `SameSite=None` without `Secure`.
 
 Both default to the development setting, so nothing has to be configured to run locally
@@ -34,7 +34,8 @@ from pydantic import BaseModel, EmailStr, Field
 from .store import SESSION_TTL_SECONDS, EmailTaken, Store, User
 from ..settings import Settings
 
-COOKIE = "continuity_session"
+COOKIE = "fuze_session"
+LEGACY_COOKIE = "continuity_session"
 
 MIN_PASSWORD_LENGTH = 8
 """A floor, not a policy. Composition rules push people towards worse passwords."""
@@ -80,7 +81,7 @@ def store_of(request: Request) -> Store:
     return store
 
 
-async def current_user(request: Request) -> User:
+async def current_user(request: Request, response: Response = None) -> User:
     """Every authenticated route depends on this. A miss is 401, never an empty user.
 
     An instance with no store answers 401 here rather than the 503 `store_of` gives the
@@ -91,13 +92,16 @@ async def current_user(request: Request) -> User:
     then sees a scary error on every page load instead of simply being signed out.
     """
     store = request.app.state.store
-    token = request.cookies.get(COOKIE)
+    token = request.cookies.get(COOKIE) or request.cookies.get(LEGACY_COOKIE)
     if store is None or not token:
         raise HTTPException(401, "not signed in")
 
     user = await store.user_for_token(token)
     if user is None:
         raise HTTPException(401, "not signed in")
+    if COOKIE not in request.cookies and response is not None:
+        _set_session_cookie(response, token)
+        response.delete_cookie(LEGACY_COOKIE, path="/")
     return user
 
 
@@ -159,10 +163,12 @@ async def login(credentials: Credentials, request: Request, response: Response) 
 @router.post("/logout", status_code=204)
 async def logout(request: Request, response: Response) -> None:
     """Ends the session server-side, so a copied token stops working too."""
-    token = request.cookies.get(COOKIE)
-    if token and request.app.state.store is not None:
-        await request.app.state.store.delete_session(token)
+    tokens = {request.cookies.get(COOKIE), request.cookies.get(LEGACY_COOKIE)} - {None, ""}
+    if request.app.state.store is not None:
+        for token in tokens:
+            await request.app.state.store.delete_session(token)
     response.delete_cookie(COOKIE, path="/")
+    response.delete_cookie(LEGACY_COOKIE, path="/")
 
 
 @router.get("/me")

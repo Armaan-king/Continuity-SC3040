@@ -4,11 +4,11 @@ from __future__ import annotations
 
 import pytest
 
-from continuity.engine import rules
-from continuity.engine.models import Board
-from continuity.planner import topology
-from continuity.planner.topology import INPUT_SOURCES
-from continuity.engine.models import Rail, Requirements, Slot
+from fuze.engine import rules
+from fuze.engine.models import Board
+from fuze.planner import topology
+from fuze.planner.topology import INPUT_SOURCES
+from fuze.engine.models import Rail, Requirements, Slot
 from tests import parts
 
 

@@ -3,7 +3,7 @@ import { signIn, API_URL, watchConsole } from './helpers'
 
 test('source-checked facts, conflicts and pending claims remain distinct in saved research', async ({ page }) => {
   const errors = watchConsole(page)
-  await signIn(page, 'review-e2e@continuity.dev')
+  await signIn(page, 'review-e2e@fuze.dev')
   const projects = await (await page.request.get(`${API_URL}/projects`)).json()
   const project = projects.find((item: { name: string }) => item.name === 'Research evidence reference')
   await page.goto(`/projects/${project.id}/review`)
@@ -17,7 +17,7 @@ test('source-checked facts, conflicts and pending claims remain distinct in save
   await expect(evidence.getByText('Used by checks', { exact: true })).toBeVisible()
   await expect(evidence.getByText('Conflict · excluded from checks', { exact: true })).toBeVisible()
   await expect(evidence.getByText('Needs review · not used by checks', { exact: true })).toBeVisible()
-  await expect(evidence.getByRole('link', { name: 'Manufacturer source ↗' })).toHaveAttribute('href', 'https://www.nxp.com/continuity-test-fixture')
+  await expect(evidence.getByRole('link', { name: 'Manufacturer source ↗' })).toHaveAttribute('href', 'https://www.nxp.com/fuze-test-fixture')
   const reportHref = await page.getByRole('link', { name: 'Export report' }).getAttribute('href')
   const report = await (await page.request.get(reportHref!)).json()
   expect(report.board.slots.mcu.part.interfaces).toEqual(['I2C'])

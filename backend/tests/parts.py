@@ -10,7 +10,7 @@ demo live in `fixtures/` and are captured against the live API.
 
 from __future__ import annotations
 
-from continuity.engine.models import PartSpec
+from fuze.engine.models import PartSpec
 
 DATASHEET = "https://datasheet.lcsc.com/example.pdf"
 

@@ -5,9 +5,9 @@ from dataclasses import asdict, replace
 
 import pytest
 
-from continuity.parts import normalize, specifications, datasheet
-from continuity.engine.models import Board, Requirements, Slot, Rail, PartSpec, Verdict, SignalNet, Port
-from continuity.designs import service
+from fuze.parts import normalize, specifications, datasheet
+from fuze.engine.models import Board, Requirements, Slot, Rail, PartSpec, Verdict, SignalNet, Port
+from fuze.designs import service
 
 
 def sensor_board(maximum=3.6, voltage=5.0):
@@ -66,7 +66,7 @@ def test_waivers_keep_the_original_failure_in_reports():
 
 
 def test_new_waivers_do_not_cover_changed_evidence_or_another_rail():
-    from continuity.graph.nodes import _apply_waivers, _waiver_key
+    from fuze.graph.nodes import _apply_waivers, _waiver_key
     original = Verdict("voltage_overlap", "fail", "5 V exceeds 3.6 V", "sensor", scope="input")
     changed = replace(original, detail="12 V exceeds 3.6 V")
     other_rail = replace(original, scope="other")
@@ -91,7 +91,7 @@ def test_thermal_quote_must_contain_the_claimed_number():
 
 
 def test_shortlist_rejects_a_cheaper_incompatible_part(monkeypatch):
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
     from tests.test_normalize import CANDIDATE
     bad = replace(CANDIDATE, mpn="CHEAP-BAD")
     good = replace(CANDIDATE, mpn="SAFE")

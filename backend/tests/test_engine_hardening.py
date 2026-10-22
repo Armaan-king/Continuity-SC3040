@@ -4,11 +4,11 @@ from dataclasses import replace
 
 import pytest
 
-from continuity.designs import service
-from continuity.engine import draw, policy, repairs, rules
-from continuity.engine.models import Board, Port, Rail, Requirements, SignalNet, Verdict
-from continuity.graph import sourcing
-from continuity.parts.search import Candidate
+from fuze.designs import service
+from fuze.engine import draw, policy, repairs, rules
+from fuze.engine.models import Board, Port, Rail, Requirements, SignalNet, Verdict
+from fuze.graph import sourcing
+from fuze.parts.search import Candidate
 from tests import parts
 from tests.boards import slot, usb_board
 
@@ -252,8 +252,8 @@ def test_multiple_controllers_require_explicit_pin_assignments():
 
 def test_repair_search_never_reselects_an_already_failed_component(monkeypatch):
     from types import SimpleNamespace
-    from continuity.api.events import EventStream
-    from continuity.graph import nodes
+    from fuze.api.events import EventStream
+    from fuze.graph import nodes
     board = usb_board(regulator=parts.ap2112k(), loads={"sensor": parts.sht31()})
     part = board.part("regulator")
     same = Candidate(lcsc="C1", mpn=part.mpn, manufacturer=part.manufacturer, description="same part",

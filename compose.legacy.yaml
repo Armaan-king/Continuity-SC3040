@@ -1,0 +1,17 @@
+# Preserve the original local Compose database during the FUZE upgrade.
+# docker compose -f compose.yaml -f compose.legacy.yaml up --build
+# Keep the same Compose project name / working folder used for the original volume.
+services:
+  database:
+    environment:
+      POSTGRES_DB: continuity
+      POSTGRES_USER: continuity
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U continuity -d continuity"]
+  app:
+    environment:
+      DATABASE_URL: postgresql://continuity:local-development-only@database:5432/continuity
+volumes:
+  fuze-data:
+    name: ${COMPOSE_PROJECT_NAME:-b-main}_continuity-data
+    external: true

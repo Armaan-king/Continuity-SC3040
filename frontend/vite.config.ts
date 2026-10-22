@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import { readFileSync } from 'node:fs'
 
 const walkthroughReplay = readFileSync(
-  new URL('../backend/continuity/api/walkthrough.jsonl', import.meta.url),
+  new URL('../backend/fuze/api/walkthrough.jsonl', import.meta.url),
   'utf8',
 )
 

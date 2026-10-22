@@ -21,7 +21,7 @@ _last_event: dict = {}
 def _select():
     global _identity, _counts, _last_request, _last_event
     identity = hashlib.sha256(repr((os.environ.get("EXA_API_KEY"),
-        env.flag("CONTINUITY_RESEARCH_ENABLED", True), env.flag("CONTINUITY_FIXTURES"))).encode()).hexdigest()
+        env.flag("FUZE_RESEARCH_ENABLED", True), env.flag("FUZE_FIXTURES"))).encode()).hexdigest()
     if identity != _identity:
         _identity = identity
         _counts = dict(attempted=0, succeeded=0, failed=0, cancelled=0, cache_hits=0, skipped=0)

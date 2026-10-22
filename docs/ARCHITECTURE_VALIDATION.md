@@ -35,10 +35,10 @@ The full suite and final targeted checks together cover 830 distinct passing bac
 From `backend`, with `EXA_API_KEY` supplied through the ignored server environment:
 
 ```powershell
-$env:CONTINUITY_RESEARCH_ENABLED = '1'
-$env:CONTINUITY_RESEARCH_MAX_CALLS = '2'
-$env:CONTINUITY_RESEARCH_BUDGET_USD = '0.04'
-$env:CONTINUITY_FIXTURES = '0'
+$env:FUZE_RESEARCH_ENABLED = '1'
+$env:FUZE_RESEARCH_MAX_CALLS = '2'
+$env:FUZE_RESEARCH_BUDGET_USD = '0.04'
+$env:FUZE_FIXTURES = '0'
 ./.venv/Scripts/python.exe tools/check_research.py
 ```
 
@@ -57,12 +57,12 @@ The retrieved source was the [Sensirion SHT4x datasheet](https://sensirion.com/m
 
 ## Reproduce automated checks
 
-Set `CONTINUITY_TEST_DB` and `E2E_DATABASE_URL` to separate disposable PostgreSQL databases. Backend integration tests truncate their tables; browser setup replaces dedicated test accounts. Then run:
+Set `FUZE_TEST_DB` and `E2E_DATABASE_URL` to separate disposable PostgreSQL databases. Backend integration tests truncate their tables; browser setup replaces dedicated test accounts. Then run:
 
 ```powershell
-$env:CONTINUITY_ENV = 'test'
-$env:CONTINUITY_LLM_PROVIDER = 'disabled'
-$env:CONTINUITY_RESEARCH_ENABLED = '0'
+$env:FUZE_ENV = 'test'
+$env:FUZE_LLM_PROVIDER = 'disabled'
+$env:FUZE_RESEARCH_ENABLED = '0'
 backend/.venv/Scripts/python.exe -m pytest backend/tests
 npm.cmd --prefix frontend run lint
 npm.cmd --prefix frontend run build

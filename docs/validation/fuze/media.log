@@ -1,0 +1,50 @@
+guided-walkthrough: Landing page
+guided-walkthrough: Create an account
+guided-walkthrough: Recorded example: brief and board graph
+guided-walkthrough: It shows its working
+guided-walkthrough: A conflict has a verdict
+guided-walkthrough: The check log is still here
+guided-walkthrough: Parts, prices, and export
+guided-walkthrough: Memory keeps the finding
+PASS: registration, all seven walkthrough steps, saved onboarding project
+project-workflow: Sign in to saved projects
+project-workflow: Describe a board; basic planning is active
+project-workflow: Live parts lookup and electrical checks
+project-workflow: Inspect and export the bill of materials
+project-workflow: Reopen a saved project
+project-workflow: Review validation analytics
+project-workflow: Explore remembered boards and parts
+project-workflow: Sign out
+PASS: login, real design, CSV export, saved-board reload, analytics, memory, logout
+PASS: both README recordings completed without browser errors
+
+
+design-review: Reference board in the existing workspace
+design-review: Validation report: passes, failures and unknowns
+design-review: Answer a review question and save a new revision
+design-review: Return to the planning workspace with the revised board
+design-review: Edit a requirement and revalidate
+design-review: Return to the planning workspace with the revised board
+design-review: The 5 V supply creates a new voltage conflict
+design-review: Compare revisions without losing the original design
+design-review: Return to the planning workspace with the revised board
+design-review: Restore creates a new revalidated revision
+design-review: Export the same revision as a report and BOM
+design-review: Reopen the workspace with the restored revision
+research-connections: Review the saved reference design
+research-connections: Exa sources remain visibly unverified
+research-connections: Review the limits of what the engine checked
+research-connections: Declare the signal connection against your circuit
+research-connections: Return to the planning workspace with the revised board
+research-connections: Validate the declared bus; physical pins still require review
+PASS: both feature recordings; immutable revisions, restore, exports, evidence and declared connections verified
+
+
+PASS: guided-walkthrough.mp4, 00:00:34.58, 1947406 bytes; full video decoded
+PASS: project-workflow.mp4, 00:02:38.17, 5843136 bytes; full video decoded
+PASS: walkthrough.gif and capture.json written
+
+
+PASS: design-review.mp4, 00:00:51.08, 3197092 bytes; all frames decoded
+PASS: research-connections.mp4, 00:00:31.75, 1794752 bytes; all frames decoded
+PASS: animated preview and sanitized review-capture.json written

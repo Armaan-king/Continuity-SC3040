@@ -8,10 +8,10 @@ import json
 import httpx
 import pytest
 
-from continuity.api import app as app_module
-from continuity.api.app import app
-from continuity.api import bom as bom_module
-from continuity.engine.models import PartSpec, Requirements
+from fuze.api import app as app_module
+from fuze.api.app import app
+from fuze.api import bom as bom_module
+from fuze.engine.models import PartSpec, Requirements
 from tests import parts
 
 
@@ -382,8 +382,8 @@ def test_the_request_field_is_named_prompt_like_the_design_endpoint():
     the frontend sent `prompt` while the model declared `brief`, and the requirements
     silently fell back to defaults because the field never arrived. Nothing failed
     loudly; an industrial BOM would just have been judged as commercial."""
-    from continuity.api.app import DesignRequest
-    from continuity.api.bom import BomRequest
+    from fuze.api.app import DesignRequest
+    from fuze.api.bom import BomRequest
 
     assert "prompt" in BomRequest.model_fields
     assert "brief" not in BomRequest.model_fields
@@ -400,8 +400,8 @@ def test_a_slow_bom_stream_still_sends_heartbeats():
     BOM died with "the connection went quiet" — a 200 on the server and a failed run in
     the browser."""
     import asyncio
-    from continuity.api import app as app_module
-    from continuity.api import events as events_module
+    from fuze.api import app as app_module
+    from fuze.api import events as events_module
 
     async def go():
         async def slow():
@@ -424,7 +424,7 @@ def test_a_slow_bom_stream_still_sends_heartbeats():
 
 def test_heartbeats_do_not_drop_or_duplicate_the_events_themselves():
     import asyncio
-    from continuity.api import app as app_module
+    from fuze.api import app as app_module
 
     async def go():
         async def quick():
@@ -444,7 +444,7 @@ def test_a_failing_row_is_announced_as_a_conflict_not_as_pending():
     as "0 conflict" with every node still coloured as if it were being searched for. The
     verdicts exist before the rows are announced, so the status is knowable."""
     import asyncio
-    from continuity.api import bom as bom_module, events as events_module
+    from fuze.api import bom as bom_module, events as events_module
 
     async def go():
         rows = bom_module.parse_bom("FAILING-PART")

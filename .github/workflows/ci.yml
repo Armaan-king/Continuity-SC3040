@@ -10,18 +10,18 @@ jobs:
       postgres:
         image: postgres:16
         env:
-          POSTGRES_USER: continuity
+          POSTGRES_USER: fuze
           POSTGRES_PASSWORD: test-only
-          POSTGRES_DB: continuity_test
+          POSTGRES_DB: fuze_test
         ports: ["5432:5432"]
         options: >-
           --health-cmd pg_isready --health-interval 5s
           --health-timeout 5s --health-retries 10
     env:
-      CONTINUITY_ENV: test
-      CONTINUITY_LLM_PROVIDER: disabled
-      CONTINUITY_TEST_DB: postgresql://continuity:test-only@localhost:5432/continuity_test
-      E2E_DATABASE_URL: postgresql://continuity:test-only@localhost:5432/continuity_test
+      FUZE_ENV: test
+      FUZE_LLM_PROVIDER: disabled
+      FUZE_TEST_DB: postgresql://fuze:test-only@localhost:5432/fuze_test
+      E2E_DATABASE_URL: postgresql://fuze:test-only@localhost:5432/fuze_test
       E2E_PYTHON: python
     steps:
       - uses: actions/checkout@v4

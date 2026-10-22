@@ -5,13 +5,13 @@ from __future__ import annotations
 import asyncio
 import json
 
-from continuity.api import app as app_module
-from continuity.api.app import _run
-from continuity.api.events import EventStream, _encode
-from continuity.engine.models import Requirements
-from continuity.graph import nodes, sourcing
-from continuity.parts.search import Candidate
-from continuity.planner.plan import Plan
+from fuze.api import app as app_module
+from fuze.api.app import _run
+from fuze.api.events import EventStream, _encode
+from fuze.engine.models import Requirements
+from fuze.graph import nodes, sourcing
+from fuze.parts.search import Candidate
+from fuze.planner.plan import Plan
 from tests import parts
 from tests.boards import slot
 

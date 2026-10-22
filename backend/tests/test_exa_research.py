@@ -1,8 +1,8 @@
 import asyncio
 import httpx
 import pytest
-from continuity.parts import research
-from continuity.designs.context import ExecutionContext, current
+from fuze.parts import research
+from fuze.designs.context import ExecutionContext, current
 
 
 def run(work):
@@ -23,8 +23,8 @@ def transport(monkeypatch):
         requests.append(request)
         return httpx.Response(200, json=reply)
     client = httpx.AsyncClient
-    monkeypatch.setenv("CONTINUITY_RESEARCH_ENABLED", "1")
-    monkeypatch.setenv("CONTINUITY_FIXTURES", "0")
+    monkeypatch.setenv("FUZE_RESEARCH_ENABLED", "1")
+    monkeypatch.setenv("FUZE_FIXTURES", "0")
     monkeypatch.setenv("EXA_API_KEY", "test-key-not-a-secret")
     monkeypatch.setattr(research.httpx, "AsyncClient", lambda **kwargs: client(transport=httpx.MockTransport(handle), **kwargs))
     return requests, reply
@@ -58,7 +58,7 @@ def test_contents_checks_per_url_failures_and_request_shape(transport):
 
 def test_budget_stops_new_calls(transport, monkeypatch):
     requests, _ = transport
-    monkeypatch.setenv("CONTINUITY_RESEARCH_MAX_CALLS", "1")
+    monkeypatch.setenv("FUZE_RESEARCH_MAX_CALLS", "1")
     async def work():
         await research.search_documents("first")
         return await research.search_documents("second")

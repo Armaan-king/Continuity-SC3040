@@ -7,7 +7,7 @@ that relies on a withheld rate or a recurring conflict cannot silently lose it.
 
 from __future__ import annotations
 
-from continuity.api.analytics import (
+from fuze.api.analytics import (
     BomItem,
     CheckRow,
     FindingRow,
@@ -17,7 +17,7 @@ from continuity.api.analytics import (
 )
 from tools.seed_analytics import findings_for, generate_corpus
 
-EMAIL = "demo@continuity.dev"
+EMAIL = "demo@fuze.dev"
 
 
 def _records(runs) -> Records:

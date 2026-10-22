@@ -3,7 +3,7 @@ import { signIn, API_URL, watchConsole } from './helpers'
 
 test('requirements produce an immutable revision shared by report, graph and exports', async ({ page }) => {
   const errors = watchConsole(page)
-  await signIn(page, 'review-e2e@continuity.dev')
+  await signIn(page, 'review-e2e@fuze.dev')
   const projects = await (await page.request.get(`${API_URL}/projects`)).json()
   const project = projects.find((item: { name: string }) => item.name === 'Verified reference design')
   await page.goto(`/projects/${project.id}/review`)
@@ -38,7 +38,7 @@ test('requirements produce an immutable revision shared by report, graph and exp
 
 test('review questions persist answers and the report works on mobile', async ({ page }) => {
   const errors = watchConsole(page)
-  await signIn(page, 'review-e2e@continuity.dev')
+  await signIn(page, 'review-e2e@fuze.dev')
   const projects = await (await page.request.get(`${API_URL}/projects`)).json()
   const project = projects.find((item: { name: string }) => item.name === 'Verified reference design')
   await page.goto(`/projects/${project.id}/review`)
@@ -70,7 +70,7 @@ test('review questions persist answers and the report works on mobile', async ({
 })
 
 test('a rejected revision stays editable and preserves the answer for retry', async ({ page }) => {
-  await signIn(page, 'review-e2e@continuity.dev')
+  await signIn(page, 'review-e2e@fuze.dev')
   const projects = await (await page.request.get(`${API_URL}/projects`)).json()
   const project = projects.find((item: { name: string }) => item.name === 'Verified reference design')
   await page.goto(`/projects/${project.id}/review`)
@@ -85,7 +85,7 @@ test('a rejected revision stays editable and preserves the answer for retry', as
 })
 
 async function openBatteryReview(page: Page) {
-  await signIn(page, 'review-e2e@continuity.dev')
+  await signIn(page, 'review-e2e@fuze.dev')
   const projects = await (await page.request.get(`${API_URL}/projects`)).json()
   const project = projects.find((item: { name: string }) => item.name === 'Battery answers reference')
   const history = await (await page.request.get(`${API_URL}/projects/${project.id}/revisions`)).json()

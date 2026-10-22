@@ -12,9 +12,9 @@ export default function globalSetup() {
   execFileSync(E2E.python, ['tools/seed_analytics.py', '--email', E2E.email], {
     cwd: backend,
     stdio: 'inherit',
-    env: { ...process.env, DATABASE_URL: E2E.database, CONTINUITY_SEED_PASSWORD: E2E.password },
+    env: { ...process.env, DATABASE_URL: E2E.database, FUZE_SEED_PASSWORD: E2E.password },
   })
   execFileSync(E2E.python, ['tools/seed_review.py'], {
-    cwd: backend, stdio: 'inherit', env: { ...process.env, DATABASE_URL: E2E.database, CONTINUITY_SEED_PASSWORD: E2E.password },
+    cwd: backend, stdio: 'inherit', env: { ...process.env, DATABASE_URL: E2E.database, FUZE_SEED_PASSWORD: E2E.password },
   })
 }

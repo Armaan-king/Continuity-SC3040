@@ -10,10 +10,10 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from continuity import env, llm
-from continuity.designs.context import ExecutionContext, current
-from continuity.planner.plan import plan_board, structural_issues
-from continuity.parts import research
+from fuze import env, llm
+from fuze.designs.context import ExecutionContext, current
+from fuze.planner.plan import plan_board, structural_issues
+from fuze.parts import research
 
 BRIEF = ('Design a battery-powered bicycle anti-theft alarm. Use an accelerometer to detect movement, '
          'a buzzer, an arm/disarm button and a status LED. Power it from a single rechargeable '
@@ -22,8 +22,8 @@ BRIEF = ('Design a battery-powered bicycle anti-theft alarm. Use an acceleromete
 
 async def main():
     env.load()
-    os.environ.update(CONTINUITY_RESEARCH_MAX_CALLS='2', CONTINUITY_RESEARCH_BUDGET_USD='0.04',
-                      CONTINUITY_LLM_MAX_CALLS='3', CONTINUITY_LLM_TOKEN_BUDGET='24000')
+    os.environ.update(FUZE_RESEARCH_MAX_CALLS='2', FUZE_RESEARCH_BUDGET_USD='0.04',
+                      FUZE_LLM_MAX_CALLS='3', FUZE_LLM_TOKEN_BUDGET='24000')
     context = ExecutionContext('review-provider-smoke')
     token = current.set(context)
     try:

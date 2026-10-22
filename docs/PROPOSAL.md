@@ -35,7 +35,7 @@ FIXED:
 STILL TO DO: fill [bracketed placeholders]; write the Appendix A resumes. Appendix C is the Word conversion checklist.
 -->
 
-# Proposal for the Design of Continuity: A System for Whole-Board Constraint Validation of Electronic Bills of Materials
+# Proposal for the Design of FUZE: A System for Whole-Board Constraint Validation of Electronic Bills of Materials
 
 <div align="center">
 
@@ -49,7 +49,7 @@ Jain Sparsh<br>
 Faye Chan<br>
 Lai Yi
 
-**Team Continuity**
+**Team FUZE**
 
 College of Computing and Data Science, Nanyang Technological University
 
@@ -107,7 +107,7 @@ computer-aided design tools capture and verify a schematic. Neither evaluates wh
 set of parts is mutually consistent. Compatibility is a property of the whole board, and every
 available interface takes a single part as its unit of query.
 
-This document proposes the design of Continuity, a web application that converts a
+This document proposes the design of FUZE, a web application that converts a
 plain-language description of a circuit board into a bill of materials validated as a graph.
 The system divides the work between two components. A deterministic constraint engine
 determines what is broken, a language model selects a resolution strategy, and the engine then
@@ -229,7 +229,7 @@ well while leaving it structurally unable to produce a number.
 
 The team will also conduct its own interviews. A preliminary round of fifteen, across
 university electrical engineering programmes, a makerspace, an IEEE student branch, and
-competitive robotics and rocketry teams, changed the framing of this proposal [Team Continuity,
+competitive robotics and rocketry teams, changed the framing of this proposal [Team FUZE,
 2026]. Designing the board is not the bottleneck. Every engineer interviewed described design
 as the enjoyable part of the work. The difficulty arises after a chosen part proves unavailable
 and a replacement must be found that still fits everything already committed. That finding is
@@ -259,7 +259,7 @@ writing before implementation begins on the affected component.
 
 ## Objectives
 
-This document proposes the design of Continuity, a system that converts a plain-language
+This document proposes the design of FUZE, a system that converts a plain-language
 description of a circuit board into a bill of materials validated as a graph and traceable to
 its sources. The project has four objectives:
 
@@ -303,7 +303,7 @@ interface. In practice this means a conflict displays every rule that ran on the
 including those that passed, rather than only the rule that failed.
 
 What the project will not do matters as much, because a reader might reasonably assume
-otherwise. Continuity will not generate a schematic. It will not lay out or route a board,
+otherwise. FUZE will not generate a schematic. It will not lay out or route a board,
 assign pins, produce a netlist, simulate a circuit, or emit manufacturing files. The boundary
 is drawn at block-level validation for two reasons. The first is evidential: both the published
 prior work and the team's own interviews found that engineers want auditable checking rather
@@ -456,7 +456,7 @@ Table 3: Constraints on the design and their consequences.
 | Language-model API access may depend on region | The model endpoint and API configuration must use compatible regions. |
 | Fourteen-week term, part-time student effort | Scope is fixed by the phase plan; any addition requires a written change request. |
 
-These constraints also define the boundaries of the delivered system. Continuity will validate
+These constraints also define the boundaries of the delivered system. FUZE will validate
 a board at the block level only, and its results will depend on the quality and completeness of
 the parameters available to the system. A component with a sparse catalogue entry may therefore
 accumulate unchecked verdicts rather than false passes. While this is the intended behaviour,
@@ -465,7 +465,7 @@ validated.
 
 ### Technology Consideration
 
-Table 4 lists the main technologies proposed for each layer of Continuity and explains why each
+Table 4 lists the main technologies proposed for each layer of FUZE and explains why each
 was selected. The choices are guided by two requirements:
 
 - The constraint engine must be able to operate independently of the language model and
@@ -504,7 +504,7 @@ From the table, there are two technology choices that require further explanatio
 
 ### System Architecture/Platform
 
-Figure 1 shows the overall architecture of Continuity. The key design feature is the separation
+Figure 1 shows the overall architecture of FUZE. The key design feature is the separation
 of the constraint engine from the language model and external services. The constraint engine
 performs all validation independently, which helps ensure that its results are deterministic
 and reproducible.
@@ -546,7 +546,7 @@ flowchart TD
     class LLM model
 ```
 
-<sub>Figure 1: Overall Continuity system architecture, showing the deterministic constraint engine separated from model and external-service components.</sub>
+<sub>Figure 1: Overall FUZE system architecture, showing the deterministic constraint engine separated from model and external-service components.</sub>
 
 Figure 2 shows how validation and repair are handled. The constraint engine first checks the
 board for conflicts. If a conflict is found, it generates a set of valid repair options for the
@@ -639,7 +639,7 @@ finished leaves no schedule in which to act on what it finds.
 
 ```mermaid
 gantt
-    title Continuity — Project Schedule, 20 Aug 2026 to 25 Nov 2026
+    title FUZE — Project Schedule, 20 Aug 2026 to 25 Nov 2026
     dateFormat YYYY-MM-DD
     axisFormat %d %b
     tickInterval 1week
@@ -862,7 +862,7 @@ sessions in Week 12, or an introduction to suitable participants.
 
 ### Team Qualifications
 
-Team Continuity comprises seven members whose combined background spans software architecture,
+Team FUZE comprises seven members whose combined background spans software architecture,
 full-stack and interface development, backend and database engineering, applied machine
 learning, test engineering and project coordination. The paragraphs below establish each
 member's qualification for the role assigned in Table 7. One-page résumés appear in Appendix A.
@@ -939,7 +939,7 @@ Component parameters have been available through structured interfaces for years
 missing is a system that treats compatibility as the whole-board property it actually is, and
 that can be trusted when it reports that a board is sound.
 
-Team Continuity proposes to build that system in fourteen weeks. The four objectives are a
+Team FUZE proposes to build that system in fourteen weeks. The four objectives are a
 deterministic constraint engine that validates every rule against every part after every
 placement, a sourcing pipeline that resolves each slot to a real orderable part while
 preserving provenance, a fenced repair loop in which the model chooses a strategy and the
@@ -1007,7 +1007,7 @@ Siemens Digital Industries Software, *10 Reasons Growing Teams Choose Xpedition 
 $28,500 and sixteen days each, citing Lifecycle Insights research.
 <https://resources.sw.siemens.com/en-US/infographic-10-reasons-growing-teams-choose-xpedition-standard/>
 
-Team Continuity, *Primary research: fifteen structured interviews with practising hardware
+Team FUZE, *Primary research: fifteen structured interviews with practising hardware
 engineers and student design teams* (2026). Interview protocol and anonymised notes available
 on request.
 

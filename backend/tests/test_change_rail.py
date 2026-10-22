@@ -4,9 +4,9 @@ from __future__ import annotations
 
 import asyncio
 
-from continuity.api.events import EventStream
-from continuity.engine.models import Rail, Requirements
-from continuity.graph import nodes, sourcing
+from fuze.api.events import EventStream
+from fuze.engine.models import Rail, Requirements
+from fuze.graph import nodes, sourcing
 from tests import parts
 from tests.boards import slot
 

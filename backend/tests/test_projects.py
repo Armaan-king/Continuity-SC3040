@@ -1,6 +1,6 @@
 """Ownership: whose projects, whose threads, whose board.
 
-Skipped unless `CONTINUITY_TEST_DB` is set.
+Skipped unless `FUZE_TEST_DB` is set.
 
 Two groups of tests here, and they fail very differently.
 
@@ -25,15 +25,15 @@ from contextlib import asynccontextmanager
 import httpx
 import pytest
 
-from continuity.api import app as app_module
-from continuity.api.app import app
-from continuity.api import events
-from continuity.api.store import Store
+from fuze.api import app as app_module
+from fuze.api.app import app
+from fuze.api import events
+from fuze.api.store import Store
 
-DB_URL = os.environ.get("CONTINUITY_TEST_DB")
+DB_URL = os.environ.get("FUZE_TEST_DB")
 
 pytestmark = pytest.mark.skipif(
-    not DB_URL, reason="set CONTINUITY_TEST_DB to run the ownership tests"
+    not DB_URL, reason="set FUZE_TEST_DB to run the ownership tests"
 )
 
 UNRESOLVED = "solar powered weather station with a sensor"
@@ -92,7 +92,7 @@ async def frames_of(http: httpx.AsyncClient, path: str, payload: dict) -> list[d
 
 
 def test_confirmed_stop_releases_account_for_next_design(monkeypatch):
-    from continuity.api.runs import RunManager
+    from fuze.api.runs import RunManager
 
     async def go():
         manager = RunManager()
@@ -370,7 +370,7 @@ def test_the_walkthrough_is_idempotent():
 
     Not a nicety. React re-runs effects in development, so the route calls this twice on
     every mount, and the create-or-409 version handed each new account two "Welcome to
-    Continuity" projects — the first abandoned mid-stream and stuck on RUNNING for ever.
+    FUZE" projects — the first abandoned mid-stream and stuck on RUNNING for ever.
     """
 
     async def go():
@@ -723,7 +723,7 @@ def test_two_concurrent_walkthrough_requests_make_one_project():
     """React re-runs effects in development, so both requests land within a millisecond.
 
     A find-then-create loses that race with itself: every new account got two "Welcome to
-    Continuity" projects, the first abandoned mid-stream and stuck showing RUNNING.
+    FUZE" projects, the first abandoned mid-stream and stuck showing RUNNING.
     """
 
     async def go():

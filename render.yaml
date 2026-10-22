@@ -2,7 +2,7 @@
 # Create a Neon Free database and supply its direct connection URL below.
 services:
   - type: web
-    name: continuity-sc3040
+    name: fuze-sc3040
     runtime: docker
     plan: free
     region: singapore
@@ -10,34 +10,34 @@ services:
     dockerContext: .
     healthCheckPath: /api/ready
     envVars:
-      - key: CONTINUITY_ENV
+      - key: FUZE_ENV
         value: production
       - key: DATABASE_URL
         sync: false
-      - key: CONTINUITY_COOKIE_SECURE
+      - key: FUZE_COOKIE_SECURE
         value: "1"
-      - key: CONTINUITY_COOKIE_SAMESITE
+      - key: FUZE_COOKIE_SAMESITE
         value: lax
-      - key: CONTINUITY_LLM_PROVIDER
+      - key: FUZE_LLM_PROVIDER
         value: groq
-      - key: CONTINUITY_LLM_MODEL
+      - key: FUZE_LLM_MODEL
         value: openai/gpt-oss-120b
-      - key: CONTINUITY_LLM_MAX_TOKENS
+      - key: FUZE_LLM_MAX_TOKENS
         value: "4096"
       - key: GROQ_API_KEY
         sync: false
-      - key: CONTINUITY_MAX_ACTIVE_RUNS
+      - key: FUZE_MAX_ACTIVE_RUNS
         value: "2"
-      - key: CONTINUITY_RUN_TIMEOUT_SECONDS
+      - key: FUZE_RUN_TIMEOUT_SECONDS
         value: "600"
-      - key: CONTINUITY_RESEARCH_MAX_CALLS
+      - key: FUZE_RESEARCH_MAX_CALLS
         value: "6"
-      - key: CONTINUITY_RESEARCH_BUDGET_USD
+      - key: FUZE_RESEARCH_BUDGET_USD
         value: "0.12"
 # GROQ_API_KEY is supplied privately through Render's Environment panel.
 # Optional server secrets: GEMINI_API_KEY for Gemini; EXA_API_KEY for research.
-# For Gemini, set CONTINUITY_LLM_PROVIDER=gemini. Its default is gemini-3.8-flash.
-# Existing CONTINUITY_LLM_MODEL / CONTINUITY_LLM_BASE_URL values override defaults;
+# For Gemini, set FUZE_LLM_PROVIDER=gemini. Its default is gemini-3.8-flash.
+# Existing FUZE_LLM_MODEL / FUZE_LLM_BASE_URL values override defaults;
 # remove stale overrides or update them as described in docs/DEPLOYMENT.md.
 # Never prefix a secret with VITE_.
 # No key is required for the explicitly labelled basic planning mode.

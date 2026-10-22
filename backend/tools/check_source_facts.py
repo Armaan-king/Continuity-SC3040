@@ -10,18 +10,18 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from continuity import env, llm
-from continuity.designs.context import ExecutionContext, current
-from continuity.engine.models import Board, PartSpec, Requirements, Slot
-from continuity.engine.rules import interface_role_match
-from continuity.parts import research
+from fuze import env, llm
+from fuze.designs.context import ExecutionContext, current
+from fuze.engine.models import Board, PartSpec, Requirements, Slot
+from fuze.engine.rules import interface_role_match
+from fuze.parts import research
 
 
 async def main():
     env.load()
-    os.environ.update(CONTINUITY_LLM_PROVIDER='groq', CONTINUITY_RESEARCH_ENABLED='1', CONTINUITY_FIXTURES='0',
-                      CONTINUITY_RESEARCH_MAX_CALLS='2', CONTINUITY_RESEARCH_BUDGET_USD='0.04',
-                      CONTINUITY_EVIDENCE_MAX_PARTS='1', CONTINUITY_LLM_MAX_CALLS='1', CONTINUITY_LLM_TOKEN_BUDGET='12000')
+    os.environ.update(FUZE_LLM_PROVIDER='groq', FUZE_RESEARCH_ENABLED='1', FUZE_FIXTURES='0',
+                      FUZE_RESEARCH_MAX_CALLS='2', FUZE_RESEARCH_BUDGET_USD='0.04',
+                      FUZE_EVIDENCE_MAX_PARTS='1', FUZE_LLM_MAX_CALLS='1', FUZE_LLM_TOKEN_BUDGET='12000')
     llm.MAX_ATTEMPTS = 1  # This smoke never retries a billable provider request.
     if not research.configured() or not llm.available():
         print(json.dumps({'passed': False, 'reason': 'Both Exa and Groq must be configured privately.'}))

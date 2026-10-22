@@ -9,13 +9,13 @@ from unittest.mock import AsyncMock
 import httpx
 import pytest
 
-from continuity import ai_activity, llm
-from continuity.api.events import EventStream
-from continuity.designs.context import ExecutionContext, current
-from continuity.engine.models import Board, PartSpec, Requirements, Slot
-from continuity.graph import nodes, sourcing
-from continuity.parts import alternatives, evidence, normalize, research, research_activity
-from continuity.parts.search import Candidate
+from fuze import ai_activity, llm
+from fuze.api.events import EventStream
+from fuze.designs.context import ExecutionContext, current
+from fuze.engine.models import Board, PartSpec, Requirements, Slot
+from fuze.graph import nodes, sourcing
+from fuze.parts import alternatives, evidence, normalize, research, research_activity
+from fuze.parts.search import Candidate
 
 REAL_FIND, REAL_CHOOSE = sourcing.find, sourcing.choose
 MPN = "TEST-MCU-42"
@@ -37,10 +37,10 @@ def web_response():
 @pytest.fixture
 def providers(monkeypatch):
     monkeypatch.setenv("EXA_API_KEY", "fake-exa-secret")
-    monkeypatch.setenv("CONTINUITY_RESEARCH_ENABLED", "1")
-    monkeypatch.setenv("CONTINUITY_FIXTURES", "0")
-    monkeypatch.setenv("CONTINUITY_RESEARCH_MAX_CALLS", "6")
-    monkeypatch.setenv("CONTINUITY_RESEARCH_BUDGET_USD", "0.12")
+    monkeypatch.setenv("FUZE_RESEARCH_ENABLED", "1")
+    monkeypatch.setenv("FUZE_FIXTURES", "0")
+    monkeypatch.setenv("FUZE_RESEARCH_MAX_CALLS", "6")
+    monkeypatch.setenv("FUZE_RESEARCH_BUDGET_USD", "0.12")
     monkeypatch.setattr(research_activity, "_identity", None)
     requests, response = [], web_response()
     client_type = httpx.AsyncClient
@@ -162,7 +162,7 @@ def test_web_part_is_admitted_from_source_without_jlc_or_repeat_extraction(provi
 def test_missing_full_text_keeps_values_unknown_under_budget(providers, monkeypatch):
     _, response = providers
     response["results"][0]["highlights"] = [response["results"][0].pop("text")]
-    monkeypatch.setenv("CONTINUITY_RESEARCH_MAX_CALLS", "1")
+    monkeypatch.setenv("FUZE_RESEARCH_MAX_CALLS", "1")
     async def work():
         candidate = (await sourcing.find("mcu"))[0]
         part = await sourcing.choose(candidate)
@@ -205,7 +205,7 @@ def test_parallel_identical_queries_share_paid_response(providers):
 
 def test_parallel_prefetch_respects_shared_allowance(providers, monkeypatch):
     requests, _ = providers
-    monkeypatch.setenv("CONTINUITY_RESEARCH_MAX_CALLS", "2")
+    monkeypatch.setenv("FUZE_RESEARCH_MAX_CALLS", "2")
     async def work():
         results = await asyncio.gather(*(sourcing.find(f"mcu {i}") for i in range(8)))
         assert all(results)  # catalogue remains usable for slots beyond the allowance
@@ -216,9 +216,9 @@ def test_parallel_prefetch_respects_shared_allowance(providers, monkeypatch):
 
 def test_web_candidates_survive_checkpoint_and_recovery_offer(providers):
     from langgraph.checkpoint.serde.jsonplus import JsonPlusSerializer
-    from continuity.graph.recovery import catalogue_offer
+    from fuze.graph.recovery import catalogue_offer
     candidate = run(lambda: sourcing.find("controller"))[0]
-    serializer = JsonPlusSerializer(allowed_msgpack_modules=[("continuity.parts.search", "Candidate")])
+    serializer = JsonPlusSerializer(allowed_msgpack_modules=[("fuze.parts.search", "Candidate")])
     restored = serializer.loads_typed(serializer.dumps_typed(candidate))
     assert restored == candidate
     offer = catalogue_offer(restored, 1)
@@ -227,12 +227,12 @@ def test_web_candidates_survive_checkpoint_and_recovery_offer(providers):
     assert alternative.stock is None and alternative.lead_time_days is None
 
 
-@pytest.mark.skipif(not os.environ.get("CONTINUITY_TEST_DB"), reason="requires disposable PostgreSQL")
+@pytest.mark.skipif(not os.environ.get("FUZE_TEST_DB"), reason="requires disposable PostgreSQL")
 def test_web_discovery_cache_and_allowance_survive_execution_restart(providers, monkeypatch):
     from tests.test_projects import a_store, signed_in
     from tests.test_revisions import seed
     requests, _ = providers
-    monkeypatch.setenv("CONTINUITY_RESEARCH_MAX_CALLS", "1")
+    monkeypatch.setenv("FUZE_RESEARCH_MAX_CALLS", "1")
     async def go():
         async with a_store() as store, signed_in() as http:
             await seed(store, http)

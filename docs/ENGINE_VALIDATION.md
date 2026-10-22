@@ -36,11 +36,11 @@ built in 1.12s
 
 ## Reproduce
 
-Set `CONTINUITY_TEST_DB` and `E2E_DATABASE_URL` to **separate disposable local databases**. Backend integration tests truncate tables; browser setup seeds dedicated accounts. From the project root:
+Set `FUZE_TEST_DB` and `E2E_DATABASE_URL` to **separate disposable local databases**. Backend integration tests truncate tables; browser setup seeds dedicated accounts. From the project root:
 
 ```powershell
-$env:CONTINUITY_LIVE = '0'
-$env:CONTINUITY_RESEARCH_ENABLED = '0'
+$env:FUZE_LIVE = '0'
+$env:FUZE_RESEARCH_ENABLED = '0'
 $testScratch = Join-Path (Get-Location) ('.local/pytest-engine-' + [guid]::NewGuid().ToString('N'))
 backend/.venv/Scripts/python.exe -m pytest backend/tests --basetemp $testScratch
 npm.cmd --prefix frontend run lint

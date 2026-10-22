@@ -267,7 +267,7 @@ async def enrich(part: PartSpec, documents: tuple[dict, ...]) -> PartSpec:
 
     async def work():
         context = current.get()
-        if context and context.evidence_parts >= integer("CONTINUITY_EVIDENCE_MAX_PARTS", 3, maximum=10):
+        if context and context.evidence_parts >= integer("FUZE_EVIDENCE_MAX_PARTS", 3, maximum=10):
             return asdict(replace(part, research=tuple({**d, "extraction_status": "budget_exhausted"} for d in docs)))
         if context:
             context.evidence_parts += 1

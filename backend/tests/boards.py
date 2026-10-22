@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from continuity.engine.models import Board, PartSpec, Rail, Requirements, Slot
+from fuze.engine.models import Board, PartSpec, Rail, Requirements, Slot
 
 USB_C_CURRENT_LIMIT = 3.0
 

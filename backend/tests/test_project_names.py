@@ -2,7 +2,7 @@ import asyncio
 
 import pytest
 
-from continuity.api.project_names import project_name, upgrade_legacy_names
+from fuze.api.project_names import project_name, upgrade_legacy_names
 from tests.test_store import DB_URL, a_user, fresh
 
 
@@ -25,7 +25,7 @@ def test_title_is_bounded_at_word_boundaries():
     assert not project_name("temperature " * 100).endswith("Temper")
 
 
-@pytest.mark.skipif(not DB_URL, reason="requires disposable CONTINUITY_TEST_DB")
+@pytest.mark.skipif(not DB_URL, reason="requires disposable FUZE_TEST_DB")
 def test_first_brief_names_project_and_manual_renames_survive_later_runs():
     async def go():
         async with fresh() as store:
@@ -41,7 +41,7 @@ def test_first_brief_names_project_and_manual_renames_survive_later_runs():
     asyncio.run(go())
 
 
-@pytest.mark.skipif(not DB_URL, reason="requires disposable CONTINUITY_TEST_DB")
+@pytest.mark.skipif(not DB_URL, reason="requires disposable FUZE_TEST_DB")
 def test_legacy_prompt_prefix_is_repaired_without_touching_custom_names():
     async def go():
         async with fresh() as store:

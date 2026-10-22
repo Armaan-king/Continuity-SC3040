@@ -25,7 +25,7 @@ The final backend suite passed **1,072 tests**, with **5 optional live-service s
 Commands from the repository root:
 
 ```powershell
-$env:CONTINUITY_TEST_DB = '<disposable local PostgreSQL connection>'
+$env:FUZE_TEST_DB = '<disposable local PostgreSQL connection>'
 backend/.venv/Scripts/python.exe -m pytest backend/tests -o addopts='' -p no:cacheprovider -q
 ```
 

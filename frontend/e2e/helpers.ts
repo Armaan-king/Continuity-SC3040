@@ -37,7 +37,7 @@ export async function signIn(page: Page, email = E2E.email, password = E2E.passw
 
 /** A brand-new account with no runs at all. */
 export async function registerFreshAccount(page: Page) {
-  const email = `fresh-${Date.now()}-${Math.floor(Math.random() * 1e6)}@continuity.dev`
+  const email = `fresh-${Date.now()}-${Math.floor(Math.random() * 1e6)}@fuze.dev`
   const response = await page.request.post(`${API_URL}/auth/register`, {
     data: { email, password: 'a-fresh-local-password' },
   })

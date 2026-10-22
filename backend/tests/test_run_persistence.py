@@ -6,9 +6,9 @@ import asyncio
 import logging
 import pytest
 
-from continuity.api import app as app_module
-from continuity.api.app import _run
-from continuity.api.events import EventStream
+from fuze.api import app as app_module
+from fuze.api.app import _run
+from fuze.api.events import EventStream
 
 
 class RecordingStore:
@@ -149,10 +149,10 @@ def test_trace_persistence_failure_does_not_break_the_run():
 
 @pytest.mark.parametrize("kind", ["brief", "bom"])
 def test_stop_while_persisting_a_yielded_frame_closes_in_the_owning_task(kind, monkeypatch, caplog):
-    from continuity.api import bom
-    from continuity.api.execution import _run_bom
-    from continuity.api.runs import RunManager
-    from continuity.api.store import RunLeaseLost
+    from fuze.api import bom
+    from fuze.api.execution import _run_bom
+    from fuze.api.runs import RunManager
+    from fuze.api.store import RunLeaseLost
 
     async def go():
         entered = asyncio.Event()
@@ -206,9 +206,9 @@ def test_stop_while_persisting_a_yielded_frame_closes_in_the_owning_task(kind, m
 
 @pytest.mark.parametrize("kind", ["brief", "bom"])
 def test_revocation_during_bom_save_is_not_logged_as_validation_failure(kind, monkeypatch, caplog):
-    from continuity.api import bom
-    from continuity.api.execution import _run_bom
-    from continuity.api.store import RunLeaseLost
+    from fuze.api import bom
+    from fuze.api.execution import _run_bom
+    from fuze.api.store import RunLeaseLost
 
     class RevokedStore(RecordingStore):
         async def save_bom(self, *args):

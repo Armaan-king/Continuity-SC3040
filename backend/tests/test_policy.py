@@ -9,8 +9,8 @@ from __future__ import annotations
 
 from dataclasses import replace
 
-from continuity.engine import policy, rules
-from continuity.engine.models import Board, Rail, Repair, Requirements, Verdict
+from fuze.engine import policy, rules
+from fuze.engine.models import Board, Rail, Repair, Requirements, Verdict
 from tests import parts
 from tests.boards import usb_board
 

@@ -11,12 +11,12 @@ from dataclasses import replace
 
 import pytest
 
-from continuity.engine import rules
-from continuity.engine.models import Requirements
-from continuity.graph.sourcing import choose as choose_candidate
-from continuity.graph import sourcing
-from continuity.parts import datasheet, mcp, normalize
-from continuity.parts.search import Candidate
+from fuze.engine import rules
+from fuze.engine.models import Requirements
+from fuze.graph.sourcing import choose as choose_candidate
+from fuze.graph import sourcing
+from fuze.parts import datasheet, mcp, normalize
+from fuze.parts.search import Candidate
 from tests import parts
 from tests.boards import usb_board
 
@@ -292,7 +292,7 @@ def test_a_real_datasheet_is_preferred_when_one_exists(monkeypatch):
 
 def test_research_receives_the_enriched_datasheet_not_only_a_raw_candidate(monkeypatch):
     from unittest.mock import AsyncMock
-    from continuity.parts import research
+    from fuze.parts import research
 
     monkeypatch.setattr(normalize.llm, "available", lambda: False)
     monkeypatch.setattr(normalize.search, "enrich", AsyncMock(return_value=normalize.search.Enrichment(datasheet="https://sensirion.com/sht40.pdf")))

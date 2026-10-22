@@ -6,7 +6,7 @@ import asyncio
 
 import pytest
 
-from continuity.parts import datasheet
+from fuze.parts import datasheet
 
 
 TPS54331_THERMAL = """6.4 Thermal Information

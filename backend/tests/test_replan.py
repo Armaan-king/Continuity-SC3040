@@ -7,13 +7,13 @@ from dataclasses import fields
 from types import SimpleNamespace
 from typing import Any
 
-from continuity.api.events import EventStream
-from continuity import interpret
-from continuity.engine import rules
-from continuity.engine.models import Rail, Requirements, Slot, Verdict
-from continuity.graph import nodes
-from continuity.planner import plan as planner
-from continuity.planner import topology
+from fuze.api.events import EventStream
+from fuze import interpret
+from fuze.engine import rules
+from fuze.engine.models import Rail, Requirements, Slot, Verdict
+from fuze.graph import nodes
+from fuze.planner import plan as planner
+from fuze.planner import topology
 from tests import parts
 from tests.boards import slot
 
@@ -182,7 +182,7 @@ def test_a_typed_supply_answer_is_matched_as_well_as_a_clicked_one():
     default, because defaulting an unrecognised supply computes every rail, voltage
     verdict and dissipation figure against the wrong number.
     """
-    from continuity.planner.topology import INPUT_SOURCES, source_named
+    from fuze.planner.topology import INPUT_SOURCES, source_named
 
     labels = {source.label: key for key, source in INPUT_SOURCES.items()}
     a_label, a_key = next(iter(labels.items()))

@@ -30,7 +30,7 @@ MAX_DOCUMENT_CHARS = 24_000
 
 def configured() -> bool:
     env.load()
-    return bool(os.environ.get("EXA_API_KEY", "").strip()) and env.flag("CONTINUITY_RESEARCH_ENABLED", True)
+    return bool(env.get("EXA_API_KEY", "").strip()) and env.flag("FUZE_RESEARCH_ENABLED", True)
 
 
 def status() -> dict:
@@ -39,8 +39,8 @@ def status() -> dict:
     return {"configured": enabled, "provider": "exa", "last_request": observed["last_request"],
             "activity": observed,
             "sourcing": "recorded" if fixtures.replaying() else "web_and_catalogue" if enabled else "catalogue_only",
-            "max_calls_per_run": integer("CONTINUITY_RESEARCH_MAX_CALLS", 6, maximum=20),
-            "max_extractions_per_execution": integer("CONTINUITY_EVIDENCE_MAX_PARTS", 3, maximum=10)}
+            "max_calls_per_run": integer("FUZE_RESEARCH_MAX_CALLS", 6, maximum=20),
+            "max_extractions_per_execution": integer("FUZE_EVIDENCE_MAX_PARTS", 3, maximum=10)}
 
 
 def public_url(value: object) -> str | None:
@@ -89,9 +89,9 @@ async def _request_once(path: str, payload: dict) -> dict:
         activity.no_request(operation, "cached", source="execution", reason=(
             "cached_failure" if context.research_cache[key].get("error") else None))
         return context.research_cache[key]
-    limit = integer("CONTINUITY_RESEARCH_MAX_CALLS", 6, maximum=20)
+    limit = integer("FUZE_RESEARCH_MAX_CALLS", 6, maximum=20)
     try:
-        budget = float(os.environ.get("CONTINUITY_RESEARCH_BUDGET_USD", "0.12"))
+        budget = float(env.get("FUZE_RESEARCH_BUDGET_USD", "0.12"))
         if not math.isfinite(budget):
             raise ValueError("invalid_budget")
         budget = min(max(budget, 0), 1.0)
@@ -263,9 +263,9 @@ async def enrich(part):
         # Check this only after cache/stage lookup: exhausting the allowance must
         # never hide facts already paid for earlier in this execution.
         if not part.research and (not llm.available() or (context and (context.llm_unavailable or
-                context.llm_calls >= integer("CONTINUITY_LLM_MAX_CALLS", 40, maximum=100) or
-                context.llm_tokens + evidence.token_reservation() > integer("CONTINUITY_LLM_TOKEN_BUDGET", 120000, maximum=1000000) or
-                context.evidence_parts >= integer("CONTINUITY_EVIDENCE_MAX_PARTS", 3, maximum=10)))):
+                context.llm_calls >= integer("FUZE_LLM_MAX_CALLS", 40, maximum=100) or
+                context.llm_tokens + evidence.token_reservation() > integer("FUZE_LLM_TOKEN_BUDGET", 120000, maximum=1000000) or
+                context.evidence_parts >= integer("FUZE_EVIDENCE_MAX_PARTS", 3, maximum=10)))):
             activity.no_request("evidence", "skipped", reason=("ai_unavailable"
                 if not llm.available() or (context and context.llm_unavailable) else "evidence_budget"))
             return None

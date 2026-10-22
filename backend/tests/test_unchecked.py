@@ -7,9 +7,9 @@ nowhere else — a waived failure or an empty search is a finding, not a gap in 
 
 from __future__ import annotations
 
-from continuity.api.bom import _unchecked_rail_verdicts
-from continuity.engine.models import Verdict
-from continuity.graph.nodes import _apply_waivers
+from fuze.api.bom import _unchecked_rail_verdicts
+from fuze.engine.models import Verdict
+from fuze.graph.nodes import _apply_waivers
 from tests.boards import slot
 from tests import parts
 

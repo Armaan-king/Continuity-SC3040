@@ -147,7 +147,7 @@ try {
     await page.waitForTimeout(2000)
     mark('Reopen a saved project')
     await page.getByRole('button', { name: 'All projects', exact: true }).click()
-    const projectCard = page.getByRole('button', { name: /^USB temperature and humidity sensor/ })
+    const projectCard = page.getByRole('button', { name: /^USB temperature and humidity sensor/i })
     await expect(projectCard).toBeVisible()
     await page.waitForTimeout(2000)
     await page.screenshot({ path: path.join(output, 'projects.png') })

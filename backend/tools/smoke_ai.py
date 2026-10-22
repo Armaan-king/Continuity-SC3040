@@ -8,8 +8,8 @@ import asyncio
 import json
 import time
 
-from continuity import llm
-from continuity.planner.plan import plan_board
+from fuze import llm
+from fuze.planner.plan import plan_board
 
 
 async def main():

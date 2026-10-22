@@ -20,7 +20,7 @@ test('the landing page renders', async ({ page }) => {
 
 test('wrong credentials are refused without signing in', async ({ page }) => {
   await page.goto('/login')
-  await page.getByPlaceholder('ENTER_EMAIL').fill('e2e@continuity.dev')
+  await page.getByPlaceholder('ENTER_EMAIL').fill('e2e@fuze.dev')
   await page.getByPlaceholder('ENTER_PASSWORD').fill('not-the-password')
   await page.getByRole('button', { name: 'SIGN_IN' }).click()
   await expect(page).toHaveURL(/\/login$/)

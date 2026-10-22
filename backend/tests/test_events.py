@@ -13,8 +13,8 @@ consumed, and a stream that can be *started* from a number already issued.
 
 from __future__ import annotations
 
-from continuity.api.events import EventStream
-from continuity.engine.models import Edge
+from fuze.api.events import EventStream
+from fuze.engine.models import Edge
 from tests.boards import slot
 from tests import parts
 
@@ -107,7 +107,7 @@ def test_a_check_event_carries_whether_the_rule_could_be_evaluated():
     `warn` covers both a genuine concern and a figure that was never published. Telling
     them apart from the wording would break the first time a detail string is reworded.
     """
-    from continuity.engine.models import Verdict
+    from fuze.engine.models import Verdict
 
     stream = EventStream("t1")
     missing = Verdict(rule="pin_budget", status="warn", detail="no GPIO count", subject="mcu", unchecked=True)

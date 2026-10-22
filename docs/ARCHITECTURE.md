@@ -22,7 +22,7 @@ flowchart LR
   CP --> PG
 ```
 
-`continuity/server.py` mounts the API at `/api` and serves the built SPA. `api/app.py` handles request validation and orchestration; `api/execution.py` produces graph/BOM events; `api/runs.py` owns run lifetime and subscriptions. `api/store.py` contains parameterized SQL and ownership-scoped lookups. `settings.py` validates environment settings. The graph, planner, parts adapters, reviewer and deterministic rule engine retain their existing directories.
+`fuze/server.py` mounts the API at `/api` and serves the built SPA. `api/app.py` handles request validation and orchestration; `api/execution.py` produces graph/BOM events; `api/runs.py` owns run lifetime and subscriptions. `api/store.py` contains parameterized SQL and ownership-scoped lookups. `settings.py` validates environment settings. The graph, planner, parts adapters, reviewer and deterministic rule engine retain their existing directories.
 
 The browser never receives provider keys. Model output is input to validated application structures; it does not directly decide rule verdicts. The no-key parser accepts explicit, unit-bearing distributor measurements and preserves their provenance. Unsupported measurements stay unknown.
 
@@ -104,7 +104,7 @@ The supported free-host configuration uses one Uvicorn worker. In-memory caches 
 
 ## Schema changes
 
-The immutable `schema.sql` is migration 001. Migration 002 adds execution leases, replay sequence checks and ownership constraints. Migration 003 adds project-name provenance and converts known legacy generated names. Migration 004 adds immutable design revisions, durable stages/inputs and research reservations without removing existing data. All application migrations run in one transaction under an advisory lock. A changed applied SQL file fails startup rather than silently rewriting history. LangGraph manages its own checkpoint schema; both use the same pool.
+The immutable `schema.sql` is migration 001. Migration 002 adds execution leases, replay sequence checks and ownership constraints. Migration 003 adds project-name provenance and converts known legacy generated names. Migration 004 adds immutable design revisions, durable stages/inputs and research reservations without removing existing data. Migration 005 updates the generated walkthrough project name to FUZE. All application migrations run in one transaction under an advisory lock. A changed applied SQL file fails startup rather than silently rewriting history. LangGraph manages its own checkpoint schema; both use the same pool. The [FUZE upgrade guide](FUZE_UPGRADE.md) covers legacy settings, session cookies and checkpoint module names.
 
 ## Operational limits
 

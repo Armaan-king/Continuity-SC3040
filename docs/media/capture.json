@@ -1,5 +1,5 @@
 {
-  "recordedAt": "2026-10-22T03:03:20.334Z",
+  "recordedAt": "2026-10-22T21:41:14.214Z",
   "viewport": {
     "width": 1440,
     "height": 900
@@ -38,15 +38,15 @@
           "title": "Parts, prices, and export"
         },
         {
-          "seconds": 27,
+          "seconds": 28,
           "title": "Memory keeps the finding"
         }
       ],
       "browserErrors": [],
       "result": "PASS",
       "file": "guided-walkthrough.mp4",
-      "duration": "00:00:34.38",
-      "bytes": 1791557
+      "duration": "00:00:34.58",
+      "bytes": 1947406
     },
     {
       "name": "project-workflow",
@@ -60,35 +60,35 @@
           "title": "Describe a board; basic planning is active"
         },
         {
-          "seconds": 6,
+          "seconds": 7,
           "title": "Live parts lookup and electrical checks"
         },
         {
-          "seconds": 26,
+          "seconds": 142,
           "title": "Inspect and export the bill of materials"
         },
         {
-          "seconds": 29,
+          "seconds": 145,
           "title": "Reopen a saved project"
         },
         {
-          "seconds": 33,
+          "seconds": 150,
           "title": "Review validation analytics"
         },
         {
-          "seconds": 36,
+          "seconds": 152,
           "title": "Explore remembered boards and parts"
         },
         {
-          "seconds": 40,
+          "seconds": 156,
           "title": "Sign out"
         }
       ],
       "browserErrors": [],
       "result": "PASS",
       "file": "project-workflow.mp4",
-      "duration": "00:00:40.96",
-      "bytes": 2282441
+      "duration": "00:02:38.17",
+      "bytes": 5843136
     }
   ],
   "liveRun": {
@@ -96,8 +96,12 @@
     "summary": {
       "slots": 3,
       "placed": 3,
-      "elapsed_s": 17.3,
-      "conflicts_resolved": 1
+      "stopped": false,
+      "failures": 0,
+      "warnings": 0,
+      "elapsed_s": 131.8,
+      "unchecked": 6,
+      "conflicts_resolved": 0
     },
     "acceptedWarnings": 0
   },
@@ -105,9 +109,9 @@
     "file": "walkthrough.gif",
     "source": "guided-walkthrough.mp4",
     "startSeconds": 10,
-    "durationSeconds": 19,
+    "durationSeconds": 20,
     "width": 960,
     "fps": 6,
-    "bytes": 4316358
+    "bytes": 4305933
   }
 }

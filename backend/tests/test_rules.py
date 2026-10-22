@@ -9,8 +9,8 @@ from __future__ import annotations
 import pytest
 from dataclasses import replace
 
-from continuity.engine import draw as rail_current, packages, rules
-from continuity.engine.models import Evidence, PartSpec, Requirements
+from fuze.engine import draw as rail_current, packages, rules
+from fuze.engine.models import Evidence, PartSpec, Requirements
 from tests import parts
 from tests.boards import slot, usb_board
 
@@ -1067,14 +1067,14 @@ def test_every_verdict_names_a_rule_the_contract_declares():
         requirements=Requirements(max_package_mm=4.0),
     )
 
-    from continuity.engine.models import RULE_NAMES
+    from fuze.engine.models import RULE_NAMES
 
     assert {v.rule for v in rules.evaluate(board)} <= set(RULE_NAMES)
 
 
 def test_rule_names_and_functions_agree():
-    from continuity.engine.models import RULE_NAMES
-    from continuity.engine.integrity import PRECHECK_NAMES
+    from fuze.engine.models import RULE_NAMES
+    from fuze.engine.integrity import PRECHECK_NAMES
 
     assert tuple(rule.__name__ for rule in rules.RULES) + PRECHECK_NAMES == RULE_NAMES
 
@@ -1105,7 +1105,7 @@ def test_evaluation_is_deterministic():
 def test_a_slot_is_never_listed_twice_as_involved():
     """The board input rail feeding a single regulator has that slot as both subject and
     only consumer — the drawer rendered it as two affected components."""
-    from continuity.engine.models import Board, Rail
+    from fuze.engine.models import Board, Rail
 
     board = Board(
         Requirements(),
@@ -1481,7 +1481,7 @@ def test_an_rs485_transceiver_is_satisfied_by_a_uart_controller():
 
 def test_a_uart_peripheral_is_not_satisfied_by_an_rs485_line():
     """The compatibility is directed. An RS-485 pair is two wires, not a controller."""
-    from continuity.engine import buses
+    from fuze.engine import buses
 
     assert buses.master_satisfies_bus("RS-485", "UART") is True
     assert buses.master_satisfies_bus("UART", "RS-485") is False

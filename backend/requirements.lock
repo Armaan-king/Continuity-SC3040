@@ -12,7 +12,7 @@ anyio==4.15.1
     #   openai
     #   starlette
 argon2-cffi==25.1.0
-    # via continuity (backend/pyproject.toml)
+    # via fuze (backend/pyproject.toml)
 argon2-cffi-bindings==26.1.0
     # via argon2-cffi
 certifi==2026.10.19
@@ -35,9 +35,9 @@ distro==1.9.0
 dnspython==2.9.0
     # via email-validator
 email-validator==2.3.0
-    # via continuity (backend/pyproject.toml)
+    # via fuze (backend/pyproject.toml)
 fastapi==0.157.0
-    # via continuity (backend/pyproject.toml)
+    # via fuze (backend/pyproject.toml)
 h11==0.16.0
     # via
     #   httpcore
@@ -49,7 +49,7 @@ httpcore2==2.16.0
     # via httpx2
 httpx==0.28.1
     # via
-    #   continuity (backend/pyproject.toml)
+    #   fuze (backend/pyproject.toml)
     #   langchain-core
     #   langgraph-sdk
     #   openai
@@ -79,14 +79,14 @@ langchain-protocol==0.0.20
     #   langchain-core
     #   langgraph-sdk
 langgraph==1.2.16
-    # via continuity (backend/pyproject.toml)
+    # via fuze (backend/pyproject.toml)
 langgraph-checkpoint==4.3.0
     # via
     #   langgraph
     #   langgraph-checkpoint-postgres
     #   langgraph-prebuilt
 langgraph-checkpoint-postgres==3.2.0
-    # via continuity (backend/pyproject.toml)
+    # via fuze (backend/pyproject.toml)
 langgraph-prebuilt==1.1.1
     # via langgraph
 langgraph-sdk==0.4.8
@@ -94,7 +94,7 @@ langgraph-sdk==0.4.8
 langsmith==0.14.11
     # via langchain-core
 openai==2.54.0
-    # via continuity (backend/pyproject.toml)
+    # via fuze (backend/pyproject.toml)
 opentelemetry-api==1.45.1
     # via fastapi
 orjson==3.13.0
@@ -110,7 +110,7 @@ packaging==26.3
     #   langsmith
 psycopg==3.3.6
     # via
-    #   continuity (backend/pyproject.toml)
+    #   fuze (backend/pyproject.toml)
     #   langgraph-checkpoint-postgres
 psycopg-binary==3.3.6
     # via psycopg
@@ -122,7 +122,7 @@ pycparser==3.11
     # via cffi
 pydantic==2.14.1
     # via
-    #   continuity (backend/pyproject.toml)
+    #   fuze (backend/pyproject.toml)
     #   fastapi
     #   langchain-core
     #   langgraph
@@ -131,9 +131,9 @@ pydantic==2.14.1
 pydantic-core==2.50.1
     # via pydantic
 pypdf==6.21.1
-    # via continuity (backend/pyproject.toml)
+    # via fuze (backend/pyproject.toml)
 python-dotenv==1.2.4
-    # via continuity (backend/pyproject.toml)
+    # via fuze (backend/pyproject.toml)
 pyyaml==6.0.3
     # via langchain-core
 requests==2.34.2
@@ -182,7 +182,7 @@ uuid-utils==0.18.0
     #   langchain-core
     #   langsmith
 uvicorn==0.54.0
-    # via continuity (backend/pyproject.toml)
+    # via fuze (backend/pyproject.toml)
 websockets==16.1.1
     # via
     #   langgraph-sdk

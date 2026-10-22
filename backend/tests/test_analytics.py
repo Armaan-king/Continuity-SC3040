@@ -1,7 +1,7 @@
 """DS-16 validation analytics: four views over an engineer's completed runs.
 
 The pure half — `rate` and the four view builders — is tested without a database. The
-query half runs only with `CONTINUITY_TEST_DB`, against a small corpus written through the
+query half runs only with `FUZE_TEST_DB`, against a small corpus written through the
 same `Store` methods a real run uses, so every figure here is one a direct query against
 `findings` and `run_events` would reproduce.
 """
@@ -15,8 +15,8 @@ from contextlib import asynccontextmanager
 import httpx
 import pytest
 
-from continuity.api import analytics
-from continuity.api.analytics import (
+from fuze.api import analytics
+from fuze.api.analytics import (
     BomItem,
     CheckRow,
     FindingRow,
@@ -29,9 +29,9 @@ from continuity.api.analytics import (
     rule_outcomes,
     supply_exposure,
 )
-from continuity.api.app import app
-from continuity.api.findings import Finding
-from continuity.api.store import Store
+from fuze.api.app import app
+from fuze.api.findings import Finding
+from fuze.api.store import Store
 
 
 def check(thread: str, seq: int, rule: str, status: str, *, slot: str = "u1", unchecked: bool = False):
@@ -294,8 +294,8 @@ def test_runs_report_completed_and_excluded_counts():
 
 # ── the query half, against a real database ──────────────────────────────────
 
-DB_URL = os.environ.get("CONTINUITY_TEST_DB")
-database = pytest.mark.skipif(not DB_URL, reason="set CONTINUITY_TEST_DB to run analytics queries")
+DB_URL = os.environ.get("FUZE_TEST_DB")
+database = pytest.mark.skipif(not DB_URL, reason="set FUZE_TEST_DB to run analytics queries")
 
 
 @asynccontextmanager
@@ -472,8 +472,8 @@ def test_a_failed_retrieval_reports_that_the_analysis_could_not_load_and_returns
     """UC-16.0.E.1 — no partial analysis, and a status the client can tell from success."""
     import psycopg
 
-    from continuity.api.auth import current_user
-    from continuity.api.store import User
+    from fuze.api.auth import current_user
+    from fuze.api.store import User
 
     class _BrokenPool:
         def connection(self):

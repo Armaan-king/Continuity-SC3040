@@ -9,8 +9,8 @@ from unittest.mock import AsyncMock
 import httpx
 import pytest
 
-from continuity import ai_activity, llm
-from continuity.designs.context import current, ExecutionContext
+from fuze import ai_activity, llm
+from fuze.designs.context import current, ExecutionContext
 from tests.test_runtime import clean_environment, groq_transport, json_completion
 
 
@@ -28,7 +28,7 @@ def test_configured_is_not_success_and_success_is_observable(clean_environment, 
     assert activity()["last_request"]["status"] == "not_tested"
     assert activity()["requests"]["attempted"] == 0
     receipts = []
-    with caplog.at_level(logging.INFO, logger="continuity.ai_activity"), ai_activity.observe(receipts.append):
+    with caplog.at_level(logging.INFO, logger="fuze.ai_activity"), ai_activity.observe(receipts.append):
         assert asyncio.run(llm.complete_json("private instructions", "private brief")) == {"ok": True}
     assert activity()["requests"] == {"attempted": 1, "succeeded": 1, "failed": 0, "cancelled": 0}
     assert activity()["last_request"]["http_status"] == 200
@@ -124,11 +124,11 @@ def test_application_logging_is_enabled_under_uvicorn_without_sdk_debug():
     code = """
 import logging
 from uvicorn.config import Config
-Config('continuity.server:app').configure_logging()
-from continuity.logging_setup import configure
+Config('fuze.server:app').configure_logging()
+from fuze.logging_setup import configure
 configure()
 configure()
-logging.getLogger('continuity.ai_activity').info('ai_request success request_id=test')
+logging.getLogger('fuze.ai_activity').info('ai_request success request_id=test')
 logging.getLogger('httpx').info('HTTP details must not be enabled')
 """
     result = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True, check=True)
@@ -138,10 +138,10 @@ logging.getLogger('httpx').info('HTTP details must not be enabled')
 
 @pytest.mark.parametrize("failure", [False, True])
 def test_provider_receipts_reach_actual_design_sse(clean_environment, monkeypatch, failure):
-    from continuity.api import app as app_module
-    from continuity.api.runs import RunManager
-    from continuity.graph import sourcing
-    from continuity.graph.build import build
+    from fuze.api import app as app_module
+    from fuze.api.runs import RunManager
+    from fuze.graph import sourcing
+    from fuze.graph.build import build
     from tests.test_api import stream
     from tests.test_planner import GOOD
 
@@ -177,8 +177,8 @@ def test_provider_receipts_reach_actual_design_sse(clean_environment, monkeypatc
 
 @pytest.mark.parametrize("value,expected", [("1", "recorded"), ("true", "live"), ("0", "live")])
 def test_runtime_reports_the_mode_the_supplier_client_actually_uses(clean_environment, monkeypatch, value, expected):
-    from continuity.api.app import app
-    monkeypatch.setenv("CONTINUITY_FIXTURES", value)
+    from fuze.api.app import app
+    monkeypatch.setenv("FUZE_FIXTURES", value)
     async def go():
         async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://test") as client:
             return await client.get("/runtime")
@@ -187,8 +187,8 @@ def test_runtime_reports_the_mode_the_supplier_client_actually_uses(clean_enviro
 
 @pytest.mark.parametrize("recorded", [False, True])
 def test_supplier_client_uses_only_the_selected_source(clean_environment, monkeypatch, tmp_path, recorded, caplog):
-    from continuity.parts import fixtures, mcp
-    monkeypatch.setenv("CONTINUITY_FIXTURES", "1" if recorded else "0")
+    from fuze.parts import fixtures, mcp
+    monkeypatch.setenv("FUZE_FIXTURES", "1" if recorded else "0")
     monkeypatch.setattr(fixtures, "FIXTURE_DIR", tmp_path)
     fixtures.save("jlc_search", {"query": "sensor"}, {"source": "recorded"})
     calls = []
@@ -200,7 +200,7 @@ def test_supplier_client_uses_only_the_selected_source(clean_environment, monkey
     monkeypatch.setattr(mcp.httpx, "AsyncClient", lambda **kwargs: client_type(
         transport=httpx.MockTransport(respond), **kwargs))
     monkeypatch.setattr(mcp._limiter, "wait", AsyncMock())
-    with caplog.at_level(logging.INFO, logger="continuity.parts.mcp"):
+    with caplog.at_level(logging.INFO, logger="fuze.parts.mcp"):
         result = asyncio.run(mcp.call_tool("jlc_search", {"query": "sensor"}))
     mode = "recorded" if recorded else "live"
     assert result == {"source": mode}

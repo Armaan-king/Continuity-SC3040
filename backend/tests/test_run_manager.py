@@ -6,8 +6,8 @@ import json
 import pytest
 from fastapi import HTTPException
 
-from continuity.api.events import EventStream, frame
-from continuity.api.runs import RunManager
+from fuze.api.events import EventStream, frame
+from fuze.api.runs import RunManager
 
 
 def test_disconnect_reconnect_and_explicit_cancel():
@@ -173,7 +173,7 @@ def test_producer_close_failure_does_not_leave_account_occupied():
 
 def test_revoked_lease_during_frame_save_releases_admission_without_error_logs(caplog):
     import logging
-    from continuity.api.store import RunLeaseLost
+    from fuze.api.store import RunLeaseLost
 
     async def go():
         manager = RunManager()

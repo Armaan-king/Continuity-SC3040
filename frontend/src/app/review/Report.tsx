@@ -8,6 +8,9 @@ const panel = 'rounded-xl border border-outline-variant bg-surface-container-low
 const button = 'rounded-md border border-outline-variant px-4 py-2 text-body-sm transition-colors hover:border-primary-container hover:text-primary-container disabled:opacity-40'
 const words = (value: string) => value.replaceAll('_', ' ')
 const safeSource = (value: string | null) => /^https?:\/\//.test(value ?? '') ? value! : undefined
+// Present historical internal labels under the current brand without rewriting
+// the immutable revision or the original manufacturer evidence in its export.
+const sourceLabel = (value: string) => value.replace(/^Continuity (?=dossier|package|efficiency|regulation)/, 'FUZE ')
 const colors: Record<string, string> = { PASS: 'text-primary-container', FAIL: 'text-error', UNKNOWN: 'text-tertiary-container' }
 const icons: Record<string, string> = { PASS: 'check_circle', FAIL: 'cancel', UNKNOWN: 'help' }
 const Icon = ({ name }: { name: string }) => <span aria-hidden="true" className="material-symbols-outlined text-[20px]">{name}</span>
@@ -82,7 +85,7 @@ export default function Report({ revision, active, onSaved, onRequirements }: {
           <div className="flex items-start justify-between gap-3"><h4 className="text-body-sm capitalize">{words(finding.rule)}{finding.scope && <span className="ml-2 rounded border border-outline-variant px-2 py-0.5 text-xs text-on-surface-variant">{finding.scope}</span>}</h4><span className={`flex items-center gap-1 text-xs ${colors[finding.outcome] ?? ''}`}><Icon name={icons[finding.outcome] ?? 'info'} />{finding.outcome}</span></div>
           <p className="mt-2 text-body-sm leading-relaxed text-on-surface-variant">{finding.detail}</p>
           {finding.accepted && <p className="mt-2 text-xs text-tertiary-container">Accepted by user · original result retained</p>}
-          {!!finding.evidence.length && <details className="mt-3 text-body-sm"><summary className="cursor-pointer text-on-surface-variant">Supporting evidence · {finding.evidence.length}</summary><div className="mt-3 space-y-2 border-l-2 border-outline-variant pl-3">{finding.evidence.map((item, i) => <div key={i} className="break-words"><span>{item.field}: {item.value}</span>{safeSource(item.source) ? <a className="ml-2 text-primary-container underline" href={safeSource(item.source)} target="_blank" rel="noreferrer">Source ↗</a> : item.source && <p className="text-xs text-outline">{item.source}</p>}</div>)}</div></details>}
+          {!!finding.evidence.length && <details className="mt-3 text-body-sm"><summary className="cursor-pointer text-on-surface-variant">Supporting evidence · {finding.evidence.length}</summary><div className="mt-3 space-y-2 border-l-2 border-outline-variant pl-3">{finding.evidence.map((item, i) => <div key={i} className="break-words"><span>{item.field}: {item.value}</span>{safeSource(item.source) ? <a className="ml-2 text-primary-container underline" href={safeSource(item.source)} target="_blank" rel="noreferrer">Source ↗</a> : item.source && <p className="text-xs text-outline">{sourceLabel(item.source)}</p>}</div>)}</div></details>}
         </article>)}
       </div>)}</div>
       {!selected.length && <p className={`${panel} p-6 text-on-surface-variant`}>No checks match this filter.</p>}

@@ -317,7 +317,7 @@ class Store(RevisionRepository):
         Returns the thread id. **Safe to call concurrently**, which it has to be: React
         re-runs effects in development, so two requests arrive within a millisecond of
         each other and a find-then-create loses the race with itself — every new account
-        ended up with two "Welcome to Continuity" projects, the first abandoned mid-stream.
+        ended up with two "Welcome to FUZE" projects, the first abandoned mid-stream.
 
         Both ids are derived from the user id rather than random, so the two callers
         compute the *same* rows and `ON CONFLICT DO NOTHING` settles it without a lock.

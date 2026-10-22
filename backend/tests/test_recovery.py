@@ -6,12 +6,12 @@ from dataclasses import asdict, replace
 import pytest
 from langgraph.types import Command
 
-from continuity.api.events import EventStream
-from continuity.engine import policy, rules
-from continuity.engine.models import Board, Requirements, Slot, Rail
-from continuity.graph import nodes, recovery, sourcing
-from continuity.graph.build import build
-from continuity.planner import plan as planner, revision, topology
+from fuze.api.events import EventStream
+from fuze.engine import policy, rules
+from fuze.engine.models import Board, Requirements, Slot, Rail
+from fuze.graph import nodes, recovery, sourcing
+from fuze.graph.build import build
+from fuze.planner import plan as planner, revision, topology
 from tests import parts
 from tests.conftest import _as_candidate
 
@@ -212,7 +212,7 @@ def test_valid_ai_revision_cannot_replace_confirmed_requirements(monkeypatch):
 
 
 def test_catalogue_failure_keeps_original_selection_and_question(monkeypatch):
-    from continuity.parts.mcp import ToolError
+    from fuze.parts.mcp import ToolError
     state = {**state_without_controller(), "verdicts": [], "recovery_action": recovery.SEARCH}
     async def fail(*args, **kwargs):
         raise ToolError("raw upstream data must not be shown")
@@ -225,7 +225,7 @@ def test_catalogue_failure_keeps_original_selection_and_question(monkeypatch):
 
 def test_alternative_cards_survive_question_reload_without_server_objects():
     from types import SimpleNamespace
-    from continuity.api.execution import _pending_question, _interrupt_events
+    from fuze.api.execution import _pending_question, _interrupt_events
     state = state_without_controller()
     state["offered_alternatives"] = [recovery.catalogue_offer(_as_candidate(parts.sht31()), 1)]
     cards = recovery.public_alternatives(state)

@@ -16,9 +16,9 @@ from types import SimpleNamespace
 import httpx
 import pytest
 
-from continuity.api import app as app_module
-from continuity.api.app import app
-from continuity.parts import datasheet
+from fuze.api import app as app_module
+from fuze.api.app import app
+from fuze.parts import datasheet
 
 
 def run(coro):
@@ -438,7 +438,7 @@ def test_stopping_an_escalation_ends_the_run():
 
 def empty_search(monkeypatch, *, missing: str):
     """Make one slot's search come back with nothing, as JLCPCB really did."""
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     real = sourcing.find
 
@@ -489,7 +489,7 @@ UNKNOWN_SUPPLY = "a board powered by a hand-cranked dynamo"
 
 
 def test_every_supply_the_engine_knows_is_offered():
-    from continuity.planner import topology
+    from fuze.planner import topology
 
     frames = run(stream("/design", {"prompt": UNKNOWN_SUPPLY}))
     question = frames[-1]
@@ -604,7 +604,7 @@ def test_stopping_still_stops():
 
 def test_placement_pushes_a_planned_constraint_into_the_search(monkeypatch):
     """A slot planned as a boost must search as one, not merely be named one."""
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     seen: list = []
     real = sourcing.find

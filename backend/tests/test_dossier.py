@@ -4,9 +4,9 @@ from __future__ import annotations
 
 import pytest
 
-from continuity.engine import rules
-from continuity.engine.models import DOSSIER_SOURCE, PartSpec
-from continuity.parts.dossier import DOSSIER_FIELDS, facts_from_part
+from fuze.engine import rules
+from fuze.engine.models import DOSSIER_SOURCE, PartSpec
+from fuze.parts.dossier import DOSSIER_FIELDS, facts_from_part
 from tests import parts
 from tests.boards import usb_board
 
@@ -78,8 +78,8 @@ def test_a_listings_not_stated_placeholder_never_becomes_a_durable_fact():
     dash as absent, and the dossier is the one place a transient blank becomes permanent
     and can later gap-fill a genuinely empty field on another board.
     """
-    from continuity.engine.models import PartSpec
-    from continuity.parts.dossier import facts_from_part
+    from fuze.engine.models import PartSpec
+    from fuze.parts.dossier import facts_from_part
 
     part = PartSpec(
         mpn="HS91L02W2C01",

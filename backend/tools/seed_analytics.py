@@ -1,8 +1,8 @@
 """Seed a demonstration account with a corpus of completed runs for DS-16 analytics.
 
-    DATABASE_URL=postgresql:///continuity_dev \\
-    CONTINUITY_SEED_PASSWORD=... \\
-        .venv/bin/python tools/seed_analytics.py --email demo@continuity.dev
+    DATABASE_URL=postgresql:///fuze_dev \\
+    FUZE_SEED_PASSWORD=... \\
+        .venv/bin/python tools/seed_analytics.py --email demo@fuze.dev
 
 The Quality Plan verifies DS-16 "across a seeded corpus of at least 20 completed runs",
 and a new account has none, so the analysis can only be demonstrated over seeded data.
@@ -45,8 +45,8 @@ from typing import Any
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 
-from continuity.api.memory import FindingRecorder  # noqa: E402
-from continuity.api.findings import Finding  # noqa: E402
+from fuze.api.memory import FindingRecorder  # noqa: E402
+from fuze.api.findings import Finding  # noqa: E402
 
 SEED = 3047
 """Chosen because its corpus withholds exactly one familiar rule (pin budget) and keeps
@@ -392,19 +392,19 @@ async def write_corpus(store: Any, email: str, password_hash: str, runs: list[Ru
 
 async def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--email", default="demo@continuity.dev")
+    parser.add_argument("--email", default="demo@fuze.dev")
     parser.add_argument("--seed", type=int, default=SEED)
     args = parser.parse_args()
 
     url = os.environ.get("DATABASE_URL")
-    password = os.environ.get("CONTINUITY_SEED_PASSWORD")
+    password = os.environ.get("FUZE_SEED_PASSWORD")
     if not url or not password:
-        sys.exit("Set DATABASE_URL and CONTINUITY_SEED_PASSWORD (the demo account's password).")
+        sys.exit("Set DATABASE_URL and FUZE_SEED_PASSWORD (the demo account's password).")
 
     from psycopg_pool import AsyncConnectionPool
 
-    from continuity.api.auth import hasher
-    from continuity.api.store import Store
+    from fuze.api.auth import hasher
+    from fuze.api.store import Store
 
     runs = generate_corpus(args.email, args.seed)
     async with AsyncConnectionPool(url, min_size=1, max_size=2, open=False, kwargs={"autocommit": True}) as pool:

@@ -113,7 +113,7 @@ Closing the browser disconnects the view, not the server-side run. Reopening rec
 
 All four videos were captured locally with PostgreSQL and AI planning disabled. The guided example and reference boards contain historical data; the project workflow used live distributor lookup. The research clip reuses an actual Exa retrieval and retains its verification status.
 
-The recordings predate the FUZE rename and later sourcing/recovery additions. They illustrate the core workflow, not every capability described here or the exact version currently deployed. See [recording provenance, chapters and reproduction](docs/media/README.md).
+The recordings show the FUZE interface and the core workflow. They do not demonstrate every sourcing or recovery capability, and the manually deployed public instance may run an earlier revision. See [recording provenance, chapters and reproduction](docs/media/README.md).
 
 </details>
 
@@ -124,7 +124,7 @@ The model, search services and rules have separate responsibilities.
 | Layer | Responsibility |
 | --- | --- |
 | **Groq or another configured model** | Interpret the brief, propose a structured plan, classify ambiguous roles, locate specification passages, suggest repairs and interpret written changes. |
-| **JLCPCB catalogue through the [pcbparts.dev adapter](backend/continuity/parts/mcp.py)** | Retrieve catalogue identities, structured specifications, available stock and prices. |
+| **JLCPCB catalogue through the [pcbparts.dev adapter](backend/fuze/parts/mcp.py)** | Retrieve catalogue identities, structured specifications, available stock and prices. |
 | **Exa Search and Contents** | Discover products across the web and retrieve source documents, including products outside the catalogue. |
 | **Python parsers and evidence checks** | Normalize units and protocols, establish source applicability, and decide which extracted facts can enter validation. |
 | **Deterministic rule engine** | Evaluate the board model and explain passes, failures, warnings and unknowns. |
@@ -150,7 +150,7 @@ flowchart TD
 
 **Discovery and selection.** Catalogue and Exa searches contribute independently when enabled and within budget. Normal web discovery requests up to four pages and two identified products per slot. Candidate identity includes manufacturer and model, and external-only products retain their source links. Up to three candidates are evaluated against the same board; hard failures and unknowns rank ahead of commercial preferences. Requested functions marked as pinned also receive an initial comparison.
 
-Web discovery establishes product identity and supporting source text; it is not an exhaustive electrical comparison of every search result. Setting `CONTINUITY_FIXTURES=1` explicitly selects recorded supplier fixtures instead of live inventory lookup.
+Web discovery establishes product identity and supporting source text; it is not an exhaustive electrical comparison of every search result. Setting `FUZE_FIXTURES=1` explicitly selects recorded supplier fixtures instead of live inventory lookup.
 
 **Evidence enrichment.** The leading candidate can receive additional research, then be revalidated and reranked. At most one fallback is researched within the same allowance. Completed parsing and research are reused during comparison. A source search returning HTTP 200 does not mean it produced usable products or admitted specifications.
 
@@ -179,7 +179,7 @@ Checks apply only when the model contains the necessary components, connections 
 | **Energy budget** | Estimated battery runtime from stated capacity and modeled demand. |
 | **Rail coverage** | Components missing from the modeled power connections. |
 
-These checks are implemented in [the engine](backend/continuity/engine), independently of the model provider.
+These checks are implemented in [the engine](backend/fuze/engine), independently of the model provider.
 
 ### Read the results correctly
 
@@ -236,6 +236,8 @@ Install Docker Desktop, then run from the repository root:
 docker compose up --build
 ~~~
 
+Upgrading an existing local Compose database? Use the [compatibility override](docs/FUZE_UPGRADE.md#local-development) to retain its existing volume and credentials.
+
 Open **http://localhost:8000** and create an account. [compose.yaml](compose.yaml) starts the application and a persistent local PostgreSQL database. AI is disabled by default, so no model key is needed to start. Fresh supplier lookup still requires internet access.
 
 ~~~sh
@@ -278,16 +280,16 @@ cp backend/.env.example backend/.env
 Configure the local database in `backend/.env`:
 
 ~~~dotenv
-DATABASE_URL=postgresql://continuity:local-development-only@localhost:5432/continuity
+DATABASE_URL=postgresql://fuze:local-development-only@localhost:5432/fuze
 ~~~
 
-Start the API with `backend/.venv/Scripts/python.exe -m continuity --api-only --reload` on Windows, or `backend/.venv/bin/python -m continuity --api-only --reload` on macOS/Linux. In a second terminal:
+Start the API with `backend/.venv/Scripts/python.exe -m fuze --api-only --reload` on Windows, or `backend/.venv/bin/python -m fuze --api-only --reload` on macOS/Linux. In a second terminal:
 
 ~~~sh
 npm run dev --prefix frontend
 ~~~
 
-Vite proxies `/api` to port 8000. After building the frontend, `python -m continuity` serves the combined app. Use the virtual-environment interpreter for that command too.
+Vite proxies `/api` to port 8000. After building the frontend, `python -m fuze` serves the combined app. Use the virtual-environment interpreter for that command too.
 
 Without `DATABASE_URL`, development mode is temporary and single-user: there are no accounts, durable projects or restart recovery. Production requires PostgreSQL. See [backend setup](backend/README.md) and [frontend setup](frontend/README.md).
 
@@ -303,20 +305,20 @@ Without `DATABASE_URL`, development mode is temporary and single-user: there are
 | Docker Compose | Root `.env`; [compose.yaml](compose.yaml) defines which variables are forwarded |
 | Hosted Render service | **Environment** in the Render dashboard |
 
-FUZE retains the internal Python package name `continuity` and the `CONTINUITY_*` settings for compatibility. Use those identifiers exactly. Provider keys belong on the server, never in browser code or `VITE_*` variables.
+The Python package is `fuze`, and app settings use the `FUZE_*` prefix. Existing `CONTINUITY_*` settings remain supported during upgrades; an explicitly set `FUZE_*` value wins. Provider keys belong on the server, never in browser code or `VITE_*` variables. See the [upgrade guide](docs/FUZE_UPGRADE.md) for existing Render, Neon and local Docker installations.
 
 ### Groq and Exa
 
 This repository's Render configuration selects Groq's **`openai/gpt-oss-120b`**. Exa is configured independently.
 
 ~~~dotenv
-CONTINUITY_LLM_PROVIDER=groq
-CONTINUITY_LLM_MODEL=openai/gpt-oss-120b
-CONTINUITY_LLM_BASE_URL=https://api.groq.com/openai/v1
-CONTINUITY_LLM_MAX_TOKENS=4096
+FUZE_LLM_PROVIDER=groq
+FUZE_LLM_MODEL=openai/gpt-oss-120b
+FUZE_LLM_BASE_URL=https://api.groq.com/openai/v1
+FUZE_LLM_MAX_TOKENS=4096
 GROQ_API_KEY=your-private-groq-key
 
-CONTINUITY_RESEARCH_ENABLED=1
+FUZE_RESEARCH_ENABLED=1
 EXA_API_KEY=your-private-exa-key
 ~~~
 
@@ -332,10 +334,10 @@ A board uses multiple requests. Free-plan eligibility, account billing and avail
 | `ollama` | Local model inference | No hosted key required |
 | `gemini` | Google's OpenAI-compatible endpoint | `GEMINI_API_KEY` |
 | `zai` | Z.ai model endpoint | `ZAI_API_KEY` |
-| `custom` | A compatible endpoint with an explicit base URL and model | `CONTINUITY_LLM_API_KEY`, when required |
+| `custom` | A compatible endpoint with an explicit base URL and model | `FUZE_LLM_API_KEY`, when required |
 | `auto` | Select a configured Groq, Gemini or Z.ai key; otherwise basic mode | Provider-specific |
 
-See [provider defaults](backend/continuity/llm.py) and [environment examples](backend/.env.example). Model availability is controlled by the provider. Basic planning supports a limited vocabulary and keeps its limitations visible; it is not equivalent to a successful AI plan.
+See [provider defaults](backend/fuze/llm.py) and [environment examples](backend/.env.example). Model availability is controlled by the provider. Basic planning supports a limited vocabulary and keeps its limitations visible; it is not equivalent to a successful AI plan.
 
 <details>
 <summary><strong>Run a local model with Ollama</strong></summary>
@@ -344,13 +346,13 @@ The repository includes a Qwen 2.5 7B configuration with an 8,192-token context:
 
 ~~~sh
 ollama pull qwen2.5:7b
-ollama create continuity-local -f backend/Modelfile
+ollama create fuze-local -f backend/Modelfile
 ~~~
 
-Set `CONTINUITY_LLM_PROVIDER=ollama` in the relevant environment file. When the app runs in Docker Desktop and Ollama runs on the host, also set:
+Set `FUZE_LLM_PROVIDER=ollama` in the relevant environment file. When the app runs in Docker Desktop and Ollama runs on the host, also set:
 
 ~~~dotenv
-CONTINUITY_LLM_BASE_URL=http://host.docker.internal:11434/v1
+FUZE_LLM_BASE_URL=http://host.docker.internal:11434/v1
 ~~~
 
 The host needs enough memory to run the model. This is a local-development option, not a model deployment inside the free Render container. See [Ollama's compatibility documentation](https://docs.ollama.com/api/openai-compatibility).
@@ -363,12 +365,12 @@ Normal sourcing and explicit alternative research share the Exa allowance.
 
 | Setting | Default | What it bounds |
 | --- | --- | --- |
-| `CONTINUITY_LLM_MAX_CALLS` | `40` | Model HTTP attempts per execution, including retries |
-| `CONTINUITY_LLM_TOKEN_BUDGET` | `120000` | Estimated reserved tokens, reconciled with reported usage |
-| `CONTINUITY_LLM_MAX_TOKENS` | `4096` | Maximum requested output tokens per model call |
-| `CONTINUITY_RESEARCH_MAX_CALLS` | `6` | Exa requests per run |
-| `CONTINUITY_RESEARCH_BUDGET_USD` | `0.12` | Estimated Exa request allowance per run |
-| `CONTINUITY_EVIDENCE_MAX_PARTS` | `3` | Component evidence-extraction attempts per execution |
+| `FUZE_LLM_MAX_CALLS` | `40` | Model HTTP attempts per execution, including retries |
+| `FUZE_LLM_TOKEN_BUDGET` | `120000` | Estimated reserved tokens, reconciled with reported usage |
+| `FUZE_LLM_MAX_TOKENS` | `4096` | Maximum requested output tokens per model call |
+| `FUZE_RESEARCH_MAX_CALLS` | `6` | Exa requests per run |
+| `FUZE_RESEARCH_BUDGET_USD` | `0.12` | Estimated Exa request allowance per run |
+| `FUZE_EVIDENCE_MAX_PARTS` | `3` | Component evidence-extraction attempts per execution |
 
 Evidence extraction batches up to eight claims from at most two documents, uses at most 2,048 output tokens and gets one model attempt. Known component categories skip unnecessary role-classification calls. Duplicate work is reused, and provider cooldowns and exhausted quotas are respected.
 
@@ -432,14 +434,14 @@ The browser displays typed events and saved documents. The backend owns provider
 | Code area | Responsibility |
 | --- | --- |
 | [frontend/src/app](frontend/src/app) | Workspace, projects, review, requirements, history, memory and analytics |
-| [api](backend/continuity/api) | HTTP routes, authentication, ownership, runs, streaming and persistence |
-| [graph](backend/continuity/graph) | Workflow orchestration, candidate selection and recovery decisions |
-| [planner](backend/continuity/planner) | Structured plans, requirements, topology and redesign |
-| [parts](backend/continuity/parts) | Catalogue lookup, Exa, document extraction, parsing and evidence admission |
-| [engine](backend/continuity/engine) | Pure Python constraints, power calculations and repair policy |
-| [designs](backend/continuity/designs) | Shared design documents, guidance, revision comparison and answer proposals |
+| [api](backend/fuze/api) | HTTP routes, authentication, ownership, runs, streaming and persistence |
+| [graph](backend/fuze/graph) | Workflow orchestration, candidate selection and recovery decisions |
+| [planner](backend/fuze/planner) | Structured plans, requirements, topology and redesign |
+| [parts](backend/fuze/parts) | Catalogue lookup, Exa, document extraction, parsing and evidence admission |
+| [engine](backend/fuze/engine) | Pure Python constraints, power calculations and repair policy |
+| [designs](backend/fuze/designs) | Shared design documents, guidance, revision comparison and answer proposals |
 
-For prompt work, start with [the planning contract](backend/continuity/planner/prompt.py), [its schema](backend/continuity/planner/schema.py), [repair review](backend/continuity/reviewer.py), [clarification interpretation](backend/continuity/interpret.py) and [evidence extraction](backend/continuity/parts/evidence.py).
+For prompt work, start with [the planning contract](backend/fuze/planner/prompt.py), [its schema](backend/fuze/planner/schema.py), [repair review](backend/fuze/reviewer.py), [clarification interpretation](backend/fuze/interpret.py) and [evidence extraction](backend/fuze/parts/evidence.py).
 
 ### What is stored
 
@@ -484,7 +486,7 @@ npx playwright install chromium
 npm run test:e2e
 ~~~
 
-Set `CONTINUITY_TEST_DB` for PostgreSQL integration tests and `E2E_DATABASE_URL` for browser tests. Both must identify disposable databases: the suites truncate or seed data. Do not point them at production Neon. Playwright starts dedicated local app servers. [GitHub Actions](.github/workflows/ci.yml) also runs backend, database, lint, build and Chromium checks.
+Set `FUZE_TEST_DB` for PostgreSQL integration tests and `E2E_DATABASE_URL` for browser tests. Both must identify disposable databases: the suites truncate or seed data. Do not point them at production Neon. Playwright starts dedicated local app servers. [GitHub Actions](.github/workflows/ci.yml) also runs backend, database, lint, build and Chromium checks.
 
 ### Recorded verification
 

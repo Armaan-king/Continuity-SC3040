@@ -1,4 +1,4 @@
-"""Continuity's constraint engine — pure Python, zero LLM, zero network.
+"""FUZE's constraint engine — pure Python, zero LLM, zero network.
 
 The engine decides what is broken. The model decides what to do about it. The engine
 then re-checks the model's work. Nothing in this package imports an SDK or a client;

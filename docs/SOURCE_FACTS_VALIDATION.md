@@ -27,7 +27,7 @@ Exa retains the existing six-request/$0.12 estimated reservation allowance per r
 
 Retrieval is skipped when the model is unavailable, has exhausted its call/token allowance, or cannot perform another extraction. Completed results are retrieved before checking those limits. Execution caches coalesce concurrent duplicates; durable stages retain completed extraction and part-research results across recovery. A crash before a stage commits can still repeat work; this is not an exactly-once billing guarantee.
 
-For a smaller allowance, set `CONTINUITY_EVIDENCE_MAX_PARTS=1`, `CONTINUITY_RESEARCH_MAX_CALLS=2` and `CONTINUITY_RESEARCH_BUDGET_USD=0.04` on Render. More gaps may remain open. No key replacement or Neon migration is necessary.
+For a smaller allowance, set `FUZE_EVIDENCE_MAX_PARTS=1`, `FUZE_RESEARCH_MAX_CALLS=2` and `FUZE_RESEARCH_BUDGET_USD=0.04` on Render. More gaps may remain open. No key replacement or Neon migration is necessary.
 
 ## Live check and its limits
 

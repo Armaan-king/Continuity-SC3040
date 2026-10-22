@@ -7,12 +7,12 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from psycopg_pool import AsyncConnectionPool
-from continuity.api.store import Store
-from continuity.api.auth import hasher
-from continuity.api.revision_store import commit_revision
-from continuity.designs.service import document
-from continuity.engine.models import Board, Requirements, Rail, Slot, PartSpec
-from continuity.parts.evidence import apply_claims
+from fuze.api.store import Store
+from fuze.api.auth import hasher
+from fuze.api.revision_store import commit_revision
+from fuze.designs.service import document
+from fuze.engine.models import Board, Requirements, Rail, Slot, PartSpec
+from fuze.parts.evidence import apply_claims
 
 
 async def main():
@@ -20,8 +20,8 @@ async def main():
         store = Store(pool)
         # Separate account keeps the analytics reference corpus unchanged.
         async with pool.connection() as conn:
-            await conn.execute("DELETE FROM users WHERE email = %s", ("review-e2e@continuity.dev",))
-        user = await store.create_user("review-e2e@continuity.dev", hasher.hash(os.environ["CONTINUITY_SEED_PASSWORD"]))
+            await conn.execute("DELETE FROM users WHERE email = %s", ("review-e2e@fuze.dev",))
+        user = await store.create_user("review-e2e@fuze.dev", hasher.hash(os.environ["FUZE_SEED_PASSWORD"]))
         project = await store.create_project(user.id, "Verified reference design")
         await store.create_thread("review-e2e-reference", project.id, user.id, "3.3 V reference sensor")
         await store.save_progress("review-e2e-reference", 0, "done")
@@ -53,7 +53,7 @@ async def main():
                       ('supply', 'Supply Voltage', '1.8V~3.6V', 'Supply Voltage: 1.8V~3.6V'),
                       ('current', 'Operating Current', '5mA', 'Operating Current: 5mA')]]
         # Controlled fixture; this URL is never fetched and these are not live facts.
-        source = {'url': 'https://www.nxp.com/continuity-test-fixture', 'title': 'Controlled evidence fixture (not live)',
+        source = {'url': 'https://www.nxp.com/fuze-test-fixture', 'title': 'Controlled evidence fixture (not live)',
                   'text': '\n'.join(c['identity_quote'] + '\n' + c['quote'] for c in claims),
                   'content_kind': 'text', 'retrieved_at': '2026-10-22T12:00:00Z', 'question': 'Synthetic evidence validation'}
         controller = apply_claims(controller, (source,), {'claims': claims})

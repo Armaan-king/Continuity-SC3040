@@ -17,7 +17,7 @@ Verified locally on 22 October 2026. This report covers the review redesign, unk
 Run from the repository root, using disposable local PostgreSQL databases:
 
 ```powershell
-$env:CONTINUITY_TEST_DB = 'postgresql://USER:PASSWORD@127.0.0.1:55439/engine_tests'
+$env:FUZE_TEST_DB = 'postgresql://USER:PASSWORD@127.0.0.1:55439/engine_tests'
 backend/.venv/Scripts/python.exe -m pytest backend/tests -p no:cacheprovider -ra
 npm.cmd --prefix frontend run lint
 npm.cmd --prefix frontend run build

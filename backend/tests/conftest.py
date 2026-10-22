@@ -10,9 +10,9 @@ So sourcing is served from a fixed catalogue by default. That is not a loss of
 coverage: the graph tests exist to check the *wire and the loop* — sequence numbers,
 edge patches, the interrupt round-trip, which conflict fires and in what order — and
 none of that is about JLCPCB's inventory. The live path has its own tests in
-`test_parts.py`, gated behind `CONTINUITY_LIVE=1`.
+`test_parts.py`, gated behind `FUZE_LIVE=1`.
 
-Set `CONTINUITY_LIVE=1` to run everything against the real services instead.
+Set `FUZE_LIVE=1` to run everything against the real services instead.
 """
 
 from __future__ import annotations
@@ -26,13 +26,13 @@ if sys.platform == "win32":
 
 import pytest
 
-from continuity import llm, reviewer
-from continuity.graph import catalogue, sourcing
-from continuity.planner import plan as planner
-from continuity.parts import datasheet, normalize
-from continuity.parts.search import Candidate
+from fuze import llm, reviewer
+from fuze.graph import catalogue, sourcing
+from fuze.planner import plan as planner
+from fuze.parts import datasheet, normalize
+from fuze.parts.search import Candidate
 
-LIVE = os.environ.get("CONTINUITY_LIVE") == "1"
+LIVE = os.environ.get("FUZE_LIVE") == "1"
 
 
 @pytest.fixture(autouse=True)
@@ -41,7 +41,7 @@ def isolated_part_caches(monkeypatch, tmp_path):
     monkeypatch.setattr(normalize, "CACHE_DIR", tmp_path / "normalized")
     monkeypatch.setattr(datasheet, "CACHE_DIR", tmp_path / "datasheets")
     if not LIVE:
-        monkeypatch.setenv("CONTINUITY_RESEARCH_ENABLED", "0")
+        monkeypatch.setenv("FUZE_RESEARCH_ENABLED", "0")
 
 
 def _as_candidate(part) -> Candidate:

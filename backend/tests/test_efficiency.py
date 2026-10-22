@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from continuity.engine import efficiency, regulation
+from fuze.engine import efficiency, regulation
 from tests import parts
 
 

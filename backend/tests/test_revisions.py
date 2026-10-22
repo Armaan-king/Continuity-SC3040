@@ -5,14 +5,14 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from continuity.api.revision_store import commit_revision
-from continuity.designs import service
-from continuity.designs.context import ExecutionContext, current, stage
+from fuze.api.revision_store import commit_revision
+from fuze.designs import service
+from fuze.designs.context import ExecutionContext, current, stage
 from tests.test_projects import a_store, signed_in
 from tests.test_verified_architecture import sensor_board
-from continuity import llm
+from fuze import llm
 
-pytestmark = pytest.mark.skipif(not os.environ.get("CONTINUITY_TEST_DB"), reason="requires disposable PostgreSQL")
+pytestmark = pytest.mark.skipif(not os.environ.get("FUZE_TEST_DB"), reason="requires disposable PostgreSQL")
 
 
 def test_research_facts_and_conflicts_survive_persistence_edit_and_export(monkeypatch):
@@ -198,9 +198,9 @@ def test_research_reservations_enforce_budget_across_restarts():
 
 @pytest.mark.parametrize("automatic", [False, True])
 def test_interrupted_bom_reuses_committed_work_and_finishes(automatic, monkeypatch):
-    from continuity.api import bom, events
-    from continuity.api.app import app
-    from continuity.api.recovery import recover
+    from fuze.api import bom, events
+    from fuze.api.app import app
+    from fuze.api.recovery import recover
     from tests.test_normalize import CANDIDATE
     counts = {"resolve": 0, "normalize": 0}
 

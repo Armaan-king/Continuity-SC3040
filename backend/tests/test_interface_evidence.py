@@ -5,14 +5,14 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from continuity.designs import service
-from continuity.designs.context import ExecutionContext, current
-from continuity.designs.guidance import review_guidance
-from continuity.engine import rules
-from continuity.engine.models import Board, PartSpec, Port, Requirements, SignalNet, Slot
-from continuity.graph.nodes import after_validate
-from continuity.graph.sourcing import choose as choose_candidate
-from continuity.parts import normalize, research, search, specifications
+from fuze.designs import service
+from fuze.designs.context import ExecutionContext, current
+from fuze.designs.guidance import review_guidance
+from fuze.engine import rules
+from fuze.engine.models import Board, PartSpec, Port, Requirements, SignalNet, Slot
+from fuze.graph.nodes import after_validate
+from fuze.graph.sourcing import choose as choose_candidate
+from fuze.parts import normalize, research, search, specifications
 
 
 # Exact specification fields returned for C5193889 on 22 October 2026. The
@@ -157,7 +157,7 @@ def test_saved_normalization_stage_cannot_reintroduce_the_old_parse(monkeypatch)
 
 
 def test_usart_support_is_directional_and_can_fd_is_not_assumed_classical_can():
-    from continuity.engine.buses import master_satisfies_bus
+    from fuze.engine.buses import master_satisfies_bus
     assert master_satisfies_bus('UART', 'USART')
     assert not master_satisfies_bus('USART', 'UART')
     assert not master_satisfies_bus('CAN-FD', 'CAN')

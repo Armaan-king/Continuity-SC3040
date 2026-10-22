@@ -38,8 +38,22 @@ def load(*, override: bool = False) -> Path | None:
     return Path(path) if path else None
 
 
+def get(name: str, default=None):
+    """Read FUZE settings, accepting the previous prefix during upgrades.
+
+    An explicitly set FUZE value (including an empty string) always wins.
+    Resolve on every read so tests and runtime overrides cannot leave stale aliases.
+    Provider keys and DATABASE_URL retain their existing names.
+    """
+    if name in os.environ:
+        return os.environ[name]
+    if name.startswith("FUZE_"):
+        return os.environ.get("CONTINUITY_" + name.removeprefix("FUZE_"), default)
+    return default
+
+
 def flag(name: str, default: bool = False) -> bool:
-    value = os.environ.get(name)
+    value = get(name)
     if value is None:
         return default
     return value.strip().lower() in {"1", "true", "yes", "on"}
@@ -65,10 +79,10 @@ def under_root(relative: str, variable: str) -> Path:
     committed cache is still found, and what the run adds to it is lost on restart, which
     is the correct behaviour for a cache.
     """
-    stated = os.environ.get(variable)
+    stated = get(variable)
     return Path(stated) if stated else ROOT / relative
 
 
 def cache_dir(name: str) -> Path:
-    """`backend/cache/<name>`, or under `CONTINUITY_CACHE_DIR` when one is set."""
-    return under_root("cache", "CONTINUITY_CACHE_DIR") / name
+    """`backend/cache/<name>`, or under `FUZE_CACHE_DIR` when one is set."""
+    return under_root("cache", "FUZE_CACHE_DIR") / name

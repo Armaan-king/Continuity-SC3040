@@ -4,28 +4,30 @@ This repository configures one Render Free Docker web service and an external Ne
 
 ## Deploy
 
+For an **existing installation**, read the [FUZE upgrade guide](FUZE_UPGRADE.md) first. The existing service is manually deployed; pushing Git does not deploy it. The new Blueprint below is for a new service. Keep the working public URL until its hostname has actually been changed in Render.
+
 1. Open a Neon project and database in your own account (or create them). Click **Connect**, select the database branch, database, and role, and turn **Connection pooling off**. Copy the **direct** PostgreSQL URL with its TLS parameters, including `sslmode=require`, rather than a `-pooler` hostname. Keep the full URL in deployment secrets.
 2. Push this revision to `Armaan-king/FUZE`.
-3. In Render, choose **New → Blueprint** and connect that repository. Use Git branch `main` and Blueprint path `render.yaml`. Render reads the configuration, builds `Dockerfile`, and creates `continuity-sc3040` on the Free instance type. The Dockerfile supplies the build and start commands.
+3. In Render, choose **New → Blueprint** and connect that repository. Use Git branch `main` and Blueprint path `render.yaml`. Render reads the configuration, builds `Dockerfile`, and creates `fuze-sc3040` on the Free instance type. The Dockerfile supplies the build and start commands.
 4. Set `DATABASE_URL` to the Neon connection string when prompted. The Blueprint sets production mode and secure, same-site session cookies.
-5. The Blueprint selects Groq's `openai/gpt-oss-120b`; supply `GROQ_API_KEY` privately. For Gemini instead, set `CONTINUITY_LLM_PROVIDER=gemini`, `CONTINUITY_LLM_MODEL=gemini-3.8-flash`, and `GEMINI_API_KEY`, and remove any old base-URL override or set it to `https://generativelanguage.googleapis.com/v1beta/openai/`. Add optional `EXA_API_KEY` for research. Without model credentials the service uses basic planning. Do not set a browser `VITE_*` key.
+5. The Blueprint selects Groq's `openai/gpt-oss-120b`; supply `GROQ_API_KEY` privately. For Gemini instead, set `FUZE_LLM_PROVIDER=gemini`, `FUZE_LLM_MODEL=gemini-3.8-flash`, and `GEMINI_API_KEY`, and remove any old base-URL override or set it to `https://generativelanguage.googleapis.com/v1beta/openai/`. Add optional `EXA_API_KEY` for research. Without model credentials the service uses basic planning. Do not set a browser `VITE_*` key.
 6. Wait for the deployment health check at `/api/ready`. Open the Render URL, register an account, create a project, and reload it to verify persistence. `/api/runtime` describes AI configuration and persistence without exposing credentials.
 
 No separate static frontend service, CORS wildcard, build-time API hostname, or cross-site cookie is required. Existing split deployments can be retired after verifying this one. The new Blueprint does not automatically delete old services.
 
 ## Switch the existing Render service to Groq
 
-For the existing manually deployed service, open **Render → Continuity-SC3040 → Environment** and set:
+For the existing manually deployed service, open **Render → your existing service → Environment** and set:
 
 | Key | Value |
 | --- | --- |
-| `CONTINUITY_LLM_PROVIDER` | `groq` |
-| `CONTINUITY_LLM_MODEL` | `openai/gpt-oss-120b` |
-| `CONTINUITY_LLM_BASE_URL` | `https://api.groq.com/openai/v1` |
-| `CONTINUITY_LLM_MAX_TOKENS` | `4096` |
+| `FUZE_LLM_PROVIDER` | `groq` |
+| `FUZE_LLM_MODEL` | `openai/gpt-oss-120b` |
+| `FUZE_LLM_BASE_URL` | `https://api.groq.com/openai/v1` |
+| `FUZE_LLM_MAX_TOKENS` | `4096` |
 | `GROQ_API_KEY` | Your private Groq API key |
 
-Replace any Gemini model/base-URL values above. Remove `CONTINUITY_LLM_API_KEY` if it contains an older provider's key; the dedicated Groq key takes precedence in this version. A stored `GEMINI_API_KEY` is not selected when the provider is explicitly `groq`. Keep the existing `DATABASE_URL`, `EXA_API_KEY`, production mode and cookie settings. Neon needs no changes.
+Replace any Gemini model/base-URL values above. Remove `FUZE_LLM_API_KEY` if it contains an older provider's key; the dedicated Groq key takes precedence in this version. A stored `GEMINI_API_KEY` is not selected when the provider is explicitly `groq`. Keep the existing `DATABASE_URL`, `EXA_API_KEY`, production mode and cookie settings. Neon needs no changes.
 
 Save the environment and **manually deploy the latest commit**. Updating GitHub or the local ignored `backend/.env` does not update the running service automatically. No GitHub account linking is required for an already configured public-repository service.
 
@@ -33,15 +35,15 @@ The review and prompt update needs no additional Neon changes or mandatory envir
 
 | Key | Default | Scope |
 | --- | --- | --- |
-| `CONTINUITY_LLM_MAX_CALLS` | `40` | Model HTTP attempts per execution, including retries |
-| `CONTINUITY_LLM_TOKEN_BUDGET` | `120000` | Estimated reserved tokens, replaced with actual reported usage after success |
-| `CONTINUITY_RESEARCH_MAX_CALLS` | `6` | Exa requests per run, persisted across restarts |
-| `CONTINUITY_RESEARCH_BUDGET_USD` | `0.12` | Exa estimated request budget, not a provider billing cap |
-| `CONTINUITY_EVIDENCE_MAX_PARTS` | `3` | Batched specification extractions per execution; each has one model attempt and at most 2,048 output tokens |
+| `FUZE_LLM_MAX_CALLS` | `40` | Model HTTP attempts per execution, including retries |
+| `FUZE_LLM_TOKEN_BUDGET` | `120000` | Estimated reserved tokens, replaced with actual reported usage after success |
+| `FUZE_RESEARCH_MAX_CALLS` | `6` | Exa requests per run, persisted across restarts |
+| `FUZE_RESEARCH_BUDGET_USD` | `0.12` | Exa estimated request budget, not a provider billing cap |
+| `FUZE_EVIDENCE_MAX_PARTS` | `3` | Batched specification extractions per execution; each has one model attempt and at most 2,048 output tokens |
 
 Keep the existing Groq and Exa keys. Groq planning uses strict JSON Schema output on GPT-OSS; missing or invalid plans still fail explicitly into the basic fallback. Saving an answer or requirement revalidates stored components without additional model/research requests and returns to the updated planning workspace. Old reports retain their historical results; a saved edit creates a new revision using the current rules. New LLM executions get a fresh allowance, while saved stages avoid repeating completed work.
 
-The source-fact update requires a **manual Render deployment** and no Neon migration or mandatory new variables. New designs and BOM imports can use validated research facts. Existing saved revisions retain their original evidence; requirement edits do not launch paid research. For a smaller research allowance, set `CONTINUITY_EVIDENCE_MAX_PARTS=1`, `CONTINUITY_RESEARCH_MAX_CALLS=2` and `CONTINUITY_RESEARCH_BUDGET_USD=0.04`; this may leave more components unresolved. Do not increase limits just to clear unknown results.
+The source-fact update requires a **manual Render deployment** and no Neon migration or mandatory new variables. New designs and BOM imports can use validated research facts. Existing saved revisions retain their original evidence; requirement edits do not launch paid research. For a smaller research allowance, set `FUZE_EVIDENCE_MAX_PARTS=1`, `FUZE_RESEARCH_MAX_CALLS=2` and `FUZE_RESEARCH_BUDGET_USD=0.04`; this may leave more components unresolved. Do not increase limits just to clear unknown results.
 
 After deployment, open `/api/runtime`. The `ai` object should report:
 
@@ -98,13 +100,13 @@ In Render logs, search for `ai_request` to see starts and outcomes, `supplier_re
 for live versus recorded supplier lookups, and `part_specs` for cached, AI-classified,
 or deterministically parsed specifications. AI receipts include a request ID and run
 thread ID for correlation; prompts, API keys, and provider response bodies are excluded.
-Supplier lookups go through `pcbparts.dev`; `CONTINUITY_FIXTURES=1` explicitly enables
+Supplier lookups go through `pcbparts.dev`; `FUZE_FIXTURES=1` explicitly enables
 recorded replay. Cached specification parsing is separate from recorded supplier mode.
 Deploy these logging changes manually on services without automatic deployment. No new
 environment variables or Neon migrations are required.
 
 For normal sourcing across suppliers, keep `EXA_API_KEY` in Render and leave
-`CONTINUITY_RESEARCH_ENABLED` unset or set to `1`. Keep `CONTINUITY_FIXTURES` unset or
+`FUZE_RESEARCH_ENABLED` unset or set to `1`. Keep `FUZE_FIXTURES` unset or
 `0`. After manually deploying the updated code, `/api/runtime` should report
 `research.sourcing: "web_and_catalogue"`. Existing six-request/$0.12 estimated limits
 are unchanged; they cover both discovery and evidence retrieval. Neon needs no

@@ -8,17 +8,17 @@ from unittest.mock import AsyncMock
 import httpx
 import pytest
 
-from continuity import llm
-from continuity.api.app import app
-from continuity.parts.specifications import parse, measurements
-from continuity.settings import Settings
+from fuze import llm
+from fuze.api.app import app
+from fuze.parts.specifications import parse, measurements
+from fuze.settings import Settings
 
 
 @pytest.fixture
 def clean_environment(monkeypatch):
     import os
     for key in tuple(os.environ):
-        if key.startswith("CONTINUITY_") or key in {"DATABASE_URL", "GROQ_API_KEY", "GEMINI_API_KEY", "ZAI_API_KEY", "OLLAMA_API_KEY"}:
+        if key.startswith(("FUZE_", "CONTINUITY_")) or key in {"DATABASE_URL", "GROQ_API_KEY", "GEMINI_API_KEY", "ZAI_API_KEY", "OLLAMA_API_KEY"}:
             monkeypatch.delenv(key)
 
 
@@ -39,25 +39,25 @@ def test_native_groq_key_selects_compatible_endpoint(clean_environment, monkeypa
 
 
 def test_ollama_needs_no_paid_key(clean_environment, monkeypatch):
-    monkeypatch.setenv("CONTINUITY_LLM_PROVIDER", "ollama")
+    monkeypatch.setenv("FUZE_LLM_PROVIDER", "ollama")
     assert llm.configuration().enabled
     assert llm.configuration().key == "ollama"
 
 
 def test_production_requires_persistence(clean_environment, monkeypatch):
-    monkeypatch.setenv("CONTINUITY_ENV", "production")
+    monkeypatch.setenv("FUZE_ENV", "production")
     with pytest.raises(ValueError, match="DATABASE_URL"):
         Settings.read()
 
 
 def test_invalid_cross_site_cookie_rejected(clean_environment, monkeypatch):
-    monkeypatch.setenv("CONTINUITY_COOKIE_SAMESITE", "none")
+    monkeypatch.setenv("FUZE_COOKIE_SAMESITE", "none")
     with pytest.raises(ValueError, match="requires"):
         Settings.read()
 
 
 def test_compatible_completion_sets_json_mode_and_token_budget(clean_environment, monkeypatch):
-    monkeypatch.setenv("CONTINUITY_LLM_PROVIDER", "ollama")
+    monkeypatch.setenv("FUZE_LLM_PROVIDER", "ollama")
     create = AsyncMock(return_value=SimpleNamespace(
         choices=[SimpleNamespace(message=SimpleNamespace(content='{"ok":true}'))], usage=None))
     client = AsyncMock()
@@ -79,11 +79,11 @@ def test_gemini_request_uses_native_key_endpoint_and_selected_model(
 ):
     import openai
     client_type = openai.AsyncOpenAI
-    monkeypatch.setenv("CONTINUITY_LLM_PROVIDER", provider)
+    monkeypatch.setenv("FUZE_LLM_PROVIDER", provider)
     monkeypatch.setenv("GEMINI_API_KEY", "test-gemini-secret")
     if model_override:
-        monkeypatch.setenv("CONTINUITY_LLM_MODEL", model_override)
-        monkeypatch.setenv("CONTINUITY_LLM_BASE_URL", "https://generativelanguage.googleapis.com/v1beta/openai/")
+        monkeypatch.setenv("FUZE_LLM_MODEL", model_override)
+        monkeypatch.setenv("FUZE_LLM_BASE_URL", "https://generativelanguage.googleapis.com/v1beta/openai/")
     expected_model = model_override or "gemini-3.8-flash"
     requests = []
 
@@ -116,7 +116,7 @@ def test_gemini_request_uses_native_key_endpoint_and_selected_model(
 def groq_transport(monkeypatch, respond):
     import openai
     client_type = openai.AsyncOpenAI
-    monkeypatch.setenv("CONTINUITY_LLM_PROVIDER", "groq")
+    monkeypatch.setenv("FUZE_LLM_PROVIDER", "groq")
     monkeypatch.setenv("GROQ_API_KEY", "test-groq-secret")
     monkeypatch.setattr(openai, "AsyncOpenAI", lambda **kwargs: client_type(
         **kwargs, http_client=httpx.AsyncClient(transport=httpx.MockTransport(respond))))
@@ -152,9 +152,9 @@ def test_extraction_single_attempt_does_not_retry_provider_failure(clean_environ
     ("another-groq-model", "low", None),
 ])
 def test_groq_request_uses_native_key_json_and_supported_reasoning(clean_environment, monkeypatch, model, effort, expected):
-    monkeypatch.setenv("CONTINUITY_LLM_API_KEY", "stale-other-provider-key")
+    monkeypatch.setenv("FUZE_LLM_API_KEY", "stale-other-provider-key")
     monkeypatch.setenv("GEMINI_API_KEY", "unused-gemini-key")
-    monkeypatch.setenv("CONTINUITY_LLM_MODEL", model)
+    monkeypatch.setenv("FUZE_LLM_MODEL", model)
     requests = []
     def respond(request):
         requests.append(request)
@@ -230,7 +230,7 @@ def test_cross_origin_mutation_is_rejected(clean_environment):
 
 
 def test_model_cannot_use_a_microcontroller_as_a_regulator(monkeypatch):
-    from continuity.planner import plan as planner
+    from fuze.planner import plan as planner
     invalid = {"slots": [{"id": "mcu", "tier": "core"}, {"id": "sensor", "tier": "peripherals"}],
                "rails": [{"id": "3V3", "voltage": 3.3, "source": "mcu", "members": ["sensor"]}]}
     complete = AsyncMock(return_value=invalid)
@@ -242,7 +242,7 @@ def test_model_cannot_use_a_microcontroller_as_a_regulator(monkeypatch):
 
 
 def test_basic_planning_preserves_explicit_operating_requirements():
-    from continuity.planner.plan import fallback_plan
+    from fuze.planner.plan import fallback_plan
     plan = fallback_plan("USB industrial temperature sensor, 5,000 units, must last a year")
     assert plan.requirements.temp_range == (-40, 85)
     assert plan.requirements.min_stock == 5000
@@ -250,7 +250,7 @@ def test_basic_planning_preserves_explicit_operating_requirements():
 
 
 def test_nonfinite_model_measurement_is_unknown():
-    from continuity.parts.normalize import validate
+    from fuze.parts.normalize import validate
     fields, _ = validate({"vmin": float("nan"), "vmax": float("inf")}, {})
     assert "vmin" not in fields and "vmax" not in fields
 
@@ -271,7 +271,7 @@ def test_http_400_has_safe_actionable_diagnostics(error, expected):
 
 
 def test_rejected_request_is_not_sent_again_by_later_pipeline_steps(clean_environment, monkeypatch):
-    from continuity.designs.context import current, ExecutionContext
+    from fuze.designs.context import current, ExecutionContext
     requests = []
     groq_transport(monkeypatch, lambda request: requests.append(request) or httpx.Response(400,
         json={"error": {"code": "json_validate_failed", "message": "private prompt", "failed_generation": "private output"}}))
@@ -291,7 +291,7 @@ def test_rejected_request_is_not_sent_again_by_later_pipeline_steps(clean_enviro
 
 
 def test_planner_retains_a_safe_failure_reason_for_the_warning(monkeypatch):
-    from continuity.planner import plan as planner
+    from fuze.planner import plan as planner
     monkeypatch.setattr(llm, "available", lambda: True)
     monkeypatch.setattr(llm, "complete_json", AsyncMock(side_effect=llm.LLMUnavailable(
         "groq: provider returned HTTP 400 (the provider rejected the structured-output format or schema).")))
@@ -303,7 +303,7 @@ def test_planner_retains_a_safe_failure_reason_for_the_warning(monkeypatch):
 
 
 def test_plant_fallback_does_not_read_maximum_as_imu_or_operating_temperature_as_sensor():
-    from continuity.planner.plan import fallback_plan
+    from fuze.planner.plan import fallback_plan
     plan = fallback_plan("Ambient-light sensor and OLED for a houseplant, with operating temperature range and maximum component dimensions")
     assert "light" in plan.slots and "display" in plan.slots
     assert "imu" not in plan.slots

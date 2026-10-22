@@ -1,6 +1,6 @@
 """Registration, login, and the session cookie — over real HTTP.
 
-Skipped unless `CONTINUITY_TEST_DB` is set, same as `test_store.py`.
+Skipped unless `FUZE_TEST_DB` is set, same as `test_store.py`.
 
 The properties worth pinning are the ones that are silent when wrong. **A wrong password
 and an unknown email must answer identically**, or the login form becomes an account
@@ -18,13 +18,13 @@ from contextlib import asynccontextmanager
 import httpx
 import pytest
 
-from continuity.api.app import app
-from continuity.api.store import Store
+from fuze.api.app import app
+from fuze.api.store import Store
 
-DB_URL = os.environ.get("CONTINUITY_TEST_DB")
+DB_URL = os.environ.get("FUZE_TEST_DB")
 
 pytestmark = pytest.mark.skipif(
-    not DB_URL, reason="set CONTINUITY_TEST_DB to run the auth tests"
+    not DB_URL, reason="set FUZE_TEST_DB to run the auth tests"
 )
 
 
@@ -217,7 +217,7 @@ def test_a_forged_cookie_is_a_401():
     async def go():
         async with signed_out() as http:
             await http.post("/auth/register", json=CREDENTIALS)
-            http.cookies.set("continuity_session", "made-up-token")
+            http.cookies.set("fuze_session", "made-up-token")
             return await http.get("/auth/me")
 
     assert run(go()).status_code == 401
@@ -229,10 +229,10 @@ def test_logout_ends_the_session_on_the_server_not_only_the_browser():
     async def go():
         async with signed_out() as http:
             await http.post("/auth/register", json=CREDENTIALS)
-            stolen = http.cookies.get("continuity_session")
+            stolen = http.cookies.get("fuze_session")
             await http.post("/auth/logout")
 
-            http.cookies.set("continuity_session", stolen)
+            http.cookies.set("fuze_session", stolen)
             return await http.get("/auth/me")
 
     assert run(go()).status_code == 401

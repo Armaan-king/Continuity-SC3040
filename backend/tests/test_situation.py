@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-from continuity.engine import rules
-from continuity.engine.situation import signature
-from continuity.parts import categories
+from fuze.engine import rules
+from fuze.engine.situation import signature
+from fuze.parts import categories
 from tests import parts
 from tests.boards import usb_board
 

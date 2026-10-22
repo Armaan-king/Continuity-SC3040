@@ -5,10 +5,10 @@ import asyncio
 import pytest
 import psycopg
 
-from continuity.api.store import execution_lease
+from fuze.api.store import execution_lease
 from tests.test_store import fresh, a_user, DB_URL
 
-pytestmark = pytest.mark.skipif(not DB_URL, reason="requires disposable CONTINUITY_TEST_DB")
+pytestmark = pytest.mark.skipif(not DB_URL, reason="requires disposable FUZE_TEST_DB")
 
 
 def test_migrations_repeat_and_owner_constraints_are_enforced():
@@ -22,7 +22,28 @@ def test_migrations_repeat_and_owner_constraints_are_enforced():
                 await store.create_thread("wrong-owner", project.id, bob.id, "USB sensor")
             async with store.pool.connection() as conn:
                 cursor = await conn.execute("SELECT count(*) FROM schema_migrations")
-                assert (await cursor.fetchone())[0] == 4
+                assert (await cursor.fetchone())[0] == 5
+    asyncio.run(go())
+
+
+def test_brand_migration_updates_only_the_generated_walkthrough():
+    from fuze.api.migrations import MIGRATIONS
+
+    async def go():
+        async with fresh() as store:
+            user = await a_user(store)
+            walkthrough = await store.create_project(user.id, "Welcome to Continuity", is_walkthrough=True)
+            personal = await store.create_project(user.id, "Welcome to Continuity")
+            renamed = await store.create_project(user.id, "My example", is_walkthrough=True)
+            token = await store.create_session(user.id)
+            async with store.pool.connection() as conn:
+                await conn.execute((MIGRATIONS / "005_fuze_brand.sql").read_text())
+                await conn.execute((MIGRATIONS / "005_fuze_brand.sql").read_text())
+                result = await conn.execute("SELECT id, name FROM projects WHERE user_id = %s", (user.id,))
+                names = dict(await result.fetchall())
+            assert names == {walkthrough.id: "Welcome to FUZE", personal.id: "Welcome to Continuity", renamed.id: "My example"}
+            assert (await store.user_for_token(token)).id == user.id
+
     asyncio.run(go())
 
 

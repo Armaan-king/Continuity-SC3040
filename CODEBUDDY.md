@@ -1,4 +1,6 @@
-# Continuity
+# FUZE
+
+> Historical frontend build brief. Its feature exclusions and mock-only instructions describe the original prototype. For current development, follow [README.md](README.md) and [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). FUZE now includes the backend, accounts, persistence, revisions and tests.
 
 Agent that designs a PCB bill of materials from a plain-language description and **validates the
 whole board as a graph** — voltage, interfaces, pin budget, current, thermal, and stock — then
@@ -19,7 +21,7 @@ against the same contract. You build against a **mock event emitter**.
 | `design/stitch/*/code.html` | Stitch HTML exports — the visual source of truth. |
 | `design/stitch/*/screen.png` | Rendered reference for each screen. |
 
-Do **not** read `docs/specs/2026-08-02-continuity-design.md` — that is pitch and backend material,
+Do **not** read `docs/specs/2026-08-02-fuze-design.md` — that is pitch and backend material,
 and loading it wastes context.
 
 ## Stack
@@ -64,16 +66,16 @@ npx tsc --noEmit   # must pass clean
 
 ## Renaming
 
-The exports carry **three** different placeholder brands. All become **Continuity**:
+The exports carry **three** different placeholder brands. All become **FUZE**:
 
 | In the export | Where | Replace with |
 |---|---|---|
-| `SIGNALCORE WORKBENCH` | workspace, conflict | `CONTINUITY` |
-| `OSCILLO_CORE` | landing header + footer | `CONTINUITY` |
-| `PRECISION_INSTRUMENTS_LOGIC` | landing footer copyright | `CONTINUITY` |
-| `CYGNUS-H1` | workspace project chip | `CONTINUITY-01` |
-| `signalcore_node_grasph.exe` | landing hero window title | `continuity_graph` |
-| `SIGNALCORE AUTOMATED` | landing comparison card | `CONTINUITY AUTOMATED` |
+| `SIGNALCORE WORKBENCH` | workspace, conflict | `FUZE` |
+| `OSCILLO_CORE` | landing header + footer | `FUZE` |
+| `PRECISION_INSTRUMENTS_LOGIC` | landing footer copyright | `FUZE` |
+| `CYGNUS-H1` | workspace project chip | `FUZE-01` |
+| `signalcore_node_grasph.exe` | landing hero window title | `fuze_graph` |
+| `SIGNALCORE AUTOMATED` | landing comparison card | `FUZE AUTOMATED` |
 | `©2024` | landing footer | `©2026` |
 
 Keep the name `Cygnus-H1` **only** in `design/DESIGN.md`, where it names the design system

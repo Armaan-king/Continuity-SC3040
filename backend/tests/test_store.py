@@ -1,10 +1,10 @@
 """The application tables: ownership, sessions, and what has to survive a restart.
 
-Skipped unless `CONTINUITY_TEST_DB` points at a database, so the default suite stays
-offline and under a second. Same idiom as `CONTINUITY_LIVE` and `CONTINUITY_FIXTURES`.
+Skipped unless `FUZE_TEST_DB` points at a database, so the default suite stays
+offline and under a second. Same idiom as `FUZE_LIVE` and `FUZE_FIXTURES`.
 
-    createdb continuity_test
-    CONTINUITY_TEST_DB=postgresql:///continuity_test pytest tests/test_store.py
+    createdb fuze_test
+    FUZE_TEST_DB=postgresql:///fuze_test pytest tests/test_store.py
 
 Two properties carry most of the weight here. **A lookup scoped to a user must return
 nothing for anyone else** — `/resume` and `/export` authorise on exactly these queries,
@@ -22,13 +22,13 @@ from contextlib import asynccontextmanager
 
 import pytest
 
-from continuity.api.store import SESSION_IDLE_SECONDS, SESSION_TTL_SECONDS, EmailTaken, Store
-from continuity.api.findings import Finding
+from fuze.api.store import SESSION_IDLE_SECONDS, SESSION_TTL_SECONDS, EmailTaken, Store
+from fuze.api.findings import Finding
 
-DB_URL = os.environ.get("CONTINUITY_TEST_DB")
+DB_URL = os.environ.get("FUZE_TEST_DB")
 
 pytestmark = pytest.mark.skipif(
-    not DB_URL, reason="set CONTINUITY_TEST_DB to run the store tests"
+    not DB_URL, reason="set FUZE_TEST_DB to run the store tests"
 )
 
 

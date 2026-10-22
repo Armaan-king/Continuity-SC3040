@@ -1,4 +1,4 @@
-"""Search layer. Live calls are skipped unless CONTINUITY_LIVE=1 is set."""
+"""Search layer. Live calls are skipped unless FUZE_LIVE=1 is set."""
 
 from __future__ import annotations
 
@@ -8,11 +8,11 @@ from pathlib import Path
 
 import pytest
 
-from continuity.parts import fixtures, mcp, search
-from continuity.graph.sourcing import find as source_find
+from fuze.parts import fixtures, mcp, search
+from fuze.graph.sourcing import find as source_find
 
 live = pytest.mark.skipif(
-    os.environ.get("CONTINUITY_LIVE") != "1", reason="set CONTINUITY_LIVE=1 for network tests"
+    os.environ.get("FUZE_LIVE") != "1", reason="set FUZE_LIVE=1 for network tests"
 )
 
 
@@ -136,7 +136,7 @@ def test_mouser_lifecycle_values_are_normalized(monkeypatch, stated, expected):
 
 
 def test_an_unrecognized_mouser_lifecycle_remains_unknown(monkeypatch):
-    from continuity.parts.normalize import _from_payload
+    from fuze.parts.normalize import _from_payload
 
     async def call_tool(tool, arguments):
         assert (tool, arguments) == ("mouser_get_part", {"part_number": "PART-1"})
@@ -163,7 +163,7 @@ def test_an_unrecognized_mouser_lifecycle_remains_unknown(monkeypatch):
 
 
 def test_cse_search_rejects_a_google_search_and_uses_the_product_page(monkeypatch):
-    from continuity.parts.normalize import _from_payload
+    from fuze.parts.normalize import _from_payload
 
     async def call_tool(tool, arguments):
         assert (tool, arguments) == ("cse_search", {"query": "TPS54331"})
@@ -333,7 +333,7 @@ def test_datasheets_come_from_the_ecad_index_not_jlcpcb():
 
 
 def test_a_topology_change_becomes_a_spec_filter():
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     query, filters, _ = sourcing._push_down("3.3v regulator", {"topology": "boost"})
 
@@ -342,7 +342,7 @@ def test_a_topology_change_becomes_a_spec_filter():
 
 def test_a_topology_change_does_not_narrow_the_query_text():
     """Extra words reduce results — the planner prompt says so and this ignored it."""
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     query, _, _ = sourcing._push_down("3.3v regulator", {"topology": "boost", "vout": 3.3})
 
@@ -352,7 +352,7 @@ def test_a_topology_change_does_not_narrow_the_query_text():
 
 def test_a_linear_constraint_has_no_topology_filter():
     """LDOs are a different JLCPCB category, not a Topology value."""
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     query, filters, _ = sourcing._push_down("regulator", {"topology": "ldo"})
 
@@ -361,7 +361,7 @@ def test_a_linear_constraint_has_no_topology_filter():
 
 
 def test_an_output_current_constraint_still_filters():
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     _, filters, _ = sourcing._push_down("regulator", {"topology": "boost", "i_out_min": 0.6})
 
@@ -380,39 +380,39 @@ def test_an_output_current_constraint_still_filters():
 
 
 def test_a_range_gives_both_ends():
-    from continuity.parts import payload
+    from fuze.parts import payload
 
     assert payload.volt_range("4.5V~40V") == (4.5, 40.0)
 
 
 def test_spaces_and_decimals_survive():
-    from continuity.parts import payload
+    from fuze.parts import payload
 
     assert payload.volt_range("2.5V ~ 6.0V") == (2.5, 6.0)
 
 
 def test_a_single_figure_is_a_ceiling():
     """Same reading the normaliser is told to use: one figure on a supply is a maximum."""
-    from continuity.parts import payload
+    from fuze.parts import payload
 
     assert payload.volt_range("15V") == (None, 15.0)
 
 
 def test_millivolts_are_scaled():
-    from continuity.parts import payload
+    from fuze.parts import payload
 
     assert payload.volt_range("800mV~3.6V") == (0.8, 3.6)
 
 
 def test_unparseable_text_is_unknown_not_zero():
-    from continuity.parts import payload
+    from fuze.parts import payload
 
     assert payload.volt_range("see datasheet") == (None, None)
     assert payload.volt_range(None) == (None, None)
 
 
 def test_a_part_that_provably_cannot_take_the_input_is_dropped():
-    from continuity.parts import payload
+    from fuze.parts import payload
 
     assert payload.accepts_input({"Voltage - Supply": "4.5V~40V"}, 48.0) is False
     assert payload.accepts_input({"Voltage - Supply": "4.5V~60V"}, 48.0) is True
@@ -420,7 +420,7 @@ def test_a_part_that_provably_cannot_take_the_input_is_dropped():
 
 def test_a_part_that_states_nothing_is_kept():
     """Unknown is not a reason to discard — the engine will report it as unchecked."""
-    from continuity.parts import payload
+    from fuze.parts import payload
 
     assert payload.accepts_input({}, 48.0) is None
 
@@ -429,7 +429,7 @@ def test_a_part_that_states_nothing_is_kept():
 
 
 def test_an_operating_temperature_range_reaches_its_hot_end():
-    from continuity.parts import payload
+    from fuze.parts import payload
 
     specs = {"Operating Temperature": "-40℃~+85℃"}
 
@@ -438,14 +438,14 @@ def test_an_operating_temperature_range_reaches_its_hot_end():
 
 
 def test_an_operating_temperature_qualifier_does_not_break_its_range():
-    from continuity.parts import payload
+    from fuze.parts import payload
 
     assert payload.rated_to({"Operating Temperature": "-40℃~+150℃@(TJ)"}, 150) is True
 
 
 def test_an_unstated_temperature_is_kept_not_discarded():
-    from continuity.graph import sourcing
-    from continuity.parts import payload
+    from fuze.graph import sourcing
+    from fuze.parts import payload
 
     assert payload.rated_to({}, 85) is None
     kept = sourcing.viable([_candidate("MYSTERY")], {"rated_to": 85})
@@ -457,7 +457,7 @@ def test_an_unstated_temperature_is_kept_not_discarded():
 
 
 def _candidate(mpn: str, **specs):
-    from continuity.parts.search import Candidate
+    from fuze.parts.search import Candidate
 
     return Candidate(
         lcsc="C1", mpn=mpn, manufacturer="x", description="buck", package="SOT-23",
@@ -467,7 +467,7 @@ def _candidate(mpn: str, **specs):
 
 
 def test_a_part_that_cannot_take_the_input_is_filtered_out():
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     kept = sourcing.viable(
         [
@@ -481,7 +481,7 @@ def test_a_part_that_cannot_take_the_input_is_filtered_out():
 
 
 def test_an_unstated_rating_is_kept_not_discarded():
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     kept = sourcing.viable([_candidate("MYSTERY")], {"vin_min": 48.0})
 
@@ -491,7 +491,7 @@ def test_an_unstated_rating_is_kept_not_discarded():
 def test_a_decidable_candidate_outranks_an_undecidable_one():
     """Three valid boosts came back and the engine took the first, whose payload states
     no output minimum — leaving the board's central claim unchecked."""
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     ranked = sourcing.viable(
         [
@@ -505,7 +505,7 @@ def test_a_decidable_candidate_outranks_an_undecidable_one():
 
 
 def test_ranking_never_drops_anything():
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     given = [_candidate("A"), _candidate("B", **{"Output Voltage": "3.3V"})]
 
@@ -520,14 +520,14 @@ def test_a_locally_filtered_constraint_searches_deeper():
     has to be deep enough to filter *from*, and depth is a parameter on the same single
     request rather than a second round trip.
     """
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     assert sourcing.pool_size({"topology": "buck"}) == sourcing.CANDIDATES_PER_SLOT
     assert sourcing.pool_size({"topology": "buck", "vin_min": 48.0}) == sourcing.DEEP_POOL
 
 
 def test_a_temperature_constraint_filters_a_deep_pool_without_a_server_filter(monkeypatch):
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     calls = []
 
@@ -551,7 +551,7 @@ def test_a_temperature_constraint_filters_a_deep_pool_without_a_server_filter(mo
 
 
 def test_an_impossible_temperature_constraint_returns_no_wrong_part(monkeypatch):
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     async def fake_search(query, **kwargs):
         return [_candidate("COMMERCIAL", **{"Operating Temperature": "-40℃~+70℃"})]
@@ -562,7 +562,7 @@ def test_an_impossible_temperature_constraint_returns_no_wrong_part(monkeypatch)
 
 
 def test_the_shortlist_stays_short():
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     many = [_candidate(f"P{i}", **{"Voltage - Supply": "5V~80V"}) for i in range(40)]
     kept = sourcing.viable(many, {"vin_min": 48.0})[: sourcing.CANDIDATES_PER_SLOT]
@@ -579,7 +579,7 @@ def test_a_repair_constraint_layers_over_the_slots_own():
     `topology: buck`, so the re-search ran as raw text, returned a screw terminal, and
     the run escalated with "nothing matches the revised buck regulator constraint".
     """
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     merged = sourcing.merge_constraints({"topology": "buck"}, {"vin_min": 48.0})
 
@@ -588,7 +588,7 @@ def test_a_repair_constraint_layers_over_the_slots_own():
 
 def test_a_repair_may_still_override_the_slots_topology():
     """`change_topology: boost` on a slot planned as a buck must win."""
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     merged = sourcing.merge_constraints({"topology": "buck"}, {"topology": "boost"})
 
@@ -596,7 +596,7 @@ def test_a_repair_may_still_override_the_slots_topology():
 
 
 def test_merging_tolerates_either_side_being_absent():
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     assert sourcing.merge_constraints(None, {"vin_min": 48.0}) == {"vin_min": 48.0}
     assert sourcing.merge_constraints({"topology": "buck"}, None) == {"topology": "buck"}
@@ -607,7 +607,7 @@ def test_merging_tolerates_either_side_being_absent():
 
 
 def test_a_fixed_part_that_cannot_reach_the_rail_is_dropped():
-    from continuity.parts import payload
+    from fuze.parts import payload
 
     fixed_5v = {"Output Voltage": "5V", "Output Type": "Fixed"}
 
@@ -616,7 +616,7 @@ def test_a_fixed_part_that_cannot_reach_the_rail_is_dropped():
 
 
 def test_an_adjustable_range_covering_the_rail_is_kept():
-    from continuity.parts import payload
+    from fuze.parts import payload
 
     adjustable = {"Output Voltage": "1.23V~37V", "Output Type": "Adjustable"}
 
@@ -625,13 +625,13 @@ def test_an_adjustable_range_covering_the_rail_is_kept():
 
 def test_an_adjustable_ceiling_alone_is_undecidable():
     """"28V" on an adjustable part is a ceiling, not a setpoint — its floor is unstated."""
-    from continuity.parts import payload
+    from fuze.parts import payload
 
     assert payload.can_output({"Output Voltage": "28V", "Output Type": "Adjustable"}, 3.3) is None
 
 
 def test_a_vout_constraint_filters_the_shortlist():
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     kept = sourcing.viable(
         [
@@ -658,7 +658,7 @@ def test_a_vout_constraint_filters_the_shortlist():
 
 
 def _typed(mpn: str, category: str, subcategory: str = "", **specs):
-    from continuity.parts.search import Candidate
+    from fuze.parts.search import Candidate
 
     return Candidate(
         lcsc="C1", mpn=mpn, manufacturer="x", description=mpn, package="SMD",
@@ -668,7 +668,7 @@ def _typed(mpn: str, category: str, subcategory: str = "", **specs):
 
 
 def test_a_sensor_slot_rejects_the_fuse_clips_it_used_to_accept():
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     kept = sourcing.viable(
         [
@@ -685,7 +685,7 @@ def test_a_sensor_slot_rejects_the_fuse_clips_it_used_to_accept():
 def test_a_sensor_slot_accepts_a_current_sensor_from_a_sibling_category():
     """JLCPCB files current sensors under `Magnetic Sensors`, not `Sensors`. One name in
     our vocabulary maps to every distributor category that satisfies it."""
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     kept = sourcing.viable([_typed("INA181", "Magnetic Sensors", "Current Sensors")], {"category": "sensor"})
 
@@ -695,13 +695,13 @@ def test_a_sensor_slot_accepts_a_current_sensor_from_a_sibling_category():
 def test_a_row_that_states_no_category_is_kept():
     """Unknown is not a violation. Same direction as every other local filter: turning
     "cannot tell" into "no" is the one way this system may not guess."""
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     assert len(sourcing.viable([_typed("MYSTERY", "")], {"category": "sensor"})) == 1
 
 
 def test_a_category_outside_the_vocabulary_filters_nothing():
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     given = [_typed("BLX-A", "Circuit Protection"), _typed("SHT30", "Sensors")]
 
@@ -711,7 +711,7 @@ def test_a_category_outside_the_vocabulary_filters_nothing():
 def test_a_category_constraint_searches_deeper():
     """Filtering six results that are all wrong leaves zero — the `vin_min` lesson. The
     'environmental' page was six rows and none of them was a sensor."""
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     assert sourcing.pool_size({"category": "sensor"}) == sourcing.DEEP_POOL
 
@@ -720,7 +720,7 @@ def test_a_category_is_never_pushed_into_the_subcategory_filter():
     """`subcategory_name` matches *subcategories*, fuzzily. Probed live: passing the
     category "Sensors" returns four VOC sensors — it silently resolved to the nearest
     subcategory name. Our vocabulary is coarse on purpose, so it stays a local filter."""
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     query, filters, package = sourcing._push_down("environmental sensor", {"category": "sensor"})
 
@@ -729,7 +729,7 @@ def test_a_category_is_never_pushed_into_the_subcategory_filter():
 
 
 def test_every_category_name_maps_to_at_least_one_distributor_category():
-    from continuity.parts import categories
+    from fuze.parts import categories
 
     assert categories.CATEGORIES
     assert all(spec.accepts for spec in categories.CATEGORIES.values())
@@ -740,7 +740,7 @@ def test_every_distributor_category_we_map_actually_exists():
     """An unrecognised spec-filter name is silently ignored by this server; a category
     name we invented would be a filter that quietly rejects everything. Check the
     vocabulary against the server's own list rather than against a memory of it."""
-    from continuity.parts import categories, mcp
+    from fuze.parts import categories, mcp
 
     payload = run(mcp.call_tool("jlc_search_help", {}))
     published = {row["name"] for row in payload["categories"]}
@@ -753,8 +753,8 @@ def test_an_empty_result_names_the_category_that_was_in_force():
     """Two causes, two different fixes. A query that finds nothing is the planner's
     wording; a query that finds only the wrong kind of part is the planner's category.
     "No part found" distinguishes neither."""
-    from continuity.engine.models import Slot
-    from continuity.graph.nodes import _within
+    from fuze.engine.models import Slot
+    from fuze.graph.nodes import _within
 
     slots = {
         "s": Slot(id="s", label="Sensor", tier="peripherals", constraint={"category": "sensor"}),
@@ -771,7 +771,7 @@ def test_an_empty_result_names_the_category_that_was_in_force():
 def _real_sourcing():
     """The default suite replaces `find`; these unit tests exercise it directly."""
     from importlib import reload
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     return reload(sourcing)
 
@@ -878,7 +878,7 @@ def test_rescue_subcategory_prefers_word_overlap_then_list_order():
 
 
 def test_search_trace_names_the_query_rescue_and_thin_shortlist():
-    from continuity.graph.nodes import _rescue_search_message, _thin_shortlist_message
+    from fuze.graph.nodes import _rescue_search_message, _thin_shortlist_message
 
     assert "environmental sensor" in _rescue_search_message(
         "environmental sensor", "Temperature and Humidity Sensor"
@@ -909,7 +909,7 @@ def test_rescue_narration_arrives_before_the_second_distributor_search(monkeypat
 
 
 def test_repair_search_trace_names_its_applied_constraint():
-    from continuity.graph.nodes import _repair_search_message
+    from fuze.graph.nodes import _repair_search_message
 
     assert _repair_search_message("buck regulator", {"topology": "boost"}) == (
         "Re-searching with topology=boost."
@@ -927,7 +927,7 @@ def test_a_topology_is_not_pushed_for_a_slot_that_is_not_a_regulator():
     passing. Measured 13 Aug: the same slot searched on its own text returns six genuine
     PoE controllers.
     """
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     constraint = {"category": "poe", "topology": "buck", "vin_min": 48.0}
     refined, filters, _package = sourcing._push_down("PoE controller", constraint)
@@ -939,7 +939,7 @@ def test_a_topology_is_not_pushed_for_a_slot_that_is_not_a_regulator():
 def test_a_topology_is_still_pushed_for_a_regulator():
     """The measured behaviour this guard must not disturb: a text search does not weight
     "boost", so the filter is the only thing that finds one."""
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     refined, filters, _package = sourcing._push_down(
         "3.3V LDO regulator", {"category": "regulator", "topology": "boost"}
@@ -951,7 +951,7 @@ def test_a_topology_is_still_pushed_for_a_regulator():
 
 def test_a_topology_on_an_uncategorised_slot_is_unchanged():
     """Repairs on slots with no category keep exactly the previous behaviour."""
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
 
     refined, filters, _package = sourcing._push_down("regulator", {"topology": "buck"})
 
@@ -963,7 +963,7 @@ def test_a_topology_on_an_uncategorised_slot_is_unchanged():
 
 
 def test_rated_from_reads_the_minimum_of_a_published_range():
-    from continuity.parts import payload
+    from fuze.parts import payload
 
     industrial = {"Operating Temperature": "-40℃~+85℃"}
     commercial = {"Operating Temperature": "-25~85℃"}
@@ -975,7 +975,7 @@ def test_rated_from_reads_the_minimum_of_a_published_range():
 
 def test_rated_from_keeps_a_candidate_whose_payload_does_not_say():
     """Unknown must not become a rejection — the engine reports it unchecked instead."""
-    from continuity.parts import payload
+    from fuze.parts import payload
 
     assert payload.rated_from({}, -40) is None
     assert payload.rated_from({"Operating Temperature": "-"}, -40) is None
@@ -990,7 +990,7 @@ def test_a_cold_end_constraint_excludes_the_part_that_just_failed():
     way to exclude the part, so the same one came back and the run escalated with a
     question the user could not answer either.
     """
-    from continuity.graph.sourcing import viable
+    from fuze.graph.sourcing import viable
 
     warm = _candidate("WARM", **{"Operating Temperature": "-25℃~+85℃"})
     cold = _candidate("COLD", **{"Operating Temperature": "-40℃~+125℃"})
@@ -1011,7 +1011,7 @@ def test_bundled_directories_are_anchored_to_the_package():
     simply not there: nothing fails, every part is fetched and parsed again, and an empty
     directory appears wherever the process happened to start.
     """
-    from continuity.parts import datasheet, fixtures, normalize
+    from fuze.parts import datasheet, fixtures, normalize
 
     for path in (normalize.CACHE_DIR, datasheet.CACHE_DIR, fixtures.FIXTURE_DIR):
         assert path.is_absolute(), f"{path} would move with the working directory"
@@ -1020,10 +1020,10 @@ def test_bundled_directories_are_anchored_to_the_package():
 def test_a_deployment_may_point_the_cache_at_a_volume(monkeypatch):
     """Where a mounted volume exists, the deployment names it; where none does, the
     committed cache is still found and what the run adds is lost on restart."""
-    from continuity import env
+    from fuze import env
 
-    monkeypatch.delenv("CONTINUITY_CACHE_DIR", raising=False)
+    monkeypatch.delenv("FUZE_CACHE_DIR", raising=False)
     assert env.cache_dir("normalized") == env.ROOT / "cache" / "normalized"
 
-    monkeypatch.setenv("CONTINUITY_CACHE_DIR", "/mnt/data/cache")
+    monkeypatch.setenv("FUZE_CACHE_DIR", "/mnt/data/cache")
     assert env.cache_dir("normalized") == Path("/mnt/data/cache/normalized")

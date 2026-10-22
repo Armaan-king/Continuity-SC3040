@@ -15,9 +15,9 @@ import { defineConfig, devices } from '@playwright/test'
 export const E2E = {
   apiPort: Number(process.env.E2E_API_PORT ?? 8020),
   webPort: Number(process.env.E2E_WEB_PORT ?? 5175),
-  database: process.env.E2E_DATABASE_URL ?? 'postgresql:///continuity_e2e',
+  database: process.env.E2E_DATABASE_URL ?? 'postgresql:///fuze_e2e',
   python: process.env.E2E_PYTHON ?? (process.platform === 'win32' ? '.venv/Scripts/python.exe' : '.venv/bin/python'),
-  email: 'e2e@continuity.dev',
+  email: 'e2e@fuze.dev',
   /** A throwaway credential for a local-only account in a disposable database. */
   password: 'e2e-local-only-pass',
 }
@@ -48,17 +48,17 @@ export default defineConfig({
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'], viewport: { width: 1440, height: 900 } } }],
   webServer: [
     {
-      command: `"${E2E.python}" -m continuity --api-only --port ${E2E.apiPort}`,
+      command: `"${E2E.python}" -m fuze --api-only --port ${E2E.apiPort}`,
       cwd: '../backend',
       url: `${api}/health`,
       reuseExistingServer: false,
       timeout: 60_000,
       env: {
         DATABASE_URL: E2E.database,
-        CONTINUITY_ENV: 'test',
-        CONTINUITY_LLM_PROVIDER: 'disabled',
-        CONTINUITY_RESEARCH_ENABLED: '0',
-        CONTINUITY_ORIGINS: web,
+        FUZE_ENV: 'test',
+        FUZE_LLM_PROVIDER: 'disabled',
+        FUZE_RESEARCH_ENABLED: '0',
+        FUZE_ORIGINS: web,
       },
     },
     {

@@ -6,10 +6,10 @@ import asyncio
 import re
 from types import SimpleNamespace
 
-from continuity.api.events import EventStream
-from continuity.engine.models import Requirements
-from continuity.graph import nodes, sourcing
-from continuity.parts.search import Candidate
+from fuze.api.events import EventStream
+from fuze.engine.models import Requirements
+from fuze.graph import nodes, sourcing
+from fuze.parts.search import Candidate
 from tests import parts
 from tests.boards import slot
 

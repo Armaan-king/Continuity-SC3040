@@ -1,6 +1,6 @@
-from continuity.api.boards import recorded_board
-from continuity.api.events import EventStream
-from continuity.engine.models import Verdict
+from fuze.api.boards import recorded_board
+from fuze.api.events import EventStream
+from fuze.engine.models import Verdict
 from tests import parts
 from tests.boards import slot
 
@@ -47,8 +47,8 @@ def test_legacy_candidate_is_not_shown_as_valid_before_validation():
 
 
 def test_changed_pass_for_another_slot_replaces_its_previous_warning(monkeypatch):
-    from continuity.graph import nodes
-    from continuity.engine.models import Requirements
+    from fuze.graph import nodes
+    from fuze.engine.models import Requirements
     earlier = Verdict(rule="current_budget", status="warn", detail="Near limit", subject="regulator", scope="3V3")
     final = Verdict(rule="current_budget", status="pass", detail="Within budget", subject="regulator", scope="3V3")
     monkeypatch.setattr(nodes.rules, "evaluate", lambda board: [final])

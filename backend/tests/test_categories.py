@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import pytest
 
-from continuity.parts import categories
+from fuze.parts import categories
 
 
 # ── a WiFi module is an MCU ────────────────────────────────────────────────────
@@ -45,7 +45,7 @@ def test_a_battery_holder_rescue_widens_to_battery_parts_not_pin_headers():
     battery entry, so a thin shortlist widened to `Pin Headers` — the first name declared
     — and pulled in the wrong chemistry entirely.
     """
-    from continuity.graph.sourcing import _rescue_subcategory
+    from fuze.graph.sourcing import _rescue_subcategory
 
     assert _rescue_subcategory("Li-ion battery holder", {"category": "connector"}) == (
         "Battery connector"
@@ -56,7 +56,7 @@ def test_a_battery_holder_rescue_widens_to_battery_parts_not_pin_headers():
 
 
 def test_a_header_query_still_rescues_to_headers():
-    from continuity.graph.sourcing import _rescue_subcategory
+    from fuze.graph.sourcing import _rescue_subcategory
 
     assert _rescue_subcategory("2.54mm pin headers", {"category": "connector"}) == "Pin Headers"
 
@@ -65,7 +65,7 @@ def test_a_header_query_still_rescues_to_headers():
 
 
 def _candidate(mpn: str, subcategory: str):
-    from continuity.parts.search import Candidate
+    from fuze.parts.search import Candidate
 
     return Candidate(
         lcsc="C1", mpn=mpn, manufacturer="x", description="", package="SOT-23",
@@ -82,7 +82,7 @@ def test_a_gps_query_reaches_the_shelf_the_distributor_calls_gnss():
     and the rescue supplied ESP32s to a slot asking for a GPS receiver. Both electrical
     checks and the BOM passed it.
     """
-    from continuity.graph.sourcing import _rescue_subcategory
+    from fuze.graph.sourcing import _rescue_subcategory
 
     assert _rescue_subcategory("GPS receiver module", {"category": "radio"}) == "GNSS Modules"
     assert _rescue_subcategory("GPS module", {"category": "radio"}) == "GNSS Modules"
@@ -95,7 +95,7 @@ def test_an_unmatched_rescue_is_refused_where_the_shelves_are_different_kinds():
     the honest move is to widen to nothing. Refusing costs a thin shortlist and at worst an
     unfilled slot — visibly incomplete, rather than invisibly wrong.
     """
-    from continuity.graph.sourcing import _rescue_subcategory
+    from fuze.graph.sourcing import _rescue_subcategory
 
     assert _rescue_subcategory("cellular NB-IoT modem", {"category": "radio"}) is None
     # A query that *does* name one still gets it — the refusal is not a blanket off switch.
@@ -105,7 +105,7 @@ def test_an_unmatched_rescue_is_refused_where_the_shelves_are_different_kinds():
 
 def test_an_unmatched_sensor_rescue_still_widens_because_any_sensor_shelf_is_a_sensor():
     """The case the fallback was written for, and the only one that keeps it."""
-    from continuity.graph.sourcing import _rescue_subcategory
+    from fuze.graph.sourcing import _rescue_subcategory
 
     assert _rescue_subcategory("environmental sensor", {"category": "sensor"}) is not None
 
@@ -119,7 +119,7 @@ def test_a_charger_slot_is_its_own_kind_of_part():
 
 def test_a_converter_is_dropped_from_a_charger_shortlist_while_a_charger_remains():
     """TPS631000DRLR — a buck-boost — reached a solar board's `battery_charger` slot."""
-    from continuity.graph.sourcing import viable
+    from fuze.graph.sourcing import viable
 
     charger = _candidate("TP4057-42-SOT26-R", "Battery Management")
     converter = _candidate("TPS631000DRLR", "DC-DC Converters")
@@ -130,7 +130,7 @@ def test_a_converter_is_dropped_from_a_charger_shortlist_while_a_charger_remains
 def test_a_charger_shortlist_with_nothing_on_the_shelf_keeps_what_it_has():
     """Never empty the list: a vocabulary that is wrong about where a part lives should
     cost a worse ordering, not an unfilled slot."""
-    from continuity.graph.sourcing import viable
+    from fuze.graph.sourcing import viable
 
     converter = _candidate("TPS631000DRLR", "DC-DC Converters")
 
@@ -155,7 +155,7 @@ def _shortlist():
 
 def test_a_candidate_of_the_wrong_kind_goes_to_the_back_and_is_not_removed():
     """A wrong removal costs a part the board needed; a wrong demotion costs a position."""
-    from continuity.graph.sourcing import rank_by_fitness
+    from fuze.graph.sourcing import rank_by_fitness
 
     ordered, demoted = rank_by_fitness(_shortlist(), {"XL7005A"})
 
@@ -166,7 +166,7 @@ def test_a_candidate_of_the_wrong_kind_goes_to_the_back_and_is_not_removed():
 def test_every_candidate_being_suspect_still_removes_nothing():
     """Nothing better to put in front of them — but the reader is told, because it means
     the search itself was aimed wrong."""
-    from continuity.graph.sourcing import rank_by_fitness
+    from fuze.graph.sourcing import rank_by_fitness
 
     ordered, demoted = rank_by_fitness(_shortlist(), {"XL7005A", "TPS23755"})
 
@@ -175,7 +175,7 @@ def test_every_candidate_being_suspect_still_removes_nothing():
 
 
 def test_rejecting_nothing_leaves_the_shortlist_and_reports_nothing():
-    from continuity.graph.sourcing import rank_by_fitness
+    from fuze.graph.sourcing import rank_by_fitness
 
     ordered, demoted = rank_by_fitness(_shortlist(), set())
 
@@ -186,7 +186,7 @@ def test_rejecting_nothing_leaves_the_shortlist_and_reports_nothing():
 def test_a_classifier_that_is_unavailable_rejects_nothing(monkeypatch):
     """Every failure — outage, timeout, malformed JSON — must leave today's behaviour."""
     import asyncio
-    from continuity import interpret, llm
+    from fuze import interpret, llm
 
     monkeypatch.setattr(llm, "available", lambda: False)
 
@@ -200,7 +200,7 @@ def test_a_classifier_that_is_unavailable_rejects_nothing(monkeypatch):
 def test_an_invented_mpn_cannot_remove_a_real_one(monkeypatch):
     """The classifier may only name candidates it was actually offered."""
     import asyncio
-    from continuity import interpret, llm
+    from fuze import interpret, llm
 
     async def reply(*_args, **_kwargs):
         return {"rejected": ["NOT-A-CANDIDATE", "XL7005A"]}
@@ -219,7 +219,7 @@ def test_an_invented_mpn_cannot_remove_a_real_one(monkeypatch):
 
 def test_a_malformed_classifier_reply_rejects_nothing(monkeypatch):
     import asyncio
-    from continuity import interpret, llm
+    from fuze import interpret, llm
 
     async def reply(*_args, **_kwargs):
         return {"rejected": "XL7005A"}
@@ -246,7 +246,7 @@ def test_a_logic_gate_on_the_parent_motor_shelf_is_dropped_for_a_real_driver():
     The four real shelves are the category's definition; the parent is where the
     mislabelled collect.
     """
-    from continuity.graph.sourcing import _on_defining_shelf
+    from fuze.graph.sourcing import _on_defining_shelf
 
     gate = _candidate("TC7S08FU(TE85L,F)", "Motor Driver ICs")
     driver = _candidate("TMC2209", "Stepper Motor Driver")
@@ -258,7 +258,7 @@ def test_a_logic_gate_on_the_parent_motor_shelf_is_dropped_for_a_real_driver():
 
 def test_a_thin_driver_shortlist_is_still_kept_rather_than_emptied():
     """A vocabulary wrong about where a part lives must cost ordering, not the slot."""
-    from continuity.graph.sourcing import _on_defining_shelf
+    from fuze.graph.sourcing import _on_defining_shelf
 
     gate = _candidate("TC7S08FU(TE85L,F)", "Motor Driver ICs")
 
@@ -266,7 +266,7 @@ def test_a_thin_driver_shortlist_is_still_kept_rather_than_emptied():
 
 
 def test_nothing_on_a_driver_shelf_triggers_the_rescue():
-    from continuity.graph.sourcing import _misses_defining_shelf
+    from fuze.graph.sourcing import _misses_defining_shelf
 
     gate = _candidate("TC7S08FU(TE85L,F)", "Motor Driver ICs")
     driver = _candidate("TMC2209", "Stepper Motor Driver")
@@ -284,7 +284,7 @@ def test_the_shelf_filter_decides_on_the_merged_list_not_each_half():
     them *behind* the parent-shelf parts and the shortlist slice kept the wrong ones. A
     motor brief still placed a 2-input AND gate with the shelves already declared.
     """
-    from continuity.graph.sourcing import _on_defining_shelf
+    from fuze.graph.sourcing import _on_defining_shelf
 
     hits = [_candidate("TC7S08FU(TE85L,F)", "Motor Driver ICs")]
     rescued = [_candidate("TMC2209", "Stepper Motor Driver")]

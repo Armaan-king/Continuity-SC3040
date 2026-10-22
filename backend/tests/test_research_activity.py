@@ -7,21 +7,21 @@ from unittest.mock import AsyncMock
 import httpx
 import pytest
 
-from continuity import ai_activity
-from continuity.designs.context import ExecutionContext, current
-from continuity.parts import research, research_activity
+from fuze import ai_activity
+from fuze.designs.context import ExecutionContext, current
+from fuze.parts import research, research_activity
 from tests.test_multi_source import providers, run
 
 
 def test_receipts_separate_requests_cache_and_skips_without_private_content(providers, caplog, monkeypatch):
     requests, _ = providers
-    monkeypatch.setenv("CONTINUITY_RESEARCH_MAX_CALLS", "1")
+    monkeypatch.setenv("FUZE_RESEARCH_MAX_CALLS", "1")
     receipts = []
     async def work():
         await research.search_documents("private brief")
         await research.search_documents("private brief")
         await research.search_documents("another brief")
-    with caplog.at_level(logging.INFO, logger="continuity.parts.research_activity"), ai_activity.observe(receipts.append):
+    with caplog.at_level(logging.INFO, logger="fuze.parts.research_activity"), ai_activity.observe(receipts.append):
         run(work)
     status = research.status()
     activity = status["activity"]
@@ -121,10 +121,10 @@ def test_saved_run_result_does_not_make_new_http_request(providers):
 
 @pytest.mark.parametrize("failure", [False, True])
 def test_research_receipts_reach_real_sse(providers, monkeypatch, failure):
-    from continuity.api import app as app_module
-    from continuity.api.runs import RunManager
-    from continuity.graph import sourcing
-    from continuity.graph.build import build
+    from fuze.api import app as app_module
+    from fuze.api.runs import RunManager
+    from fuze.graph import sourcing
+    from fuze.graph.build import build
     from tests.test_api import stream
     requests, response = providers
     if failure:

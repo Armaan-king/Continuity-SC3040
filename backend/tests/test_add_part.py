@@ -5,12 +5,12 @@ from __future__ import annotations
 import asyncio
 from types import SimpleNamespace
 
-from continuity import reviewer
-from continuity.api.events import EventStream
-from continuity.engine import policy
-from continuity.engine.models import Board, Rail, Repair, Requirements, Verdict
-from continuity.graph import nodes
-from continuity.planner import topology
+from fuze import reviewer
+from fuze.api.events import EventStream
+from fuze.engine import policy
+from fuze.engine.models import Board, Rail, Repair, Requirements, Verdict
+from fuze.graph import nodes
+from fuze.planner import topology
 from tests import parts
 from tests.boards import slot
 

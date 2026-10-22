@@ -9,8 +9,8 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from continuity.designs.context import ExecutionContext, current
-from continuity.parts import research
+from fuze.designs.context import ExecutionContext, current
+from fuze.parts import research
 
 
 async def main():

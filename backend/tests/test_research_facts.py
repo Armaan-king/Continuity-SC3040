@@ -4,12 +4,12 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from continuity import llm
-from continuity.designs import service
-from continuity.designs.context import ExecutionContext, current
-from continuity.engine import rules
-from continuity.engine.models import Board, PartSpec, Requirements, Slot
-from continuity.parts import evidence, research
+from fuze import llm
+from fuze.designs import service
+from fuze.designs.context import ExecutionContext, current
+from fuze.engine import rules
+from fuze.engine.models import Board, PartSpec, Requirements, Slot
+from fuze.parts import evidence, research
 
 PART = PartSpec('MC9S08AW60CFGE', 'NXP Semicon', '', 'Microcontrollers', role='master',
                 datasheet='https://www.nxp.com/docs/en/data-sheet/MC9S08AW60.pdf')
@@ -279,9 +279,9 @@ def test_real_adapter_path_retrieves_extracts_revalidates_and_deduplicates(extra
         requests.append(request)
         return httpx.Response(200, json={'results': [document_for(claim())], 'costDollars': {'total': 0.001}})
     client = httpx.AsyncClient
-    monkeypatch.setenv('CONTINUITY_FIXTURES', '0')
+    monkeypatch.setenv('FUZE_FIXTURES', '0')
     monkeypatch.setenv('EXA_API_KEY', 'test-not-secret')
-    monkeypatch.setenv('CONTINUITY_EVIDENCE_MAX_PARTS', '1')
+    monkeypatch.setenv('FUZE_EVIDENCE_MAX_PARTS', '1')
     monkeypatch.setattr(research.httpx, 'AsyncClient', lambda **kwargs: client(transport=httpx.MockTransport(handle), **kwargs))
     async def run():
         token = current.set(ExecutionContext('pipeline-test'))
@@ -298,7 +298,7 @@ def test_real_adapter_path_retrieves_extracts_revalidates_and_deduplicates(extra
 
 
 def test_candidate_is_ranked_again_after_research_changes_its_rating(monkeypatch):
-    from continuity.graph import sourcing
+    from fuze.graph import sourcing
     from tests.test_normalize import CANDIDATE
     from tests.test_verified_architecture import sensor_board
     cheap, safe = replace(CANDIDATE, mpn='CHEAP'), replace(CANDIDATE, mpn='SAFE')

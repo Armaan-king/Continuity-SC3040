@@ -1,8 +1,8 @@
 {
-  "preparedAt": "2026-10-22T11:00:39.880000+00:00",
-  "projectId": "6d3eff5297b4",
-  "threadId": "media-review-9a7e1a97709047eb919a84b151f11a8e",
-  "initialRevision": "c8e5aeb58b5d41e3a35d88a5ec6933c4",
+  "preparedAt": "2026-10-22T21:39:17.884833+00:00",
+  "projectId": "103212c43897",
+  "threadId": "media-review-6727784330104969a9c0b0a96f13888c",
+  "initialRevision": "a1169ec8fff948f29364c0e3e5cf263f",
   "referenceData": "Historical distributor fixtures; manually assembled reference board; AI planning disabled",
   "research": {
     "provider": "exa",
@@ -17,7 +17,7 @@
     ],
     "reusedForRetake": true
   },
-  "recordedAt": "2026-10-22T11:00:40.331Z",
+  "recordedAt": "2026-10-22T21:39:20.430Z",
   "viewport": {
     "width": 1440,
     "height": 900
@@ -73,14 +73,14 @@
           "title": "Export the same revision as a report and BOM"
         },
         {
-          "seconds": 46,
+          "seconds": 47,
           "title": "Reopen the workspace with the restored revision"
         }
       ],
       "browserErrors": [],
       "file": "design-review.mp4",
-      "duration": "00:00:50.21",
-      "bytes": 2858909
+      "duration": "00:00:51.08",
+      "bytes": 3197092
     },
     {
       "name": "research-connections",
@@ -99,11 +99,11 @@
           "title": "Review the limits of what the engine checked"
         },
         {
-          "seconds": 17,
+          "seconds": 18,
           "title": "Declare the signal connection against your circuit"
         },
         {
-          "seconds": 21,
+          "seconds": 22,
           "title": "Return to the planning workspace with the revised board"
         },
         {
@@ -113,19 +113,19 @@
       ],
       "browserErrors": [],
       "file": "research-connections.mp4",
-      "duration": "00:00:31.08",
-      "bytes": 1697764
+      "duration": "00:00:31.75",
+      "bytes": 1794752
     }
   ],
   "revisionVerification": {
-    "changedRevision": "9d86690ef15c4ef882621ef2c18d9cf2",
-    "restoredRevision": "18b068addee74728afb8dca844e4574f",
-    "exportedRevision": "18b068addee74728afb8dca844e4574f",
+    "changedRevision": "2d90ea23226e42f69fa5588127b0f4a5",
+    "restoredRevision": "aa38a8cf7b1346528e6a0f128954c803",
+    "exportedRevision": "aa38a8cf7b1346528e6a0f128954c803",
     "restoredVoltage": 3.3,
     "historyPreserved": true
   },
   "connectionsVerification": {
-    "revision": "a7df481ac79b4f8eadf3553a39f15ce0",
+    "revision": "0b4bd80e953046489bc4a2cde5e57084",
     "confirmedBus": "sensor-i2c",
     "reportCounts": {
       "fail": 1,
@@ -142,6 +142,6 @@
     "durationSeconds": 16,
     "width": 960,
     "fps": 5,
-    "bytes": 2195261
+    "bytes": 2351621
   }
 }

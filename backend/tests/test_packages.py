@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from continuity.engine import packages
+from fuze.engine import packages
 
 
 @pytest.mark.parametrize(

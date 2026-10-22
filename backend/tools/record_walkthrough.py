@@ -2,7 +2,7 @@
 
     ../.venv/bin/python tools/record_walkthrough.py
 
-Writes `continuity/api/walkthrough.jsonl`: the frames a new account is shown once, before
+Writes `fuze/api/walkthrough.jsonl`: the frames a new account is shown once, before
 it has run anything of its own.
 
 ## Why this run and not a live one
@@ -29,16 +29,16 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 
 import httpx
 
-from continuity import llm
-from continuity.api.app import app
-from continuity.graph import sourcing
-from continuity.planner import plan as planner
-from continuity import reviewer
+from fuze import llm
+from fuze.api.app import app
+from fuze.graph import sourcing
+from fuze.planner import plan as planner
+from fuze import reviewer
 from tests.conftest import _BY_QUERY, _as_candidate
-from continuity.graph import catalogue
+from fuze.graph import catalogue
 
 BRIEF = "temp and humidity sensor, wifi and ble, usb-c powered with li-ion backup, small oled"
-OUT = pathlib.Path(__file__).resolve().parent.parent / "continuity" / "api" / "walkthrough.jsonl"
+OUT = pathlib.Path(__file__).resolve().parent.parent / "fuze" / "api" / "walkthrough.jsonl"
 
 
 async def find(query: str, *, constraint=None, **_context):

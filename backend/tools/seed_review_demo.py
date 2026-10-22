@@ -18,14 +18,14 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "backend"))
 
 from psycopg_pool import AsyncConnectionPool
-from continuity import env
-from continuity.api.auth import hasher
-from continuity.api.revision_store import commit_revision
-from continuity.api.store import Store
-from continuity.designs.context import ExecutionContext, current
-from continuity.designs.service import digest, document
-from continuity.engine.models import Board, PartSpec, Rail, Requirements, Slot
-from continuity.parts import research, search, specifications
+from fuze import env
+from fuze.api.auth import hasher
+from fuze.api.revision_store import commit_revision
+from fuze.api.store import Store
+from fuze.designs.context import ExecutionContext, current
+from fuze.designs.service import digest, document
+from fuze.engine.models import Board, PartSpec, Rail, Requirements, Slot
+from fuze.parts import research, search, specifications
 
 
 def recorded_part(filename, mpn, role):
@@ -55,8 +55,8 @@ async def main():
     if parsed.hostname not in {"localhost", "127.0.0.1", "::1"} or "media" not in parsed.path:
         raise RuntimeError("Use a local, disposable media database")
     # Explicitly bounded live retrieval; no model calls or live supplier requests.
-    os.environ.update(CONTINUITY_RESEARCH_ENABLED="1", CONTINUITY_RESEARCH_MAX_CALLS="2",
-                      CONTINUITY_RESEARCH_BUDGET_USD="0.04", CONTINUITY_FIXTURES="0")
+    os.environ.update(FUZE_RESEARCH_ENABLED="1", FUZE_RESEARCH_MAX_CALLS="2",
+                      FUZE_RESEARCH_BUDGET_USD="0.04", FUZE_FIXTURES="0")
     candidate, sensor = recorded_part("jlc_search.3e117ff670136d31.json", "SHT40-AD1B-R2", "peripheral")
     _, controller = recorded_part("jlc_search.8bfe442977505a39.json", "ESP32-S3-WROOM-1-N16R8", "master")
     work = ROOT / ".local" / "review-recording"

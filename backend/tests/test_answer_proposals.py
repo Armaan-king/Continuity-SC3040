@@ -5,10 +5,10 @@ from unittest.mock import AsyncMock
 import pytest
 import httpx
 
-from continuity import llm
-from continuity.api.revisions import RequirementEdit
-from continuity.designs.answer_proposals import propose_answers
-from continuity.designs.guidance import review_guidance
+from fuze import llm
+from fuze.api.revisions import RequirementEdit
+from fuze.designs.answer_proposals import propose_answers
+from fuze.designs.guidance import review_guidance
 from tests.test_review_guidance import bicycle_document
 from tests.test_runtime import clean_environment, groq_transport, json_completion
 
@@ -77,9 +77,9 @@ def test_groq_preview_uses_the_strict_schema(clean_environment, monkeypatch):
 
 
 def test_preview_rate_limit_leaves_direct_answers_and_sign_in_available(clean_environment, monkeypatch):
-    from continuity.api.security import SecurityMiddleware
+    from fuze.api.security import SecurityMiddleware
     from starlette.responses import JSONResponse
-    monkeypatch.setenv('CONTINUITY_ENV', 'production')
+    monkeypatch.setenv('FUZE_ENV', 'production')
     monkeypatch.setenv('DATABASE_URL', 'postgresql://unused-test-database')
 
     async def handler(scope, receive, send):

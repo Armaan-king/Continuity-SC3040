@@ -9,9 +9,9 @@ from __future__ import annotations
 
 import pytest
 
-from continuity.engine.models import Requirements
-from continuity.planner import plan
-from continuity.planner import plan as planner
+from fuze.engine.models import Requirements
+from fuze.planner import plan
+from fuze.planner import plan as planner
 
 GOOD = {
     "input_source": "usb-5v",
@@ -193,7 +193,7 @@ def test_a_plan_with_no_rails_is_a_direct_drive_board():
 
 def test_graph_planning_keeps_direct_drive_slots_on_the_input_rail(monkeypatch):
     """The graph node rebuilds rails, so it must retain direct-drive VIN membership."""
-    from continuity.graph import nodes
+    from fuze.graph import nodes
 
     class Events:
         def plan(self, *args):
@@ -350,8 +350,8 @@ def test_the_fallback_does_not_choose_between_multiple_named_supplies():
 
 def test_a_named_replacement_must_be_one_the_reviewer_was_shown():
     """A fence, not a lookup: the model may only point at parts it actually saw."""
-    from continuity.graph.nodes import _named_candidate
-    from continuity.parts.search import Candidate
+    from fuze.graph.nodes import _named_candidate
+    from fuze.parts.search import Candidate
 
     def candidate(mpn):
         return Candidate(lcsc="C1", mpn=mpn, manufacturer="x", description="", package=None,
@@ -373,7 +373,7 @@ def test_a_stated_voltage_needs_no_clarification():
 
     Asking would send the user to a list that cannot express what they just said.
     """
-    from continuity.graph import nodes
+    from fuze.graph import nodes
 
     state = {"requirements": Requirements(input_source="unresolved", input_voltage=48.0)}
 
@@ -381,7 +381,7 @@ def test_a_stated_voltage_needs_no_clarification():
 
 
 def test_an_unnamed_supply_with_no_voltage_still_asks():
-    from continuity.graph import nodes
+    from fuze.graph import nodes
 
     state = {"requirements": Requirements(input_source="unresolved")}
 
@@ -614,7 +614,7 @@ def test_the_prompt_offers_exactly_the_categories_the_validator_accepts():
     """A name in the prompt with no entry in the table is a constraint the system
     accepts and then silently ignores — the failure mode `_push_down` documents for
     spec filters. Generate the list; never type it twice."""
-    from continuity.parts import categories
+    from fuze.parts import categories
 
     for name in categories.CATEGORIES:
         assert name in planner.SYSTEM, f"{name} is accepted but never offered"
@@ -623,7 +623,7 @@ def test_the_prompt_offers_exactly_the_categories_the_validator_accepts():
 def test_the_keyless_fallback_still_says_what_each_slot_is():
     """The fallback runs when there is no key *and* when planning failed — the two
     moments a fuse clip in a sensor slot is least likely to be noticed."""
-    from continuity.parts import categories
+    from fuze.parts import categories
 
     built = planner.fallback_plan("environmental monitor with an OLED display")
 

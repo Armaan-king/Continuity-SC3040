@@ -6,9 +6,9 @@ import json
 import httpx
 import pytest
 
-from continuity.designs.context import ExecutionContext, current
-from continuity.engine.models import Slot
-from continuity.parts import alternatives, research
+from fuze.designs.context import ExecutionContext, current
+from fuze.engine.models import Slot
+from fuze.parts import alternatives, research
 
 URL = "https://www.st.com/en/microcontrollers-microprocessors/stm32g030k6.html"
 QUOTE = "STM32G030K6 is a general-purpose microcontroller with a 32-bit Arm Cortex-M0+ CPU."
@@ -28,8 +28,8 @@ def transport(monkeypatch):
         return httpx.Response(200, json={"results": [{"url": URL, "text": response["text"]}],
             "statuses": [{"id": URL, "status": "error" if response["failed"] else "success"}]})
     client = httpx.AsyncClient
-    monkeypatch.setenv("CONTINUITY_RESEARCH_ENABLED", "1")
-    monkeypatch.setenv("CONTINUITY_FIXTURES", "0")
+    monkeypatch.setenv("FUZE_RESEARCH_ENABLED", "1")
+    monkeypatch.setenv("FUZE_FIXTURES", "0")
     monkeypatch.setenv("EXA_API_KEY", "test-key-not-a-secret")
     monkeypatch.setattr(research.httpx, "AsyncClient", lambda **kwargs: client(transport=httpx.MockTransport(handle), **kwargs))
     return requests, response
@@ -94,7 +94,7 @@ def test_previous_component_is_excluded_before_buying_contents(transport):
 
 def test_budget_exhaustion_does_not_offer_unread_search_snippet(transport, monkeypatch):
     requests, _ = transport
-    monkeypatch.setenv("CONTINUITY_RESEARCH_MAX_CALLS", "1")
+    monkeypatch.setenv("FUZE_RESEARCH_MAX_CALLS", "1")
     offered, message = run()
     assert offered == [] and "budget_exhausted" in message
     assert len(requests) == 1

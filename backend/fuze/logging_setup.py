@@ -3,7 +3,7 @@ import logging
 
 
 def configure() -> None:
-    logger = logging.getLogger("continuity")
+    logger = logging.getLogger("fuze")
     logger.setLevel(logging.INFO)
     if not logger.handlers:
         handler = logging.StreamHandler()

@@ -1,6 +1,6 @@
 """Record and replay distributor responses.
 
-`CONTINUITY_FIXTURES=1` replays from `fixtures/` and never touches the network. Any
+`FUZE_FIXTURES=1` replays from `fixtures/` and never touches the network. Any
 call without a recording is an error rather than a silent live fetch — a fixture run
 that quietly reaches the internet is worse than no fixture mode at all, because it
 looks offline right up until the wifi fails.
@@ -21,11 +21,11 @@ from typing import Any
 
 from .. import env
 
-FIXTURE_DIR = env.under_root("fixtures", "CONTINUITY_FIXTURE_DIR")
+FIXTURE_DIR = env.under_root("fixtures", "FUZE_FIXTURE_DIR")
 
 
 def replaying() -> bool:
-    return os.environ.get("CONTINUITY_FIXTURES", "") == "1"
+    return env.get("FUZE_FIXTURES", "") == "1"
 
 
 class MissingFixture(RuntimeError):
@@ -34,7 +34,7 @@ class MissingFixture(RuntimeError):
     def __init__(self, key: str, label: str) -> None:
         super().__init__(
             f"no fixture for {label} ({key}). Record one by running without "
-            f"CONTINUITY_FIXTURES=1, or check the arguments match a recorded call."
+            f"FUZE_FIXTURES=1, or check the arguments match a recorded call."
         )
 
 

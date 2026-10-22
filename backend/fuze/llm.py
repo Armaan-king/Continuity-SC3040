@@ -17,7 +17,7 @@ from .settings import integer
 
 INTERNATIONAL_URL = "https://api.z.ai/api/paas/v4"
 MAINLAND_URL = "https://open.bigmodel.cn/api/paas/v4"
-API_KEY_ENV = "CONTINUITY_LLM_API_KEY"
+API_KEY_ENV = "FUZE_LLM_API_KEY"
 TIMEOUT_S = 60.0
 MAX_ATTEMPTS = 2
 MAX_RETRY_DELAY_S = 30.0
@@ -29,7 +29,7 @@ PROVIDERS = {
     "zai": (INTERNATIONAL_URL, "glm-5.2", "ZAI_API_KEY"),
     "groq": ("https://api.groq.com/openai/v1", "openai/gpt-oss-120b", "GROQ_API_KEY"),
     "gemini": ("https://generativelanguage.googleapis.com/v1beta/openai", "gemini-3.8-flash", "GEMINI_API_KEY"),
-    "ollama": ("http://localhost:11434/v1", "continuity-local", "OLLAMA_API_KEY"),
+    "ollama": ("http://localhost:11434/v1", "fuze-local", "OLLAMA_API_KEY"),
     "custom": ("", "", API_KEY_ENV),
     "disabled": ("", "", ""),
 }
@@ -57,7 +57,7 @@ def http_failure(status: int, body: Any) -> str:
     hint = hints.get(code) if isinstance(code, str) else None
     if hint is None and status == 400:
         if "max_completion_tokens" in message or "max_tokens" in message:
-            hint = "the provider rejected the output-token setting; check CONTINUITY_LLM_MAX_TOKENS"
+            hint = "the provider rejected the output-token setting; check FUZE_LLM_MAX_TOKENS"
         elif "reasoning_effort" in message:
             hint = "the selected model rejected the reasoning-effort setting"
         elif any(term in message for term in ("json_schema", "response_format", "additionalproperties")):
@@ -92,30 +92,34 @@ class LLMConfig:
 
 def configuration() -> LLMConfig:
     env.load()
-    provider = os.environ.get("CONTINUITY_LLM_PROVIDER", "auto").strip().lower()
+    provider = env.get("FUZE_LLM_PROVIDER", "auto").strip().lower()
     if provider == "auto":
         provider = next((name for name in ("groq", "gemini", "zai")
-                         if os.environ.get(PROVIDERS[name][2])), "disabled")
-        if os.environ.get(API_KEY_ENV):
+                         if env.get(PROVIDERS[name][2])), "disabled")
+        if env.get(API_KEY_ENV):
             provider = "zai"  # Preserve existing installations.
     if provider not in PROVIDERS:
-        raise ValueError(f"Unknown CONTINUITY_LLM_PROVIDER: {provider}")
+        raise ValueError(f"Unknown FUZE_LLM_PROVIDER: {provider}")
     endpoint, default_model, key_variable = PROVIDERS[provider]
-    endpoint = (os.environ.get("CONTINUITY_LLM_BASE_URL") or endpoint).rstrip("/")
-    model_name = (os.environ.get("CONTINUITY_LLM_MODEL") or default_model).strip()
+    # Older local installations created this Ollama alias. Their explicit legacy
+    # provider setting should keep working until they migrate the setting/model.
+    if provider == "ollama" and "FUZE_LLM_PROVIDER" not in os.environ and env.get("CONTINUITY_LLM_PROVIDER") == "ollama":
+        default_model = "continuity-local"
+    endpoint = (env.get("FUZE_LLM_BASE_URL") or endpoint).rstrip("/")
+    model_name = (env.get("FUZE_LLM_MODEL") or default_model).strip()
     # A provider's own credential must win over a leftover generic key from a
     # previous deployment. Custom and legacy configurations still accept the generic key.
-    key = (os.environ.get(key_variable) if key_variable else None) or os.environ.get(API_KEY_ENV)
+    key = (env.get(key_variable) if key_variable else None) or env.get(API_KEY_ENV)
     if provider == "ollama":
         key = key or "ollama"
     if provider != "disabled":
         parsed = urlsplit(endpoint)
         if parsed.scheme not in {"http", "https"} or not parsed.hostname or parsed.username or parsed.password:
-            raise ValueError("CONTINUITY_LLM_BASE_URL must be an HTTP(S) URL without credentials")
+            raise ValueError("FUZE_LLM_BASE_URL must be an HTTP(S) URL without credentials")
         if not model_name:
-            raise ValueError("CONTINUITY_LLM_MODEL is required for a custom provider")
+            raise ValueError("FUZE_LLM_MODEL is required for a custom provider")
     return LLMConfig(provider, endpoint, model_name, key,
-                     integer("CONTINUITY_LLM_MAX_TOKENS", 4096, maximum=32768))
+                     integer("FUZE_LLM_MAX_TOKENS", 4096, maximum=32768))
 
 
 def base_url() -> str:
@@ -209,7 +213,7 @@ async def _complete_json(system: str, user: str, *, temperature: float, effort: 
             parameters["reasoning_effort"] = effort if effort in {"low", "medium", "high"} else "low"
             if schema:
                 parameters["response_format"] = {"type": "json_schema", "json_schema": {
-                    "name": "continuity_response", "strict": True, "schema": schema}}
+                    "name": "fuze_response", "strict": True, "schema": schema}}
     failure = "unusable response"
     context = current.get()
     async with AsyncOpenAI(api_key=config.key, base_url=config.base_url,
@@ -217,8 +221,8 @@ async def _complete_json(system: str, user: str, *, temperature: float, effort: 
         for attempt in range(attempts):
             reservation = (len(system) + len(user) + (len(json.dumps(schema)) if schema else 0)) // 3 + output_limit
             if context:
-                if (context.llm_calls >= integer("CONTINUITY_LLM_MAX_CALLS", 40, maximum=100)
-                        or context.llm_tokens + reservation > integer("CONTINUITY_LLM_TOKEN_BUDGET", 120000, maximum=1000000)):
+                if (context.llm_calls >= integer("FUZE_LLM_MAX_CALLS", 40, maximum=100)
+                        or context.llm_tokens + reservation > integer("FUZE_LLM_TOKEN_BUDGET", 120000, maximum=1000000)):
                     raise LLMUnavailable("The run's AI request or token budget is exhausted; unresolved work remains visible.")
                 context.llm_calls += 1
                 context.llm_tokens += reservation

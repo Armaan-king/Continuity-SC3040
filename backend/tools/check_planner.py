@@ -9,9 +9,9 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from continuity import llm
-from continuity.designs.context import current, ExecutionContext
-from continuity.planner import plan as planner
+from fuze import llm
+from fuze.designs.context import current, ExecutionContext
+from fuze.planner import plan as planner
 
 BRIEF = """Design a compact, battery-powered device that measures the light reaching a houseplant. Use an ambient-light sensor connected to a low-power microcontroller over I²C, a small OLED showing the current light level, one button to switch display modes, and an indicator LED.
 
@@ -25,10 +25,10 @@ async def main() -> int:
     if not config.enabled:
         print(json.dumps({"passed": False, "reason": "AI is not configured"}))
         return 1
-    os.environ["CONTINUITY_LLM_MAX_CALLS"] = "1"
-    os.environ["CONTINUITY_LLM_TOKEN_BUDGET"] = "10000"
-    os.environ["CONTINUITY_LLM_MAX_TOKENS"] = str(min(config.max_tokens, 4096))
-    os.environ["CONTINUITY_RESEARCH_ENABLED"] = "0"
+    os.environ["FUZE_LLM_MAX_CALLS"] = "1"
+    os.environ["FUZE_LLM_TOKEN_BUDGET"] = "10000"
+    os.environ["FUZE_LLM_MAX_TOKENS"] = str(min(config.max_tokens, 4096))
+    os.environ["FUZE_RESEARCH_ENABLED"] = "0"
     llm.MAX_ATTEMPTS = 1
     context = ExecutionContext("manual-planner-check")
     token = current.set(context)

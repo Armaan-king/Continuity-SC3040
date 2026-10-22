@@ -135,12 +135,12 @@ app.state.runs = RunManager()
 
 ORIGINS = [
     origin.strip()
-    for origin in os.environ.get(
-        "CONTINUITY_ORIGINS", "http://localhost:5173,http://localhost:5174"
+    for origin in env.get(
+        "FUZE_ORIGINS", "http://localhost:5173,http://localhost:5174"
     ).split(",")
     if origin.strip()
 ]
-"""Where the UI is served from. Set `CONTINUITY_ORIGINS` on any deployed instance.
+"""Where the UI is served from. Set `FUZE_ORIGINS` on any deployed instance.
 
 This used to be `["*"]`, which is not a tightening that could be left until deploy: a
 wildcard origin is **rejected outright** by browsers when credentials are allowed, and
@@ -639,7 +639,7 @@ async def walkthrough(request: Request) -> StreamingResponse:
     **Idempotent per account**, and it has to be. React re-runs effects in development, a
     refresh mid-tour would call it again, and two requests arriving together both read
     `onboarded_at IS NULL` before either commits. When that was a 409-or-create, a new
-    account reliably got *two* "Welcome to Continuity" projects, the first abandoned
+    account reliably got *two* "Welcome to FUZE" projects, the first abandoned
     mid-stream and left showing RUNNING for ever.
 
     So it looks for the walkthrough this account already has and replays into that thread.

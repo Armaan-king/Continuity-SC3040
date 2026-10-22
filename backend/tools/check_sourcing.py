@@ -11,17 +11,17 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from continuity import env, llm
-from continuity.designs.context import ExecutionContext, current
-from continuity.graph import sourcing
-from continuity.parts import evidence, research
+from fuze import env, llm
+from fuze.designs.context import ExecutionContext, current
+from fuze.graph import sourcing
+from fuze.parts import evidence, research
 
 
 async def main():
     env.load()
     # These caps affect this process only, never Render or the saved .env file.
-    os.environ.update(CONTINUITY_RESEARCH_MAX_CALLS="1", CONTINUITY_RESEARCH_BUDGET_USD="0.02",
-                      CONTINUITY_LLM_MAX_CALLS="1", CONTINUITY_EVIDENCE_MAX_PARTS="1")
+    os.environ.update(FUZE_RESEARCH_MAX_CALLS="1", FUZE_RESEARCH_BUDGET_USD="0.02",
+                      FUZE_LLM_MAX_CALLS="1", FUZE_EVIDENCE_MAX_PARTS="1")
     if not sourcing.web_enabled() or not llm.available():
         print(json.dumps({"error": "Live Exa and an AI provider must be configured; no request sent."}))
         return 1

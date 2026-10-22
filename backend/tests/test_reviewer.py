@@ -11,9 +11,9 @@ from dataclasses import replace
 
 import pytest
 
-from continuity import reviewer
-from continuity.engine import policy, rules
-from continuity.engine.models import Repair
+from fuze import reviewer
+from fuze.engine import policy, rules
+from fuze.engine.models import Repair
 from tests import parts
 from tests.boards import usb_board
 

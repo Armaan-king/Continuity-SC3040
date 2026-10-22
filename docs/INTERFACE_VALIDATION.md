@@ -32,9 +32,9 @@ The five skips are optional external-service tests. [Complete test output](valid
 
 ```powershell
 # Both URLs must point to a disposable test database, never production Neon.
-$env:CONTINUITY_TEST_DB = 'postgresql://USER:PASSWORD@127.0.0.1:55439/engine_tests'
-$env:DATABASE_URL = $env:CONTINUITY_TEST_DB
-$env:CONTINUITY_LIVE = '0'
+$env:FUZE_TEST_DB = 'postgresql://USER:PASSWORD@127.0.0.1:55439/engine_tests'
+$env:DATABASE_URL = $env:FUZE_TEST_DB
+$env:FUZE_LIVE = '0'
 backend/.venv/Scripts/python.exe -m pytest backend/tests -p no:cacheprovider --basetemp .local/pytest-interface-check -ra
 ```
 

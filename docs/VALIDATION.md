@@ -26,7 +26,7 @@ The five skips are opt-in external-service tests. One of those was subsequently 
 
 The basic-planning design selected three parts, emitted 17 checks, performed one repair, and saved a BOM. The final AI-assisted design selected three parts, emitted 17 checks, and completed without accepting any test warnings. Both verified saved-board retrieval, CSV export, project deletion, and session revocation. Completion means the workflow finished; individual rule results can still be unchecked or warning-level.
 
-The separate AI adapter test extracted the explicit 1.8–3.6 V range and produced a USB-powered regulator/MCU/sensor/display plan. The tested local configuration is `continuity-local`, created from Qwen 2.5 7B with an 8192-token context using [backend/Modelfile](../backend/Modelfile). No paid API key was used. This checks integration on representative prompts, not general model accuracy.
+The separate AI adapter test extracted the explicit 1.8–3.6 V range and produced a USB-powered regulator/MCU/sensor/display plan. The tested local configuration is `fuze-local`, created from Qwen 2.5 7B with an 8192-token context using [backend/Modelfile](../backend/Modelfile). No paid API key was used. This checks integration on representative prompts, not general model accuracy.
 
 The browser suite exercised login/logout, private projects, analytics, saved graph/BOM restoration, exports, the guided walkthrough, local-mode entry, and stream reconnection. PostgreSQL tests covered ownership, migrations, expired leases, stale-worker write rejection, persisted cursors, and run continuation.
 
@@ -53,7 +53,7 @@ python backend/tools/smoke_ai.py
 python backend/tools/smoke_deployment.py --url http://localhost:8000 --live-design
 ```
 
-Use the backend virtual environment interpreter. Set `CONTINUITY_TEST_DB` and `E2E_DATABASE_URL` to disposable databases. Configure Ollama before the AI smoke test. The deployment smoke creates test accounts and projects; with `--live-design`, it may explicitly accept up to three warnings on its disposable board to exercise question/resume behavior. It logs each such acceptance.
+Use the backend virtual environment interpreter. Set `FUZE_TEST_DB` and `E2E_DATABASE_URL` to disposable databases. Configure Ollama before the AI smoke test. The deployment smoke creates test accounts and projects; with `--live-design`, it may explicitly accept up to three warnings on its disposable board to exercise question/resume behavior. It logs each such acceptance.
 
 ## Remaining external setup and limitations
 

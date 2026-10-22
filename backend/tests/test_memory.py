@@ -1,4 +1,4 @@
-"""Continuity findings and the user-facing project/part memory."""
+"""FUZE findings and the user-facing project/part memory."""
 
 from __future__ import annotations
 
@@ -9,11 +9,11 @@ from contextlib import asynccontextmanager
 import httpx
 import pytest
 
-from continuity.api.app import _replay, _run, _run_bom, app
-from continuity.api.events import EventStream
-from continuity.api.memory import Finding, FindingRecorder
-from continuity.api.store import Store
-from continuity.engine.models import PartSpec
+from fuze.api.app import _replay, _run, _run_bom, app
+from fuze.api.events import EventStream
+from fuze.api.memory import Finding, FindingRecorder
+from fuze.api.store import Store
+from fuze.engine.models import PartSpec
 
 
 def test_a_repair_records_the_original_and_replacement_part():
@@ -140,7 +140,7 @@ class _ConflictGraph:
 def test_a_run_without_a_store_finishes_without_persisting_findings():
     async def go():
         thread_id = "no-store-findings"
-        from continuity.api import app as app_module
+        from fuze.api import app as app_module
 
         app_module.FINDING_RECORDERS.clear()
         app_module.STREAMS[thread_id] = EventStream(thread_id)
@@ -178,7 +178,7 @@ class _RecordingStore:
 
 def test_the_design_stream_persists_its_recorded_findings():
     async def go():
-        from continuity.api import app as app_module
+        from fuze.api import app as app_module
 
         thread_id = "design-findings"
         store = _RecordingStore()
@@ -199,7 +199,7 @@ def test_the_walkthrough_replay_persists_its_recorded_findings(monkeypatch):
         {"type": "bom", "rows": []},
         {"type": "done", "summary": {"slots": 1, "placed": 1, "conflicts_resolved": 0, "elapsed_s": 0}},
     ]
-    monkeypatch.setattr("continuity.api.app.walkthrough_frames", lambda: frames)
+    monkeypatch.setattr("fuze.api.app.walkthrough_frames", lambda: frames)
 
     async def go():
         store = _RecordingStore()
@@ -218,7 +218,7 @@ def test_the_bom_validation_stream_persists_its_recorded_findings(monkeypatch):
         yield {"type": "bom", "rows": []}
         yield {"type": "done", "summary": {"slots": 1, "placed": 1, "conflicts_resolved": 0, "elapsed_s": 0}}
 
-    monkeypatch.setattr("continuity.api.app.bom.validate_bom", events_in)
+    monkeypatch.setattr("fuze.api.app.bom.validate_bom", events_in)
 
     async def go():
         store = _RecordingStore()
@@ -233,7 +233,7 @@ def test_the_bom_validation_stream_persists_its_recorded_findings(monkeypatch):
 
 def test_the_bom_validation_stream_persists_its_placed_part_facts(monkeypatch):
     async def events_in(_rows, _stream, _brief):
-        from continuity.api import bom as bom_module
+        from fuze.api import bom as bom_module
 
         observer = bom_module._placed_parts_observer.get()
         assert observer is not None
@@ -251,7 +251,7 @@ def test_the_bom_validation_stream_persists_its_placed_part_facts(monkeypatch):
         yield {"type": "bom", "rows": []}
         yield {"type": "done", "summary": {"slots": 1, "placed": 1, "conflicts_resolved": 0, "elapsed_s": 0}}
 
-    monkeypatch.setattr("continuity.api.app.bom.validate_bom", events_in)
+    monkeypatch.setattr("fuze.api.app.bom.validate_bom", events_in)
 
     async def go():
         store = _RecordingStore()
@@ -261,8 +261,8 @@ def test_the_bom_validation_stream_persists_its_placed_part_facts(monkeypatch):
     assert asyncio.run(go()) == [("TPS54331DR", "package", "SOIC-8", None)]
 
 
-DB_URL = os.environ.get("CONTINUITY_TEST_DB")
-database = pytest.mark.skipif(not DB_URL, reason="set CONTINUITY_TEST_DB to run memory tests")
+DB_URL = os.environ.get("FUZE_TEST_DB")
+database = pytest.mark.skipif(not DB_URL, reason="set FUZE_TEST_DB to run memory tests")
 
 
 @asynccontextmanager
@@ -342,8 +342,8 @@ def test_the_acceptance_pattern_matches_the_message_the_run_actually_emits():
     emitter here means a rewording breaks this test rather than silently recording every
     waived finding as unresolved, which nothing else would catch.
     """
-    from continuity.api.memory import _ACCEPTED
-    from continuity.graph.nodes import acceptance_message
+    from fuze.api.memory import _ACCEPTED
+    from fuze.graph.nodes import acceptance_message
 
     message = acceptance_message("temperature_rating", "WiFi BLE MCU")
     match = _ACCEPTED.match(message)
@@ -364,8 +364,8 @@ def test_a_conflicts_first_involved_slot_is_its_subject():
     is its subject used to render twice — so nothing currently protects the recorder from
     it being changed. This test does.
     """
-    from continuity.api import events
-    from continuity.engine.models import Verdict
+    from fuze.api import events
+    from fuze.engine.models import Verdict
 
     verdict = Verdict(
         rule="thermal_dissipation",

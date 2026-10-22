@@ -1,201 +1,533 @@
-# FUZE
+<div align="center">
+  <h1>FUZE</h1>
+  <p><strong>From an electronics idea to a design you can inspect, question and refine.</strong></p>
+  <p>Component discovery · Evidence-backed checks · Guided repairs · Saved revisions</p>
+  <p>
+    <a href="https://continuity-sc3040.onrender.com">Open the app</a> ·
+    <a href="#walk-through-fuze">Watch the workflow</a> ·
+    <a href="#start-locally">Run locally</a> ·
+    <a href="docs/DEPLOYMENT.md">Deployment guide</a>
+  </p>
+</div>
 
-FUZE turns a circuit-board brief or an existing bill of materials into a workspace for sourcing parts, checking electrical constraints, and reviewing repairs. Follow a design from its first description through the board graph, supporting evidence, saved revisions, and an exported BOM.
+FUZE turns a plain-language electronics brief or an existing bill of materials into an interactive component graph, a validation report and an exportable BOM. It combines AI planning, catalogue and web sourcing, and deterministic electrical rules to help you find conflicts and understand what still needs evidence.
 
-[Open the app](https://continuity-sc3040.onrender.com) · [Run locally](#start-locally) · [Deployment guide](docs/DEPLOYMENT.md)
+**Best suited to:** component-level electronics concepts, sensor boards, small embedded devices and early BOM reviews. A completed run means the modeled checks have finished; it does not certify a working physical circuit.
 
-**Demo availability:** The app runs on Render's free tier and is not always immediately available. It sleeps after 15 minutes without traffic and usually takes about a minute to wake when you visit. Please allow the initial loading page to finish. [Render's free-service behavior](https://render.com/docs/free#spinning-down-on-idle).
+> **Demo availability:** The hosted app uses Render's free tier and is not always immediately available. It sleeps after 15 minutes without traffic and typically takes about a minute to wake. Allow the initial loading page to finish. [Render's free-service behavior](https://render.com/docs/free#spinning-down-on-idle).
 
-## Walk through the app
+## Explore
 
-Start with a brief, follow the checks, inspect the evidence, then refine and save your design. Each preview below opens a video of that part of the workflow.
+[Walkthrough](#walk-through-fuze) · [Pipeline](#how-the-pipeline-works) · [Validation](#checks-evidence-and-unknowns) · [Local setup](#start-locally) · [AI and research](#configure-ai-and-research) · [Hosting](#hosting) · [Architecture](#architecture-and-data) · [Verification](#verification)
 
-### 1. Get to know the workspace
+## Walk through FUZE
 
-Create an account to keep your projects private and saved. The guided walkthrough introduces the three-panel workspace: the component graph, validation trace, and bill of materials. Finish or skip it to reach your projects.
+Follow the same path you would in the app: start a project, source parts, inspect the findings, revise the design and return to saved work. Each preview below opens a video.
 
-[![The guided walkthrough introduces the graph, trace, and bill of materials](docs/media/walkthrough.gif)](docs/media/guided-walkthrough.mp4)
+### 1. Get familiar with the workspace
 
-*Watch: account creation and the guided introduction. The walkthrough replays a recorded example with historical parts and prices.*
+Create an account to save private projects. The guided introduction explains the three connected views:
 
-### 2. Describe a board or bring a BOM
+| View | What it helps you understand |
+| --- | --- |
+| **Component graph** | The selected components, modeled power and signal connections, and where a conflict occurs. |
+| **Validation trace** | What the run searched, selected, checked and attempted to repair, including provider activity. |
+| **Bill of materials** | Resolved part numbers, quantities, available pricing and CSV export. |
 
-Choose **New project** and describe what you want to build. Include the supply, functions, operating conditions, and production quantity when known. Try `USB temperature and humidity sensor` as a small first project. If you already have a parts list, attach a `.csv` or `.txt` BOM of up to 1 MB and 100 parts; a brief is optional for an uploaded BOM.
+[![Guided introduction to the graph, validation trace and bill of materials](docs/media/walkthrough.gif)](docs/media/guided-walkthrough.mp4)
 
-As the run progresses, parts appear in the graph and the trace explains sourcing, checks, and proposed repairs. Answer clarification questions when the run needs input. A failed answer submission stays available to retry.
+*Watch: account creation and the guided workspace introduction. This walkthrough replays a recorded example with historical parts and prices.*
 
-With Exa configured, normal sourcing searches independent manufacturer and distributor pages **alongside JLCPCB**, within your research allowance. A web product does not need a JLCPCB listing to enter the shortlist. Up to three candidates are compared against the board before selection, including requested functions marked as pinned. The timeline identifies the sources considered, the selected product, actual API responses, cache reuse and budget limits. Missing availability or specifications stay unknown.
+### 2. Describe a device or import a BOM
 
-[![A project workspace with sourced parts, validation findings, and a bill of materials](docs/media/workspace.png)](docs/media/project-workflow.mp4)
+Choose **New project** and describe what you want to build. You can start naturally:
 
-*Watch: a project from its brief through sourcing, checks, export, and reopening. This recording uses the real local app, live distributor lookup, and basic planning with AI disabled.*
+> I want a small USB-powered desk monitor that measures temperature and humidity and shows the readings on a display.
 
-The project gets a short name derived from your brief, while the full description remains saved. **Rename project** lets you choose your own name, which carries through the workspace, project list, and memory.
+Add supply voltage, operating temperature, production quantity or other constraints when you know them. FUZE creates a short project name while preserving the full brief. **Rename project** keeps your chosen name consistent across the workspace, projects and memory.
 
-### 3. Inspect the checks and their evidence
+Already have components in mind? Upload a **CSV or text BOM**, up to **1 MB and 100 part rows**. Quantities are retained; an accompanying brief is optional. A parts list does not establish the wiring, so inferred power and signal connections need review.
 
-After a run completes, open **Review design**. The report shows a visual check summary, questions about your design intent, and evidence tasks grouped by component. Filter **PASS**, **FAIL**, and **UNKNOWN** results or search for a component. Accepted failures retain their original result. Zero failures does not mean the board is ready when checks remain unknown.
+**Sourcing covers both catalogue and web candidates.** With Exa configured, normal searches look beyond JLCPCB, including manufacturer and distributor pages. An external product can enter the shortlist without a JLCPCB/LCSC listing. FUZE compares up to three eligible candidates against the current board, then shows the selection and its available evidence. Unsupported stock, prices and specifications stay unknown.
 
-Questions ask for missing or unconfirmed requirements, such as battery capacity, runtime, operating temperature and current margin. Values already inferred by the planner are labelled as proposals to confirm. Supplier search cannot decide your intended operating conditions. Missing component measurements stay unknown until supported by evidence; a missing current is never presented as zero draw or 100% available headroom.
+[![Project sourcing, component graph, validation findings and bill of materials](docs/media/workspace.png)](docs/media/project-workflow.mp4)
 
-Missing controller interface data also stays **UNKNOWN**, rather than becoming a claimed incompatibility. Explicit IIC, I²C, I₂C and TWI specifications are recognized as I²C. Research now extracts proposed facts from manufacturer documents and checks the passages and component identity before admitting them to the rules. Conflicting or conditional claims stay visible for review.
+*Watch: create a project, source parts, inspect checks, export and reopen it. This recording uses live distributor lookup with basic planning and AI disabled.*
 
-The engine checks measurement consistency and power topology before calculating electrical limits. It follows loads through cascaded rails, includes BOM quantities, checks converter direction, and budgets GPIO separately for declared signal nets. Missing measurements, ambiguous connections, and typical-only current figures stay visible as uncertainty. Repairs use the actual board requirements and compare replacements against the whole board, while avoiding components already tried in that run.
+### 3. Review the findings and close information gaps
 
-When Exa research is enabled, supporting documents include source links, retrieved text, and verification labels. Evidence cards distinguish facts **used by checks**, **conflicting claims excluded from checks**, and claims that **need review**. Source checks apply to individual facts, not the whole document. Under **Requirements**, confirm the power and signal connections against your circuit, then save to revalidate.
+Open **Review design** after a completed run. The review brings together the check distribution, component findings, requirement questions and source evidence. Search by component or filter **PASS**, **FAIL** and **UNKNOWN** outcomes. The distribution graphic is a count of results, not an AI confidence score.
 
-[![Retrieved source text, attribution, verification labels, and validation limits](docs/media/research-connections-poster.png)](docs/media/research-connections.mp4)
+The next action depends on what is missing:
 
-*Watch: inspect an actual Exa retrieval, declare an I²C connection, and rerun checks. The reference board uses historical supplier data; the retrieved text stays marked **Requires verification**.*
+| Missing information | How FUZE handles it |
+| --- | --- |
+| **Your design intent** | Asks about runtime, operating temperature, current margin and other applicable requirements. Inferred or assumed values are labelled for confirmation. |
+| **A component specification** | Groups evidence tasks by component and identifies the datasheet facts needed to evaluate the affected checks. |
+| **A power or signal connection** | Directs you to **Requirements** to review the power tree and declare controller/peripheral connections. |
+| **An exact component** | Keeps the unresolved function visible and directs you back to the workspace. |
 
-### 4. Refine, compare, and export
+Use suggested answers, **Write your own**, or **Not sure yet**. Example choices describe possible goals; they are not measured component facts. A battery's capacity must come from the selected battery, and supplier search cannot decide how long you want the device to run.
 
-During a paused run, **Choose a different component** lets you change any slot, including the controller or power supply behind a peripheral conflict. Choose a known candidate or restore a previous selection, then **Try & revalidate**. Previously retrieved web alternatives remain available without another search. The whole board is checked again. If the choice fails, it stays visible and you can choose again; the automatic repair limit does not block explicit user swaps. [Recovery verification and limits](docs/RECOVERY_VALIDATION.md).
+**Confirm all & revalidate** saves all filled values, including displayed proposals, in one revision. Blank fields remain open. You can also confirm a single answer. Invalid batches do not partially save, and failed saves retain your entries.
 
-**Search for more components** searches the enabled sources again, excluding previously considered identifiers. **Research alternatives with Exa** offers an explicit web comparison, retrieving up to two source documents and presenting identified products with source links before you select one. Both actions share the run's remaining research allowance. These are trial candidates: stock, price and unsupported specifications remain unknown. **Redesign the device**, or a written revision instruction, requests a new structural plan while preserving confirmed requirements and reusable parts. The graph is replaced with that plan and revalidated. If AI cannot apply the instruction, the existing board stays in place and the reason is shown. A missing controller is addressed directly instead of repeatedly replacing its peripherals. Empty searches also pause for a decision rather than silently dropping the function.
+For a written answer, **None of these? Describe a change** asks the configured model to propose supported requirement values. You review the preview and choose **Use these answers** before confirming. Unsupported requests are identified. Direct form answers and suggested options need no AI call.
 
-Choose an example target on each review question, select **Write your own**, or choose **Not sure yet** to leave it open. The choices describe your design goals; battery capacity still needs the selected battery's actual rating. **None of these? Describe a change** lets you answer the open questions in your own words. The configured AI provider previews exact values and flags requests it cannot apply. **Use these answers** puts them into the form for review without saving. Options and direct answers work without AI calls.
+[![Source documents, evidence labels and declared signal connections](docs/media/research-connections-poster.png)](docs/media/research-connections.mp4)
 
-Choose **Confirm all & revalidate** to save every filled value in one revision, including displayed proposals. Blank fields stay unanswered. You can also confirm one question individually or edit constraints under **Requirements**. Invalid answers block the entire batch, and failed saves retain every entry for retry. The app returns to the planning workspace with the revised graph, BOM and checks loaded; **Review design** brings you back to the remaining questions. **Revision history** lets you compare saved versions or restore an earlier design as a new, revalidated revision.
+*Watch: inspect retrieved Exa text, declare an I²C connection and revalidate. The recording retains the document's Requires verification label; displaying a document alone does not establish its specifications.*
 
-[![Change a requirement, inspect the resulting conflict, and compare saved revisions](docs/media/design-review.gif)](docs/media/design-review.mp4)
+### 4. Repair, redesign and compare
 
-*Watch: answer a question, return to the revised workspace, change the supply from 3.3 V to 5 V, inspect the new conflict, compare revisions, restore the earlier design, and export its report and BOM.*
+A conflict pauses the workflow for a decision when automatic repair cannot resolve it. The available controls let you address the component or connection responsible:
 
-Review the selected parts, prices, failures, and unchecked facts before exporting. The graph, current check trace, report, and BOM exports use the same saved design revision. Saving requirements rechecks the existing components; it does not silently launch a new AI sourcing run or replace them. Existing projects remain readable; versioned reports begin with new completed runs.
+| Action during a paused run | What happens |
+| --- | --- |
+| **Choose a different component** | Select a candidate for any slot, including a controller or supply behind another component's conflict. Previous selections can also be restored. |
+| **Try & revalidate** | Apply your choice and check the whole board again. A failed trial stays visible, and you can choose again beyond the automatic retry limit. |
+| **Search for more components** | Search the enabled sources again, excluding previously considered identifiers. |
+| **Research alternatives with Exa** | Run an explicit web comparison and present identified products with supporting passages and source links before selection. |
+| **Redesign the device** | Request a new structural plan, or describe the change yourself. Confirmed requirements and reusable parts are preserved where applicable. |
+| **Accept a finding or stop** | Record an explicit acceptance where offered, or stop to change the brief. An accepted failure retains its original result. |
 
-### 5. Return to your work
+These controls operate in **paused runs**. They do not guarantee a feasible replacement exists. Empty searches pause too; continuing without a part leaves an unresolved function.
 
-Reopen a saved project to restore its board, trace, and BOM. **Memory** connects parts, boards, and earlier findings; **Analytics** summarizes validation outcomes across your designs. The [project workflow video](docs/media/project-workflow.mp4) also follows these steps after export.
+Written redesign instructions are validated before application. A valid redesign replaces the graph and reruns the checks. An unavailable, invalid or unchanged proposal leaves the existing design in place with an explanation. A missing controller can be addressed directly instead of repeatedly replacing its peripherals.
 
-Closing the browser does not cancel a server-side run. The event stream reconnects from its saved position, and eligible interrupted runs can recover from checkpoints. Use **Stop** to cancel, and wait for **Stopped** before starting another design. **Stopping…** means confirmation is pending; **Retry Stop** means it failed and the run may still be active. Recovery behavior and its limits are covered in the [verification report](docs/ARCHITECTURE_VALIDATION.md), with [cancellation checks](docs/CANCELLATION_VALIDATION.md) documented separately.
+For a completed design, **Requirements** edits revalidate the saved component snapshot. They do not silently start another sourcing run. Successful edits return you to the planning workspace with the revised graph, BOM and results loaded.
 
-All four videos were captured against the local app with PostgreSQL and AI planning disabled. The evidence and revision clips use a reference board that retains its remaining failures and unknowns. [Recording details, chapters, and reproduction](docs/media/README.md).
+[![Requirement edits, changed findings, revision comparison and export](docs/media/design-review.gif)](docs/media/design-review.mp4)
 
-These recordings predate the FUZE rename, so their branding differs from the current app.
+*Watch: answer a requirement question, return to planning, change the supply, inspect the resulting conflict, compare revisions, restore and export.*
 
-## Capabilities and limits
+**Revision history** compares saved versions. Restoring an earlier version creates a new, revalidated revision rather than erasing history. The selected revision's graph, review report and CSV/JSON exports share the same saved design and evidence.
 
-FUZE assists design review. Compatibility verdicts come from Python rules; missing specifications remain unchecked, and accepted failures remain visible. Exa retrieves supporting documents, while admitted research facts require manufacturer-source and identity checks, supporting passages and independent parsing. A completed run is not a manufacturing certification.
+### 5. Reopen projects and learn from past runs
 
-Fresh sourcing needs internet access, and supplier availability and prices can change after a run. The recordings identify historical data where it is used. The supported deployment uses one backend worker; load testing and multi-replica operation are outside the current verification.
+**Projects** restores saved boards, traces and BOMs. **Memory** connects parts to earlier boards and findings. **Analytics** summarizes rule outcomes, repair effectiveness, recurring conflicts and supply exposure. Analytics excludes unfinished runs and the guided example; rates can be withheld when unchecked results dominate.
+
+Closing the browser disconnects the view, not the server-side run. Reopening reconnects to saved events. Use **Stop** to cancel: **Stopping…** means acknowledgement is pending, **Stopped** confirms cancellation, and **Retry Stop** means the request failed and work may still be active.
+
+<details>
+<summary><strong>About the recordings</strong></summary>
+
+All four videos were captured locally with PostgreSQL and AI planning disabled. The guided example and reference boards contain historical data; the project workflow used live distributor lookup. The research clip reuses an actual Exa retrieval and retains its verification status.
+
+The recordings predate the FUZE rename and later sourcing/recovery additions. They illustrate the core workflow, not every capability described here or the exact version currently deployed. See [recording provenance, chapters and reproduction](docs/media/README.md).
+
+</details>
+
+## How the pipeline works
+
+The model, search services and rules have separate responsibilities.
+
+| Layer | Responsibility |
+| --- | --- |
+| **Groq or another configured model** | Interpret the brief, propose a structured plan, classify ambiguous roles, locate specification passages, suggest repairs and interpret written changes. |
+| **JLCPCB catalogue through the [pcbparts.dev adapter](backend/continuity/parts/mcp.py)** | Retrieve catalogue identities, structured specifications, available stock and prices. |
+| **Exa Search and Contents** | Discover products across the web and retrieve source documents, including products outside the catalogue. |
+| **Python parsers and evidence checks** | Normalize units and protocols, establish source applicability, and decide which extracted facts can enter validation. |
+| **Deterministic rule engine** | Evaluate the board model and explain passes, failures, warnings and unknowns. |
+| **You** | Confirm design intent, review ambiguous evidence, select alternatives and decide whether to accept a finding. |
+
+~~~mermaid
+flowchart TD
+    Input["Brief or imported BOM"] --> Plan["Structured requirements and board model"]
+    Plan --> Sources["Catalogue and Exa discovery"]
+    Sources --> Evidence["Normalize specifications and check source evidence"]
+    Evidence --> Compare["Compare candidates against the board"]
+    Compare --> Rules["Run deterministic checks"]
+    Rules -->|Conflict or unresolved choice| Decision["Repair proposal or user decision"]
+    Decision -->|Try a saved candidate| Compare
+    Decision -->|Search again| Sources
+    Decision -->|Redesign| Plan
+    Rules -->|Run completed| Revision["Save design revision, report and BOM"]
+    Revision --> Edit["Confirm requirements or connections"]
+    Edit -->|Revalidate saved components| Rules
+~~~
+
+**Planning.** The planner uses a versioned prompt and structured schema. Local checks validate referenced slots and rails and preserve explicitly requested functions. Battery operation is distinguished from USB charging. Missing battery capacity and runtime targets remain unanswered. Supported Groq GPT-OSS models use [strict structured output](https://console.groq.com/docs/structured-outputs); schema validity still does not prove a circuit is correct.
+
+**Discovery and selection.** Catalogue and Exa searches contribute independently when enabled and within budget. Normal web discovery requests up to four pages and two identified products per slot. Candidate identity includes manufacturer and model, and external-only products retain their source links. Up to three candidates are evaluated against the same board; hard failures and unknowns rank ahead of commercial preferences. Requested functions marked as pinned also receive an initial comparison.
+
+Web discovery establishes product identity and supporting source text; it is not an exhaustive electrical comparison of every search result. Setting `CONTINUITY_FIXTURES=1` explicitly selects recorded supplier fixtures instead of live inventory lookup.
+
+**Evidence enrichment.** The leading candidate can receive additional research, then be revalidated and reranked. At most one fallback is researched within the same allowance. Completed parsing and research are reused during comparison. A source search returning HTTP 200 does not mean it produced usable products or admitted specifications.
+
+**Repair.** The reviewer can propose a swap, changed power topology, added part, rail adjustment or requirement change. The rules evaluate the result. Automatic repair is bounded; further explicit user choices are available when it pauses. Reusing a retrieved alternative does not require another web search.
+
+**Persistence.** Generated boards, imported BOMs and later edits use a shared design-validation service. It creates the saved revision used by the review, board view and exports. Revalidation of requirements and connections uses those saved facts without new research charges.
+
+## Checks, evidence and unknowns
+
+### What the engine evaluates
+
+Checks apply only when the model contains the necessary components, connections and conditions.
+
+| Check | Scope |
+| --- | --- |
+| **Data integrity** | Invalid, contradictory or unusable measurements and requirements. |
+| **Power topology** | Incomplete or ambiguous power trees and converter direction. |
+| **Voltage overlap** | Component operating ranges and regulator output coverage for modeled rails. |
+| **Interface role match** | Declared protocol support and controller/peripheral roles. |
+| **Pin budget** | Available GPIO and modeled signal demand, including declared nets and chip-select pressure. |
+| **Current budget** | Load quantities, margins and demand propagated through cascaded rails. |
+| **Thermal dissipation** | Conversion losses and estimated temperature rise under stated assumptions. |
+| **Availability** | Exact component resolution, published stock, lifecycle and lead-time information where available. |
+| **Temperature rating** | Published operating ratings against the requested temperature range. |
+| **Footprint** | Individual component package dimensions against a requested limit. |
+| **Energy budget** | Estimated battery runtime from stated capacity and modeled demand. |
+| **Rail coverage** | Components missing from the modeled power connections. |
+
+These checks are implemented in [the engine](backend/continuity/engine), independently of the model provider.
+
+### Read the results correctly
+
+| Result | Meaning |
+| --- | --- |
+| **PASS** | The modeled constraint is satisfied using the available facts and assumptions. Inspect any warning detail and the validation scope. |
+| **FAIL** | The model has a concrete incompatibility under the supplied conditions. |
+| **UNKNOWN** | Required evidence, a connection or an operating condition is missing or contradictory. This is not a pass. |
+| **Accepted finding** | A user decision is recorded; the original outcome remains visible. |
+| **Not applicable** | The rule emitted no applicable result for this model. It is not added to the pass count. |
+
+Missing current is not zero current. Missing controller interface data is not proof that the interface is absent. Typical-only current, assumed efficiency and unconfirmed power connections can leave dependent results unknown even when a partial calculation looks acceptable.
+
+The review separates **requirements you can answer** from **facts that need evidence**. It does not copy a supplier's operating limits into your design goals just to make the checks pass. Requirements retain their stated, inferred, assumed or confirmed basis.
+
+### How retrieved text becomes a usable fact
+
+Exa retrieves source material. The configured model can propose claims from that text. A separate admission process checks each proposed fact:
+
+1. **Publisher:** Is the source a recognized manufacturer domain for this component?
+2. **Identity:** Does the document apply to the exact ordering code or, where permitted, its manufacturer family?
+3. **Passage:** Is the supporting quotation present in retrieved full text?
+4. **Measurement:** Can code independently parse the stated parameter, units and value?
+5. **Conditions:** Is it an operating specification, rather than an absolute maximum, storage rating, optional capability or unsupported condition?
+6. **Consistency:** Does it conflict with other admitted evidence?
+
+Exact-part evidence is required for numeric and package-dependent facts. A supplier-linked manufacturer family datasheet may establish positive interface support. Unknown publishers, ambiguous variants, snippets alone and unparseable tables remain reviewable leads.
+
+Admitted facts retain the URL, passage, retrieval time, document hash, identity basis and validator version. Conflicting measurements invalidate the affected field or range and produce an unknown finding. Evidence cards distinguish **facts used by checks**, **conflicting claims excluded from checks**, and **claims needing review**.
+
+Current and efficiency extracted from research remain review-only in this implementation because operating-mode and load matching are not yet implemented. Source admission checks attribution and parsing; it does not independently measure hardware.
+
+### Protocol and unit normalization
+
+The parser recognizes explicit I2C, IIC, I²C, I₂C and TWI forms, as well as supported Unicode units and range formatting. Original source strings are retained. USART can establish asynchronous UART support; the reverse does not establish synchronous USART capability. CAN-FD remains distinct from CAN.
+
+Part numbers are not fuzzy-matched. Unknown names, ambiguous numbers and suspected typos remain unresolved rather than being silently converted to a different specification. [Source and parsing verification](docs/SOURCE_FACTS_VALIDATION.md).
+
+### What still needs engineering review
+
+FUZE does not verify pin-by-pin schematic wiring, signal timing, PCB routing, physical footprints against a finished layout, enclosure fit or manufacturing readiness. Package-size checks apply to components, not total board dimensions.
+
+Battery discharge range, sleep/alarm duty cycles, charger load sharing, protection and real thermal conditions need separate analysis. One nominal power tree does not establish every operating mode. Broad web discovery also does not add complete validation models for arbitrary server modules, RAM assemblies or other complex systems.
+
+Stock and prices are snapshots. A BOM subtotal excludes items without prices. Zero failures, an accepted risk or a completed run should always be read alongside remaining unknowns and validation scope.
 
 ## Start locally
 
+### Docker: app and database together
+
 Install Docker Desktop, then run from the repository root:
 
-```sh
+~~~sh
 docker compose up --build
-```
+~~~
 
-Open **http://localhost:8000**. This starts the app and a persistent local PostgreSQL database. Sign up to save projects. Compose credentials are for local development only. AI is disabled by default; no API key is needed to start.
+Open **http://localhost:8000** and create an account. [compose.yaml](compose.yaml) starts the application and a persistent local PostgreSQL database. AI is disabled by default, so no model key is needed to start. Fresh supplier lookup still requires internet access.
 
-To stop the local services while keeping the database volume, run `docker compose down`.
+~~~sh
+docker compose down
+~~~
 
-For development without the app container, see [backend setup](backend/README.md) and [frontend setup](frontend/README.md). Python 3.13 and Node 24 are the reference runtimes. Without `DATABASE_URL`, the app provides a temporary, single-user workspace without accounts or saved projects; restarting loses its data. Production refuses to start without a database.
+This stops the services while retaining the database volume. Compose credentials are for local development.
 
-## AI options
+<details>
+<summary><strong>Develop with Python and Vite separately</strong></summary>
 
-The Python rule engine makes the compatibility decisions. Optional AI plans functional blocks, classifies ambiguous component roles, proposes repairs, interprets clarification answers and locates specification passages. Measurements and interfaces come from parsed supplier data or source-checked manufacturer research. The app uses an OpenAI-compatible client protocol; that does not mean it calls OpenAI.
+The reference runtimes are **Python 3.13**, **Node 24** and **PostgreSQL 16**.
 
-The configured model (Groq by default for hosting) can suggest a repair, and Exa can retrieve supporting documents or help discover alternatives. The deterministic engine checks the resulting parts and connections. Its checks still run when the model is unavailable; basic planning remains limited and needs review. Changing the AI provider later does not replace the electrical rules.
+From the repository root:
 
-| Mode | Configuration | API key |
+~~~sh
+python -m venv backend/.venv
+npm ci --prefix frontend
+docker compose up -d database
+~~~
+
+Install the backend with its virtual-environment interpreter.
+
+**Windows PowerShell**
+
+~~~powershell
+backend/.venv/Scripts/python.exe -m pip install -r backend/requirements.lock
+backend/.venv/Scripts/python.exe -m pip install --no-deps -e backend
+Copy-Item backend/.env.example backend/.env
+~~~
+
+**macOS / Linux**
+
+~~~sh
+backend/.venv/bin/python -m pip install -r backend/requirements.lock
+backend/.venv/bin/python -m pip install --no-deps -e backend
+cp backend/.env.example backend/.env
+~~~
+
+Configure the local database in `backend/.env`:
+
+~~~dotenv
+DATABASE_URL=postgresql://continuity:local-development-only@localhost:5432/continuity
+~~~
+
+Start the API with `backend/.venv/Scripts/python.exe -m continuity --api-only --reload` on Windows, or `backend/.venv/bin/python -m continuity --api-only --reload` on macOS/Linux. In a second terminal:
+
+~~~sh
+npm run dev --prefix frontend
+~~~
+
+Vite proxies `/api` to port 8000. After building the frontend, `python -m continuity` serves the combined app. Use the virtual-environment interpreter for that command too.
+
+Without `DATABASE_URL`, development mode is temporary and single-user: there are no accounts, durable projects or restart recovery. Production requires PostgreSQL. See [backend setup](backend/README.md) and [frontend setup](frontend/README.md).
+
+</details>
+
+## Configure AI and research
+
+### Where settings belong
+
+| How you run FUZE | Server configuration location |
+| --- | --- |
+| Python directly | `backend/.env` |
+| Docker Compose | Root `.env`; [compose.yaml](compose.yaml) defines which variables are forwarded |
+| Hosted Render service | **Environment** in the Render dashboard |
+
+FUZE retains the internal Python package name `continuity` and the `CONTINUITY_*` settings for compatibility. Use those identifiers exactly. Provider keys belong on the server, never in browser code or `VITE_*` variables.
+
+### Groq and Exa
+
+This repository's Render configuration selects Groq's **`openai/gpt-oss-120b`**. Exa is configured independently.
+
+~~~dotenv
+CONTINUITY_LLM_PROVIDER=groq
+CONTINUITY_LLM_MODEL=openai/gpt-oss-120b
+CONTINUITY_LLM_BASE_URL=https://api.groq.com/openai/v1
+CONTINUITY_LLM_MAX_TOKENS=4096
+GROQ_API_KEY=your-private-groq-key
+
+CONTINUITY_RESEARCH_ENABLED=1
+EXA_API_KEY=your-private-exa-key
+~~~
+
+Ensure the model is allowed by both the Groq organization and the project that owns the key. Creating a key does not override [model permissions](https://console.groq.com/docs/model-permissions). Remove stale model or endpoint overrides when changing providers.
+
+A board uses multiple requests. Free-plan eligibility, account billing and available quotas are separate; check [Groq's limits](https://console.groq.com/docs/rate-limits) and your own account. FUZE's client uses an OpenAI-compatible protocol, which does not mean the requests go to OpenAI.
+
+### Other supported modes
+
+| Provider setting | Purpose | Credential |
 | --- | --- | --- |
-| Basic rules | `CONTINUITY_LLM_PROVIDER=disabled` | None |
-| Local Ollama | `CONTINUITY_LLM_PROVIDER=ollama` | None; download a model locally |
-| Groq GPT-OSS 120B | `CONTINUITY_LLM_PROVIDER=groq`, `GROQ_API_KEY` | Required; Free Plan quotas apply |
-| Gemini 3.8 Flash | `CONTINUITY_LLM_PROVIDER=gemini`, `GEMINI_API_KEY` | Required; provider quotas apply |
-| Existing Z.ai setup | `CONTINUITY_LLM_PROVIDER=zai`, `ZAI_API_KEY` | Required |
-| Compatible endpoint | `custom`, base URL, model, generic key | Provider-dependent |
+| `disabled` | Limited rule-based planning and deterministic checks | None |
+| `ollama` | Local model inference | No hosted key required |
+| `gemini` | Google's OpenAI-compatible endpoint | `GEMINI_API_KEY` |
+| `zai` | Z.ai model endpoint | `ZAI_API_KEY` |
+| `custom` | A compatible endpoint with an explicit base URL and model | `CONTINUITY_LLM_API_KEY`, when required |
+| `auto` | Select a configured Groq, Gemini or Z.ai key; otherwise basic mode | Provider-specific |
 
-For a local AI server, create the tested Qwen 2.5 7B configuration (about a 4.7 GB download, with an 8192-token context):
+See [provider defaults](backend/continuity/llm.py) and [environment examples](backend/.env.example). Model availability is controlled by the provider. Basic planning supports a limited vocabulary and keeps its limitations visible; it is not equivalent to a successful AI plan.
 
-```sh
+<details>
+<summary><strong>Run a local model with Ollama</strong></summary>
+
+The repository includes a Qwen 2.5 7B configuration with an 8,192-token context:
+
+~~~sh
 ollama pull qwen2.5:7b
 ollama create continuity-local -f backend/Modelfile
-```
+~~~
 
-Set `CONTINUITY_LLM_PROVIDER=ollama` in `backend/.env` when running Python directly. For the Docker app, set it in the root `.env` together with `CONTINUITY_LLM_BASE_URL=http://host.docker.internal:11434/v1`. Run Ollama on the host and allow the container to reach it. Do not try to run a model inside the free Render container.
+Set `CONTINUITY_LLM_PROVIDER=ollama` in the relevant environment file. When the app runs in Docker Desktop and Ollama runs on the host, also set:
 
-For hosted AI, configure the provider and key as server environment variables. Never put secrets in `VITE_*`, source files, or the browser. With no configured key, `auto` selects basic planning. It recognizes a limited set of functions and parses explicit measurements; missing facts remain unchecked.
+~~~dotenv
+CONTINUITY_LLM_BASE_URL=http://host.docker.internal:11434/v1
+~~~
 
-Groq defaults to `openai/gpt-oss-120b` at `https://api.groq.com/openai/v1`, using JSON output and low reasoning effort. The [published Free Plan limits](https://console.groq.com/docs/rate-limits) include 30 requests/minute, 1,000/day, 8,000 tokens/minute and 200,000/day for this model. Your Groq account's plan determines billing; selecting the model does not force free billing on a paid account. A board run makes multiple model calls. Short provider cooldowns are respected; exhausted quotas still trigger the labelled basic fallback. See [the Render switch instructions](docs/DEPLOYMENT.md#switch-the-existing-render-service-to-groq).
+The host needs enough memory to run the model. This is a local-development option, not a model deployment inside the free Render container. See [Ollama's compatibility documentation](https://docs.ollama.com/api/openai-compatibility).
 
-Gemini defaults to `gemini-3.8-flash` through [Google's OpenAI-compatible endpoint](https://ai.google.dev/gemini-api/docs/openai). `CONTINUITY_LLM_MODEL` and `CONTINUITY_LLM_BASE_URL` override those defaults; existing Render overrides must be updated or removed when upgrading. `/api/runtime` shows the selected configuration, not whether Google has accepted a request. See [deployment verification](docs/DEPLOYMENT.md#verify-the-deployed-service) for the hosted checks.
+</details>
 
-### Exa research
+### Cost and request controls
 
-Add `EXA_API_KEY` to **`backend/.env` for direct Python development** and **Render → Environment for hosting**. For Docker Compose, use the root `.env`. Groq and Exa serve different purposes: Groq handles planning, interpretation and repair proposals; Exa searches the web and retrieves documents. They have separate keys and configuration. Other supported model providers can replace Groq without changing Exa.
+Normal sourcing and explicit alternative research share the Exa allowance.
 
-Exa uses native Search and Contents endpoints following the [build-with-exa skill](https://github.com/exa-labs/agent-skills/tree/main/skills/build-with-exa). Normal sourcing requests up to four source pages and two product identities per slot, preferring manufacturer sources without restricting search to one supplier. Bounded page text is retrieved with discovery so comparing those products usually needs no second retrieval. Catalogue and web hits are merged by manufacturer and model; external-only products retain their original source links. Known datasheet URLs use Contents when additional evidence is needed. Groq extracts up to eight claims from at most two documents in one bounded request. Code then checks source authority, exact identity, quotations, operating conditions and parseable measurements. Supplier-linked manufacturer family documents can establish positive interface support; package-dependent numbers require exact-part evidence. Search classifications and snippets alone never populate electrical specifications.
+| Setting | Default | What it bounds |
+| --- | --- | --- |
+| `CONTINUITY_LLM_MAX_CALLS` | `40` | Model HTTP attempts per execution, including retries |
+| `CONTINUITY_LLM_TOKEN_BUDGET` | `120000` | Estimated reserved tokens, reconciled with reported usage |
+| `CONTINUITY_LLM_MAX_TOKENS` | `4096` | Maximum requested output tokens per model call |
+| `CONTINUITY_RESEARCH_MAX_CALLS` | `6` | Exa requests per run |
+| `CONTINUITY_RESEARCH_BUDGET_USD` | `0.12` | Estimated Exa request allowance per run |
+| `CONTINUITY_EVIDENCE_MAX_PARTS` | `3` | Component evidence-extraction attempts per execution |
 
-The engine reranks candidates after research adds facts, and may inspect one fallback within the same budget. Contradictory measurements clear the affected range and create an UNKNOWN finding. Current and efficiency claims remain review-only until their operating conditions can be matched. Unknown manufacturers, ambiguous variants and unparseable tables remain research leads. [Validation, supported scope and live-check cost](docs/SOURCE_FACTS_VALIDATION.md).
+Evidence extraction batches up to eight claims from at most two documents, uses at most 2,048 output tokens and gets one model attempt. Known component categories skip unnecessary role-classification calls. Duplicate work is reused, and provider cooldowns and exhausted quotas are respected.
 
-Defaults remain six Exa requests per run and a $0.12 **estimated** request budget, persisted across retries. Discovery and evidence retrieval share this allowance: large boards can reach it before every slot gets a web search, and the trace reports that explicitly. `CONTINUITY_EVIDENCE_MAX_PARTS=3` limits extraction attempts per execution, each with at most 2,048 output tokens and no automatic model retry. Web discovery can still present product leads when Groq is unavailable; electrical facts remain unknown until admitted. Parallel identical searches share one request, saved results survive restarts, and already processed evidence is not extracted again during comparison. Set `CONTINUITY_RESEARCH_MAX_CALLS`, `CONTINUITY_RESEARCH_BUDGET_USD`, or `CONTINUITY_RESEARCH_ENABLED=0` to control usage. Provider charges and account quotas remain authoritative.
+Exa reservations and results persist with the run across recovery. LLM allowances apply per execution and can reset after a restart. A crash before a stage commits may repeat work. These controls reduce waste; they are not a guaranteed dollar billing cap.
 
-`/api/runtime` exposes `research.sourcing` and `research.activity`, with actual HTTP outcomes, cache hits and skipped work separated. Render logs use `exa_request` for requests and `exa_discovery` for admitted product counts. A successful request may return zero usable documents; partial retrieval and unknown cost are reported accurately. The optional `python tools/check_sourcing.py` command, run from `backend`, checks the live adapters with at most one Exa and one model request and no database writes. It consumes provider quota and proves wiring, not hardware compatibility. [Sourcing and logging verification](docs/MULTI_SOURCE_VALIDATION.md).
+A smaller research allowance may leave more slots without web candidates or source facts. The trace reports skipped work instead of implying every component was researched. Exa product discovery can still operate when Groq is unavailable; admitting additional electrical facts may require the model.
 
-### Keeping AI calls useful and bounded
+### See what actually ran
 
-The planner uses a versioned contract and [Groq strict structured output](https://console.groq.com/docs/structured-outputs) for the supported GPT-OSS models. Local validation checks referenced slots, rails and explicitly requested buttons, indicators, buzzer and charging functions. Battery-powered operation is preserved separately from USB charging; unstated battery capacity is left unanswered. These checks improve consistency but do not establish schematic correctness.
+The timeline, application logs and `/api/runtime` distinguish configuration from observed activity.
 
-Known supplier categories skip unnecessary role-classification calls. Identical model requests share one result within an execution, and an exhausted provider quota stops repeated calls for the remaining stages. `CONTINUITY_LLM_MAX_CALLS=40` and `CONTINUITY_LLM_TOKEN_BUDGET=120000` bound each execution, including retries. Token accounting reserves estimated input plus maximum output before a request and uses actual reported usage on success. These are application limits, not a dollar billing guarantee; a restarted execution gets a fresh LLM allowance. Saved stages and Exa reservations remain durable.
+| Signal | Interpretation |
+| --- | --- |
+| `ai_request` logs | Model request starts and outcomes, provider/model, reported tokens and sanitized failure reasons |
+| `exa_request` logs | Actual Exa HTTP outcomes, retrieved document counts, partial results and reported cost when available |
+| `exa_discovery` logs | Number of product identities admitted from returned sources |
+| `ai.activity` / `research.activity` | Process-local activity counters and recent outcomes |
+| `research.sourcing = web_and_catalogue` | Catalogue and web sourcing are enabled, with fixture replay off |
 
-If planning fails, the trace displays an amber warning with a safe provider explanation when available. HTTP 400 means the provider rejected the request; it does not by itself establish an invalid key. Rejected nonretryable requests are not sent again by later stages in the same execution. The optional `python backend/tools/check_planner.py` check makes at most one model request for a plant-light monitor, without sourcing, Exa or database writes. It uses your local backend configuration and consumes provider quota. [Provider and cancellation verification](docs/PROVIDER_CANCELLATION_VALIDATION.md).
+A cache hit is not a new API call. A successful HTTP response is not proof that a plan or a source fact passed validation. Recorded fixtures are labelled separately from live supplier results. Activity counters are not the provider's billing ledger.
 
-[Groq setup](https://console.groq.com/docs/quickstart), [Ollama compatibility](https://docs.ollama.com/api/openai-compatibility), [xAI requirements](https://docs.x.ai/developers/quickstart). Grok is not a keyless free API.
+If planning fails, the trace keeps a visible warning and uses the limited basic plan where possible. HTTP 400, authentication failure, model permission errors, rate limits and provider outages need different fixes. See [deployment diagnostics](docs/DEPLOYMENT.md#verify-the-deployed-service), [AI activity verification](docs/AI_ACTIVITY_VALIDATION.md) and [Exa activity verification](docs/MULTI_SOURCE_VALIDATION.md).
 
 ## Hosting
 
-The deployment target is **one Render Free Docker web service plus Neon Free PostgreSQL**. The frontend and `/api` share one origin, simplifying sessions and deployment. See the complete [deployment guide](docs/DEPLOYMENT.md). `render.yaml` is a deployable Blueprint; it is not evidence that this revision is already live.
+The supported deployment is **one Render Docker web service plus Neon PostgreSQL**. The built frontend and `/api` share an origin, and the backend runs one worker. The Docker image handles the build and startup migrations.
 
-1. In your Neon project, click **Connect**, select the branch and database you want to use, and disable **Connection pooling** to copy the direct PostgreSQL URL with its SSL parameters.
-2. In Render, choose **New → Blueprint**, connect `Armaan-king/FUZE`, select Git branch `main`, and use `render.yaml`.
-3. Supply the Neon URL as Render's secret `DATABASE_URL`, then deploy. The Dockerfile builds the frontend and starts the backend; startup applies database migrations.
-4. Open the URL assigned by Render. `/api/ready` should report `{"status":"ready","persistence":"postgres"}`. Register, save a project, and reload it to verify persistence.
+**The existing demo is deployed manually.** A GitHub push does not update the hosted service. Use Render's **Manual Deploy** when an application update is ready. Services deployed from a public repository URL without a connected Git provider require manual deployment. [Render deployment behavior](https://render.com/docs/deploys).
 
-**Neon project names and IDs are different.** A value passed to the CLI as `--project-id` is a Neon identifier, not the display name you must find or create. Use a project visible in your own account and organization. Its database branch need not be named `production`, and it is independent of the GitHub branch `main`. This app only needs `DATABASE_URL`; no project or organization ID is hard-coded.
+For a new instance:
 
-Free services have cold starts and quotas. Render's local filesystem is ephemeral; accounts, projects, events, findings, and graph checkpoints belong in PostgreSQL. Part lookup caches can be recreated.
+1. Create or select a Neon database and copy its **direct PostgreSQL connection string**, including SSL parameters.
+2. Deploy this repository as a Render Docker web service. [render.yaml](render.yaml) provides the service settings for a Blueprint deployment.
+3. Set `DATABASE_URL`, the production cookie settings and your selected provider credentials. Use `/api/ready` as the health-check path.
+4. Verify database readiness, then register, save a project and reopen it to check persistence. Check provider receipts separately.
 
-## Architecture and database
+Neon project IDs, display names and database branches are separate concepts. FUZE needs `DATABASE_URL`; no particular Neon project ID or branch name is required.
 
-```mermaid
+Accounts, projects, revisions, events and checkpoints live in PostgreSQL. Render's local filesystem is ephemeral. Keep the current service URL unless you deliberately change hosting; the FUZE repository rename does not require new database or provider credentials. See the [complete deployment guide](docs/DEPLOYMENT.md).
+
+## Architecture and data
+
+### Application boundaries
+
+~~~mermaid
 flowchart LR
-    UI[React workspace] <-->|HTTP and event stream| API[FastAPI]
-    API --> Runs[LangGraph runs and Python rules]
-    API --> DB[(PostgreSQL)]
-    Runs --> Parts[Distributor lookup]
-    Runs --> AI[Optional AI provider]
+    UI["React and TypeScript workspace"] <-->|HTTP and SSE| API["FastAPI"]
+    API --> Runs["Run manager and LangGraph"]
+    Runs --> AI["Configured model provider"]
+    Runs --> Sources["Catalogue and Exa adapters"]
+    Runs --> Design["Canonical design and Python rules"]
+    API --> Design
+    Design --> Revisions["Immutable revisions"]
+    Revisions --> DB[("PostgreSQL")]
     Runs --> DB
-```
+    API --> DB
+~~~
 
-The top-level layout is unchanged: `frontend/`, `backend/`, `docs/`, and the existing SWE deliverables remain in place. See [architecture and data model](docs/ARCHITECTURE.md) for component boundaries, tables, execution leases, recovery, migrations, and limitations.
+The browser displays typed events and saved documents. The backend owns provider calls, identity checks, validation, account access and persistence. Model responses enter validated application structures; they do not write rule verdicts.
 
-Database changes are ordered, checksum-checked SQL migrations. New deployments and existing schemas are upgraded under a PostgreSQL advisory lock. Never modify an applied migration; add the next numbered file.
+| Code area | Responsibility |
+| --- | --- |
+| [frontend/src/app](frontend/src/app) | Workspace, projects, review, requirements, history, memory and analytics |
+| [api](backend/continuity/api) | HTTP routes, authentication, ownership, runs, streaming and persistence |
+| [graph](backend/continuity/graph) | Workflow orchestration, candidate selection and recovery decisions |
+| [planner](backend/continuity/planner) | Structured plans, requirements, topology and redesign |
+| [parts](backend/continuity/parts) | Catalogue lookup, Exa, document extraction, parsing and evidence admission |
+| [engine](backend/continuity/engine) | Pure Python constraints, power calculations and repair policy |
+| [designs](backend/continuity/designs) | Shared design documents, guidance, revision comparison and answer proposals |
+
+For prompt work, start with [the planning contract](backend/continuity/planner/prompt.py), [its schema](backend/continuity/planner/schema.py), [repair review](backend/continuity/reviewer.py), [clarification interpretation](backend/continuity/interpret.py) and [evidence extraction](backend/continuity/parts/evidence.py).
+
+### What is stored
+
+| Record group | Contents |
+| --- | --- |
+| **Accounts and sessions** | Password hashes, onboarding state, hashed session tokens and expiry |
+| **Projects and threads** | Ownership, names, original briefs, run status and execution leases |
+| **Events and findings** | Ordered replayable activity, board/BOM updates and rule/repair observations |
+| **Design revisions** | Components, quantities, requirements, connections, evidence, report, parent revision and content hash |
+| **Part facts** | Reusable sourced component properties; board-specific verdicts are not intrinsic part facts |
+| **Inputs, stages and checkpoints** | Original inputs, cancellation state and completed work used for eligible recovery |
+| **Research requests** | Deduplicated reservations, results and reported costs for the run |
+| **Migration records** | Applied SQL versions and checksums |
+
+Each account may have one active run. Execution leases reject writes from an obsolete worker. Events are saved before publication, so reconnecting can replay from the last received sequence instead of starting a second run.
+
+Eligible interrupted inputs can recover from checkpoints while the host is awake. Explicit cancellation excludes automatic recovery. This is bounded recovery, not a guarantee that every external request runs exactly once or that work continues while the host is asleep.
+
+Revision commands check ownership and the current project revision; stale edits are rejected rather than overwriting newer work. Restores create revisions. Historical run traces, Memory and Analytics retain original observations; **Review is authoritative for the selected edited revision**.
+
+Startup applies ordered, checksum-checked migrations under a PostgreSQL advisory lock. Add a new migration instead of editing an applied one. The supported setup is a single worker; horizontal scaling would require additional queueing and global resource controls. [Architecture and data-model details](docs/ARCHITECTURE.md).
+
+Accounts currently support registration, login and logout. Email verification, password-reset email and organization roles are not implemented.
 
 ## Verification
 
-```sh
+### Automated checks
+
+After installing the development dependencies, use the backend virtual-environment Python:
+
+~~~sh
+python -m pip install pytest pytest-cov
 python -m pytest backend/tests
 npm --prefix frontend run lint
 npm --prefix frontend run build
-npm --prefix frontend run test:e2e
-```
+~~~
 
-Use the backend virtual environment's Python. Set `CONTINUITY_TEST_DB` to a disposable PostgreSQL database to include integration tests. The store tests truncate their test tables. Browser tests need a separate disposable `E2E_DATABASE_URL`; they seed a known account. See the [review and provider verification report](docs/REVIEW_VALIDATION.md) for the latest results and the [original validation report](docs/VALIDATION.md) for earlier checks. GitHub Actions repeats backend, database, frontend, and Chromium checks.
+For Chromium tests, install the browser from `frontend/` and run the suite:
 
-The [review and provider verification](docs/REVIEW_VALIDATION.md) records **897 passing backend tests**, **5 optional external-service skips**, **28 passing browser tests**, passing lint/build, and bounded live Groq/Exa checks. It covers unknown questions, actual saved revisions and return navigation, mobile review, schema-constrained planning and request budgets. The final live bicycle-alarm plan preserved all seven requested functions in one Groq call; the Exa check used two requests. These checks do not establish hardware correctness.
+~~~sh
+npx playwright install chromium
+npm run test:e2e
+~~~
 
-The earlier [engine verification](docs/ENGINE_VALIDATION.md) records **873 passing backend tests**, including **40 new engine regression cases**, and **26 passing browser tests** for the deterministic rule upgrade.
+Set `CONTINUITY_TEST_DB` for PostgreSQL integration tests and `E2E_DATABASE_URL` for browser tests. Both must identify disposable databases: the suites truncate or seed data. Do not point them at production Neon. Playwright starts dedicated local app servers. [GitHub Actions](.github/workflows/ci.yml) also runs backend, database, lint, build and Chromium checks.
 
-The [architecture and Exa verification](docs/ARCHITECTURE_VALIDATION.md) covers **830 distinct passing backend tests** across the full and final targeted runs, **5 optional external-service skips**, and **26 passing browser tests**. Live Exa Search and Contents also passed. Earlier smoke runs exercised real parts lookup and local Ollama inference. These are dated results, not a claim that external services always succeed. [Review recording checks](docs/media/README.md#review-feature-verification) and [original workflow recording checks](docs/media/README.md#verification) document the README videos separately.
+### Recorded verification
 
-The [consistency verification](docs/CONSISTENCY_VALIDATION.md) records earlier checks for project naming, clarification retries, saved boards, and BOM replacement/export. To reproduce the opt-in live research check, run `python tools/check_research.py` from `backend`; it makes at most one Search and one Contents request.
+These are dated local results, not promises about current provider availability or hardware correctness.
 
-The [Groq verification](docs/GROQ_VALIDATION.md) records successful live JSON extraction and board planning with GPT-OSS 120B, 150 targeted backend tests, and the landing-page check after removing the old embedded hackathon video. The provider's Free Plan eligibility and the account's actual billing plan are separate; test success does not establish the latter.
+| Area | Recorded evidence |
+| --- | --- |
+| **Independent web sourcing and Exa receipts** | [1,123 backend tests passed, 5 optional external-service tests skipped](docs/MULTI_SOURCE_VALIDATION.md); production build passed; bounded live Exa/Groq checks recorded |
+| **Repeated swaps and redesign recovery** | [1,072 backend tests and 15 targeted browser tests passed](docs/RECOVERY_VALIDATION.md) |
+| **Source admission and protocol parsing** | [Accepted/rejected evidence, normalization and live-check limitations](docs/SOURCE_FACTS_VALIDATION.md) |
+| **Review questions and saved revisions** | [897 backend tests and 28 browser tests passed](docs/REVIEW_VALIDATION.md) |
+| **Provider failures and cancellation** | [Request validation, fallback and cleanup checks](docs/PROVIDER_CANCELLATION_VALIDATION.md) |
+| **Video workflows** | [Capture assertions, media verification and data provenance](docs/media/README.md) |
+
+### Optional live diagnostics
+
+These commands consume configured provider quota; they are separate from the normal automated suite. Run from the repository root with the backend interpreter:
+
+~~~sh
+python backend/tools/check_planner.py
+python backend/tools/check_sourcing.py
+python backend/tools/check_research.py
+~~~
+
+| Diagnostic | External work |
+| --- | --- |
+| `check_planner.py` | At most one model request; no sourcing, Exa or database writes |
+| `check_sourcing.py` | Live supplier lookup, at most one Exa request and one model request; no database writes |
+| `check_research.py` | At most one Exa Search and one Contents request |
+
+A successful adapter check proves the exercised connection and response handling. It does not prove a complete device design, and it may admit zero usable electrical facts.
+
+## Further reading
+
+| Guide | Contents |
+| --- | --- |
+| [Deployment](docs/DEPLOYMENT.md) | Render, Neon, provider configuration, budgets and hosted diagnostics |
+| [Architecture](docs/ARCHITECTURE.md) | Boundaries, database tables, leases, recovery and migrations |
+| [Source facts](docs/SOURCE_FACTS_VALIDATION.md) | Admission rules, parser behavior, evidence limits and live-check scope |
+| [Component recovery](docs/RECOVERY_VALIDATION.md) | Manual swaps, wider search, redesign and repeat validation |
+| [Backend](backend/README.md) / [Frontend](frontend/README.md) | Development commands and component-specific setup |
+| [Recordings](docs/media/README.md) | Video chapters, historical inputs, capture scripts and verification |
 
 ## License and attribution
 
-[MIT](LICENSE). Existing copyright notices and the original project's assets and engineering documents are retained. Historical plans in `docs/` and the SWE submission folders describe earlier versions; this README and the architecture/deployment guides describe the current implementation.
+[MIT](LICENSE). Original copyright notices, assets and engineering documents are retained. Historical proposals and SWE deliverables describe earlier versions; this README describes the current implementation.

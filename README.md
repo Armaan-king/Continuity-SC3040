@@ -1,52 +1,66 @@
 # Continuity
 
-Continuity turns a circuit-board brief or an existing bill of materials into a workspace for sourcing parts, inspecting electrical checks, and reviewing repairs. It brings the board graph, validation trace, and BOM together, with saved projects, findings, and analytics.
+Continuity turns a circuit-board brief or an existing bill of materials into a workspace for sourcing parts, checking electrical constraints, and reviewing repairs. Follow a design from its first description through the board graph, supporting evidence, saved revisions, and an exported BOM.
 
-Continuity is a design-assistance application. A completed run can still contain unchecked specifications or accepted warnings; consult the evidence shown for each rule before using a board.
+[Open the app](https://continuity-sc3040.onrender.com) · [Run locally](#start-locally) · [Deployment guide](docs/DEPLOYMENT.md)
 
-The workspace now includes **Review design**: a validation report, editable requirements, connection confirmation, and revision comparison/restore. The graph, report and BOM exports read the same saved design revision. Optional Exa research finds supporting documents and additional candidates; numeric checks still require independently parsed source measurements.
+## Walk through the app
 
-## See the current app
+Start with a brief, follow the checks, inspect the evidence, then refine and save your design. Each preview below opens a video of that part of the workflow.
 
-[![Edit requirements, inspect the resulting conflict, and compare saved revisions](docs/media/design-review.gif)](docs/media/design-review.mp4)
+### 1. Get to know the workspace
 
-**Design review and revision history** — change a requirement, rerun checks, compare versions, restore an earlier design, and export the same revision as a report and BOM.
+Create an account to keep your projects private and saved. The guided walkthrough introduces the three-panel workspace: the component graph, validation trace, and bill of materials. Finish or skip it to reach your projects.
 
-[![Exa evidence with source attribution and an explicit verification label](docs/media/research-connections-poster.png)](docs/media/research-connections.mp4)
+[![The guided walkthrough introduces the graph, trace, and bill of materials](docs/media/walkthrough.gif)](docs/media/guided-walkthrough.mp4)
 
-**Exa evidence and connection review** — inspect retrieved source text and verification limits, declare an I²C connection, confirm the reference power connections, and revalidate. Click either preview to watch its full video.
+*Watch: account creation and the guided introduction. The walkthrough replays a recorded example with historical parts and prices.*
 
-The new clips use the real local app and PostgreSQL with a labeled reference board, historical supplier fixtures, and an actual Exa response retrieved for the recording. They demonstrate review and revalidation; AI planning is disabled. Research remains marked **Requires verification**, and the reference board's remaining failures and unknowns stay visible.
+### 2. Describe a board or bring a BOM
 
-[![Current interface replaying the guided walkthrough](docs/media/walkthrough.gif)](docs/media/guided-walkthrough.mp4)
+Choose **New project** and describe what you want to build. Include the supply, functions, operating conditions, and production quantity when known. Try `USB temperature and humidity sensor` as a small first project. If you already have a parts list, attach a `.csv` or `.txt` BOM of up to 1 MB and 100 parts; a brief is optional for an uploaded BOM.
 
-| Recording | What it shows | Data and AI mode |
-| --- | --- | --- |
-| [Design review and revisions](docs/media/design-review.mp4) | Validation report, requirement edit, new voltage conflict, comparison, restore, report/BOM export, and workspace reload | Real local app and PostgreSQL; reference board with recorded supplier data; AI planning disabled |
-| [Exa evidence and connections](docs/media/research-connections.mp4) | Source text and verification labels, validation limits, power confirmation, and per-connection protocol checks | Actual Exa retrieval saved before capture; the same reference board; no new model response |
-| [Project workflow](docs/media/project-workflow.mp4) | Sign in, create a board, source parts, inspect checks, export CSV, reopen the saved board, and review analytics and memory | Real local app and PostgreSQL; live distributor lookup; basic planning with AI disabled |
-| [Guided walkthrough](docs/media/guided-walkthrough.mp4) | Create an account and follow the seven-step introduction to the graph, trace, conflict evidence, BOM, and memory | The app's built-in recorded example; historical parts and prices |
+As the run progresses, parts appear in the graph and the trace explains sourcing, checks, and proposed repairs. Answer clarification questions when the run needs input. A failed answer submission stays available to retry.
 
-The first two clips show the new review features; the original project workflow and guided walkthrough remain available below them. The three-panel workspace is retained. Automatic recovery is covered in the [verification report](docs/ARCHITECTURE_VALIDATION.md), rather than depicted as a visible feature in these clips. [Recording details, chapters, and reproduction](docs/media/README.md).
+[![A project workspace with sourced parts, validation findings, and a bill of materials](docs/media/workspace.png)](docs/media/project-workflow.mp4)
 
-![A completed project with its graph, validation trace, and bill of materials](docs/media/workspace.png)
+*Watch: a project from its brief through sourcing, checks, export, and reopening. This recording uses the real local app, live distributor lookup, and basic planning with AI disabled.*
 
-## Use the app
+The project gets a short name derived from your brief, while the full description remains saved. **Rename project** lets you choose your own name, which carries through the workspace, project list, and memory.
 
-1. **Create an account.** With PostgreSQL configured, your projects are private to your account. New accounts enter the guided walkthrough; finish or skip it to reach your projects.
-2. **Start a project.** Use the **New project** button and describe the board, including its supply, functions, operating conditions, and production quantity when known. A small first example is `USB temperature and humidity sensor`.
-3. **Or attach a BOM.** The brief screen accepts `.csv` and `.txt` files up to 1 MB, with at most 100 parts. You can attach a BOM without a brief.
-4. **Follow the validation trace.** Parts arrive in the graph as sourcing and checks proceed. Open the findings and evidence; answer clarification questions when the run needs input.
-5. **Review and export.** Inspect selected parts, prices, failures, warnings, and unchecked facts before choosing **Export BOM**. Completion describes the workflow, not a guarantee that a board is ready to manufacture.
-6. **Return to your work.** Reopen a project to restore its board, trace, and BOM. **Memory** connects parts, boards, and earlier findings; **Analytics** summarizes validation outcomes across your designs.
+### 3. Inspect the checks and their evidence
 
-Project names are derived from the subject of the brief: `I want to make a small temperature monitor with an OLED` becomes **Temperature Monitor**. The full brief remains saved, and names you choose through **Rename project** are preserved. The workspace, project list, and memory use the same saved name.
+After a run completes, open **Review design**. The report distinguishes **PASS**, **FAIL**, and **UNKNOWN**, shows the evidence behind each check, and keeps accepted failures visible. A completed run can still need review.
 
-A completed run may still **need review**. Its summary distinguishes failed checks, warnings, and unchecked facts. Unresolved conflicts remain visible after completion and when you reopen the board, including uploaded BOMs. If sending a clarification answer fails, the question remains available to retry.
+When Exa research is enabled, supporting documents include source links, retrieved text, and verification labels. Read those alongside the report's validation limits. Under **Requirements**, confirm the power and signal connections against your circuit, then save to revalidate.
 
-Closing a browser view does not cancel its server-side run. The event stream reconnects using its saved cursor; you can explicitly cancel a run or recover an eligible checkpoint after interrupted execution. Fresh sourcing needs internet access to the distributor.
+[![Retrieved source text, attribution, verification labels, and validation limits](docs/media/research-connections-poster.png)](docs/media/research-connections.mp4)
 
-After completing a run, open **Review design**. The report distinguishes PASS, FAIL and UNKNOWN and retains accepted failures. Under **Requirements**, edit constraints or confirm power/signal connections against your circuit, then save to revalidate. **Revision history** compares saved versions and restores an earlier design as a new revision. Existing projects remain readable; versioned reports begin with new completed runs.
+*Watch: inspect an actual Exa retrieval, declare an I²C connection, and rerun checks. The reference board uses historical supplier data; the retrieved text stays marked **Requires verification**.*
+
+### 4. Refine, compare, and export
+
+Edit a constraint under **Requirements**, then **Save and revalidate** to see how it changes the results. **Revision history** lets you compare saved versions or restore an earlier design as a new, revalidated revision.
+
+[![Change a requirement, inspect the resulting conflict, and compare saved revisions](docs/media/design-review.gif)](docs/media/design-review.mp4)
+
+*Watch: change the supply from 3.3 V to 5 V, inspect the new conflict, compare revisions, restore the earlier design, and export its report and BOM.*
+
+Review the selected parts, prices, failures, and unchecked facts before exporting. The graph, report, and BOM exports identify the same saved design revision. Existing projects remain readable; versioned reports begin with new completed runs.
+
+### 5. Return to your work
+
+Reopen a saved project to restore its board, trace, and BOM. **Memory** connects parts, boards, and earlier findings; **Analytics** summarizes validation outcomes across your designs. The [project workflow video](docs/media/project-workflow.mp4) also follows these steps after export.
+
+Closing the browser does not cancel a server-side run. The event stream reconnects from its saved position, and eligible interrupted runs can recover from checkpoints. You can explicitly cancel a run when you want it to stop. Recovery behavior and its limits are covered in the [verification report](docs/ARCHITECTURE_VALIDATION.md).
+
+All four videos were captured against the local app with PostgreSQL and AI planning disabled. The evidence and revision clips use a reference board that retains its remaining failures and unknowns. [Recording details, chapters, and reproduction](docs/media/README.md).
+
+## Capabilities and limits
+
+Continuity assists design review. Compatibility verdicts come from Python rules; missing specifications remain unchecked, and accepted failures remain visible. Exa retrieves supporting documents, while numeric checks require independently parsed source measurements. A completed run is not a manufacturing certification.
+
+Fresh sourcing needs internet access, and supplier availability and prices can change after a run. The recordings identify historical data where it is used. The supported deployment uses one backend worker; load testing and multi-replica operation are outside the current verification.
 
 ## Start locally
 
@@ -61,17 +75,6 @@ Open **http://localhost:8000**. This starts the app and a persistent local Postg
 To stop the local services while keeping the database volume, run `docker compose down`.
 
 For development without the app container, see [backend setup](backend/README.md) and [frontend setup](frontend/README.md). Python 3.13 and Node 24 are the reference runtimes. Without `DATABASE_URL`, the app provides a temporary, single-user workspace without accounts or saved projects; restarting loses its data. Production refuses to start without a database.
-
-## Capabilities and limits
-
-- Account registration, login/logout, private projects, and project deletion.
-- Natural-language briefs and CSV/text BOM input (up to 100 parts).
-- Distributor searches, source-backed specifications, deterministic validation, repair loops, and clarification questions.
-- Board and BOM restoration, CSV export, recorded findings, and validation analytics.
-- Runs that continue across browser disconnections, event replay without duplicates, explicit cancellation, and eligible checkpoint recovery after interrupted execution.
-- A clearly identified recorded walkthrough for exploring the interface.
-
-Compatibility verdicts come from Python rules. Missing specifications remain unchecked. Supplier availability and prices can change after a run, and accepted warnings remain warnings. The walkthrough and test fixtures are historical examples, not fresh sourcing or AI output. The supported deployment uses one backend worker; load testing and multi-replica operation are outside the current verification.
 
 ## AI options
 
@@ -149,9 +152,7 @@ Use the backend virtual environment's Python. Set `CONTINUITY_TEST_DB` to a disp
 
 The [architecture and Exa verification](docs/ARCHITECTURE_VALIDATION.md) covers **830 distinct passing backend tests** across the full and final targeted runs, **5 optional external-service skips**, and **26 passing browser tests**. Live Exa Search and Contents also passed. Earlier smoke runs exercised real parts lookup and local Ollama inference. These are dated results, not a claim that external services always succeed. [Review recording checks](docs/media/README.md#review-feature-verification) and [original workflow recording checks](docs/media/README.md#verification) document the README videos separately.
 
-The earlier [consistency update](docs/CONSISTENCY_VALIDATION.md) passed **796 backend tests and 25 browser tests**, with 5 opt-in external-service skips. Its logs cover project naming, preserved custom names, clarification retries, final-board restoration, and BOM replacement/export consistency.
-
-See [architecture and Exa verification](docs/ARCHITECTURE_VALIDATION.md) for the current test results, live Exa smoke check, command output and limitations. The live research check is explicitly opt-in: from `backend`, run `python tools/check_research.py`; it makes at most one Search and one Contents request.
+The [consistency verification](docs/CONSISTENCY_VALIDATION.md) records earlier checks for project naming, clarification retries, saved boards, and BOM replacement/export. To reproduce the opt-in live research check, run `python tools/check_research.py` from `backend`; it makes at most one Search and one Contents request.
 
 ## License and attribution
 

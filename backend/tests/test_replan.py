@@ -291,7 +291,7 @@ def test_exact_escalation_option_skips_classifier(monkeypatch):
 
     updated = asyncio.run(nodes.escalate(state, _config()))
 
-    assert updated["accepted"][-1] == ("availability", "sensor")
+    assert updated["accepted"][-1] == nodes._waiver_key(state["verdicts"][0])
     assert calls == []
 
 

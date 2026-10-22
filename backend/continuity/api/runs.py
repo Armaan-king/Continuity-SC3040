@@ -15,6 +15,7 @@ from fastapi import HTTPException
 
 from . import events
 from .store import Store, execution_lease
+from ..designs.context import current, ExecutionContext
 
 log = logging.getLogger(__name__)
 
@@ -69,6 +70,7 @@ class RunManager:
     async def _drive(self, thread_id: str, run: Run, producer: AsyncIterator[str],
                      store: Store | None, token: str, cleanup: Callable[[], None] | None) -> None:
         context = execution_lease.set((thread_id, token) if store else None)
+        journal = current.set(ExecutionContext(thread_id, store))
         outcome = "abandoned"
         failure = False
         terminal_event: dict | None = None
@@ -135,6 +137,7 @@ class RunManager:
                 except Exception:
                     log.exception("Could not release run lease: %s", thread_id)
             execution_lease.reset(context)
+            current.reset(journal)
             # A visible question must already be answerable; a visible completion must
             # already have its summary and BOM saved. Publish after producer persistence
             # and lease release, rather than racing a fast answer or navigation.

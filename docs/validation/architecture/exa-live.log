@@ -1,0 +1,21 @@
+{
+  "configured": true,
+  "search": {
+    "documents": 10,
+    "error": null,
+    "cost_usd": 0.007
+  },
+  "contents": {
+    "documents": 1,
+    "error": null,
+    "partial": false,
+    "cost_usd": 0.001
+  },
+  "sources": [
+    {
+      "url": "https://sensirion.com/media/documents/33FD6951/6555C40E/Sensirion_Datasheet_SHT4x.pdf",
+      "characters": 24000,
+      "verification": "unverified"
+    }
+  ]
+}

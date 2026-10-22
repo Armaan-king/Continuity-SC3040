@@ -23,6 +23,7 @@ from psycopg_pool import AsyncConnectionPool
 
 from .findings import Finding
 from .project_names import UNTITLED, project_name
+from .revision_store import RevisionRepository, commit_revision
 from ..parts.dossier import DOSSIER_FIELDS
 
 SCHEMA = Path(__file__).with_name("schema.sql")
@@ -111,7 +112,7 @@ def _hash_token(token: str) -> str:
     return hashlib.sha256(token.encode()).hexdigest()
 
 
-class Store:
+class Store(RevisionRepository):
     def __init__(self, pool: AsyncConnectionPool) -> None:
         self.pool = pool
 
@@ -379,7 +380,8 @@ class Store:
     # ── threads ──────────────────────────────────────────────────────────────
 
     async def create_thread(
-        self, thread_id: str, project_id: str, user_id: str, prompt: str
+        self, thread_id: str, project_id: str, user_id: str, prompt: str,
+        *, run_kind: str | None = None, run_payload: dict | None = None,
     ) -> bool:
         async with self.pool.connection() as conn:
             async with conn.transaction():
@@ -393,6 +395,9 @@ class Store:
                 )
                 if cursor.rowcount != 1:
                     return False
+                if run_kind is not None:
+                    await conn.execute("INSERT INTO run_inputs (thread_id, kind, payload) VALUES (%s, %s, %s)",
+                                       (thread_id, run_kind, Json(run_payload or {})))
                 await conn.execute(
                     """UPDATE projects SET updated_at = now(), name = CASE
                         WHEN name_source = 'generated' AND name = %s THEN %s ELSE name END
@@ -432,9 +437,11 @@ class Store:
                 """
                 SELECT id, project_id, user_id, prompt, status, last_seq, bom, summary
                   FROM threads WHERE project_id = %s AND user_id = %s
-                 ORDER BY (status = 'running') DESC, (last_seq >= 0) DESC, created_at DESC
+                 ORDER BY (status = 'running') DESC,
+                     (revision_id = (SELECT revision_id FROM projects WHERE id = %s)) DESC NULLS LAST,
+                     (last_seq >= 0) DESC, created_at DESC
                 """,
-                (project_id, user_id),
+                (project_id, user_id, project_id),
             )
             rows = await cursor.fetchall()
         return [Thread(**row) for row in rows]
@@ -790,6 +797,10 @@ class Store:
                 """, (event["seq"], thread_id, token))
                 if await cursor.fetchone() is None:
                     raise RuntimeError("Run lease was lost")
+                if event.get("type") == "board" and isinstance(event.get("document"), dict):
+                    event["revision_id"] = await commit_revision(conn, thread_id, event["document"], "Run completed")
+                    # Full evidence belongs in the immutable document, not every SSE replay.
+                    event.pop("document")
                 await conn.execute("""
                     INSERT INTO run_events (thread_id, seq, event) VALUES (%s, %s, %s)
                     ON CONFLICT (thread_id, seq) DO NOTHING

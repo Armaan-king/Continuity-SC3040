@@ -230,6 +230,7 @@ export function WorkspaceView({
         </div>
 
         <div className="flex items-center gap-sm h-full">
+          {projectId && !walkthrough && <Link className="h-8 px-md text-body-sm rounded border border-outline-variant flex items-center hover:text-primary-container" to={`/projects/${projectId}/review`}>Review design</Link>}
           <button
             className={`h-8 px-md font-body-sm text-body-sm font-bold rounded transition-colors duration-75 flex items-center gap-sm disabled:cursor-not-allowed ${
               conflictCount === 0

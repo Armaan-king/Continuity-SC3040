@@ -21,7 +21,7 @@ any of it reaches a rule.
   from the payload. Those are already typed; handing them to a model would add a way
   to be wrong and no way to be right.
 
-## Cached by MPN, for determinism rather than cost
+## Cached by source identity and parser version
 
 An LLM that reads `"2.5V ~ 6.0V"` one way in rehearsal and another way on stage changes
 the demo underneath you. The cache freezes the parse the first time it happens.
@@ -254,11 +254,28 @@ def validate(raw: Mapping[str, Any], specs: Mapping[str, str]) -> tuple[dict, di
         )
 
     provenance: dict[str, str] = {}
-    for field, parameter in (raw.get("provenance") or {}).items():
+    citations = raw.get("provenance")
+    for field, parameter in (citations if isinstance(citations, Mapping) else {}).items():
         # A citation is only worth anything if it points at something really sent.
         if field in fields and isinstance(parameter, str) and parameter in specs:
             provenance[field] = parameter
 
+    # A real parameter name is not proof of the model's number. Only values that
+    # independently parse from the source may cross the numerical trust boundary.
+    from .specifications import parse
+    verified, sources = parse(specs)
+    for name in list(fields):
+        if PARSED_FIELDS.get(name) in {float, int, bool}:
+            expected = verified.get(name)
+            value = fields[name]
+            matches = (expected is not None and type(value) is type(expected) and value == expected)
+            if isinstance(value, (int, float)) and not isinstance(value, bool) and isinstance(expected, (int, float)):
+                matches = math.isclose(value, expected, rel_tol=1e-9, abs_tol=1e-15)
+            if not matches:
+                fields.pop(name)
+                provenance.pop(name, None)
+            else:
+                provenance[name] = sources[name]
     return fields, provenance
 
 
@@ -391,6 +408,8 @@ async def normalize(
     enrichment = asyncio.create_task(search.enrich(candidate.mpn))
     live_stock = asyncio.create_task(search.live_stock(candidate.mpn))
     thermal_fact = datasheet._load(candidate.mpn)
+    if thermal_fact is not None and thermal_fact.package_column != (candidate.package or ""):
+        thermal_fact = None
     if fetch_missing_theta_ja and thermal_fact is None:
         _start_theta_ja_fetch(candidate, enrichment)
     # Let both tasks issue their I/O before an immediately-returning test or local LLM
@@ -399,7 +418,12 @@ async def normalize(
 
     dossier_fields = await _dossier_fields(candidate, dossier_lookup or _dossier_lookup.get())
 
-    cached = _load(candidate.mpn) if use_cache else None
+    fingerprint = hashlib.sha256(json.dumps({
+        "manufacturer": candidate.manufacturer, "mpn": candidate.mpn,
+        "package": candidate.package, "specs": dict(candidate.specs),
+        "parser": "verified-2", "prompt": _prompt_version(),
+    }, sort_keys=True).encode()).hexdigest()
+    cached = _load(candidate.mpn, fingerprint=fingerprint) if use_cache else None
     if cached is not None:
         fields, provenance = cached
     elif not llm.available():
@@ -410,7 +434,7 @@ async def normalize(
             reply = await llm.complete_json(SYSTEM, _prompt(candidate))
             fields, provenance = validate(reply, candidate.specs)
             if use_cache:
-                _save(candidate.mpn, fields, provenance)
+                _save(candidate.mpn, fields, provenance, fingerprint=fingerprint)
         except (llm.LLMUnavailable, ValueError, json.JSONDecodeError) as error:
             # Degrade, but not quietly. With no key configured this is expected and
             # `llm.available()` already covered it above; reaching here means the call
@@ -421,17 +445,14 @@ async def normalize(
             from .specifications import parse
             fields, provenance = parse(candidate.specs)
 
+    from .specifications import parse
+    verified, verified_sources = parse(candidate.specs)
+    fields.update(verified)
+    provenance.update(verified_sources)
     _discard_non_regulator_fields(fields, provenance, candidate.category)
 
-    # Facts only fill a blank from this run. A live listing is the buying truth, even
-    # when a durable fact is newer-looking or appears more complete.
-    for field, (value, source) in dossier_fields.items():
-        if field in {"package", "theta_ja"} or field in fields:
-            continue
-        fields[field] = value
-        provenance[field] = dossier.provenance(source)
-    if thermal_fact is None and "theta_ja" in dossier_fields:
-        provenance["theta_ja"] = dossier.provenance(dossier_fields["theta_ja"][1])
+    # Legacy dossiers lack document identity and conditions. They remain readable
+    # in Memory but cannot silently reintroduce numeric measurements.
     if not candidate.package and "package" in dossier_fields:
         provenance["package"] = dossier.provenance(dossier_fields["package"][1])
     _discard_non_regulator_fields(fields, provenance, candidate.category)
@@ -462,6 +483,9 @@ async def normalize(
             fields["pins_available"] = available
             provenance["pins_available"] = "EasyEDA symbol pin names"
 
+    from . import research
+    missing = [name for name in ("vmin", "vmax", "i_peak", "temp_max") if name not in fields]
+    documents = await research.investigate(candidate, missing)
     return PartSpec(
         **{
             **_from_payload(
@@ -475,14 +499,22 @@ async def normalize(
             "theta_ja": (
                 thermal_fact.theta_ja
                 if thermal_fact is not None
-                else dossier_fields.get("theta_ja", (None, None))[0]
+                else None
             ),
             "theta_ja_source_line": (
                 thermal_fact.source_line
                 if thermal_fact is not None
-                else dossier_fields.get("theta_ja", (None, None))[1]
+                else None
             ),
             "provenance": provenance,
+            "fact_evidence": {
+                name: {"value": fields[name], "parameter": source,
+                       "original": candidate.specs[source], "source": candidate.product_url,
+                       "method": "deterministic", "parser_version": "verified-2",
+                       "source_hash": fingerprint}
+                for name, source in verified_sources.items() if name in fields
+            },
+            "research": documents,
         }
     )
 
@@ -512,7 +544,7 @@ def _prompt_version() -> str:
     return hashlib.sha256(SYSTEM.encode()).hexdigest()[:12]
 
 
-def _load(mpn: str) -> tuple[dict, dict] | None:
+def _load(mpn: str, *, fingerprint: str | None = None) -> tuple[dict, dict] | None:
     path = _cache_path(mpn)
     if not path.exists():
         return None
@@ -522,13 +554,15 @@ def _load(mpn: str) -> tuple[dict, dict] | None:
         return None
     if stored.get("prompt") != _prompt_version():
         return None
+    if fingerprint is not None and stored.get("fingerprint") != fingerprint:
+        return None
     fields = stored.get("fields", {})
     if isinstance(fields.get("interfaces"), list):
         fields["interfaces"] = tuple(fields["interfaces"])
     return fields, stored.get("provenance", {})
 
 
-def _save(mpn: str, fields: Mapping[str, Any], provenance: Mapping[str, str]) -> None:
+def _save(mpn: str, fields: Mapping[str, Any], provenance: Mapping[str, str], *, fingerprint: str | None = None) -> None:
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     serialisable = {k: (list(v) if isinstance(v, tuple) else v) for k, v in fields.items()}
     _cache_path(mpn).write_text(
@@ -536,6 +570,7 @@ def _save(mpn: str, fields: Mapping[str, Any], provenance: Mapping[str, str]) ->
             {
                 "mpn": mpn,
                 "prompt": _prompt_version(),
+                "fingerprint": fingerprint,
                 "fields": serialisable,
                 "provenance": dict(provenance),
             },

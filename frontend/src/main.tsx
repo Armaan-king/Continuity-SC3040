@@ -10,6 +10,7 @@ import LandingRoute from './app/routes/landing'
 import ProjectsRoute from './app/routes/projects'
 import MemoryRoute from './app/routes/memory'
 import AnalyticsRoute from './app/routes/analytics'
+import ReviewRoute from './app/routes/review'
 import WalkthroughRoute from './app/routes/walkthrough'
 import { AppFrame } from './app/shell/AppFrame'
 import { AppShell } from './app/shell/AppShell'
@@ -34,6 +35,7 @@ const router = createBrowserRouter([
       {
         element: <AppShell />,
         children: [
+          { path: '/projects/:projectId/review', element: <RequireAuth><ReviewRoute /></RequireAuth> },
           {
             path: '/projects',
             element: (

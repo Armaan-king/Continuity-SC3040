@@ -80,14 +80,14 @@ def test_a_well_formed_reply_passes_through():
 
 
 def test_integers_are_accepted_where_a_float_belongs():
-    assert validate({"vmax": 5})[0]["vmax"] == 5.0
+    assert normalize.validate({"vmax": 5}, {"Supply Voltage": "1V~5V"})[0]["vmax"] == 5.0
 
 
 # ── what it refuses ───────────────────────────────────────────────────────────
 
 
 def test_an_invented_field_is_dropped():
-    fields, _ = validate({"vmin": 3.0, "thermal_pad": True, "price_estimate": 2.5})
+    fields, _ = validate({"vmin": 1.08, "thermal_pad": True, "price_estimate": 2.5})
 
     assert set(fields) == {"vmin"}
 
@@ -107,7 +107,8 @@ def test_a_topology_outside_the_vocabulary_is_dropped():
 
 def test_an_efficiency_outside_zero_to_one_is_dropped():
     assert "efficiency" not in validate({"efficiency": 92})[0]
-    assert validate({"efficiency": 0.92})[0]["efficiency"] == 0.92
+    assert normalize.validate({"efficiency": 0.92}, {"Efficiency": "92%"})[0]["efficiency"] == 0.92
+    assert "efficiency" not in validate({"efficiency": 0.92})[0]
 
 
 def test_a_boolean_is_never_a_number():
@@ -116,7 +117,7 @@ def test_a_boolean_is_never_a_number():
 
 def test_a_stated_non_synchronous_rectifier_survives_normalisation():
     """False is data here, not an integer masquerading as a measurement."""
-    fields, _ = validate({"synchronous": False})
+    fields, _ = normalize.validate({"synchronous": False}, {"Synchronous Rectifier": "No"})
 
     assert fields["synchronous"] is False
 
@@ -158,7 +159,7 @@ def test_provenance_citing_a_parameter_that_was_never_sent_is_dropped():
         {"vmin": 1.08, "provenance": {"vmin": "Voltage - Invented"}}
     )
 
-    assert provenance == {}
+    assert provenance == {"vmin": "Voltage - Supply"}, "the independent parser replaces fabricated attribution"
 
 
 def test_provenance_for_a_field_that_was_rejected_is_dropped_too():
@@ -174,6 +175,10 @@ def test_a_reply_of_nothing_useful_yields_nothing():
 
     assert fields == {} and provenance == {}
 
+
+REGULATOR_SPECS = {**SPECS, "Voltage - Supply": "3V~5V", "Output Voltage": "23V~24V",
+                   "Output Type": "Adjustable", "Output Current": "30mA",
+                   "Efficiency": "90%", "Synchronous Rectifier": "No", "Topology": "buck"}
 
 REGULATOR_REPLY = {
     "topology": "buck",
@@ -216,11 +221,11 @@ def test_a_connector_discards_modelled_regulator_fields_but_keeps_its_own_fields
     ))
     assert part.role == "passive"
     assert part.interfaces == ("I2C",)
-    assert (part.vmin, part.vmax, part.temp_min, part.temp_max) == (3.0, 5.0, -40.0, 125.0)
+    assert (part.vmin, part.vmax, part.temp_min, part.temp_max) == (1.08, 3.6, -40.0, 125.0)
 
 
 def test_a_pmic_candidate_keeps_modelled_regulator_fields(monkeypatch):
-    candidate = replace(CANDIDATE, mpn="BUCK-1", category="Power Management (PMIC)")
+    candidate = replace(CANDIDATE, mpn="BUCK-1", category="Power Management (PMIC)", specs=REGULATOR_SPECS)
 
     part = _normalised(candidate, monkeypatch)
 
@@ -233,7 +238,7 @@ def test_a_pmic_candidate_keeps_modelled_regulator_fields(monkeypatch):
 
 
 def test_an_uncategorised_candidate_keeps_modelled_regulator_fields(monkeypatch):
-    candidate = replace(CANDIDATE, mpn="UNKNOWN-1", category="", subcategory="")
+    candidate = replace(CANDIDATE, mpn="UNKNOWN-1", category="", subcategory="", specs=REGULATOR_SPECS)
 
     part = _normalised(candidate, monkeypatch)
 
@@ -304,7 +309,7 @@ def test_a_live_value_wins_over_a_dossier_value(monkeypatch):
     assert part.package == "DFN-4-EP(1.5x1.5)"
 
 
-def test_a_dossier_value_fills_a_field_absent_from_the_live_payload(monkeypatch):
+def test_an_unverified_legacy_dossier_number_cannot_fill_a_missing_measurement(monkeypatch):
     monkeypatch.setattr(normalize.llm, "available", lambda: False)
     monkeypatch.setattr(normalize.search, "enrich", _plain)
 
@@ -313,11 +318,8 @@ def test_a_dossier_value_fills_a_field_absent_from_the_live_payload(monkeypatch)
 
     part = asyncio.run(normalize.normalize(replace(CANDIDATE, specs={}), use_cache=False, dossier_lookup=lookup))
 
-    assert part.temp_max == 125.0
-    assert part.provenance["temp_max"] == (
-        "Continuity dossier — learned in an earlier run (TI datasheet SLVS123)"
-    )
-    assert part.cite("sensor", "temp_max")[0].source == part.provenance["temp_max"]
+    assert part.temp_max is None
+    assert "temp_max" not in part.provenance
 
 
 def test_an_empty_dossier_keeps_today_s_missing_field_behaviour(monkeypatch):
@@ -337,7 +339,7 @@ def test_an_empty_dossier_keeps_today_s_missing_field_behaviour(monkeypatch):
 
 
 def test_cached_datasheet_theta_ja_reaches_the_part_spec(monkeypatch):
-    fact = datasheet.ThermalFact(116.3, "RθJA Junction-to-ambient 116.3", "SOIC-8")
+    fact = datasheet.ThermalFact(116.3, "RθJA Junction-to-ambient 116.3", CANDIDATE.package)
     datasheet._save(CANDIDATE.mpn, fact)
     monkeypatch.setattr(normalize.llm, "available", lambda: False)
     monkeypatch.setattr(normalize.search, "enrich", _plain)
@@ -360,7 +362,7 @@ def test_without_a_cached_datasheet_fact_theta_ja_stays_none(monkeypatch):
 
 
 def test_a_stored_datasheet_fact_survives_a_second_normalise_without_extracting(monkeypatch):
-    fact = datasheet.ThermalFact(116.3, "RθJA Junction-to-ambient 116.3", "SOIC-8")
+    fact = datasheet.ThermalFact(116.3, "RθJA Junction-to-ambient 116.3", CANDIDATE.package)
     datasheet._save(CANDIDATE.mpn, fact)
     monkeypatch.setattr(normalize.llm, "available", lambda: False)
     monkeypatch.setattr(normalize.search, "enrich", _plain)
@@ -557,9 +559,9 @@ def test_a_poisoned_connector_cache_entry_is_repaired_when_it_is_read(monkeypatc
     assert all(getattr(part, field) is None for field in (
         "topology", "vout_min", "vout_max", "i_max", "efficiency", "synchronous"
     ))
-    assert part.role == "passive"
+    assert part.role is None
     assert part.interfaces == ("I2C",)
-    assert (part.vmin, part.vmax, part.temp_min, part.temp_max) == (3.0, 5.0, -40.0, 125.0)
+    assert (part.vmin, part.vmax, part.temp_min, part.temp_max) == (1.08, 3.6, -40.0, 125.0)
 
 
 def test_a_corrupt_cache_entry_is_ignored_rather_than_fatal(monkeypatch, tmp_path):
@@ -649,7 +651,7 @@ def test_an_enrichment_failure_never_kills_the_part(monkeypatch):
 
 
 def test_an_adjustable_regulator_keeps_both_ends_of_its_range():
-    fields, _ = validate({"vout_min": 1.221, "vout_max": 32.0})
+    fields, _ = normalize.validate({"vout_min": 1.221, "vout_max": 32.0}, {"Output Voltage": "1.221V~32V"})
 
     assert fields["vout_min"] == 1.221
     assert fields["vout_max"] == 32.0
@@ -676,7 +678,7 @@ def test_a_fixed_regulator_reports_its_output():
 
 def test_a_single_stated_output_fixes_both_ends():
     """A part quoting one output figure is fixed at it, not adjustable up to it."""
-    fields, _ = validate({"vout": 3.3})
+    fields, _ = normalize.validate({"vout": 3.3}, {"Output Voltage": "3.3V", "Output Type": "Fixed"})
 
     assert fields["vout_min"] == 3.3
     assert fields["vout_max"] == 3.3
@@ -712,7 +714,7 @@ def test_a_fixed_part_reads_one_figure_as_a_setpoint():
 
 
 def test_an_adjustable_part_stating_a_real_range_keeps_both_ends():
-    fields, _ = normalize.validate({"vout_min": 1.8, "vout_max": 28.0}, ADJUSTABLE)
+    fields, _ = normalize.validate({"vout_min": 1.8, "vout_max": 28.0}, {**ADJUSTABLE, "Output Voltage": "1.8V~28V"})
 
     assert fields["vout_min"] == 1.8 and fields["vout_max"] == 28.0
 

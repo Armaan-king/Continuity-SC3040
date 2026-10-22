@@ -47,7 +47,8 @@ export type ThreadBoard = {
     total: number
     currency: string
   } | null
-  checkpoint: 'available' | 'unavailable' | 'not_loaded' | 'not_planned' | 'recorded'
+  checkpoint: 'available' | 'unavailable' | 'not_loaded' | 'not_planned' | 'recorded' | 'revision'
+  revision_id?: string
   conflicts?: BoardConflict[]
   trace: DesignEvent[]
   question: QuestionEvent | null

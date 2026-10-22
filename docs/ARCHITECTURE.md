@@ -10,6 +10,11 @@ flowchart LR
   Graph --> Rules[Deterministic electrical rules]
   Graph --> AI[Optional model adapter]
   Graph --> Parts[Distributor and datasheet adapters]
+  Parts --> Research[Bounded Exa Search and Contents]
+  Graph --> Design[Canonical design and evaluation]
+  HTTP --> Design
+  Design --> Revision[Immutable revision document]
+  Revision --> PG
   HTTP --> Store[Application store]
   Runs --> Store
   Store --> PG[(PostgreSQL)]
@@ -34,6 +39,10 @@ The browser never receives provider keys. Model output is input to validated app
 | part_facts | Intrinsic, sourced facts shared by part number | `(mpn, field)`; never stores board verdicts |
 | schema_migrations | Applied application migrations and checksums | migration version |
 | checkpoint tables | Graph state and pending interrupts | Managed by LangGraph's PostgreSQL saver |
+| design_revisions | Immutable board, requirements, evidence, report, quantities and BOM | owner/project/thread FK; parent revision and content hash |
+| run_inputs | Original brief/BOM input, cancellation and recovery count | one record per thread, created with run admission |
+| run_stages | Completed expensive work keyed by input digest and stage version | `(thread_id, stage_key)` |
+| research_requests | Deduplicated Exa reservations, results and reported cost | `(thread_id, request_key)`; durable per-run budget |
 
 Project/thread/finding ownership is enforced both in queries and by composite foreign keys. Deleting a project cascades application records and routes also remove its graph checkpoints. Session cookies contain random tokens; the database stores their hashes. Findings are persisted atomically. Historical findings are reloaded into the recorder before a continued run.
 
@@ -43,17 +52,35 @@ A request ID and input fingerprint derive a stable thread ID, so repeated submis
 
 The run manager consumes the graph independently of HTTP subscribers. Events are persisted before publication. A browser reconnects after its highest sequence number; refreshing a running project replays its events. Explicit cancellation stops execution; leaving the page only closes its subscription.
 
-Question, completion, and error events reach the local subscriber only after producer cleanup and release of the execution lease. This makes an immediately submitted answer admissible and makes a completed board available for retrieval before the browser navigates away. Design and BOM runs emit a final `board` snapshot containing slots, parts, resolved edges, and remaining conflicts. Saved-board retrieval uses that same snapshot; older BOM recordings are reconstructed from their incremental events. Completion summaries separately count failures, warnings, and unchecked facts.
+Question, completion, and error events reach the local subscriber only after producer cleanup and release of the execution lease. This makes an immediately submitted answer admissible and makes a completed board available for retrieval before the browser navigates away. Design and BOM runs produce a canonical document via `designs/service.py`. Its revision and final board event commit together before publication. Completed-board retrieval, reports and exports read that revision; legacy runs retain their existing restoration path. Completion summaries separately count failures, warnings, and unchecked facts.
 
 `api/project_names.py` derives bounded titles without an extra model request. Creating the first thread and naming an untitled generated project share a database transaction. Explicit renames mark the title as manual, so later briefs cannot overwrite it. The full original prompt remains on the thread.
 
-A database lease identifies the executing worker. It expires after 45 seconds and renews every 10 seconds. Admission serializes on the account row. Writes from a superseded execution are rejected using its lease token; released or expired leases cannot overwrite a newer run. Status becomes terminal after execution cleanup. Abandoned/error runs with unfinished graph checkpoints can be continued. A hard process failure can re-execute a node since its last graph checkpoint, including external read/model calls; this is not an exactly-once job system. BOM validation has no graph checkpoint and must be restarted if interrupted.
+A database lease identifies the executing worker. It expires after 45 seconds and renews every 10 seconds. Admission serializes on the account row. Writes from a superseded execution are rejected using its lease token; released or expired leases cannot overwrite a newer run. Status becomes terminal after execution cleanup. Completed normalization and BOM resolution/requirements/rail stages survive restarts through `designs/context.py`. Graph checkpoints retain orchestration state. A 15-second recovery loop resumes eligible abandoned inputs at most twice while the host is awake. Manual continuation supports failed/interrupted BOM runs. Explicit cancellation excludes automatic recovery. A crash before a stage commits can repeat its external calls; this is not an exactly-once job system.
+
+## Revisions and evidence
+
+`designs/service.py` is the shared validation boundary for generated boards, imported BOMs and edits. Documents record schema/ruleset versions, source measurements, requirements and their stated/inferred/assumed/confirmed basis, quantities, findings, decisions and a stable content hash. Reports preserve UNKNOWN outcomes and original accepted failures. A missing rule result is not counted as a pass.
+
+Requirements and connection commands create new revisions and revalidate using the saved component snapshot without a model or network request. Restore creates a revalidated revision rather than deleting history. Commands check ownership, block active runs and reject stale project heads with HTTP 409. Exports include the revision ID. Historical run traces, repair Memory and aggregate Analytics describe the original run observations; the Review report is authoritative for the selected edited revision.
+
+Numeric model output must agree with an independent parser of explicit supplier parameters. Provenance naming an existing field is insufficient. Cache identity includes manufacturer, MPN, package, source parameters and parser/prompt versions; old numeric dossier entries cannot bypass this check. Thermal quotes must contain the extracted number and cached thermal facts must match the requested package. This is source validation, not independent measurement of the manufacturer's claim.
+
+Declared signal nets separate controllers and protocols. Connections inferred from a BOM remain unconfirmed until reviewed; supported protocol alone is not physical connectivity. Passing current/thermal/energy checks based only on typical load current become unknown. New waivers bind rule, subject, scope and evidence/detail hash; earlier checkpoint pairs remain readable for compatibility. Requirement edits and restores do not carry waivers forward automatically.
+
+## Research and selection
+
+Exa is an optional adapter in `parts/research.py`, configured with server-only `EXA_API_KEY`. It uses native `/search` (`auto`, highlights) for discovery and `/contents` (bounded text) to inspect source context. It does not invent domain/category filters. Public HTTPS URLs, per-URL retrieval statuses, response size and timeouts are checked. Retrieved text is untrusted and visibly unverified, with its retrieval time, content hash and source URL preserved.
+
+Missing-evidence research attaches reviewable documents. Alternative discovery asks the configured model for literal identifiers from the retrieved text, then resolves exact MPNs through the supplier catalogue and normalizes them before validation. At most three shortlisted candidates are checked against the same board; failures and unknowns precede cost, nominal body size or stock preferences. No Exa snippet or model-proposed number directly determines a rule result.
+
+Request reservations and cached results are durable per run. Defaults allow six requests with a $0.12 estimated budget and a $0.02 reservation per request. Actual reported costs are recorded; provider pricing/account limits govern actual billing. Reservations survive a crash and are not blindly retried. Missing keys or retrieval failures preserve ordinary supplier/rules behavior. `/runtime` distinguishes configured research from the last actual request result.
 
 The supported free-host configuration uses one Uvicorn worker. In-memory caches and per-process admission are bounded, but horizontal scaling needs a shared queue and global capacity/rate limiting. Local mode retains recent runs in memory and has no accounts, durable history, or restart recovery. Do not expose local mode as a public multi-user deployment.
 
 ## Schema changes
 
-The immutable `schema.sql` is migration 001. Migration 002 adds execution leases, replay sequence checks and ownership constraints. Migration 003 adds project-name provenance and runs a one-time data conversion for untitled projects and conversational names matching the old first-six-words algorithm. Other existing names are retained. All application migrations run in one transaction under an advisory lock. A changed applied SQL file fails startup rather than silently rewriting history. LangGraph manages its own checkpoint schema; both use the same pool.
+The immutable `schema.sql` is migration 001. Migration 002 adds execution leases, replay sequence checks and ownership constraints. Migration 003 adds project-name provenance and converts known legacy generated names. Migration 004 adds immutable design revisions, durable stages/inputs and research reservations without removing existing data. All application migrations run in one transaction under an advisory lock. A changed applied SQL file fails startup rather than silently rewriting history. LangGraph manages its own checkpoint schema; both use the same pool.
 
 ## Operational limits
 

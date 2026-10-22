@@ -23,6 +23,10 @@ def measurements(value: str, unit: str) -> list[float]:
         low = float(span[1]) * SCALE[span[2].lower()]
         high = float(span[3]) * SCALE[span[4].lower()]
         return [low, high] if low <= high else []
+    shared = re.fullmatch(NUMBER + r"\s*(?:~|to|–|-)\s*" + expression, value.strip(), re.I)
+    if shared:
+        low, high = float(shared[1]) * SCALE[shared[3].lower()], float(shared[2]) * SCALE[shared[3].lower()]
+        return [low, high] if low <= high else []
     return []
 
 
@@ -36,6 +40,8 @@ def parse(specs: Mapping[str, str]) -> tuple[dict, dict]:
 
     fixed = any(name.lower() == "output type" and value.lower().strip() == "fixed"
                 for name, value in specs.items() if isinstance(value, str))
+    adjustable = any(name.lower() == "output type" and value.lower().strip() == "adjustable"
+                     for name, value in specs.items() if isinstance(value, str))
     for source, raw in specs.items():
         if not isinstance(raw, str):
             continue
@@ -53,6 +59,8 @@ def parse(specs: Mapping[str, str]) -> tuple[dict, dict]:
             elif len(values) == 1 and fixed and values[0] >= 0:
                 put("vout_min", values[0], source)
                 put("vout_max", values[0], source)
+            elif len(values) == 1 and adjustable and values[0] >= 0:
+                put("vout_max", values[0], source)
         elif name in {"current supply", "supply current", "operating current", "current output", "output current"}:
             values = measurements(raw, "A")
             if len(values) == 1 and values[0] >= 0:
@@ -64,6 +72,16 @@ def parse(specs: Mapping[str, str]) -> tuple[dict, dict]:
                 put("temp_max", values[1], source)
         elif name in {"number of i/o", "number of gpio"} and raw.strip().isdigit():
             put("pins_available", int(raw), source)
+        elif name in {"efficiency"}:
+            match = re.fullmatch(r"\s*(\d+(?:\.\d+)?)\s*%\s*", raw)
+            if match and 0 < float(match[1]) <= 100:
+                put("efficiency", float(match[1]) / 100, source)
+        elif name == "synchronous rectifier" and raw.strip().lower() in {"yes", "no"}:
+            put("synchronous", raw.strip().lower() == "yes", source)
+        elif name == "topology":
+            value = raw.strip().lower()
+            if value in {"ldo", "linear", "buck", "boost", "buck-boost", "sepic", "switching"}:
+                put("topology", value, source)
         elif name in {"interface", "interface type"}:
             buses = tuple(dict.fromkeys(re.findall(r"\b(?:I2C|SPI|UART|CAN|USB|I2S)\b", raw.upper())))
             if buses:

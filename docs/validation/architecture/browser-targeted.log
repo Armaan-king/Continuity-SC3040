@@ -1,0 +1,30 @@
+
+> frontend@0.0.0 test:e2e
+> playwright test e2e/review.spec.ts
+
+npm.cmd : [WebServer] INFO:     Started server process [52956]
+At line:5 char:1
++ & npm.cmd run test:e2e -- e2e/review.spec.ts *> ../.local/architectur ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([WebServer] INF...process [52956]:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+[WebServer] INFO:     Waiting for application startup.
+[WebServer] INFO:     Application startup complete.
+[WebServer] INFO:     Uvicorn running on http://127.0.0.1:8020 (Press CTRL+C to quit)
+[WebServer] (node:65384) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:30104) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:61932) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+Seeded e2e@continuity.dev: 25 completed runs, 3 excluded, 5 projects.
+Seeded versioned reference design for browser validation.
+
+Running 1 test using 1 worker
+
+(node:60320) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [chromium] › e2e\review.spec.ts:4:1 › requirements produce an immutable revision shared by report, graph and exports (1.8s)
+
+  1 passed (11.1s)

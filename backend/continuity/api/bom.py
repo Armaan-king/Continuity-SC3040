@@ -20,6 +20,8 @@ from ..engine.models import Board, PartSpec, Rail, Requirements, Slot, Tier, Ver
 from ..parts import normalize, search
 from ..planner import plan as planner
 from ..planner import topology
+from ..designs import service as designs
+from ..designs.context import stage
 from . import events
 
 
@@ -155,7 +157,7 @@ async def requirements_from_brief(brief: str | None) -> Requirements:
         log.warning("BOM requirements inference returned no requirement fields; using defaults")
         return defaults
     try:
-        return planner._clean_requirements(raw)
+        return replace(planner._clean_requirements(raw), **explicit_requirements(brief))
     except (OverflowError, TypeError, ValueError) as error:
         log.warning("BOM requirements inference returned unusable fields; using defaults: %s", error)
         return defaults
@@ -236,8 +238,11 @@ async def validate_bom(
 ) -> AsyncIterator[dict[str, Any]]:
     """Resolve, type, infer a guarded tree, and narrate engine verdicts."""
     started_at = time.time()
-    requirements = await requirements_from_brief(brief)
-    resolved = await asyncio.gather(*(_resolve(row) for row in rows))
+    async def get_requirements():
+        from dataclasses import asdict
+        return asdict(await requirements_from_brief(brief))
+    requirements = Requirements(**await stage("bom_requirements_v1", brief, get_requirements))
+    resolved = await asyncio.gather(*(_resolved_stage(row) for row in rows))
     candidates = [(index, result) for index, result in enumerate(resolved) if result is not None]
     parts = await asyncio.gather(*(_normalise(candidate) for _, candidate in candidates))
     by_index = {index: part for (index, _), part in zip(candidates, parts) if part is not None}
@@ -261,32 +266,15 @@ async def validate_bom(
         if by_index.get(index) is not None
     ]
     aliases = _unique_aliases(rows, [(index, candidate) for index, candidate in candidates if by_index.get(index) is not None])
-    declared = _weighted_rails(
-        planner._clean_rails(await infer_rails(resolved_for_inference), slots, aliases), rows
-    )
+    declared_raw = await stage("bom_rails_v1", [(key, c.mpn) for key, c in resolved_for_inference],
+                               lambda: infer_rails(resolved_for_inference))
+    declared = [replace(rail, basis="Inferred from BOM; connection unconfirmed")
+                for rail in _weighted_rails(planner._clean_rails(declared_raw, slots, aliases), rows)]
     board = Board(requirements, slots, {rail.id: rail for rail in declared})
 
     yield stream.plan(slots.values(), topology.power_edges(board.rails))
 
-    unresolved = [
-        Verdict(
-            rule="availability",
-            status="warn",
-            detail=(
-                f"No part found for BOM MPN {row.mpn}."
-                if resolved[index] is None
-                else f"BOM MPN {row.mpn} was found but its specifications could not be read."
-            ),
-            unchecked=resolved[index] is not None,
-            subject=_slot_id(index),
-            involved=(_slot_id(index),),
-        )
-        for index, row in enumerate(rows)
-        if by_index.get(index) is None
-    ]
-    verdicts = [*unresolved, *rules.evaluate(board)]
-    if not board.rails:
-        verdicts.extend(_unchecked_rail_verdicts(slots))
+    verdicts = designs.evaluate(board)
 
     # A row's status has to say whether it *failed*, not merely that it was resolved.
     # These were all emitted as "pending" before the checks ran, and the frontend counts
@@ -303,7 +291,10 @@ async def validate_bom(
     for verdict in rules.failures(verdicts):
         yield stream.conflict(verdict, edge=verdict.scope)
 
-    yield stream.board(slots.values(), topology.resolved_edges(board, verdicts), verdicts)
+    snapshot = stream.board(slots.values(), topology.resolved_edges(board, verdicts), verdicts)
+    snapshot["document"] = designs.document(board, prompt=brief or "", verdicts=verdicts,
+        quantities={_slot_id(i): row.qty for i, row in enumerate(rows)}, origin="bom")
+    yield snapshot
     bom_rows = [events.bom_row(_slot_id(index), part, rows[index].qty) for index, part in by_index.items()]
     yield stream.bom(bom_rows, sum((part.unit_price or 0.0) * rows[index].qty for index, part in by_index.items()))
     yield stream.done(
@@ -325,17 +316,31 @@ async def _resolve(row: BomRow) -> search.Candidate | None:
     if not isinstance(results, list):
         return None
     for result in results:
-        if isinstance(result, Mapping) and result.get("model"):
+        if (isinstance(result, Mapping) and isinstance(result.get("model"), str)
+                and result["model"].strip().casefold() == row.mpn.strip().casefold()):
             return search._candidate(result)
     return None
 
 
 async def _normalise(candidate: search.Candidate):
     try:
-        return await normalize.normalize(candidate)
+        from dataclasses import asdict
+        async def work():
+            return asdict(await normalize.normalize(candidate))
+        values = await stage("normalize_verified_v2", asdict(candidate), work)
+        return PartSpec(**{**values, "interfaces": tuple(values.get("interfaces", ()))})
     except Exception as error:  # one malformed result must not hide the rest of a BOM
         log.warning("BOM normalisation failed for %s: %s", candidate.mpn, error)
         return None
+
+
+async def _resolved_stage(row: BomRow):
+    from dataclasses import asdict
+    async def work():
+        candidate = await _resolve(row)
+        return asdict(candidate) if candidate else None
+    value = await stage("bom_resolve_v1", row.mpn, work)
+    return search.Candidate(**value) if value else None
 
 
 def _weighted_rails(rails: list[Rail], rows: list[BomRow]) -> list[Rail]:

@@ -4,6 +4,8 @@ Continuity turns a circuit-board brief or an existing bill of materials into a w
 
 Continuity is a design-assistance application. A completed run can still contain unchecked specifications or accepted warnings; consult the evidence shown for each rule before using a board.
 
+The workspace now includes **Review design**: a validation report, editable requirements, connection confirmation, and revision comparison/restore. The graph, report and BOM exports read the same saved design revision. Optional Exa research finds supporting documents and additional candidates; numeric checks still require independently parsed source measurements.
+
 ## See the current app
 
 [![Current interface replaying the guided walkthrough](docs/media/walkthrough.gif)](docs/media/guided-walkthrough.mp4)
@@ -13,7 +15,7 @@ Continuity is a design-assistance application. A completed run can still contain
 | [Project workflow](docs/media/project-workflow.mp4) | Sign in, create a board, source parts, inspect checks, export CSV, reopen the saved board, and review analytics and memory | Real local app and PostgreSQL; live distributor lookup; basic planning with AI disabled |
 | [Guided walkthrough](docs/media/guided-walkthrough.mp4) | Create an account and follow the seven-step introduction to the graph, trace, conflict evidence, BOM, and memory | The app's built-in recorded example; historical parts and prices |
 
-These are screen recordings of the current production build, not a public deployment. The GIF previews the guided walkthrough. Open the MP4 links for the full recordings; download the file if your Markdown viewer does not offer playback. [Recording details and reproduction](docs/media/README.md).
+These recordings show the existing workspace workflow before the revision-review addition. The three-panel workspace is retained; the recordings do not demonstrate the new review page or Exa research. The GIF previews the guided walkthrough. [Recording details and reproduction](docs/media/README.md).
 
 ![A completed project with its graph, validation trace, and bill of materials](docs/media/workspace.png)
 
@@ -31,6 +33,8 @@ Project names are derived from the subject of the brief: `I want to make a small
 A completed run may still **need review**. Its summary distinguishes failed checks, warnings, and unchecked facts. Unresolved conflicts remain visible after completion and when you reopen the board, including uploaded BOMs. If sending a clarification answer fails, the question remains available to retry.
 
 Closing a browser view does not cancel its server-side run. The event stream reconnects using its saved cursor; you can explicitly cancel a run or recover an eligible checkpoint after interrupted execution. Fresh sourcing needs internet access to the distributor.
+
+After completing a run, open **Review design**. The report distinguishes PASS, FAIL and UNKNOWN and retains accepted failures. Under **Requirements**, edit constraints or confirm power/signal connections against your circuit, then save to revalidate. **Revision history** compares saved versions and restores an earlier design as a new revision. Existing projects remain readable; versioned reports begin with new completed runs.
 
 ## Start locally
 
@@ -81,6 +85,14 @@ Set `CONTINUITY_LLM_PROVIDER=ollama` in `backend/.env` when running Python direc
 
 For hosted AI, configure the provider and key as server environment variables. Never put secrets in `VITE_*`, source files, or the browser. With no configured key, `auto` selects basic planning. It recognizes a limited set of functions and parses explicit measurements; missing facts remain unchecked.
 
+### Exa research
+
+Add `EXA_API_KEY` to **`backend/.env` for direct Python development** and **Render → Environment for hosting**. For Docker Compose, use the root `.env`. Gemini and Exa serve different purposes: Gemini handles planning, interpretation and repair proposals; Exa searches the web and retrieves documents. Keep `CONTINUITY_LLM_PROVIDER=gemini` and `GEMINI_API_KEY` for your existing Gemini setup.
+
+Exa uses native Search and Contents endpoints following the [build-with-exa skill](https://github.com/exa-labs/agent-skills/tree/main/skills/build-with-exa). Research runs when a part lacks evidence or supplier searches yield too few candidates. Retrieved documents include URLs, timestamps and hashes and remain unverified until reviewed; snippets cannot introduce numeric facts. The engine compares up to three resolved candidates against the same design before selecting one.
+
+Defaults are six Exa requests per run and a $0.12 **estimated** request budget, persisted across retries. Set `CONTINUITY_RESEARCH_MAX_CALLS`, `CONTINUITY_RESEARCH_BUDGET_USD`, or `CONTINUITY_RESEARCH_ENABLED=0` to control usage. Provider charges and account quotas remain authoritative. `/api/runtime` reports research configuration separately from its last request status.
+
 [Groq setup](https://console.groq.com/docs/quickstart), [Ollama compatibility](https://docs.ollama.com/api/openai-compatibility), [xAI requirements](https://docs.x.ai/developers/quickstart). Grok is not a keyless free API.
 
 ## Hosting
@@ -126,6 +138,8 @@ Use the backend virtual environment's Python. Set `CONTINUITY_TEST_DB` to a disp
 The recorded implementation verification produced **779 backend passes, 5 optional external-service skips, and 20 browser passes**. Separate smoke runs exercised real parts lookup and local Ollama inference. These are dated results, not a claim that external services always succeed. [Current media capture checks](docs/media/README.md#verification) document the README recordings separately.
 
 The subsequent [consistency update](docs/CONSISTENCY_VALIDATION.md) passed **796 backend tests and 25 browser tests**, with 5 opt-in external-service skips. Its logs cover project naming, preserved custom names, clarification retries, final-board restoration, and BOM replacement/export consistency.
+
+See [architecture and Exa verification](docs/ARCHITECTURE_VALIDATION.md) for the current test results, live Exa smoke check, command output and limitations. The live research check is explicitly opt-in: from `backend`, run `python tools/check_research.py`; it makes at most one Search and one Contents request.
 
 ## License and attribution
 

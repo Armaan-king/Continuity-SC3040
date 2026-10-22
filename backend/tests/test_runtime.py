@@ -82,7 +82,7 @@ def test_ambiguous_measurements_remain_unknown(raw):
 
 def test_nominal_input_and_adjustable_output_do_not_become_operating_ranges():
     fields, _ = parse({"Supply Voltage": "3.3V", "Output Voltage": "3.3V", "Output Type": "Adjustable"})
-    assert fields == {}
+    assert fields == {"vout_max": 3.3}, "an adjustable ceiling is not a complete output or supply range"
 
 
 def test_cross_origin_mutation_is_rejected(clean_environment):

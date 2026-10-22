@@ -8,7 +8,7 @@ This repository configures one Render Free Docker web service and an external Ne
 2. Push this revision to `Armaan-king/Continuity-SC3040`.
 3. In Render, choose **New → Blueprint** and connect that repository. Use Git branch `main` and Blueprint path `render.yaml`. Render reads the configuration, builds `Dockerfile`, and creates `continuity-sc3040` on the Free instance type. The Dockerfile supplies the build and start commands.
 4. Set `DATABASE_URL` to the Neon connection string when prompted. The Blueprint sets production mode and secure, same-site session cookies.
-5. Optionally set `CONTINUITY_LLM_PROVIDER=groq` and `GROQ_API_KEY` to a developer key from Groq. Without credentials the service uses basic planning. Do not set a browser `VITE_*` key.
+5. For Gemini, set `CONTINUITY_LLM_PROVIDER=gemini` and `GEMINI_API_KEY`. Add optional `EXA_API_KEY` for research. Existing Groq configuration remains supported. Without model credentials the service uses basic planning. Do not set a browser `VITE_*` key.
 6. Wait for the deployment health check at `/api/ready`. Open the Render URL, register an account, create a project, and reload it to verify persistence. `/api/runtime` describes AI configuration and persistence without exposing credentials.
 
 No separate static frontend service, CORS wildcard, build-time API hostname, or cross-site cookie is required. Existing split deployments can be retired after verifying this one. The new Blueprint does not automatically delete old services.
@@ -44,7 +44,9 @@ Accounts, sessions, projects, events, findings and checkpoints use PostgreSQL. N
 
 ## Updates and recovery
 
-Deploy one worker. Startup applies versioned migrations and checksums. Back up Neon before schema changes. If a process exits during a run, its lease expires; reopen the project and continue an eligible saved checkpoint. A failed BOM-only run must be submitted again.
+Deploy one worker. Startup applies versioned migrations and checksums, including migration 004 for design revisions, durable run inputs/stages, and research request reservations. Back up Neon before schema changes. If a process exits during a run, its lease expires; while the app is awake it attempts recovery of eligible abandoned runs at most twice. Saved BOM stages can now resume too. Explicitly cancelled runs are excluded from automatic recovery; failed runs can be continued manually. Nothing executes while Render is asleep.
+
+For the existing service, add `EXA_API_KEY` in Render's Environment settings, save, and deploy the new commit. Local `.env` files are not uploaded. Confirm `/api/runtime` reports `research.configured: true`; this indicates a key is present, not that it has been accepted. A completed request updates `research.last_request`. New completed projects expose **Review design**. Older projects do not gain invented evidence or retroactive revisions.
 
 Check `/api/health` for process liveness and `/api/ready` for database readiness. Production startup refuses to run if PostgreSQL is absent or secure cookies are disabled. If deployment fails, inspect Render startup logs; never paste database passwords or API keys into issue logs.
 

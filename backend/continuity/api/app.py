@@ -40,7 +40,7 @@ from ..engine.models import Slot
 from ..graph.build import build
 from ..planner import topology
 from ..parts import datasheet
-from . import analytics_api, auth, bom, events, memory, projects
+from . import analytics_api, auth, bom, events, memory, projects, revisions
 from .memory import FindingRecorder
 from .store import Store
 from .runs import RunManager
@@ -108,9 +108,13 @@ async def lifespan(app: FastAPI):
     app.state.store = store
     app.state.graph = build(checkpointer)
     log.info("persistence: postgres")
+    from .recovery import recover
+    recovery_task = asyncio.create_task(recover(app))
     try:
         yield
     finally:
+        recovery_task.cancel()
+        await asyncio.gather(recovery_task, return_exceptions=True)
         await app.state.runs.close()
         if PROGRESS_TASKS:
             await asyncio.gather(*PROGRESS_TASKS, return_exceptions=True)
@@ -157,6 +161,7 @@ app.include_router(auth.router)
 app.include_router(memory.router)
 app.include_router(analytics_api.router)
 app.include_router(projects.router)
+app.include_router(revisions.router)
 app.add_middleware(SecurityMiddleware)
 
 SSE_HEADERS = {
@@ -214,7 +219,8 @@ async def validate_pasted_bom(body: bom.BomRequest, request: Request) -> Streami
             raise HTTPException(422, "project_id is required")
         if await store.project_for_user(project_id, user.id) is None:
             raise HTTPException(404, "no such project")
-        if not await store.create_thread(thread_id, project_id, user.id, body.prompt or "BOM validation"):
+        if not await store.create_thread(thread_id, project_id, user.id, body.prompt or "BOM validation",
+                run_kind="bom", run_payload={"rows": [row.__dict__ for row in rows], "brief": body.prompt}):
             return _subscription(request, thread_id, owner)
 
     stream = STREAMS[thread_id] = events.EventStream(thread_id)
@@ -325,9 +331,11 @@ async def readiness(request: Request):
 
 @app.get("/runtime")
 async def runtime(request: Request) -> dict[str, Any]:
+    from ..parts import research
     return {"accounts": request.app.state.store is not None,
             "persistence": "postgres" if request.app.state.store else "memory",
             "ai": llm.public_status(),
+            "research": research.status(),
             "parts": "recorded" if env.flag("CONTINUITY_FIXTURES") else "live"}
 
 
@@ -386,7 +394,8 @@ async def design(body: DesignRequest, request: Request) -> StreamingResponse:
             raise HTTPException(422, "project_id is required")
         if await store.project_for_user(project_id, owner) is None:
             raise HTTPException(404, "no such project")
-        if not await store.create_thread(thread_id, project_id, owner, body.prompt):
+        if not await store.create_thread(thread_id, project_id, owner, body.prompt,
+                run_kind="brief", run_payload={"prompt": body.prompt}):
             return _subscription(request, thread_id, owner)
     STREAMS[thread_id] = events.EventStream(thread_id)
     return await _start_run(request, thread_id, owner,
@@ -425,6 +434,13 @@ async def continue_thread(thread_id: str, request: Request) -> StreamingResponse
         raise HTTPException(404, "unknown thread")
     if thread.status not in {"abandoned", "error"}:
         raise HTTPException(409, "only stopped runs can be continued")
+    original = await store.run_input(thread_id, user.id)
+    if original and original["kind"] == "bom":
+        request.app.state.runs.admit(user.id)
+        stream = STREAMS[thread_id] = events.EventStream(thread_id, last_seq=thread.last_seq)
+        payload = original["payload"]
+        return await _start_run(request, thread_id, user.id,
+            _run_bom([bom.BomRow(**row) for row in payload["rows"]], payload.get("brief"), stream, store), thread.last_seq)
     snapshot = await _checkpoint_snapshot(request.app.state.graph, thread_id)
     if snapshot is None or not snapshot.next:
         raise HTTPException(409, "This run has no unfinished checkpoint. Start a new design.")
@@ -454,6 +470,9 @@ async def cancel_thread(thread_id: str, request: Request) -> None:
     owner = _owner(user)
     if store and await store.thread_for_user(thread_id, owner) is None:
         raise HTTPException(404, "unknown thread")
+    if store:
+        async with store.pool.connection() as conn:
+            await conn.execute("UPDATE run_inputs SET cancelled = true WHERE thread_id = %s", (thread_id,))
     if not await request.app.state.runs.stop(thread_id, owner):
         if not store:
             raise HTTPException(404, "unknown thread")
@@ -477,6 +496,14 @@ async def thread_board(thread_id: str, request: Request) -> dict[str, Any]:
     if thread is None:
         raise HTTPException(404, "unknown thread")
 
+    revision = await store.thread_revision(thread_id, user.id)
+    if revision and thread.status == "done":
+        document = revision["document"]
+        trace = [event for event in await store.run_events(thread_id) if event.get("type") not in {"bom", "board"}]
+        return {**document["view"], "status": "done", "revision_id": revision["id"],
+                "summary": thread.summary, "bom": document["bom"], "checkpoint": "revision",
+                "trace": trace, "question": None, "resumable": False}
+
     if thread.status == "running":
         return {
             "status": thread.status,
@@ -495,6 +522,9 @@ async def thread_board(thread_id: str, request: Request) -> dict[str, Any]:
     trace = [event for event in await store.run_events(thread_id) if event.get("type") != "bom"]
     question = _pending_question(snapshot, thread)
     resumable = bool(snapshot and snapshot.next) and thread.status in {"awaiting", "abandoned", "error"}
+    original = await store.run_input(thread_id, user.id)
+    if original and original["kind"] == "bom" and thread.status in {"abandoned", "error"}:
+        resumable = True
     if thread.status == "done" and any(event.get("type") == "board" for event in trace):
         return _bom_only_board(thread, trace, question, resumable,
                                checkpoint="available" if values else "unavailable")
@@ -639,6 +669,9 @@ async def export(thread_id: str, request: Request) -> PlainTextResponse:
     else:
         thread = await store.thread_for_user(thread_id, user.id)
         rows = None if thread is None else (thread.bom or BOMS.get(thread_id))
+        revision = await store.thread_revision(thread_id, user.id) if thread else None
+        if revision:
+            rows = revision["document"]["bom"]["rows"]
 
     if rows is None:
         raise HTTPException(404, "no bill of materials for that thread")

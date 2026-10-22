@@ -320,6 +320,9 @@ def _pending_question(snapshot: Any, thread: Any) -> dict[str, Any] | None:
 
 async def _save_trace(store: Store, thread_id: str, trace: Sequence[dict[str, Any]]) -> None:
     """Best-effort history: its failure must never make a live board fail."""
+    # The run manager commits canonical boards and their revision atomically. The
+    # producer must not race that transaction with an unsanitized duplicate frame.
+    trace = [event for event in trace if not (event.get("type") == "board" and "document" in event)]
     if not trace:
         return
     try:

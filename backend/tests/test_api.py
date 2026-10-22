@@ -187,7 +187,7 @@ def test_a_signed_in_run_without_a_project_uses_a_scratch_project(monkeypatch):
             return object()
 
         async def create_thread(
-            self, thread_id: str, project_id: str, user_id: str, prompt: str
+            self, thread_id: str, project_id: str, user_id: str, prompt: str, **kwargs
         ) -> None:
             calls.append(("thread", thread_id, project_id, user_id, prompt))
             return True

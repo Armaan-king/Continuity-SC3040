@@ -442,7 +442,8 @@ def test_a_finished_thread_hydrates_its_checkpointed_board():
 
     assert board.status_code == 200
     assert body["status"] == "done"
-    assert body["checkpoint"] == "available"
+    assert body["checkpoint"] == "revision"
+    assert body["revision_id"]
     assert len(body["slots"]) == 4
     assert all(slot["part"] is not None for slot in body["slots"])
     assert body["edges"]
@@ -475,7 +476,8 @@ def test_uploaded_bom_restores_graph_and_failures_without_a_checkpoint(monkeypat
                     "project_id": project["id"],
                 })
                 board = (await http.get(f"/threads/{frames[0]['thread_id']}/board")).json()
-                assert board["checkpoint"] == "recorded"
+                assert board["checkpoint"] == "revision"
+                assert board["revision_id"]
                 assert board["status"] == "done"
                 assert board["slots"][0]["status"] == "conflict"
                 assert board["slots"][0]["part"]["mpn"] == "COMMERCIAL"
@@ -500,7 +502,7 @@ def test_a_finished_thread_hydrates_its_trace_in_order_without_bom_frames():
         event["seq"] for event in board.json()["trace"]
     )
     assert not [event for event in board.json()["trace"] if event["type"] == "bom"]
-    assert board.json()["trace"] == [event for event in frames if event["type"] != "bom"]
+    assert board.json()["trace"] == [event for event in frames if event["type"] not in {"bom", "board"}]
 
 
 def test_an_awaiting_thread_hydrates_its_board_trace_and_real_pending_question():

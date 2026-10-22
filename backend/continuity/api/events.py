@@ -115,6 +115,9 @@ class EventStream:
             status=verdict.status,
             detail=verdict.detail,
             unchecked=verdict.unchecked,
+            original_status=verdict.original_status,
+            accepted=verdict.accepted,
+            evidence=[asdict(e) for e in verdict.evidence],
         )
 
     def conflict(
@@ -176,6 +179,10 @@ class EventStream:
 
     def bom(self, rows: list[dict[str, Any]], total: float, currency: str = "USD") -> dict[str, Any]:
         return self._event("bom", rows=rows, total=round(total, 2), currency=currency)
+
+    def decision(self, verdict: Verdict, reason: str) -> dict[str, Any]:
+        return self._event("decision", action="accept_finding", rule=verdict.rule,
+                           subject=verdict.subject, scope=verdict.scope, reason=reason)
 
     def board(self, slots: Iterable[Slot], edges: Iterable[Edge], verdicts: Iterable[Verdict],
               supply: dict[str, Any] | None = None) -> dict[str, Any]:

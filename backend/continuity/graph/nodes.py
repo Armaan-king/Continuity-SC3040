@@ -20,7 +20,7 @@ from __future__ import annotations
 import asyncio
 import logging
 import time
-from dataclasses import replace
+from dataclasses import asdict, replace
 from typing import Any, Awaitable, Callable
 
 from langgraph.config import get_stream_writer
@@ -30,6 +30,7 @@ from ..api import events
 from .. import interpret, reviewer
 from ..engine import policy, rules
 from ..engine import situation
+from ..designs import service as designs
 from ..engine.models import Rail, Requirements, Slot, Verdict
 from ..planner import plan as planner
 from ..planner import topology
@@ -461,7 +462,14 @@ async def select(state: DesignState, config) -> DesignState:
     if len(found) < sourcing.MIN_CANDIDATES:
         _emit(ev.reasoning(slot_id, _thin_shortlist_message(len(found))))
     _narrate_normalisation(ev, slot_id, found[0])
-    part = await sourcing.choose(found[0])
+    if isinstance(found, sourcing.SearchResults) and len(found) > 1 and not slots[slot_id].pinned:
+        candidate, part, comparison = await sourcing.compare_candidates(
+            found, topology.Board(state["requirements"], slots, state["rails"]), slot_id)
+        found = [candidate, *(item for item in found if item is not candidate)]
+        _emit(ev._event("comparison", slot=slot_id, candidates=comparison, selected=part.mpn))
+        _emit(ev.reasoning(slot_id, f"Compared {len(comparison)} candidates against this design; selected {part.mpn}."))
+    else:
+        part = await sourcing.choose(found[0])
     _emit(ev.candidate(slot_id, part))
 
     slots[slot_id] = replace(slots[slot_id], part=part, status="pending")
@@ -482,7 +490,7 @@ def validate(state: DesignState, config) -> DesignState:
     """Run the engine over the whole board and report every check it produced."""
     ev = _events(config)
     board = topology.Board(state["requirements"], state["slots"], state["rails"])
-    verdicts = _apply_waivers(rules.evaluate(board), state.get("accepted") or [])
+    verdicts = _apply_waivers(designs.evaluate(board), state.get("accepted") or [])
 
     current = state.get("current")
     if state.get("revalidate_all"):
@@ -553,6 +561,11 @@ def validate(state: DesignState, config) -> DesignState:
     return {"verdicts": verdicts, "slots": slots, "revalidate_all": False}
 
 
+def _waiver_key(verdict: Verdict) -> tuple:
+    return (verdict.rule, verdict.subject, verdict.scope,
+            designs.digest([verdict.detail, [asdict(item) for item in verdict.evidence]]))
+
+
 def _apply_waivers(verdicts: list, accepted: list) -> list:
     """Downgrade failures the user explicitly accepted. Never delete them.
 
@@ -566,9 +579,11 @@ def _apply_waivers(verdicts: list, accepted: list) -> list:
         replace(
             v,
             status="warn",
+            original_status=v.original_status or v.status,
+            accepted=True,
             detail=f"{v.detail} Accepted by you, so this is not blocking.",
         )
-        if v.status == "fail" and (v.rule, v.subject) in waived
+        if v.status == "fail" and (_waiver_key(v) in waived or (v.rule, v.subject) in waived)
         else v
         for v in verdicts
     ]
@@ -1058,8 +1073,9 @@ async def escalate(state: DesignState, config) -> DesignState:
         _emit(ev.reasoning(None, f"Taking that into account: {said}"))
         return {"escalation": None, "guidance": said, "verdicts": []}
 
-    waived = [*(state.get("accepted") or []), (conflict.rule, conflict.subject)]
-    _emit(ev.reasoning(None, acceptance_message(conflict.rule, state["slots"][conflict.subject].label)))
+    waived = [*(state.get("accepted") or []), _waiver_key(conflict)]
+    _emit(ev.decision(conflict, "User accepted the displayed finding"))
+    _emit({**ev.reasoning(None, acceptance_message(conflict.rule, state["slots"][conflict.subject].label)), "decision_recorded": True})
     return {"escalation": None, "accepted": waived, "verdicts": []}
 
 
@@ -1120,8 +1136,10 @@ def finalize(state: DesignState, config) -> DesignState:
 
     board = topology.Board(state["requirements"], state["slots"], state["rails"])
     verdicts = state.get("verdicts") or []
-    _emit(ev.board(state["slots"].values(), topology.resolved_edges(board, verdicts), verdicts,
-                   topology.supply_node(topology.power_source(state["requirements"]))))
+    snapshot = ev.board(state["slots"].values(), topology.resolved_edges(board, verdicts), verdicts,
+                        topology.supply_node(topology.power_source(state["requirements"])))
+    snapshot["document"] = designs.document(board, prompt=state.get("prompt", ""), verdicts=verdicts)
+    _emit(snapshot)
     _emit(ev.bom(rows, total))
     _emit(
         ev.done(

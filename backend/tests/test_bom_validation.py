@@ -284,7 +284,7 @@ def test_unresolved_mpn_warns_by_name_and_the_remaining_rows_finish(monkeypatch)
     _no_rails(monkeypatch)
     result = run(frames({"bom": "FOUND\nMISSING"}))
 
-    warn = next(event for event in result if event["type"] == "check" and event["status"] == "warn")
+    warn = next(event for event in result if event["type"] == "check" and event["rule"] == "availability" and event["status"] == "warn")
     assert warn["rule"] == "availability"
     assert "MISSING" in warn["detail"]
     assert result[-1]["type"] == "done"

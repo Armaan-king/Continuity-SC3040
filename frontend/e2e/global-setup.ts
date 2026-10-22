@@ -14,4 +14,7 @@ export default function globalSetup() {
     stdio: 'inherit',
     env: { ...process.env, DATABASE_URL: E2E.database, CONTINUITY_SEED_PASSWORD: E2E.password },
   })
+  execFileSync(E2E.python, ['tools/seed_review.py'], {
+    cwd: backend, stdio: 'inherit', env: { ...process.env, DATABASE_URL: E2E.database, CONTINUITY_SEED_PASSWORD: E2E.password },
+  })
 }

@@ -4,16 +4,11 @@ Replaces `catalogue.py`. Same shape from the graph's point of view — ask for a
 candidates, take the first, take the next one on repair — but the parts are now fetched
 from JLCPCB and typed by the normaliser.
 
-## Only the chosen part is normalised
+## Bounded validation before selection
 
-A search returns six or eight candidates and normalising all of them would be six or
-eight LLM calls per slot. It is also unnecessary: the *alternatives* list shown in the
-repair drawer needs an MPN, a manufacturer, a price, stock and a lead time, and every
-one of those is already typed in the raw payload. Only the part the engine is about to
-check needs its free-text specs parsed.
-
-So the rule is: normalise what will be *validated*, not what will be *displayed*. One
-call per placement, one more per repair.
+At most three candidates from a shortlist are normalized and evaluated against the
+same board. Hard failures and unknown checks precede the user's cost, size or stock
+preference. Completed normalization stages survive a process restart.
 
 ## Constraints go into the query, not into a filter afterwards
 
@@ -27,6 +22,7 @@ from __future__ import annotations
 
 from contextlib import contextmanager
 from contextvars import ContextVar
+from dataclasses import asdict, replace
 import re
 from typing import Any, Callable, Iterator, Mapping, Sequence
 
@@ -194,6 +190,11 @@ async def find(
         # on a motor brief that still placed a 2-input AND gate after the shelves were
         # declared defining.
         found = _on_defining_shelf(found, constraint)
+    if len(found) < MIN_CANDIDATES:
+        from ..parts import research
+        discovered = viable(await research.discover(query, purpose), constraint)
+        identities = {(c.manufacturer.casefold(), c.mpn.casefold(), c.package) for c in found}
+        found.extend(c for c in discovered if (c.manufacturer.casefold(), c.mpn.casefold(), c.package) not in identities)
     shortlist = found[:CANDIDATES_PER_SLOT]
     demoted: tuple[str, ...] = ()
     # A single-candidate shortlist cannot be reordered, so a judgement about it can only
@@ -419,7 +420,35 @@ async def choose(candidate: Candidate) -> PartSpec:
     missing_theta_ja = (
         datasheet._load(candidate.mpn) is None and packages.theta_ja(candidate.package) is None
     )
-    return await normalize.normalize(candidate, fetch_missing_theta_ja=missing_theta_ja)
+    from ..designs.context import stage
+    async def work():
+        return asdict(await normalize.normalize(candidate, fetch_missing_theta_ja=missing_theta_ja))
+    values = await stage("normalize_verified_v2", asdict(candidate), work)
+    return PartSpec(**{**values, "interfaces": tuple(values.get("interfaces", ()))})
+
+
+async def compare_candidates(found: SearchResults, board, slot_id: str):
+    """Validate a bounded shortlist against the same board before placement."""
+    from ..designs.service import evaluate
+    from ..engine.models import Board
+    options = [candidate for candidate in found if candidate.mpn not in found.demoted][:3] or list(found[:1])
+    ranked = []
+    for candidate in options:
+        part = await choose(candidate)
+        slots = {**board.slots, slot_id: replace(board.slots[slot_id], part=part)}
+        findings = [v for v in evaluate(Board(board.requirements, slots, board.rails, board.signal_nets))
+                    if v.subject == slot_id or slot_id in v.involved]
+        cost = part.unit_price if part.unit_price is not None else float("inf")
+        stock = -(part.stock or 0)
+        body = packages.body_mm(part.package)
+        size = body[0] * body[1] if body else float("inf")
+        preference = {"cost": cost, "size": size, "availability": stock}.get(board.requirements.priority, cost)
+        score = (sum(v.status == "fail" for v in findings), sum(v.unchecked for v in findings), preference)
+        ranked.append((score, candidate, part))
+    ranked.sort(key=lambda entry: entry[0])
+    best = ranked[0]
+    return best[1], best[2], [{"mpn": c.mpn, "failures": score[0], "unknown": score[1],
+                            "unit_price": p.unit_price, "stock": p.stock} for score, c, p in ranked]
 
 
 def alternatives(

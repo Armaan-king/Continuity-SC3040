@@ -24,6 +24,11 @@ services:
         value: "2"
       - key: CONTINUITY_RUN_TIMEOUT_SECONDS
         value: "600"
+      - key: CONTINUITY_RESEARCH_MAX_CALLS
+        value: "6"
+      - key: CONTINUITY_RESEARCH_BUDGET_USD
+        value: "0.12"
 # Optional server secrets, added through Render's Environment panel:
-# GROQ_API_KEY or GEMINI_API_KEY. Never prefix a secret with VITE_.
+# GROQ_API_KEY or GEMINI_API_KEY; EXA_API_KEY enables optional research.
+# Never prefix a secret with VITE_.
 # No key is required for the explicitly labelled basic planning mode.

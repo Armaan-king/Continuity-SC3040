@@ -57,6 +57,7 @@ export default defineConfig({
         DATABASE_URL: E2E.database,
         CONTINUITY_ENV: 'test',
         CONTINUITY_LLM_PROVIDER: 'disabled',
+        CONTINUITY_RESEARCH_ENABLED: '0',
         CONTINUITY_ORIGINS: web,
       },
     },

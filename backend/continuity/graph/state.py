@@ -56,7 +56,7 @@ class DesignState(TypedDict, total=False):
     started_at: float
 
     accepted: Annotated[list, _replace]
-    """(rule, slot) pairs the user waived. `validate` downgrades these to warnings —
+    """(rule, subject, scope, evidence hash) records the user waived; legacy pairs remain readable. `validate` downgrades these to warnings —
     a waiver is not a pass, so the finding stays on screen with its evidence."""
 
     stopped: bool

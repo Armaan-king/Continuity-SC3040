@@ -109,6 +109,9 @@ class Verdict:
     to be parsed out of `detail` would drift the first time a sentence was reworded.
     """
 
+    original_status: CheckStatus | None = None
+    accepted: bool = False
+
     def __post_init__(self) -> None:
         # Deduplicate, subject first. A rail whose only consumer *is* its subject —
         # the board input rail feeding one regulator — otherwise lists that slot twice,
@@ -215,6 +218,9 @@ class PartSpec:
     rows would be guesses too.
     """
 
+    fact_evidence: Mapping[str, Mapping[str, object]] = field(default_factory=dict)
+    research: tuple[Mapping[str, object], ...] = ()
+
     @property
     def draw(self) -> float | None:
         """Worst-case current this part pulls: peak, falling back to typical."""
@@ -289,7 +295,8 @@ class PartSpec:
                 if raw_key in seen:
                     continue
                 seen.add(raw_key)
-                rows.append(Evidence(slot, raw_key, self.raw[raw_key], self.datasheet))
+                source = self.fact_evidence.get(name, {}).get("source")
+                rows.append(Evidence(slot, raw_key, self.raw[raw_key], source if isinstance(source, str) else self.datasheet))
                 continue
             value = getattr(self, name, None)
             if value is None:
@@ -451,12 +458,28 @@ def slots_without_a_rail(
 
 
 @dataclass(frozen=True)
+class Port:
+    component: str
+    name: str
+    role: Literal["controller", "peripheral"]
+
+
+@dataclass(frozen=True)
+class SignalNet:
+    id: str
+    protocol: str
+    ports: tuple[Port, ...]
+    basis: str = "inferred"
+
+
+@dataclass(frozen=True)
 class Board:
     """Everything the rules need, and nothing they do not."""
 
     requirements: Requirements
     slots: Mapping[str, Slot]
     rails: Mapping[str, Rail]
+    signal_nets: tuple[SignalNet, ...] = ()
 
     def part(self, slot_id: str) -> PartSpec | None:
         slot = self.slots.get(slot_id)

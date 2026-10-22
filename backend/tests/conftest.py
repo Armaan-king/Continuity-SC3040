@@ -40,6 +40,8 @@ def isolated_part_caches(monkeypatch, tmp_path):
     """Keep normalisation and datasheet facts out of a developer's real cache."""
     monkeypatch.setattr(normalize, "CACHE_DIR", tmp_path / "normalized")
     monkeypatch.setattr(datasheet, "CACHE_DIR", tmp_path / "datasheets")
+    if not LIVE:
+        monkeypatch.setenv("CONTINUITY_RESEARCH_ENABLED", "0")
 
 
 def _as_candidate(part) -> Candidate:

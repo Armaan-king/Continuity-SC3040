@@ -45,8 +45,14 @@ class FindingRecorder:
             self._repair(event)
         elif kind == "check":
             self._check(event)
-        elif kind == "reasoning":
+        elif kind == "reasoning" and not event.get("decision_recorded"):
             self._acceptance(event)
+        elif kind == "decision" and event.get("action") == "accept_finding":
+            for finding in reversed(self._findings):
+                if finding.rule == event.get("rule") and finding.slot == event.get("subject") and finding.outcome == "unresolved":
+                    finding.outcome = "accepted"
+                    self._pending_repairs.pop(finding.slot, None)
+                    break
 
     def findings(self) -> list[Finding]:
         """Only materialised findings: without an MPN there is nothing useful to remember."""

@@ -153,13 +153,16 @@ def _fact_from_reply(
         return None
     if _collapsed(source_line) not in _collapsed(text):
         return None
+    stated = [float(item) for item in re.findall(r"(?<![\w.])\d+(?:\.\d+)?(?![\w.])", source_line)]
+    if float(value) not in stated:
+        return None
     return ThermalFact(float(value), source_line.strip(), package)
 
 
 async def theta_ja_from_text(text: str, *, mpn: str, package: str) -> ThermalFact | None:
     """Extract and evidence-check one θJA figure for an MPN/package pair."""
     cached = _load(mpn)
-    if cached is not None:
+    if cached is not None and cached.package_column == package:
         return cached
     if not llm.available():
         log.debug("θJA extraction skipped for %s: no LLM configured", mpn)
@@ -230,7 +233,7 @@ def _cache_path(mpn: str) -> Path:
 
 
 def _prompt_version() -> str:
-    return hashlib.sha256(SYSTEM.encode()).hexdigest()[:12]
+    return hashlib.sha256(("verified-number-2:" + SYSTEM).encode()).hexdigest()[:12]
 
 
 def _load(mpn: str) -> ThermalFact | None:

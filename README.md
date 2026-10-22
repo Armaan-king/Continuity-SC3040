@@ -8,14 +8,26 @@ The workspace now includes **Review design**: a validation report, editable requ
 
 ## See the current app
 
+[![Edit requirements, inspect the resulting conflict, and compare saved revisions](docs/media/design-review.gif)](docs/media/design-review.mp4)
+
+**Design review and revision history** — change a requirement, rerun checks, compare versions, restore an earlier design, and export the same revision as a report and BOM.
+
+[![Exa evidence with source attribution and an explicit verification label](docs/media/research-connections-poster.png)](docs/media/research-connections.mp4)
+
+**Exa evidence and connection review** — inspect retrieved source text and verification limits, declare an I²C connection, confirm the reference power connections, and revalidate. Click either preview to watch its full video.
+
+The new clips use the real local app and PostgreSQL with a labeled reference board, historical supplier fixtures, and an actual Exa response retrieved for the recording. They demonstrate review and revalidation; AI planning is disabled. Research remains marked **Requires verification**, and the reference board's remaining failures and unknowns stay visible.
+
 [![Current interface replaying the guided walkthrough](docs/media/walkthrough.gif)](docs/media/guided-walkthrough.mp4)
 
 | Recording | What it shows | Data and AI mode |
 | --- | --- | --- |
+| [Design review and revisions](docs/media/design-review.mp4) | Validation report, requirement edit, new voltage conflict, comparison, restore, report/BOM export, and workspace reload | Real local app and PostgreSQL; reference board with recorded supplier data; AI planning disabled |
+| [Exa evidence and connections](docs/media/research-connections.mp4) | Source text and verification labels, validation limits, power confirmation, and per-connection protocol checks | Actual Exa retrieval saved before capture; the same reference board; no new model response |
 | [Project workflow](docs/media/project-workflow.mp4) | Sign in, create a board, source parts, inspect checks, export CSV, reopen the saved board, and review analytics and memory | Real local app and PostgreSQL; live distributor lookup; basic planning with AI disabled |
 | [Guided walkthrough](docs/media/guided-walkthrough.mp4) | Create an account and follow the seven-step introduction to the graph, trace, conflict evidence, BOM, and memory | The app's built-in recorded example; historical parts and prices |
 
-These recordings show the existing workspace workflow before the revision-review addition. The three-panel workspace is retained; the recordings do not demonstrate the new review page or Exa research. The GIF previews the guided walkthrough. [Recording details and reproduction](docs/media/README.md).
+The first two clips show the new review features; the original project workflow and guided walkthrough remain available below them. The three-panel workspace is retained. Automatic recovery is covered in the [verification report](docs/ARCHITECTURE_VALIDATION.md), rather than depicted as a visible feature in these clips. [Recording details, chapters, and reproduction](docs/media/README.md).
 
 ![A completed project with its graph, validation trace, and bill of materials](docs/media/workspace.png)
 
@@ -133,11 +145,11 @@ npm --prefix frontend run build
 npm --prefix frontend run test:e2e
 ```
 
-Use the backend virtual environment's Python. Set `CONTINUITY_TEST_DB` to a disposable PostgreSQL database to include integration tests. The store tests truncate their test tables. Browser tests need a separate disposable `E2E_DATABASE_URL`; they seed a known account. See [validation report](docs/VALIDATION.md) for the results produced during this update. GitHub Actions repeats backend, database, frontend, and Chromium checks.
+Use the backend virtual environment's Python. Set `CONTINUITY_TEST_DB` to a disposable PostgreSQL database to include integration tests. The store tests truncate their test tables. Browser tests need a separate disposable `E2E_DATABASE_URL`; they seed a known account. See the [architecture verification report](docs/ARCHITECTURE_VALIDATION.md) for the latest implementation results and the [original validation report](docs/VALIDATION.md) for earlier checks. GitHub Actions repeats backend, database, frontend, and Chromium checks.
 
-The recorded implementation verification produced **779 backend passes, 5 optional external-service skips, and 20 browser passes**. Separate smoke runs exercised real parts lookup and local Ollama inference. These are dated results, not a claim that external services always succeed. [Current media capture checks](docs/media/README.md#verification) document the README recordings separately.
+The [architecture and Exa verification](docs/ARCHITECTURE_VALIDATION.md) covers **830 distinct passing backend tests** across the full and final targeted runs, **5 optional external-service skips**, and **26 passing browser tests**. Live Exa Search and Contents also passed. Earlier smoke runs exercised real parts lookup and local Ollama inference. These are dated results, not a claim that external services always succeed. [Review recording checks](docs/media/README.md#review-feature-verification) and [original workflow recording checks](docs/media/README.md#verification) document the README videos separately.
 
-The subsequent [consistency update](docs/CONSISTENCY_VALIDATION.md) passed **796 backend tests and 25 browser tests**, with 5 opt-in external-service skips. Its logs cover project naming, preserved custom names, clarification retries, final-board restoration, and BOM replacement/export consistency.
+The earlier [consistency update](docs/CONSISTENCY_VALIDATION.md) passed **796 backend tests and 25 browser tests**, with 5 opt-in external-service skips. Its logs cover project naming, preserved custom names, clarification retries, final-board restoration, and BOM replacement/export consistency.
 
 See [architecture and Exa verification](docs/ARCHITECTURE_VALIDATION.md) for the current test results, live Exa smoke check, command output and limitations. The live research check is explicitly opt-in: from `backend`, run `python tools/check_research.py`; it makes at most one Search and one Contents request.
 

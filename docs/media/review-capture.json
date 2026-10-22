@@ -1,0 +1,127 @@
+{
+  "preparedAt": "2026-10-22T05:11:00.015378+00:00",
+  "projectId": "7779e3efd32f",
+  "threadId": "media-review-65da2eac29484bdba5889e4bcb240bcd",
+  "initialRevision": "04117d9f8cd74a7aa0ffb140e47707e5",
+  "referenceData": "Historical distributor fixtures; manually assembled reference board; AI planning disabled",
+  "research": {
+    "provider": "exa",
+    "requests": 0,
+    "documents": 1,
+    "sources": [
+      "https://www.ampheo.com/product/sht40-ad1b-r2-26836397"
+    ],
+    "verification": "unverified",
+    "retrievedAt": [
+      "2026-10-22T05:06:38.515668+00:00"
+    ],
+    "reusedForRetake": true
+  },
+  "recordedAt": "2026-10-22T05:11:00.437Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "source": "Real local production frontend and PostgreSQL; reference design; live Exa retrieval during preparation",
+  "clips": [
+    {
+      "name": "design-review",
+      "result": "PASS",
+      "chapters": [
+        {
+          "seconds": 0,
+          "title": "Reference board in the existing workspace"
+        },
+        {
+          "seconds": 6,
+          "title": "Validation report: passes, failures and unknowns"
+        },
+        {
+          "seconds": 12,
+          "title": "Edit a requirement and revalidate"
+        },
+        {
+          "seconds": 14,
+          "title": "The 5 V supply creates a new voltage conflict"
+        },
+        {
+          "seconds": 20,
+          "title": "Compare revisions without losing the original design"
+        },
+        {
+          "seconds": 26,
+          "title": "Restore creates a new revalidated revision"
+        },
+        {
+          "seconds": 32,
+          "title": "Export the same revision as a report and BOM"
+        },
+        {
+          "seconds": 35,
+          "title": "Reopen the workspace with the restored revision"
+        }
+      ],
+      "browserErrors": [],
+      "file": "design-review.mp4",
+      "duration": "00:00:39.67",
+      "bytes": 1211937
+    },
+    {
+      "name": "research-connections",
+      "result": "PASS",
+      "chapters": [
+        {
+          "seconds": 0,
+          "title": "Review the saved reference design"
+        },
+        {
+          "seconds": 3,
+          "title": "Exa sources remain visibly unverified"
+        },
+        {
+          "seconds": 13,
+          "title": "Review the limits of what the engine checked"
+        },
+        {
+          "seconds": 18,
+          "title": "Declare the signal connection against your circuit"
+        },
+        {
+          "seconds": 23,
+          "title": "Validate the declared bus; physical pins still require review"
+        }
+      ],
+      "browserErrors": [],
+      "file": "research-connections.mp4",
+      "duration": "00:00:28.17",
+      "bytes": 1696640
+    }
+  ],
+  "revisionVerification": {
+    "changedRevision": "8e05d99ee9f24f078d6333b52b2cfa66",
+    "restoredRevision": "98cf3e1ed3044072b8e686fdd6f76d26",
+    "exportedRevision": "98cf3e1ed3044072b8e686fdd6f76d26",
+    "restoredVoltage": 3.3,
+    "historyPreserved": true
+  },
+  "connectionsVerification": {
+    "revision": "24fa0f2b80154a6bacbcc7f67a9ed425",
+    "confirmedBus": "sensor-i2c",
+    "reportCounts": {
+      "fail": 1,
+      "pass": 7,
+      "unknown": 2,
+      "accepted": 0
+    },
+    "researchStillUnverified": true
+  },
+  "preview": {
+    "file": "design-review.gif",
+    "source": "design-review.mp4",
+    "startSeconds": 11,
+    "durationSeconds": 12,
+    "width": 960,
+    "fps": 5,
+    "bytes": 919834
+  }
+}

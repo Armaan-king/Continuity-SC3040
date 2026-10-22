@@ -1,0 +1,9 @@
+Gemini configuration verification, 2026-10-22
+Initial attempt: test setup blocked by Windows permissions on the default pytest temporary folder.
+Retry: isolated temporary folder under .local; no live provider calls or production database.
+Command: python -m pytest backend/tests/test_runtime.py backend/tests/test_planner.py -q -o addopts= --tb=short --basetemp <unique-project-temp>
+
+........................................................................ [100%]
+72 passed in 4.22s
+
+Exit code: 0

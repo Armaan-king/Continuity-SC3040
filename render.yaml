@@ -30,5 +30,8 @@ services:
         value: "0.12"
 # Optional server secrets, added through Render's Environment panel:
 # GROQ_API_KEY or GEMINI_API_KEY; EXA_API_KEY enables optional research.
+# For Gemini, set CONTINUITY_LLM_PROVIDER=gemini. Its default is gemini-3.8-flash.
+# Existing CONTINUITY_LLM_MODEL / CONTINUITY_LLM_BASE_URL values override defaults;
+# remove stale overrides or update them as described in docs/DEPLOYMENT.md.
 # Never prefix a secret with VITE_.
 # No key is required for the explicitly labelled basic planning mode.

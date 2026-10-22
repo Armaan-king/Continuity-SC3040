@@ -1,6 +1,7 @@
 """Runtime contracts, provider selection, and conservative no-key extraction."""
 
 import asyncio
+import json
 from types import SimpleNamespace
 from unittest.mock import AsyncMock
 
@@ -65,6 +66,47 @@ def test_compatible_completion_sets_json_mode_and_token_budget(clean_environment
     assert create.call_args.kwargs["response_format"] == {"type": "json_object"}
     assert create.call_args.kwargs["max_tokens"] == 4096
     assert "reasoning_effort" not in create.call_args.kwargs
+
+
+@pytest.mark.parametrize("provider, model_override", [
+    ("auto", None), ("gemini", None), ("gemini", "deployment-model"),
+])
+def test_gemini_request_uses_native_key_endpoint_and_selected_model(
+    clean_environment, monkeypatch, provider, model_override,
+):
+    import openai
+    client_type = openai.AsyncOpenAI
+    monkeypatch.setenv("CONTINUITY_LLM_PROVIDER", provider)
+    monkeypatch.setenv("GEMINI_API_KEY", "test-gemini-secret")
+    if model_override:
+        monkeypatch.setenv("CONTINUITY_LLM_MODEL", model_override)
+        monkeypatch.setenv("CONTINUITY_LLM_BASE_URL", "https://generativelanguage.googleapis.com/v1beta/openai/")
+    expected_model = model_override or "gemini-3.8-flash"
+    requests = []
+
+    def respond(request):
+        requests.append(request)
+        assert request.method == "POST"
+        assert str(request.url) == "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
+        assert request.headers["Authorization"] == "Bearer test-gemini-secret"
+        payload = json.loads(request.content)
+        assert payload["model"] == expected_model
+        assert payload["response_format"] == {"type": "json_object"}
+        assert payload["max_tokens"] == 4096
+        return httpx.Response(200, json={
+            "id": "test-completion", "object": "chat.completion", "created": 0,
+            "model": expected_model,
+            "choices": [{"index": 0, "finish_reason": "stop",
+                         "message": {"role": "assistant", "content": '{"ok":true}'}}],
+        })
+
+    monkeypatch.setattr(openai, "AsyncOpenAI", lambda **kwargs: client_type(
+        **kwargs, http_client=httpx.AsyncClient(transport=httpx.MockTransport(respond))))
+    assert asyncio.run(llm.complete_json("Test", "Hello")) == {"ok": True}
+    assert len(requests) == 1
+    assert llm.public_status() == {
+        "configured": True, "provider": "gemini", "model": expected_model, "mode": "ai",
+    }
 
 
 def test_explicit_ranges_and_units_keep_provenance():

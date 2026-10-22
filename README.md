@@ -85,7 +85,7 @@ The Python rule engine makes the compatibility decisions. Optional AI plans func
 | Basic rules | `CONTINUITY_LLM_PROVIDER=disabled` | None |
 | Local Ollama | `CONTINUITY_LLM_PROVIDER=ollama` | None; download a model locally |
 | Groq | `CONTINUITY_LLM_PROVIDER=groq`, `GROQ_API_KEY` | Required; provider quotas apply |
-| Gemini | `CONTINUITY_LLM_PROVIDER=gemini`, `GEMINI_API_KEY` | Required; provider quotas apply |
+| Gemini 3.8 Flash | `CONTINUITY_LLM_PROVIDER=gemini`, `GEMINI_API_KEY` | Required; provider quotas apply |
 | Existing Z.ai setup | `CONTINUITY_LLM_PROVIDER=zai`, `ZAI_API_KEY` | Required |
 | Compatible endpoint | `custom`, base URL, model, generic key | Provider-dependent |
 
@@ -99,6 +99,8 @@ ollama create continuity-local -f backend/Modelfile
 Set `CONTINUITY_LLM_PROVIDER=ollama` in `backend/.env` when running Python directly. For the Docker app, set it in the root `.env` together with `CONTINUITY_LLM_BASE_URL=http://host.docker.internal:11434/v1`. Run Ollama on the host and allow the container to reach it. Do not try to run a model inside the free Render container.
 
 For hosted AI, configure the provider and key as server environment variables. Never put secrets in `VITE_*`, source files, or the browser. With no configured key, `auto` selects basic planning. It recognizes a limited set of functions and parses explicit measurements; missing facts remain unchecked.
+
+Gemini defaults to `gemini-3.8-flash` through [Google's OpenAI-compatible endpoint](https://ai.google.dev/gemini-api/docs/openai). `CONTINUITY_LLM_MODEL` and `CONTINUITY_LLM_BASE_URL` override those defaults; existing Render overrides must be updated or removed when upgrading. `/api/runtime` shows the selected configuration, not whether Google has accepted a request. See [deployment verification](docs/DEPLOYMENT.md#verify-the-deployed-service) for the hosted checks.
 
 ### Exa research
 

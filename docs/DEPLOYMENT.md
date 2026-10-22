@@ -8,7 +8,7 @@ This repository configures one Render Free Docker web service and an external Ne
 2. Push this revision to `Armaan-king/Continuity-SC3040`.
 3. In Render, choose **New → Blueprint** and connect that repository. Use Git branch `main` and Blueprint path `render.yaml`. Render reads the configuration, builds `Dockerfile`, and creates `continuity-sc3040` on the Free instance type. The Dockerfile supplies the build and start commands.
 4. Set `DATABASE_URL` to the Neon connection string when prompted. The Blueprint sets production mode and secure, same-site session cookies.
-5. For Gemini, set `CONTINUITY_LLM_PROVIDER=gemini` and `GEMINI_API_KEY`. Add optional `EXA_API_KEY` for research. Existing Groq configuration remains supported. Without model credentials the service uses basic planning. Do not set a browser `VITE_*` key.
+5. For Gemini, set `CONTINUITY_LLM_PROVIDER=gemini` and `GEMINI_API_KEY`. The default model is `gemini-3.8-flash` at `https://generativelanguage.googleapis.com/v1beta/openai/`. Remove old `CONTINUITY_LLM_MODEL` and `CONTINUITY_LLM_BASE_URL` overrides, or set them to these values, then save and deploy. Add optional `EXA_API_KEY` for research. Existing Groq configuration remains supported. Without model credentials the service uses basic planning. Do not set a browser `VITE_*` key.
 6. Wait for the deployment health check at `/api/ready`. Open the Render URL, register an account, create a project, and reload it to verify persistence. `/api/runtime` describes AI configuration and persistence without exposing credentials.
 
 No separate static frontend service, CORS wildcard, build-time API hostname, or cross-site cookie is required. Existing split deployments can be retired after verifying this one. The new Blueprint does not automatically delete old services.
@@ -33,6 +33,8 @@ Invoke-RestMethod 'https://YOUR-SERVICE.onrender.com/api/runtime'
 ```
 
 Readiness should return `status: ready` and `persistence: postgres`. Runtime reports whether AI is configured. Then register a new account, create a project, complete or intentionally stop a design, reload the project, and check its saved state. Export the BOM of a completed run. These steps verify more than database connectivity alone.
+
+For Gemini, `/api/runtime` should show `ai.configured: true`, `ai.provider: gemini`, and your selected model (by default `gemini-3.8-flash`). This confirms configuration only. Run a design and check that planning succeeds without the basic-planning warning or a `planning failed` log. If Google returns HTTP 404, verify the model, base URL, and model access for the Google project associated with your key. Google currently limits [Gemini 2.5 access](https://ai.google.dev/gemini-api/docs/deprecations) to previous active users; a missing model is not evidence that AI was manually disabled. The endpoint and model used here follow [Google's compatibility guide](https://ai.google.dev/gemini-api/docs/openai).
 
 The pytest and browser integration suites clear or seed data. Run them only against separate disposable databases, never the Neon database holding users' projects.
 

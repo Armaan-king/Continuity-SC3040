@@ -28,7 +28,7 @@ _FENCE = re.compile(r"^\s*```(?:json)?\s*|\s*```\s*$", re.MULTILINE)
 PROVIDERS = {
     "zai": (INTERNATIONAL_URL, "glm-5.2", "ZAI_API_KEY"),
     "groq": ("https://api.groq.com/openai/v1", "llama-3.3-70b-versatile", "GROQ_API_KEY"),
-    "gemini": ("https://generativelanguage.googleapis.com/v1beta/openai", "gemini-2.5-flash", "GEMINI_API_KEY"),
+    "gemini": ("https://generativelanguage.googleapis.com/v1beta/openai", "gemini-3.8-flash", "GEMINI_API_KEY"),
     "ollama": ("http://localhost:11434/v1", "continuity-local", "OLLAMA_API_KEY"),
     "custom": ("", "", API_KEY_ENV),
     "disabled": ("", "", ""),

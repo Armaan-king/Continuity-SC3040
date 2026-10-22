@@ -142,6 +142,12 @@ def plan_resolution(
     conflict: Verdict, board: Board, passing: Sequence[Verdict]
 ) -> Resolution:
     """Fence the conflict, or decide it has to go back to the user."""
+    from .controllers import missing_controller
+    if missing_controller(conflict, board):
+        return Resolution(conflict, (), True,
+                          "No controller is identified for this peripheral. Replacing the peripheral "
+                          "cannot supply a controller. Add or replace the controller, or redesign the device. "
+                          "This does not establish that your requirements are impossible.")
     legal = legal_set(conflict, board, passing)
     if legal:
         return Resolution(conflict=conflict, legal=legal, escalate=False)
@@ -164,8 +170,8 @@ def _escalation_reason(conflict: Verdict, board: Board) -> str:
         labels = ", ".join(board.slots[slot_id].label for slot_id in worn_out)
         return (
             f"{labels} has been replaced {MAX_REPAIRS + 1} times and still fails "
-            f"{conflict.rule.replace('_', ' ')}. This needs a requirement relaxed, "
-            f"not another part. {conflict.detail}"
+            f"{conflict.rule.replace('_', ' ')}. Automatic repairs have reached their limit. "
+            f"Search additional candidates or redesign the device; this is not proof of infeasibility. {conflict.detail}"
         )
     return (
         f"Nothing in this conflict is still available to change. {conflict.detail}"

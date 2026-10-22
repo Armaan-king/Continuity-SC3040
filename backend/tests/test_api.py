@@ -465,6 +465,9 @@ def test_a_slot_that_finds_nothing_is_reported_not_dropped(monkeypatch):
 def test_the_summary_counts_planned_slots_not_bom_rows(monkeypatch):
     empty_search(monkeypatch, missing="sensor")
     frames = run(stream("/design", {"prompt": DEMO}))
+    assert frames[-1]["type"] == "question"
+    assert "Search for more components" in frames[-1]["suggestions"]
+    frames += run(stream("/resume", {"thread_id": frames[0]["thread_id"], "answer": "Continue anyway"}))
 
     done = next(f for f in frames if f["type"] == "done")
     planned = {s["id"] for f in frames if f["type"] == "plan" for s in f["slots"]}
@@ -558,7 +561,7 @@ def test_supply_redirect_replans_the_existing_board():
 
 
 @pytest.mark.parametrize("answer", ("12V barrel jack", "use a lab bench supply"))
-def test_current_or_unknown_supply_redirect_remains_guidance(answer):
+def test_unknown_revision_without_ai_preserves_board_and_explains_why(answer):
     thread_id, _ = escalated_thread()
 
     second = run(stream("/resume", {"thread_id": thread_id, "answer": answer}))
@@ -566,8 +569,10 @@ def test_current_or_unknown_supply_redirect_remains_guidance(answer):
     assert [
         frame
         for frame in second
-        if frame["type"] == "reasoning" and f"Taking that into account: {answer}" in frame.get("text", "")
+        if frame["type"] == "reasoning" and "AI redesign is unavailable" in frame.get("text", "")
     ]
+    assert second[-1]["type"] == "question"
+    assert "existing board has been kept" in second[-1]["text"]
 
 
 def test_a_word_containing_no_does_not_stop_the_run():

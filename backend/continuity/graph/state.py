@@ -23,7 +23,7 @@ class DesignState(TypedDict, total=False):
     rails: Annotated[dict[str, Rail], _replace]
 
     pending: Annotated[list[str], _replace]
-    """Slots with no part yet, in placement order. Empty means the board is complete."""
+    """Slots awaiting sourcing, in placement order. `unfilled` can remain when this is empty."""
 
     current: str | None
     """The slot being placed or repaired."""
@@ -76,13 +76,25 @@ class DesignState(TypedDict, total=False):
     here. Without a counter the dialog returns identical and the Send button looks dead."""
 
     guidance: str | None
-    """What the user typed at an escalation, for the reviewer's next attempt.
-
-    Anything that is not one of the offered options is guidance, never a waiver. The
-    two used to be the same branch, so typed reasoning was filed as consent."""
+    """Legacy reviewer guidance retained for older checkpoints. New revision instructions
+    enter `reconfiguration` so they cannot be discarded by the automatic repair limit."""
 
     replan_source: str | None
     """A user-named replacement input supply, consumed by `replan` before validation."""
+
+    reconfiguration: str | None
+    """An explicit structural revision, consumed once by the reconfiguration node."""
+    recovery_target: str | None
+    replacement_history: Annotated[dict[str, list], _replace]
+    """Up to six previous selections per slot, available for explicit rollback and revalidation."""
+    researched_alternatives: Annotated[dict[str, list[dict]], _replace]
+    """Retrieved web candidates stay selectable without paying for another search."""
+    recovery_action: str | None
+    """A user-requested candidate search or controller addition; never a waiver."""
+    offered_alternatives: Annotated[list[dict], _replace]
+    """Server-owned alternatives awaiting an explicit choice; never applied from browser data."""
+    alternative_slot: str | None
+    manual_choice: bool
 
     unfilled: Annotated[list[str], _replace]
     """Slots whose search returned nothing.

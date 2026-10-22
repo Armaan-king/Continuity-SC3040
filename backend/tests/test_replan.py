@@ -113,7 +113,7 @@ def test_replan_re_announces_the_supply_node_so_the_graph_stops_naming_the_old_i
     }
 
 
-def test_current_or_unknown_supply_redirect_stays_guidance(monkeypatch):
+def test_current_or_unknown_supply_redirect_requests_a_concrete_revision(monkeypatch):
     state = _state(Requirements(input_source="12v-barrel"))
     monkeypatch.setattr(nodes, "_emit", lambda _event: None)
 
@@ -121,7 +121,8 @@ def test_current_or_unknown_supply_redirect_stays_guidance(monkeypatch):
         monkeypatch.setattr(nodes, "interrupt", lambda _question, answer=answer: answer)
         updated = asyncio.run(nodes.escalate(state, _config()))
 
-        assert updated["guidance"] == answer
+        assert updated["reconfiguration"] == answer
+        assert updated["recovery_action"] == "Redesign the device"
         assert "replan_source" not in updated
 
 
@@ -272,7 +273,7 @@ def test_no_llm_keeps_clarify_and_escalation_fallbacks(monkeypatch):
     guided = asyncio.run(nodes.escalate(state, _config()))
 
     assert clarified["requirements"].input_source == planner.UNRESOLVED
-    assert guided["guidance"] == "solar panel charging a lithium cell"
+    assert guided["reconfiguration"] == "solar panel charging a lithium cell"
     assert calls == []
 
 
@@ -310,7 +311,8 @@ def test_exact_continue_option_skips_classifier(monkeypatch):
 
     updated = asyncio.run(nodes.escalate(state, _config()))
 
-    assert updated["guidance"] == nodes.CONTINUE_OPTION
+    assert updated["guidance"] is None
+    assert updated["escalation"] is None
     assert calls == []
 
 
@@ -339,7 +341,7 @@ def test_escalation_classifier_is_conservative(monkeypatch):
     ) == "redirect"
 
 
-def test_nonsense_escalation_reply_stays_guidance(monkeypatch):
+def test_nonsense_escalation_reply_never_becomes_acceptance(monkeypatch):
     state = _state(Requirements(input_source="12v-barrel"))
     monkeypatch.setattr(nodes, "interrupt", lambda _question: "try a different topology")
     monkeypatch.setattr(nodes, "_emit", lambda _event: None)
@@ -352,5 +354,5 @@ def test_nonsense_escalation_reply_stays_guidance(monkeypatch):
 
     updated = asyncio.run(nodes.escalate(state, _config()))
 
-    assert updated["guidance"] == "try a different topology"
+    assert updated["reconfiguration"] == "try a different topology"
     assert "accepted" not in updated

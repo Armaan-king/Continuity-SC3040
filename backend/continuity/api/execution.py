@@ -285,6 +285,7 @@ def _interrupt_events(stream: events.EventStream, value: Any) -> list[dict[str, 
             payload.get("question_id", "q"),
             payload.get("text", ""),
             payload.get("suggestions", []),
+            alternatives=payload.get("alternatives"),
         )
         for payload in payloads
     ]
@@ -322,6 +323,7 @@ def _pending_question(snapshot: Any, thread: Any) -> dict[str, Any] | None:
                 "question_id": payload.get("question_id", "q"),
                 "text": payload.get("text", ""),
                 "suggestions": list(payload.get("suggestions", [])),
+                **({"alternatives": list(payload["alternatives"])} if payload.get("alternatives") else {}),
             }
     return None
 

@@ -78,6 +78,7 @@ class EventStream:
         slots: Iterable[Slot],
         edges: Iterable[Edge],
         supply: dict[str, Any] | None = None,
+        *, replace_board: bool = False,
     ) -> dict[str, Any]:
         """`supply` is a *node* and deliberately not a member of `slots`.
 
@@ -88,11 +89,13 @@ class EventStream:
         """
         event = self._event(
             "plan",
-            slots=[_slot(s) for s in slots],
+            slots=[board_slot(s) if replace_board else _slot(s) for s in slots],
             edges=[_edge(e) for e in edges],
         )
         if supply is not None:
             event["supply"] = supply
+        if replace_board:
+            event["replace"] = True
         return event
 
     def slot_added(self, slot: Slot, edges: Iterable[Edge]) -> dict[str, Any]:
@@ -171,10 +174,11 @@ class EventStream:
         return event
 
     def question(
-        self, question_id: str, text: str, suggestions: Iterable[str] = ()
+        self, question_id: str, text: str, suggestions: Iterable[str] = (), *, alternatives: list | None = None
     ) -> dict[str, Any]:
         return self._event(
-            "question", question_id=question_id, text=text, suggestions=list(suggestions)
+            "question", question_id=question_id, text=text, suggestions=list(suggestions),
+            **({"alternatives": alternatives} if alternatives else {})
         )
 
     def bom(self, rows: list[dict[str, Any]], total: float, currency: str = "USD") -> dict[str, Any]:

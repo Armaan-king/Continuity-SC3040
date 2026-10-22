@@ -192,6 +192,11 @@ export function ConflictPanel({ open, onClose, conflict, slots, edges, reasoning
             Suggested Replacements
           </h3>
           <div className="flex flex-col space-y-sm">
+            {conflict.alternatives.length === 0 ? (
+              <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                At Action Required in the Validation Trace, choose a component, research alternatives, or describe a redesign.
+              </p>
+            ) : null}
             {conflict.alternatives.map((alternative) => {
               const chip = stockChip(alternative)
 

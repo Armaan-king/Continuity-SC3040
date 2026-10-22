@@ -145,6 +145,8 @@ export interface SupplyNode {
 }
 
 export type PlanEvent = EventBase<'plan'> & {
+  /** A reconfiguration replaces the board and invalidates its previous live checks. */
+  replace?: boolean
   slots: Slot[]
   edges: Edge[]
   /** Absent on recordings made before the supply node existed. */
@@ -215,6 +217,13 @@ export type QuestionEvent = EventBase<'question'> & {
   question_id: string
   text: string
   suggestions: string[]
+  alternatives?: Array<{
+    action: string
+    label: string
+    summary: string
+    source?: string | null
+    verification: string
+  }>
 }
 
 export interface BomRow {

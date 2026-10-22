@@ -281,8 +281,18 @@ def interface_role_match(board: Board) -> list[Verdict]:
                 f"{master.mpn}'s controller interfaces are not stated in the available specifications; "
                 "verify its datasheet before checking signal compatibility.",
                 master_id, unchecked=True, evidence=master.cite(master_id, "interfaces")))
+    from .controllers import uncertain_controllers
+    uncertain = uncertain_controllers(board) if not masters else ()
     for slot_id, part in peripherals:
-        verdicts.append(_check_one_bus(slot_id, part, masters, incomplete))
+        if uncertain:
+            verdicts.append(Verdict(
+                "interface_role_match", "warn",
+                f"Controller role is unverified for {fmt.listing(list(uncertain))}; "
+                f"{part.mpn}'s interface compatibility remains unknown.",
+                slot_id, involved=(slot_id, *uncertain), unchecked=True,
+                evidence=part.cite(slot_id, "interfaces")))
+        else:
+            verdicts.append(_check_one_bus(slot_id, part, masters, incomplete))
     verdicts.extend(_chip_select_pressure(masters, peripherals))
     verdicts.extend(_unplaceable_on_a_bus(board))
     return verdicts

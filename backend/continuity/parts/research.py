@@ -121,6 +121,8 @@ async def _request(path: str, payload: dict) -> dict:
             raise ValueError("invalid_cost")
         result = {"documents": documents, "cost_usd": max(0, cost_value), "request_id": str(body.get("requestId", ""))[:150],
                   "partial": bool(failed)}
+        if isinstance(body.get("output"), dict):
+            result["output"] = body["output"]
         _last_status.update(status="success", at=now)
     except (httpx.HTTPError, ValueError, TypeError, KeyError) as error:
         # Do not log request headers, keys, prompts, or provider error bodies.

@@ -9,10 +9,10 @@ parse_requirements ─(unknown supply)─▶ clarify [interrupt] ─┐
                   └──────────────────────────────────────────┴─▶ escalate [interrupt] ─▶ replan ─▶ validate
 ```
 
-`validate` is the only node that decides where the run goes next, and it decides from
-engine verdicts alone. That is the loop the design doc calls "one loop handling a
-sourcing failure and an electrical failure identically" — nothing here branches on
-which rule failed.
+`validate` routes electrical results from deterministic verdicts. Empty searches and
+exhausted automatic repairs pause at `escalate`. Explicit user choices enter `recover`,
+which offers candidates, replaces a selection, or replans before returning to validation.
+Each manual attempt is bounded; another attempt requires another user decision.
 """
 
 from __future__ import annotations
@@ -20,7 +20,7 @@ from __future__ import annotations
 from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.graph import END, START, StateGraph
 
-from . import nodes
+from . import nodes, recovery
 from .state import DesignState
 
 
@@ -37,6 +37,7 @@ def build(checkpointer=None):
     graph.add_node("apply", nodes.apply)
     graph.add_node("escalate", nodes.escalate)
     graph.add_node("finalize", nodes.finalize)
+    graph.add_node("recover", recovery.recover)
 
     graph.add_edge(START, "parse_requirements")
     graph.add_conditional_edges(
@@ -53,7 +54,8 @@ def build(checkpointer=None):
         {"clarify": "clarify", "plan": "plan"},
     )
     graph.add_edge("plan", "select")
-    graph.add_edge("select", "validate")
+    graph.add_conditional_edges("select", lambda state: "escalate" if state.get("escalation") else "validate",
+                                {"escalate": "escalate", "validate": "validate"})
     graph.add_conditional_edges(
         "validate",
         nodes.after_validate,
@@ -74,9 +76,11 @@ def build(checkpointer=None):
     graph.add_conditional_edges(
         "escalate",
         nodes.after_escalate,
-        {"replan": "replan", "validate": "validate", "finalize": "finalize"},
+        {"replan": "replan", "validate": "validate", "finalize": "finalize", "recover": "recover"},
     )
     graph.add_edge("replan", "validate")
+    graph.add_conditional_edges("recover", recovery.after_recovery,
+                               {"select": "select", "validate": "validate", "escalate": "escalate"})
     graph.add_edge("finalize", END)
 
     return graph.compile(checkpointer=checkpointer or InMemorySaver())

@@ -146,7 +146,7 @@ def test_exhausted_repairs_escalate_with_a_reason_the_user_can_act_on():
     resolution = policy.plan_resolution(conflict, board, [])
 
     assert resolution.escalate
-    assert "needs a requirement relaxed" in (resolution.reason or "")
+    assert "Automatic repairs have reached their limit" in (resolution.reason or "")
 
 
 def test_escalation_produces_an_escalate_repair_regardless_of_the_proposal():

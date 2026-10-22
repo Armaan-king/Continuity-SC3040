@@ -456,9 +456,10 @@ async def select(state: DesignState, config) -> DesignState:
         _emit(ev.check(unfilled))
         return {
             "pending": pending,
-            "current": None,
+            "current": slot_id,
             "source_next": False,
             "unfilled": [*(state.get("unfilled") or []), slot_id],
+            "escalation": f"No candidate was found for {label}. Search more components, research alternatives, or redesign. Continuing leaves this function unresolved.",
         }
 
     if len(found) < sourcing.MIN_CANDIDATES:
@@ -620,6 +621,10 @@ async def review(state: DesignState, config) -> DesignState:
         category=categories.canonical(subject_part.category) if subject_part else None,
     )
     _emit(ev.conflict(conflict, edge=conflict.scope, signature=conflict_signature))
+
+    if state.get("manual_choice"):
+        return {"manual_choice": False, "escalation": "Your chosen component was applied and rechecked. "
+                "The board still has this conflict: " + conflict.detail + " Choose another candidate or redesign."}
 
     if resolution.escalate:
         return {"escalation": resolution.reason}
@@ -1006,16 +1011,26 @@ async def escalate(state: DesignState, config) -> DesignState:
     """
     conflict = next(iter(rules.failures(state.get("verdicts") or [])), None)
     options = _escalation_options(conflict, state["requirements"])
+    from . import recovery
+    recovery_options = recovery.options(state)
+    offered = recovery.public_alternatives(state)
+    options = [*(row["action"] for row in offered), *recovery_options, *options]
     answer = interrupt(
         {
             "question_id": "escalation",
             "text": state.get("escalation") or "This needs a decision from you.",
             "suggestions": options,
+            "alternatives": offered,
         }
     )
 
     ev = _events(config)
     said = str(answer).strip()
+    if said in recovery_options or any(row["action"] == said for row in offered):
+        return {"recovery_action": said, "reconfiguration": None}
+    if said == CONTINUE_OPTION and conflict is None:
+        return {"escalation": None, "current": None, "guidance": None, "recovery_target": None,
+                "offered_alternatives": [], "alternative_slot": None}
     requirement_field = (
         REQUIREMENT_FIELD_BY_RULE.get(conflict.rule) if conflict is not None else None
     )
@@ -1061,10 +1076,10 @@ async def escalate(state: DesignState, config) -> DesignState:
         source_name = topology.source_named(said)
         if source_name is not None and source_name != state["requirements"].input_source:
             return {"escalation": None, "replan_source": source_name}
-        # Guidance, not a signature. It goes to the reviewer as a constraint on the next
-        # attempt rather than being echoed and dropped.
-        _emit(ev.reasoning(None, f"Taking that into account: {said}"))
-        return {"escalation": None, "guidance": said, "verdicts": []}
+        # Every revision instruction must produce a changed plan or an explicit reason
+        # it could not. Returning to a bounded automatic reviewer could simply echo it.
+        _emit(ev.reasoning(None, "Your instruction will be used to propose a revised plan, not recorded as acceptance."))
+        return {"recovery_action": recovery.REDESIGN, "reconfiguration": said}
 
     waived = [*(state.get("accepted") or []), _waiver_key(conflict)]
     _emit(ev.decision(conflict, "User accepted the displayed finding"))
@@ -1112,6 +1127,8 @@ def after_escalate(state: DesignState) -> str:
     """A stop ends the run; a supply change rebuilds rails before revalidation."""
     if state.get("stopped"):
         return "finalize"
+    if state.get("recovery_action"):
+        return "recover"
     return "replan" if state.get("replan_source") else "validate"
 
 

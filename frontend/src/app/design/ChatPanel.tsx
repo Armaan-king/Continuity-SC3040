@@ -384,8 +384,24 @@ export function ChatPanel({
             </div>
             <div className="p-sm flex flex-col gap-sm">
               <p className="font-body-sm text-body-sm text-on-surface leading-relaxed">{question.text}</p>
+              {question.alternatives?.map((alternative) => (
+                <article key={alternative.action} className="rounded border border-outline-variant bg-surface-container p-sm flex flex-col gap-xs">
+                  <h3 className="text-[12px] font-semibold text-on-surface break-words">{alternative.label}</h3>
+                  <p className="text-[11px] leading-relaxed text-on-surface-variant break-words">{alternative.summary}</p>
+                  <p className="text-[10px] text-tertiary-container">{alternative.verification}</p>
+                  <div className="flex items-center justify-between gap-sm mt-1">
+                    {alternative.source && /^https?:\/\//i.test(alternative.source) ? (
+                      <a className="text-[11px] text-primary-container underline" href={alternative.source} target="_blank" rel="noopener noreferrer">View source</a>
+                    ) : <span />}
+                    <button className="py-1 px-2 rounded border border-primary-container text-[11px] text-primary-container hover:bg-surface-variant"
+                      type="button" onClick={() => onAnswer(alternative.action)} aria-label={alternative.action}>
+                      {alternative.action.startsWith('Change component:') ? 'Choose slot' : 'Try & revalidate'}
+                    </button>
+                  </div>
+                </article>
+              ))}
               <div className="flex gap-sm flex-wrap">
-                {question.suggestions.map((suggestion) => (
+                {question.suggestions.filter(suggestion => !question.alternatives?.some(item => item.action === suggestion)).map((suggestion) => (
                   <button
                     className="py-1 px-2 border border-outline-variant rounded font-data-tabular text-[11px] text-on-surface hover:bg-surface-variant hover:border-primary transition-colors text-center"
                     key={suggestion}
@@ -405,7 +421,8 @@ export function ChatPanel({
                       submitAnswer()
                     }
                   }}
-                  placeholder="Or type reasoning..."
+                  placeholder="Or describe a redesign…"
+                  aria-label="Your instruction"
                   maxLength={2000}
                   type="text"
                   value={answerText}

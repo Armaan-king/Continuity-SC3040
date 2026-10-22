@@ -142,6 +142,7 @@ async def find(
     constraint: Mapping[str, Any] | None = None,
     purpose: str | None = None,
     board: str | None = None,
+    exclude: frozenset[str] = frozenset(),
 ) -> list[Candidate]:
     """Candidates for a slot, best-first. Applies constraint pushdown when given one.
 
@@ -157,9 +158,9 @@ async def find(
         refined,
         spec_filters=filters or None,
         package=package,
-        limit=pool_size(constraint),
+        limit=DEEP_POOL if exclude else pool_size(constraint),
     )
-    found = viable(hits, constraint)
+    found = [candidate for candidate in viable(hits, constraint) if candidate.mpn.casefold() not in exclude]
     subcategory = _rescue_subcategory(query, constraint)
     rescue_subcategory = None
     # Thin *or* aimed at the wrong shelf. Six crystals is not a thin shortlist for a
@@ -175,11 +176,11 @@ async def find(
             spec_filters=filters or None,
             package=package,
             subcategory_name=subcategory,
-            limit=pool_size(constraint),
+            limit=DEEP_POOL if exclude else pool_size(constraint),
         )
         known_mpns = {candidate.mpn for candidate in found}
         for candidate in viable(rescue, constraint):
-            if candidate.mpn not in known_mpns:
+            if candidate.mpn not in known_mpns and candidate.mpn.casefold() not in exclude:
                 found.append(candidate)
                 known_mpns.add(candidate.mpn)
         # Re-applied to the *merged* list, which is the only place it can decide anything.
@@ -195,6 +196,7 @@ async def find(
         discovered = viable(await research.discover(query, purpose), constraint)
         identities = {(c.manufacturer.casefold(), c.mpn.casefold(), c.package) for c in found}
         found.extend(c for c in discovered if (c.manufacturer.casefold(), c.mpn.casefold(), c.package) not in identities)
+    found = [candidate for candidate in found if candidate.mpn.casefold() not in exclude]
     shortlist = found[:CANDIDATES_PER_SLOT]
     demoted: tuple[str, ...] = ()
     # A single-candidate shortlist cannot be reordered, so a judgement about it can only

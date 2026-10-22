@@ -496,8 +496,21 @@ export function useDesignSession() {
           return
         }
         case 'plan': {
-          setSlots((previous) => mergePlanSlots(previous, event.slots))
-          setEdges((previous) => mergePlanEdges(previous, event.edges))
+          if (event.replace) {
+            disposePresentationFlow()
+            finalBoardRef.current = false
+            conflictRef.current = null
+            setConflict(null)
+            setBom(null)
+            setSummary(null)
+            setSlots(event.slots)
+            setEdges(event.edges)
+            setRevealedSlotIds(new Set(event.slots.map((slot) => slot.id)))
+            setReasoning((previous) => previous.filter((item) => item.type !== 'check'))
+          } else {
+            setSlots((previous) => mergePlanSlots(previous, event.slots))
+            setEdges((previous) => mergePlanEdges(previous, event.edges))
+          }
           if (event.supply) {
             setSupply(event.supply)
           }

@@ -419,6 +419,13 @@ def structural_issues(plan: Plan | None, prompt: str = "") -> list[str]:
         return ["At least two valid functional slots are required"]
     issues = []
     descriptions = " ".join(f"{slot.id} {slot.label} {plan.queries.get(slot.id, '')} {(slot.constraint or {}).get('category', '')}" for slot in plan.slots.values()).lower()
+    linked_controllers = {link[0] for link in plan.links}
+    controllers = {key for key, slot in plan.slots.items() if (slot.constraint or {}).get("category") == "mcu"
+                   or slot.tier == "core" and key in linked_controllers}
+    requested_controller = re.search(r"\b(?:microcontroller|mcu)\b", prompt, re.I)
+    excluded_controller = re.search(r"\b(?:no|without)\s+(?:a\s+)?(?:microcontroller|mcu)\b", prompt, re.I)
+    if (requested_controller and not excluded_controller or plan.links) and not controllers:
+        issues.append("Include an MCU/controller slot for the requested digital peripherals")
     for _, key, label, _, _, _ in requested_functions(prompt):
         patterns = {"button": r"button|switch|keypad", "led": r"\bled\b|indicator", "buzzer": r"buzzer|sounder|speaker", "charger": r"charg"}
         if not re.search(patterns[key], descriptions):

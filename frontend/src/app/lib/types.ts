@@ -160,6 +160,7 @@ export type ReasoningEvent = EventBase<'reasoning'> & {
   /** null for board-level narration that belongs to no single slot. */
   slot: string | null
   text: string
+  level?: 'warning'
 }
 
 export type CandidateEvent = EventBase<'candidate'> & {

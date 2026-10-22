@@ -130,6 +130,8 @@ The planner uses a versioned contract and [Groq strict structured output](https:
 
 Known supplier categories skip unnecessary role-classification calls. Identical model requests share one result within an execution, and an exhausted provider quota stops repeated calls for the remaining stages. `CONTINUITY_LLM_MAX_CALLS=40` and `CONTINUITY_LLM_TOKEN_BUDGET=120000` bound each execution, including retries. Token accounting reserves estimated input plus maximum output before a request and uses actual reported usage on success. These are application limits, not a dollar billing guarantee; a restarted execution gets a fresh LLM allowance. Saved stages and Exa reservations remain durable.
 
+If planning fails, the trace displays an amber warning with a safe provider explanation when available. HTTP 400 means the provider rejected the request; it does not by itself establish an invalid key. Rejected nonretryable requests are not sent again by later stages in the same execution. The optional `python backend/tools/check_planner.py` check makes at most one model request for a plant-light monitor, without sourcing, Exa or database writes. It uses your local backend configuration and consumes provider quota. [Provider and cancellation verification](docs/PROVIDER_CANCELLATION_VALIDATION.md).
+
 [Groq setup](https://console.groq.com/docs/quickstart), [Ollama compatibility](https://docs.ollama.com/api/openai-compatibility), [xAI requirements](https://docs.x.ai/developers/quickstart). Grok is not a keyless free API.
 
 ## Hosting

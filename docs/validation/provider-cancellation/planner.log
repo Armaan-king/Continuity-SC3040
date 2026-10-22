@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "provider": "groq",
+  "model": "openai/gpt-oss-120b",
+  "http_attempts": 1,
+  "accounted_tokens": 3273,
+  "failure": null,
+  "slots": [
+    {
+      "id": "charger",
+      "label": "USB-C Battery Charger",
+      "query": "USB-C Li-ion charger IC"
+    },
+    {
+      "id": "regulator",
+      "label": "3.3V Buck Regulator",
+      "query": "3.3V buck regulator"
+    },
+    {
+      "id": "mcu",
+      "label": "Low-Power Microcontroller",
+      "query": "low-power microcontroller I2C"
+    },
+    {
+      "id": "sensor",
+      "label": "Ambient Light Sensor",
+      "query": "ambient light sensor"
+    },
+    {
+      "id": "display",
+      "label": "Small OLED Display",
+      "query": "small OLED display"
+    },
+    {
+      "id": "button",
+      "label": "Mode Switch Button",
+      "query": "tactile button"
+    },
+    {
+      "id": "led",
+      "label": "Indicator LED",
+      "query": "indicator LED"
+    }
+  ]
+}

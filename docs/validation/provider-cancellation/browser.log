@@ -1,0 +1,43 @@
+> frontend@0.0.0 test:e2e
+> playwright test runtime.spec.ts cancellation.spec.ts regression.spec.ts
+
+npm.cmd : [WebServer] INFO:     Started server process [75240]
+At line:5 char:1
++ npm.cmd run test:e2e -- runtime.spec.ts cancellation.spec.ts regressi ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([WebServer] INF...process [75240]:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+[WebServer] INFO:     Waiting for application startup.
+[WebServer] INFO:     Application startup complete.
+[WebServer] INFO:     Uvicorn running on http://127.0.0.1:8020 (Press CTRL+C to quit)
+[WebServer] (node:30464) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:55936) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:74836) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+Seeded e2e@continuity.dev: 25 completed runs, 3 excluded, 5 projects.
+Seeded versioned reference design for browser validation.
+
+Running 15 tests using 1 worker
+
+(node:78324) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 [chromium] › e2e\cancellation.spec.ts:22:1 › Stop waits for server acknowledgement and then a new run can start (3.7s)
+  ok  2 [chromium] › e2e\cancellation.spec.ts:53:1 › a rejected stop stays visible and retry cancels the same run (639ms)
+  ok  3 [chromium] › e2e\cancellation.spec.ts:71:1 › an immediate Stop waits for the creation response to identify the run (561ms)
+  ok  4 [chromium] › e2e\cancellation.spec.ts:91:1 › real cancellation persists and permits another project to start (3.8s)
+  ok  5 [chromium] › e2e\regression.spec.ts:13:1 › the landing page renders (491ms)
+  ok  6 [chromium] › e2e\regression.spec.ts:20:1 › wrong credentials are refused without signing in (449ms)
+  ok  7 [chromium] › e2e\regression.spec.ts:28:1 › signing in lists every project, and signing out ends the session (902ms)
+  ok  8 [chromium] › e2e\regression.spec.ts:44:1 › a finished board opens with its trace and bill of materials, and exports as CSV (1.1s)
+  ok  9 [chromium] › e2e\regression.spec.ts:64:1 › the server-side CSV export still answers for a finished run (141ms)
+  ok 10 [chromium] › e2e\regression.spec.ts:77:1 › memory shows the parts and boards from past runs (658ms)
+  ok 11 [chromium] › e2e\regression.spec.ts:88:1 › the guided walkthrough still replays for a new account (4.8s)
+  ok 12 [chromium] › e2e\runtime.spec.ts:4:1 › local mode opens a usable brief screen without requiring an account (493ms)
+  ok 13 [chromium] › e2e\runtime.spec.ts:16:1 › local sign-in explains persistence and provides a working workspace link (513ms)
+  ok 14 [chromium] › e2e\runtime.spec.ts:27:1 › a dropped stream reconnects using the cursor without starting another design (542ms)
+  ok 15 [chromium] › e2e\runtime.spec.ts:49:1 › an AI planning failure is an amber warning with the provider reason (510ms)
+
+  15 passed (29.3s)

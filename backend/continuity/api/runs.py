@@ -14,7 +14,7 @@ from dataclasses import dataclass, field
 from fastapi import HTTPException
 
 from . import events
-from .store import Store, execution_lease
+from .store import Store, RunLeaseLost, execution_lease
 from ..designs.context import current, ExecutionContext
 
 log = logging.getLogger(__name__)
@@ -76,30 +76,43 @@ class RunManager:
         outcome = "abandoned"
         failure = False
         terminal_event: dict | None = None
+        worker_started = False
 
         async def renew() -> None:
             while True:
                 await asyncio.sleep(10)
                 if store and not await store.renew_run(thread_id, token):
-                    raise RuntimeError("Execution lease expired")
+                    raise RunLeaseLost("Execution lease expired")
 
         async def consume() -> None:
-            nonlocal terminal_event
-            async for frame in producer:
-                for line in frame.splitlines():
-                    if not line.startswith("data: "):
-                        continue
-                    event = json.loads(line[6:])
-                    if store:
-                        await store.append_stream_event(thread_id, token, event)
-                    if len(run.frames) >= 10000:
-                        raise RuntimeError("Run event limit exceeded")
-                    run.cursor = event["seq"]
-                    if event["type"] in {"done", "question", "error"}:
-                        terminal_event = event
-                    else:
-                        run.frames.append(event)
-                        run.changed.set()
+            nonlocal terminal_event, worker_started, failure
+            worker_started = True
+            try:
+                async for frame in producer:
+                    for line in frame.splitlines():
+                        if not line.startswith("data: "):
+                            continue
+                        event = json.loads(line[6:])
+                        if store:
+                            await store.append_stream_event(thread_id, token, event)
+                        if len(run.frames) >= 10000:
+                            raise RuntimeError("Run event limit exceeded")
+                        run.cursor = event["seq"]
+                        if event["type"] in {"done", "question", "error"}:
+                            terminal_event = event
+                        else:
+                            run.frames.append(event)
+                            run.changed.set()
+            finally:
+                # ContextVar tokens belong to this task. Closing a suspended producer
+                # from _drive instead breaks when cancellation lands during persistence.
+                try:
+                    await producer.aclose()
+                except RunLeaseLost:
+                    log.info("Producer stopped after lease revocation: %s", thread_id)
+                except Exception:
+                    failure = True
+                    log.exception("Could not close run producer: %s", thread_id)
 
         worker = asyncio.create_task(consume())
         lease = asyncio.create_task(renew())
@@ -110,6 +123,9 @@ class RunManager:
                     await task
         except asyncio.CancelledError:
             raise
+        except RunLeaseLost:
+            failure = True
+            log.info("Execution no longer owns the run: %s", thread_id)
         except Exception:
             failure = True
             log.exception("Run failed: %s", thread_id)
@@ -117,12 +133,9 @@ class RunManager:
             worker.cancel()
             lease.cancel()
             await asyncio.gather(worker, lease, return_exceptions=True)
-            try:
-                await producer.aclose()
-            except Exception:
-                failure = True
-                log.exception("Could not close run producer: %s", thread_id)
-            if failure:
+            if not worker_started:
+                await producer.aclose()  # It never ran, so no task-local tokens exist.
+            if failure and not run.stopping:
                 event = {"type": "error", "thread_id": thread_id, "seq": run.cursor + 1,
                          "message": "The run stopped. Reopen the project to recover its saved checkpoint.",
                          "recoverable": store is not None}
@@ -130,6 +143,8 @@ class RunManager:
                 if store:
                     try:
                         await store.append_stream_event(thread_id, token, event)
+                    except RunLeaseLost:
+                        log.info("Run failure belongs to a revoked execution: %s", thread_id)
                     except Exception:
                         log.exception("Could not persist run failure: %s", thread_id)
             if terminal_event:

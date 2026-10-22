@@ -99,8 +99,8 @@ class EventStream:
         """One slot declared after planning, appended rather than replacing the board."""
         return self._event("slot_added", slot=_slot(slot), edges=[_edge(e) for e in edges])
 
-    def reasoning(self, slot: str | None, text: str) -> dict[str, Any]:
-        return self._event("reasoning", slot=slot, text=text)
+    def reasoning(self, slot: str | None, text: str, *, level: str | None = None) -> dict[str, Any]:
+        return self._event("reasoning", slot=slot, text=text, **({"level": level} if level else {}))
 
     def candidate(self, slot: str, part: PartSpec) -> dict[str, Any]:
         return self._event("candidate", slot=slot, part=_part(part))

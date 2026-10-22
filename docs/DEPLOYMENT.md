@@ -49,7 +49,9 @@ After deployment, open `/api/runtime`. The `ai` object should report:
 {"configured":true,"provider":"groq","model":"openai/gpt-oss-120b","mode":"ai"}
 ```
 
-This confirms selection, not successful inference. Run a new small design and check the planning trace. HTTP 401/403 indicates a key or permission problem; HTTP 404 indicates a model/endpoint problem; HTTP 429 indicates rate/token quotas; HTTP 5xx indicates a provider-side availability problem. The app retries a short numeric `Retry-After` once (up to 30 seconds); longer waits use the explicit fallback.
+This confirms selection, not successful inference. Run a new small design and check the planning trace. HTTP 400 means the provider rejected the request; the safe explanation now distinguishes known output-format, model, token-limit and JSON-generation errors without displaying the provider's raw response. HTTP 401/403 indicates a key or permission problem; HTTP 404 indicates a model/endpoint problem; HTTP 429 indicates rate/token quotas; HTTP 5xx indicates a provider-side availability problem. The app retries a short numeric `Retry-After` once (up to 30 seconds); longer waits use the explicit fallback.
+
+The planning-diagnostics and cancellation update requires a manual code deployment, with no new environment variables or Neon migration. The configured `groq` label alone does not verify the base URL; check it against the table above. The same plant brief succeeded locally in one request, but that does not prove a deployed request will succeed. Earlier HTTP 400 logs without the provider reason cannot identify the original rejection. [Test results and limits](PROVIDER_CANCELLATION_VALIDATION.md).
 
 Groq lists this model on its [Free Plan](https://console.groq.com/docs/rate-limits), currently 30 requests/minute, 1,000/day, 8,000 tokens/minute and 200,000/day. Stay on Groq's Free Plan for free usage. The app cannot infer your billing plan from an API key, and the model ID does not make a paid account's calls free. It never upgrades your Groq plan or purchases credits. Free-tier capacity and availability are not guaranteed.
 

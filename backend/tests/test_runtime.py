@@ -250,3 +250,59 @@ def test_nonfinite_model_measurement_is_unknown():
     from continuity.parts.normalize import validate
     fields, _ = validate({"vmin": float("nan"), "vmax": float("inf")}, {})
     assert "vmin" not in fields and "vmax" not in fields
+
+
+@pytest.mark.parametrize("error,expected", [
+    ({"code": "json_validate_failed", "message": "secret prompt"}, "required JSON"),
+    ({"code": "model_decommissioned"}, "retired"),
+    ({"message": "max_completion_tokens rejected secret prompt"}, "output-token"),
+    ({"message": "response_format.json_schema invalid secret prompt"}, "structured-output"),
+    ({"message": "reasoning_effort rejected secret prompt"}, "reasoning-effort"),
+    ({"code": "secret prompt", "message": "secret prompt", "failed_generation": "secret prompt"}, "request"),
+    ([], "request"),
+])
+def test_http_400_has_safe_actionable_diagnostics(error, expected):
+    message = llm.http_failure(400, {"error": error})
+    assert expected in message
+    assert "secret prompt" not in message
+
+
+def test_rejected_request_is_not_sent_again_by_later_pipeline_steps(clean_environment, monkeypatch):
+    from continuity.designs.context import current, ExecutionContext
+    requests = []
+    groq_transport(monkeypatch, lambda request: requests.append(request) or httpx.Response(400,
+        json={"error": {"code": "json_validate_failed", "message": "private prompt", "failed_generation": "private output"}}))
+
+    async def go():
+        context = ExecutionContext("rejected-run")
+        token = current.set(context)
+        try:
+            for prompt in ("Plan", "Rank candidates"):
+                with pytest.raises(llm.LLMUnavailable, match="required JSON"):
+                    await llm.complete_json(prompt, "User brief")
+            assert context.llm_calls == 1
+        finally:
+            current.reset(token)
+    asyncio.run(go())
+    assert len(requests) == 1
+
+
+def test_planner_retains_a_safe_failure_reason_for_the_warning(monkeypatch):
+    from continuity.planner import plan as planner
+    monkeypatch.setattr(llm, "available", lambda: True)
+    monkeypatch.setattr(llm, "complete_json", AsyncMock(side_effect=llm.LLMUnavailable(
+        "groq: provider returned HTTP 400 (the provider rejected the structured-output format or schema).")))
+
+    async def go():
+        assert await planner.plan_board("Plant light monitor") is None
+        assert "structured-output" in planner.last_failure.get()
+    asyncio.run(go())
+
+
+def test_plant_fallback_does_not_read_maximum_as_imu_or_operating_temperature_as_sensor():
+    from continuity.planner.plan import fallback_plan
+    plan = fallback_plan("Ambient-light sensor and OLED for a houseplant, with operating temperature range and maximum component dimensions")
+    assert "light" in plan.slots and "display" in plan.slots
+    assert "imu" not in plan.slots
+    assert "sensor" not in plan.slots
+    assert ("mcu", "light") in plan.links

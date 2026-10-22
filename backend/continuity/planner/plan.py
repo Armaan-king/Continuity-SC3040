@@ -28,6 +28,7 @@ from __future__ import annotations
 import json
 import logging
 import re
+from contextvars import ContextVar
 from dataclasses import dataclass, replace
 from typing import Any, Mapping, Sequence
 
@@ -40,6 +41,7 @@ from .prompt import system as planning_system
 from .schema import PLAN_SCHEMA
 
 log = logging.getLogger(__name__)
+last_failure: ContextVar[str | None] = ContextVar("planning_failure", default=None)
 
 TIERS: tuple[Tier, ...] = ("power", "core", "peripherals", "passives")
 PRIORITIES = ("cost", "size", "availability")
@@ -365,7 +367,9 @@ def build_plan(raw: Mapping[str, Any]) -> Plan | None:
 
 async def plan_board(prompt: str) -> Plan | None:
     """Plan a board from a description. None when no usable plan came back."""
+    last_failure.set(None)
     if not llm.available():
+        last_failure.set("AI is not configured for this server.")
         return None
     functions = requested_functions(prompt)
     request = prompt.strip()[:2000] + ("\nRequired functions: " + ", ".join(item[1] for item in functions) if functions else "")
@@ -379,12 +383,16 @@ async def plan_board(prompt: str) -> Plan | None:
             reply.update(explicit)
             plan = build_plan(reply)
         except (llm.LLMUnavailable, ValueError, json.JSONDecodeError) as error:
+            last_failure.set(str(error) if isinstance(error, llm.LLMUnavailable)
+                             else "The model returned an invalid plan.")
             log.warning("planning failed: %s", error)
             return None
         issues = structural_issues(plan, prompt)
         if not issues:
+            last_failure.set(None)
             return plan
         log.warning("planner structure rejected: %s", "; ".join(issues))
+        last_failure.set("The model's plan failed structural validation.")
         if attempt == 0:
             request = (prompt.strip()[:2000] + "\nYour previous plan had these structural errors: "
                        + "; ".join(issues) + "\nReturn a complete corrected JSON plan.")
@@ -438,22 +446,25 @@ def fallback_plan(prompt: str) -> Plan:
     degraded-but-honest mode the normaliser has — not so it can pretend to have planned.
     """
     text = prompt.lower()
+    # Operating conditions are not requests for a temperature-sensing component.
+    functions_text = re.sub(r"\b(?:operating|ambient|storage)\s+temperature(?:\s+range)?\b", "", text)
     wanted: list[tuple[str, str, Tier, bool, str, str]] = [
         ("regulator", "Regulator", "power", False, "3.3V LDO regulator", "regulator"),
         ("mcu", "Microcontroller", "core", True, "ESP32 module", "mcu"),
     ]
     optional = [
-        (("temp", "humid", "climate", "environment"), "sensor", "Temp / Humidity Sensor", "temperature humidity sensor", "sensor"),
-        (("oled", "display", "screen", "readout"), "display", "Display", "OLED display", "display"),
-        (("imu", "accelerom", "gyro", "motion"), "imu", "IMU", "IMU accelerometer", "sensor"),
-        (("flash", "storage", "sd card", "memory"), "flash", "Serial Flash", "SPI NOR flash", "memory"),
+        (r"\b(?:temp|temperature|humidity|climate|environment|environmental)\b", "sensor", "Temp / Humidity Sensor", "temperature humidity sensor", "sensor"),
+        (r"\b(?:ambient[- ]light|light sensor|plant[- ]light)\b", "light", "Ambient Light Sensor", "ambient light sensor", "sensor"),
+        (r"\b(?:oled|display|screen|readout)\b", "display", "Display", "OLED display", "display"),
+        (r"\b(?:imu|accelerometer|gyroscope|gyro|motion)\b", "imu", "IMU", "IMU accelerometer", "sensor"),
+        (r"\b(?:flash|storage|sd card|memory)\b", "flash", "Serial Flash", "SPI NOR flash", "memory"),
     ]
     optional.extend([
-        (("lora",), "lora", "LoRa Radio", "LoRa module", "radio"),
-        (("gps", "gnss"), "gps", "GNSS Receiver", "GNSS module", "radio"),
+        (r"\blora\b", "lora", "LoRa Radio", "LoRa module", "radio"),
+        (r"\b(?:gps|gnss)\b", "gps", "GNSS Receiver", "GNSS module", "radio"),
     ])
-    for keywords, slot_id, label, query, category in optional:
-        if any(k in text for k in keywords):
+    for pattern, slot_id, label, query, category in optional:
+        if re.search(pattern, functions_text):
             wanted.append((slot_id, label, "peripherals", True, query, category))
 
     for _, slot_id, label, tier, query, category in requested_functions(prompt):
@@ -479,7 +490,7 @@ def fallback_plan(prompt: str) -> Plan:
         slots=slots,
         rails=[Rail(id="3V3", voltage=3.3, source="regulator", members=loads)],
         queries=queries,
-        links=tuple(("mcu", s) for s in loads if s in {"sensor", "display", "imu", "flash", "lora", "gps"}),
+        links=tuple(("mcu", s) for s in loads if s in {"sensor", "light", "display", "imu", "flash", "lora", "gps"}),
         order=placement_order(slots),
     )
 

@@ -45,3 +45,17 @@ test('a dropped stream reconnects using the cursor without starting another desi
   // StrictMode may repeat the HTTP request; both use one idempotency key.
   expect(starts).toBeGreaterThan(0)
 })
+
+test('an AI planning failure is an amber warning with the provider reason', async ({ page }) => {
+  const warning = 'AI planning is unavailable. groq: provider returned HTTP 400 (the provider rejected the structured-output format or schema). Using a basic rule-based plan.'
+  await page.route(`${API_URL}/design`, (route) => route.fulfill({ contentType: 'text/event-stream', body: [
+    { type: 'reasoning', seq: 0, slot: null, level: 'warning', text: warning },
+    { type: 'question', seq: 1, question_id: 'supply', text: 'Which supply?', suggestions: ['USB'] },
+  ].map((event) => `data: ${JSON.stringify({ ...event, thread_id: 'warning-run' })}\n\n`).join('') }))
+  await page.goto('/design')
+  await page.locator('textarea').fill('Plant light monitor')
+  await page.getByRole('button', { name: 'Start validation' }).click()
+  await expect(page.getByText(warning, { exact: true })).toBeVisible()
+  const icon = page.locator('[data-tour="trace"] .material-symbols-outlined').filter({ hasText: /^warning$/ })
+  await expect(icon).toHaveClass(/text-tertiary-container/)
+})

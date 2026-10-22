@@ -42,6 +42,44 @@ class LLMUnavailable(RuntimeError):
     """The model is unconfigured, unreachable, or returned an unusable response."""
 
 
+def http_failure(status: int, body: Any) -> str:
+    """Translate provider diagnostics without echoing prompts, keys or generated text."""
+    error = body.get("error", body) if isinstance(body, dict) else {}
+    error = error if isinstance(error, dict) else {}
+    code = error.get("code")
+    message = str(error.get("message", ""))[:8000].lower()
+    hints = {
+        "json_validate_failed": "the model could not produce the required JSON output",
+        "context_length_exceeded": "the request exceeds the model's context window",
+        "model_decommissioned": "the configured model has been retired; select a supported model",
+        "model_not_found": "check the model ID and API base URL",
+        "model_permission_blocked": "this API project does not permit the selected model",
+        "organization_restricted": "the provider has restricted this API organization",
+        "invalid_api_key": "check the selected provider's API key and model permissions",
+    }
+    hint = hints.get(code) if isinstance(code, str) else None
+    if hint is None and status == 400:
+        if "max_completion_tokens" in message or "max_tokens" in message:
+            hint = "the provider rejected the output-token setting; check CONTINUITY_LLM_MAX_TOKENS"
+        elif "reasoning_effort" in message:
+            hint = "the selected model rejected the reasoning-effort setting"
+        elif any(term in message for term in ("json_schema", "response_format", "additionalproperties")):
+            hint = "the provider rejected the structured-output format or schema"
+        elif "model" in message and any(term in message for term in ("decommission", "not supported", "does not exist")):
+            hint = "check that the configured model is supported by this provider"
+        else:
+            hint = "the provider rejected the request; check model, token limit and response format"
+    elif hint is None and status == 429:
+        hint = "rate or token quota exceeded; check the provider's usage limits"
+    elif hint is None and status >= 500:
+        hint = "provider temporarily unavailable"
+    elif hint is None and status in {401, 403}:
+        hint = "check the selected provider's API key and model permissions"
+    elif hint is None and status == 404:
+        hint = "check the model ID and API base URL"
+    return f"provider returned HTTP {status}" + (f" ({hint})" if hint else "")
+
+
 @dataclass(frozen=True)
 class LLMConfig:
     provider: str
@@ -198,15 +236,7 @@ async def _complete_json(system: str, user: str, *, temperature: float, effort: 
                          usage.total_tokens if usage else "unknown")
                 return result
             except APIStatusError as exc:
-                failure = f"provider returned HTTP {exc.status_code}"
-                if exc.status_code == 429:
-                    failure += " (rate or token quota exceeded; check the provider's usage limits)"
-                elif exc.status_code >= 500:
-                    failure += " (provider temporarily unavailable)"
-                elif exc.status_code in {401, 403}:
-                    failure += " (check the selected provider's API key and model permissions)"
-                elif exc.status_code == 404:
-                    failure += " (check the model ID and API base URL)"
+                failure = http_failure(exc.status_code, exc.body)
                 if exc.status_code not in {408, 409, 429} and exc.status_code < 500:
                     if context:
                         context.llm_unavailable = f"{config.provider}: {failure}."

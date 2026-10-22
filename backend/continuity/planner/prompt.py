@@ -1,6 +1,6 @@
 """Versioned planning contract: compact instructions, deterministic validation."""
 
-VERSION = "2026-10-review-1"
+VERSION = "2026-10-review-2"
 
 
 def system(categories: str, sources: list[str], max_slots: int) -> str:
@@ -32,7 +32,7 @@ id (unique lowercase snake_case starting with a letter), label (2–4 words),
 tier (power/core/peripherals/passives), pinned (true for requested functions),
 query (2–4 component search words), category (one of the following):
 {categories}
-For regulator slots add topology: ldo, buck, boost, or buck-boost.
+Every slot includes topology: ldo, buck, boost, or buck-boost for regulators; null otherwise.
 Add a controller for digital peripherals. Include requested buttons, LEDs, buzzer and
 charger; do not silently drop difficult functions. Keep power conversion separate from
 MCUs. A charger is category charger, not regulator. Include drivers/support functions
@@ -68,8 +68,8 @@ Complete structural example (adapt functions and supply to the actual brief):
 "lifetime_hours":null,"supply_capacity_mah":null,
 "slots":[
  {{"id":"regulator","label":"3.3V Regulator","tier":"power","pinned":false,"query":"3.3V LDO regulator","category":"regulator","topology":"ldo"}},
- {{"id":"mcu","label":"Microcontroller","tier":"core","pinned":true,"query":"ESP32 module","category":"mcu"}},
- {{"id":"imu","label":"Motion Sensor","tier":"peripherals","pinned":true,"query":"IMU accelerometer","category":"sensor"}}],
+ {{"id":"mcu","label":"Microcontroller","tier":"core","pinned":true,"query":"ESP32 module","category":"mcu","topology":null}},
+ {{"id":"imu","label":"Motion Sensor","tier":"peripherals","pinned":true,"query":"IMU accelerometer","category":"sensor","topology":null}}],
 "rails":[{{"id":"3V3","voltage":3.3,"source":"regulator","members":["mcu","imu"]}}],
 "links":[["mcu","imu"]]}}
 Before returning check: every reference exists, functions are preserved, loads have

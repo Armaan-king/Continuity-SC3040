@@ -10,7 +10,7 @@ from ..graph import nodes
 from ..parts import dossier, normalize
 from . import bom, events
 from .memory import FindingRecorder
-from .store import Store
+from .store import Store, RunLeaseLost
 from .state import BOMS, FINDING_RECORDERS, PROGRESS_TASKS, STREAMS
 
 log = logging.getLogger(__name__)
@@ -86,6 +86,9 @@ async def _run(
         except asyncio.CancelledError:
             outcome = "abandoned"
             raise
+        except RunLeaseLost:
+            outcome = "abandoned"
+            raise
         except Exception:  # expose a safe message; keep diagnostics in server logs
             outcome = "error"
             log.exception("Graph execution failed: %s", thread_id)
@@ -104,7 +107,10 @@ async def _run(
                 progress_task = asyncio.create_task(persist())
                 PROGRESS_TASKS.add(progress_task)
                 progress_task.add_done_callback(PROGRESS_TASKS.discard)
-                await asyncio.shield(progress_task)
+                try:
+                    await asyncio.shield(progress_task)
+                except RunLeaseLost:
+                    log.info("Skipped final writes for revoked run: %s", thread_id)
                 if outcome == "done":
                     FINDING_RECORDERS.pop(thread_id, None)
             await queue.put(None)
@@ -215,10 +221,9 @@ async def _run_bom(
             if event["type"] != "bom":
                 trace.append(event)
             yield events.frame(event)
-    except asyncio.CancelledError:
-        # Same shape as `_run`: a closed generator cannot complete an `await` in its
-        # `finally`, so the one write recording the outcome is the write that cannot
-        # happen. Record the abandonment and persist from a task that is not this one.
+    except (asyncio.CancelledError, GeneratorExit, RunLeaseLost):
+        # A stopped producer has not completed validation. Persist from a shielded
+        # task below; a revoked lease prevents it from overwriting cancellation.
         outcome = "abandoned"
         raise
     except Exception:  # this stream remains useful even if a dependency breaks
@@ -240,7 +245,10 @@ async def _run_bom(
                 progress_task = asyncio.create_task(persist())
                 PROGRESS_TASKS.add(progress_task)
                 progress_task.add_done_callback(PROGRESS_TASKS.discard)
-                await asyncio.shield(progress_task)
+                try:
+                    await asyncio.shield(progress_task)
+                except RunLeaseLost:
+                    log.info("Skipped final writes for revoked run: %s", stream.thread_id)
                 if outcome == "done":
                     FINDING_RECORDERS.pop(stream.thread_id, None)
         finally:
@@ -327,5 +335,7 @@ async def _save_trace(store: Store, thread_id: str, trace: Sequence[dict[str, An
         return
     try:
         await store.save_run_events(thread_id, trace)
+    except RunLeaseLost:
+        raise
     except Exception:
         log.warning("could not persist trace for thread %s", thread_id, exc_info=True)

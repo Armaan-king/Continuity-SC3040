@@ -2,6 +2,8 @@
 
 Verified locally on 22 October 2026. No Groq or Exa requests were made, and production Neon was not used.
 
+This report covers the initial cancellation change. A later production trace exposed a missed case: cancellation while persisting a yielded frame closed the producer from a different task. The follow-up [provider and cancellation report](PROVIDER_CANCELLATION_VALIDATION.md) records the correction and additional regression coverage.
+
 ## Defects and behavior
 
 Previously, the UI immediately became idle after Stop while its cancellation request ran in the background. HTTP errors and network failures were discarded. Stopping before the initial response also had no thread ID to cancel. A second task cancellation could interrupt server cleanup and leave the account's local admission slot occupied. Recovery could claim a previously selected input without rechecking its cancelled flag.

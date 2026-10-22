@@ -29,6 +29,10 @@ from ..parts.dossier import DOSSIER_FIELDS
 SCHEMA = Path(__file__).with_name("schema.sql")
 execution_lease: ContextVar[tuple[str, str] | None] = ContextVar("execution_lease", default=None)
 
+
+class RunLeaseLost(RuntimeError):
+    """A cancelled or superseded execution may no longer write this run."""
+
 SESSION_IDLE_SECONDS = 60 * 30
 """How long a session survives with no requests at all.
 
@@ -130,7 +134,7 @@ class Store(RevisionRepository):
                         "AND lease_until > now() FOR UPDATE", lease,
                     )
                     if await cursor.fetchone() is None:
-                        raise RuntimeError("Run lease was lost")
+                        raise RunLeaseLost("Run lease was lost")
                 yield conn
 
     async def setup(self) -> None:
@@ -822,7 +826,7 @@ class Store(RevisionRepository):
                      WHERE id = %s AND run_token = %s AND lease_until > now() RETURNING id
                 """, (event["seq"], thread_id, token))
                 if await cursor.fetchone() is None:
-                    raise RuntimeError("Run lease was lost")
+                    raise RunLeaseLost("Run lease was lost")
                 if event.get("type") == "board" and isinstance(event.get("document"), dict):
                     event["revision_id"] = await commit_revision(conn, thread_id, event["document"], "Run completed")
                     # Full evidence belongs in the immutable document, not every SSE replay.

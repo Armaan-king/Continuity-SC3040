@@ -169,3 +169,40 @@ def test_producer_close_failure_does_not_leave_account_occupied():
         manager.admit("owner")
         await manager.close()
     asyncio.run(go())
+
+
+def test_revoked_lease_during_frame_save_releases_admission_without_error_logs(caplog):
+    import logging
+    from continuity.api.store import RunLeaseLost
+
+    async def go():
+        manager = RunManager()
+        closed = asyncio.Event()
+        released = asyncio.Event()
+
+        class RevokedStore:
+            async def claim_run(self, *args, **kwargs):
+                return True
+
+            async def append_stream_event(self, *args):
+                raise RunLeaseLost("Run lease was lost")
+
+            async def release_run(self, *args):
+                released.set()
+
+        async def produce():
+            try:
+                yield 'data: {"type":"reasoning","seq":0,"text":"started"}\n\n'
+            finally:
+                closed.set()
+
+        await manager.start("revoked", "owner", produce(), RevokedStore())
+        await manager.runs["revoked"].task
+        assert closed.is_set() and released.is_set()
+        assert manager.runs["revoked"].finished
+        manager.admit("owner")
+        await manager.close()
+
+    with caplog.at_level(logging.WARNING):
+        asyncio.run(go())
+    assert not [record for record in caplog.records if record.levelno >= logging.WARNING]

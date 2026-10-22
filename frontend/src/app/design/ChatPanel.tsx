@@ -316,20 +316,23 @@ export function ChatPanel({
 
       <div className="flex-1 overflow-y-auto p-sm flex flex-col gap-xs bg-[#0B0C0E]" data-tour="trace" onScroll={handleTraceScroll} ref={traceRef}>
         {narrativeLines.map(({ item, caption: detail }, index) => {
+          const warning = item.type === 'reasoning' && (item.level === 'warning' ||
+            item.text.startsWith('AI planning is unavailable.'))
           const isActiveLine =
+            !warning &&
             index === narrativeLines.length - 1 &&
             status === 'running' &&
             !isHydrated &&
             item.type === 'reasoning' &&
             item.seq === inFlightReasoningSeq
-          const icon = isActiveLine
+          const icon = warning ? 'warning' : isActiveLine
             ? 'progress_activity'
             : item.type === 'error'
               ? 'error'
               : item.type === 'repair'
                 ? 'build'
                 : 'check_circle'
-          const iconClassName = isActiveLine
+          const iconClassName = warning ? 'text-tertiary-container' : isActiveLine
             ? 'text-primary-container'
             : item.type === 'error'
               ? 'text-error'

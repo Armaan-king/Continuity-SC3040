@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import asyncio
+import logging
+import pytest
 
 from continuity.api import app as app_module
 from continuity.api.app import _run
@@ -143,3 +145,96 @@ def test_trace_persistence_failure_does_not_break_the_run():
     frames, progress = asyncio.run(go())
     assert '"type":"done"' in frames[-1]
     assert progress == [("trace-failure", 0, "done")]
+
+
+@pytest.mark.parametrize("kind", ["brief", "bom"])
+def test_stop_while_persisting_a_yielded_frame_closes_in_the_owning_task(kind, monkeypatch, caplog):
+    from continuity.api import bom
+    from continuity.api.execution import _run_bom
+    from continuity.api.runs import RunManager
+    from continuity.api.store import RunLeaseLost
+
+    async def go():
+        entered = asyncio.Event()
+        manager = RunManager()
+        graph = BlockingGraph()
+
+        class LeaseStore(RecordingStore):
+            revoked = False
+
+            async def claim_run(self, *args, **kwargs):
+                return True
+
+            async def renew_run(self, *args):
+                return not self.revoked
+
+            async def release_run(self, *args):
+                pass
+
+            async def append_stream_event(self, *args):
+                entered.set()
+                await asyncio.Event().wait()
+
+            async def save_run_events(self, *args):
+                if self.revoked:
+                    raise RunLeaseLost("Run lease was lost")
+                await super().save_run_events(*args)
+
+        store = LeaseStore()
+        stream = EventStream(f"cancel-{kind}")
+        app_module.STREAMS[stream.thread_id] = stream
+
+        async def validate_bom(*args):
+            yield stream.reasoning(None, "started")
+            await asyncio.Event().wait()
+
+        monkeypatch.setattr(bom, "validate_bom", validate_bom)
+        producer = _run(graph, stream.thread_id, {}, store) if kind == "brief" else _run_bom([], None, stream, store)
+        await manager.start(stream.thread_id, "owner", producer, store)
+        await entered.wait()  # generator is suspended at yield; worker is in the store
+        store.revoked = True
+        assert await manager.stop(stream.thread_id, "owner")
+        assert manager.runs[stream.thread_id].finished
+        assert not store.progress  # revoked execution must not overwrite cancellation
+        manager.admit("owner")
+        await manager.close()
+
+    with caplog.at_level(logging.WARNING):
+        asyncio.run(go())
+    assert not [record for record in caplog.records if record.levelno >= logging.WARNING]
+
+
+@pytest.mark.parametrize("kind", ["brief", "bom"])
+def test_revocation_during_bom_save_is_not_logged_as_validation_failure(kind, monkeypatch, caplog):
+    from continuity.api import bom
+    from continuity.api.execution import _run_bom
+    from continuity.api.store import RunLeaseLost
+
+    class RevokedStore(RecordingStore):
+        async def save_bom(self, *args):
+            raise RunLeaseLost("Run lease was lost")
+
+        async def save_run_events(self, *args):
+            raise RunLeaseLost("Run lease was lost")
+
+        async def save_progress(self, *args):
+            raise RunLeaseLost("Run lease was lost")
+
+    async def go():
+        store = RevokedStore()
+        stream = EventStream(f"revoked-save-{kind}")
+        app_module.STREAMS[stream.thread_id] = stream
+
+        async def validate_bom(*args):
+            yield stream.bom([], 0)
+
+        monkeypatch.setattr(bom, "validate_bom", validate_bom)
+        producer = _run(BomGraph(), stream.thread_id, {}, store) if kind == "brief" else _run_bom([], None, stream, store)
+        with pytest.raises(RunLeaseLost):
+            async for _ in producer:
+                pass
+        assert not store.progress
+
+    with caplog.at_level(logging.WARNING):
+        asyncio.run(go())
+    assert not [record for record in caplog.records if record.levelno >= logging.WARNING]

@@ -27,6 +27,7 @@ class Run:
     task: asyncio.Task | None = None
     changed: asyncio.Event = field(default_factory=asyncio.Event)
     finished: bool = False
+    stopping: bool = False
     cursor: int = -1
     touched: float = field(default_factory=time.monotonic)
 
@@ -47,12 +48,13 @@ class RunManager:
             raise HTTPException(409, "A design is already running. Reopen it or stop it first.")
 
     async def start(self, thread_id: str, owner: str, producer: AsyncIterator[str],
-                    store: Store | None = None, cleanup: Callable[[], None] | None = None, last_seq: int = -1) -> None:
+                    store: Store | None = None, cleanup: Callable[[], None] | None = None, last_seq: int = -1,
+                    *, allow_cancelled: bool = False) -> None:
         async with self.admission:
             try:
                 self.admit(owner)
                 token = uuid.uuid4().hex
-                if store and not await store.claim_run(thread_id, owner, token):
+                if store and not await store.claim_run(thread_id, owner, token, allow_cancelled=allow_cancelled):
                     raise HTTPException(409, "This account already has an active run, or this run has finished.")
             except BaseException:
                 await producer.aclose()
@@ -115,7 +117,11 @@ class RunManager:
             worker.cancel()
             lease.cancel()
             await asyncio.gather(worker, lease, return_exceptions=True)
-            await producer.aclose()
+            try:
+                await producer.aclose()
+            except Exception:
+                failure = True
+                log.exception("Could not close run producer: %s", thread_id)
             if failure:
                 event = {"type": "error", "thread_id": thread_id, "seq": run.cursor + 1,
                          "message": "The run stopped. Reopen the project to recover its saved checkpoint.",
@@ -182,15 +188,18 @@ class RunManager:
 
     async def stop(self, thread_id: str, owner: str) -> bool:
         run = self.runs.get(thread_id)
-        if not run or run.owner != owner or run.finished:
+        if not run or run.owner != owner:
             return False
-        run.task.cancel()
-        await asyncio.gather(run.task, return_exceptions=True)
+        # Repeated clicks, requests, and shutdown must join the same cleanup. A second
+        # Task.cancel() can interrupt its finally block and leave admission occupied.
+        if not run.finished and not run.stopping:
+            run.stopping = True
+            run.task.cancel()
+        if run.task:
+            await asyncio.shield(asyncio.gather(run.task, return_exceptions=True))
         return True
 
     async def close(self) -> None:
         self.closing = True
-        tasks = [run.task for run in self.runs.values() if run.task and not run.task.done()]
-        for task in tasks:
-            task.cancel()
-        await asyncio.gather(*tasks, return_exceptions=True)
+        await asyncio.gather(*(self.stop(key, run.owner) for key, run in self.runs.items()),
+                             return_exceptions=True)

@@ -44,6 +44,8 @@ let threadId: string | null = null
 let listener: EventListener | null = null
 let lastSequence = -1
 let terminal = false
+let pendingResponse: Promise<Response> | null = null
+let cancellation: Promise<void> | null = null
 let walkthroughQueue: DesignEvent[] = []
 let walkthroughMilestone: WalkthroughReplayMilestone | null = null
 /** The last milestone asked for, satisfied or not. A milestone is released once. */
@@ -53,6 +55,7 @@ let walkthroughReplayActive = false
 function reset() {
   controller?.abort()
   controller = null
+  pendingResponse = null
   walkthroughQueue = []
   walkthroughMilestone = null
   walkthroughReleased = null
@@ -220,10 +223,12 @@ async function reconnectStream(signal: AbortSignal) {
 }
 
 async function post(path: string, payload: unknown, signal: AbortSignal, retryQuestion?: QuestionEvent) {
-  const response = await fetch(`${API_BASE}${path}`, {
+  const request = fetch(`${API_BASE}${path}`, {
     method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload), signal,
   })
+  pendingResponse = request
+  const response = await request
   if (signal.aborted) return
   if (!response.ok) {
     emitError(await responseError(response), response.status >= 500,
@@ -239,6 +244,44 @@ async function post(path: string, payload: unknown, signal: AbortSignal, retryQu
     if (!threadId) throw error
   }
   if (!signal.aborted && !terminal && threadId) await reconnectStream(signal)
+}
+
+function canStart(onEvent: EventListener): boolean {
+  if (!cancellation) return true
+  onEvent({ type: 'error', seq: -1, thread_id: '', recoverable: false,
+    message: 'The previous run is still stopping. Wait for confirmation, then try again.' })
+  return false
+}
+
+async function stopRun(): Promise<void> {
+  // An early Stop can precede the response headers. Keep the creation request alive
+  // until we know which server run to cancel; aborting it does not stop that worker.
+  const response = pendingResponse
+  let id = threadId
+  listener = null
+  if (response) {
+    let timer: ReturnType<typeof setTimeout> | undefined
+    try {
+      const headers = await Promise.race([response, new Promise<never>((_, reject) => {
+        timer = setTimeout(() => reject(new Error('The server has not confirmed which run started. Retry Stop.')), 30_000)
+      })])
+      if (headers.ok) id = headers.headers.get('X-Thread-ID') ?? threadId ?? id
+      else if (!id) { reset(); return }
+    } finally {
+      clearTimeout(timer)
+    }
+  }
+  if (!id && (response || controller)) {
+    throw new Error('The run could not be identified. Reopen the project and stop its active run.')
+  }
+  reset()
+  if (!id) return
+  threadId = id
+  const result = await fetch(`${API_BASE}/threads/${encodeURIComponent(id)}/cancel`, {
+    method: 'POST', credentials: 'include', signal: AbortSignal.timeout(30_000),
+  })
+  if (!result.ok) throw new Error(await responseError(result))
+  terminal = true
 }
 
 function responseMessage(payload: unknown, fallback: string) {
@@ -272,6 +315,7 @@ export const sseClient = {
   speed: 1 as 1 | 2 | 4,
 
   start(prompt: string, onEvent: EventListener, projectId?: string, requestId?: string) {
+    if (!canStart(onEvent)) return
     reset()
     threadId = null
     lastSequence = -1
@@ -293,6 +337,7 @@ export const sseClient = {
   },
 
   startBom(bom: string, onEvent: EventListener, prompt?: string, projectId?: string, requestId?: string) {
+    if (!canStart(onEvent)) return
     reset()
     threadId = null
     lastSequence = -1
@@ -316,6 +361,7 @@ export const sseClient = {
   },
 
   startDemo(onEvent: EventListener) {
+    if (!canStart(onEvent)) return
     reset()
     threadId = null
     lastSequence = -1
@@ -357,6 +403,7 @@ export const sseClient = {
   },
 
   continueRun(savedThreadId: string, onEvent: EventListener) {
+    if (!canStart(onEvent)) return
     reset()
     threadId = savedThreadId
     listener = onEvent
@@ -377,6 +424,7 @@ export const sseClient = {
   },
 
   reconnect(savedThreadId: string, onEvent: EventListener) {
+    if (!canStart(onEvent)) return
     reset()
     threadId = savedThreadId
     lastSequence = -1
@@ -396,17 +444,13 @@ export const sseClient = {
   },
 
   disconnect() {
-    reset()
+    if (!cancellation) reset()
     listener = null
   },
 
   cancel() {
-    const id = threadId
-    reset()
-    listener = null
-    if (id) fetch(`${API_BASE}/threads/${encodeURIComponent(id)}/cancel`, {
-      method: 'POST', credentials: 'include',
-    }).catch(() => undefined)
+    if (!cancellation) cancellation = stopRun().finally(() => { cancellation = null })
+    return cancellation
   },
 
   /**

@@ -357,7 +357,7 @@ def _subscription(request: Request, thread_id: str, owner: str, after: int = -1)
 
 
 async def _start_run(request: Request, thread_id: str, owner: str, producer: AsyncIterator[str],
-                     after: int = -1) -> StreamingResponse:
+                     after: int = -1, *, allow_cancelled: bool = False) -> StreamingResponse:
     store = request.app.state.store
 
     def cleanup() -> None:
@@ -371,7 +371,8 @@ async def _start_run(request: Request, thread_id: str, owner: str, producer: Asy
         for event in await store.run_events(thread_id):
             recorder.feed(event)
         FINDING_RECORDERS[thread_id] = recorder
-    await request.app.state.runs.start(thread_id, owner, producer, store, cleanup, last_seq=after)
+    await request.app.state.runs.start(thread_id, owner, producer, store, cleanup, last_seq=after,
+                                     allow_cancelled=allow_cancelled)
     return _subscription(request, thread_id, owner, after)
 
 
@@ -421,7 +422,7 @@ async def resume(body: ResumeRequest, request: Request) -> StreamingResponse:
     STREAMS[body.thread_id] = stream
     return await _start_run(request, body.thread_id, owner,
         _run(request.app.state.graph, body.thread_id, Command(resume=body.answer), store, user.id if user else None),
-        stream.last_seq)
+        stream.last_seq, allow_cancelled=True)
 
 
 @app.post("/threads/{thread_id}/continue")
@@ -440,14 +441,15 @@ async def continue_thread(thread_id: str, request: Request) -> StreamingResponse
         stream = STREAMS[thread_id] = events.EventStream(thread_id, last_seq=thread.last_seq)
         payload = original["payload"]
         return await _start_run(request, thread_id, user.id,
-            _run_bom([bom.BomRow(**row) for row in payload["rows"]], payload.get("brief"), stream, store), thread.last_seq)
+            _run_bom([bom.BomRow(**row) for row in payload["rows"]], payload.get("brief"), stream, store), thread.last_seq,
+            allow_cancelled=True)
     snapshot = await _checkpoint_snapshot(request.app.state.graph, thread_id)
     if snapshot is None or not snapshot.next:
         raise HTTPException(409, "This run has no unfinished checkpoint. Start a new design.")
     request.app.state.runs.admit(user.id)
     STREAMS[thread_id] = events.EventStream(thread_id, last_seq=thread.last_seq)
     return await _start_run(request, thread_id, user.id,
-        _run(request.app.state.graph, thread_id, None, store, user.id), thread.last_seq)
+        _run(request.app.state.graph, thread_id, None, store, user.id), thread.last_seq, allow_cancelled=True)
 
 
 @app.get("/threads/{thread_id}/events")
@@ -468,18 +470,11 @@ async def cancel_thread(thread_id: str, request: Request) -> None:
     user = await _signed_in(request)
     store = request.app.state.store
     owner = _owner(user)
-    if store and await store.thread_for_user(thread_id, owner) is None:
+    if store and not await store.cancel_run(thread_id, owner):
         raise HTTPException(404, "unknown thread")
-    if store:
-        async with store.pool.connection() as conn:
-            await conn.execute("UPDATE run_inputs SET cancelled = true WHERE thread_id = %s", (thread_id,))
     if not await request.app.state.runs.stop(thread_id, owner):
         if not store:
             raise HTTPException(404, "unknown thread")
-        # Revoking the lease also stops a worker on a different instance.
-        async with store.pool.connection() as conn:
-            await conn.execute("UPDATE threads SET run_token = NULL, lease_until = NULL, status = 'abandoned' "
-                               "WHERE id = %s AND user_id = %s AND status = 'running'", (thread_id, owner))
 
 
 @app.get("/threads/{thread_id}/board")

@@ -28,7 +28,7 @@ export default function WalkthroughRoute() {
   }, [navigate, session.status])
 
   const finish = async () => {
-    session.cancel()
+    if (!await session.cancel()) return
     await refresh()
     navigate('/projects', { replace: true })
   }

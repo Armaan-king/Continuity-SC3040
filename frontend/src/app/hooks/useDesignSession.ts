@@ -38,7 +38,7 @@ export type EventSource = {
   restore: (threadId: string, onEvent: (event: DesignEvent) => void, lastSeq?: number) => void
   reconnect: (threadId: string, onEvent: (event: DesignEvent) => void) => void
   disconnect: () => void
-  cancel: () => void
+  cancel: () => Promise<void>
 }
 
 const source: EventSource = sseClient
@@ -172,6 +172,8 @@ export function useDesignSession() {
   const [threadId, setThreadId] = useState<string | null>(null)
   const finalBoardRef = useRef(false)
   const answeringRef = useRef(false)
+  const cancelRequestedRef = useRef(false)
+  const cancelPendingRef = useRef(false)
 
   const threadRef = useRef<string | null>(null)
   const lastSeqRef = useRef<number>(-1)
@@ -424,6 +426,7 @@ export function useDesignSession() {
     setThreadId(null)
     finalBoardRef.current = false
     answeringRef.current = false
+    cancelRequestedRef.current = false
     repairedRef.current = false
     setBom(null)
     setQuestion(null)
@@ -437,6 +440,7 @@ export function useDesignSession() {
 
   const handleEvent = useCallback(
     (event: DesignEvent) => {
+      if (cancelRequestedRef.current) return
       if (event.type === 'error' && event.seq < 0) {
         answeringRef.current = false
         setReasoning((previous) => [...previous, event])
@@ -829,12 +833,34 @@ export function useDesignSession() {
     source.reconnect(threadId, handleEvent)
   }, [handleEvent, resetSessionState])
 
-  const cancel = useCallback(() => {
-    source.cancel()
+  const cancel = useCallback(async () => {
+    if (cancelPendingRef.current) return false
+    cancelPendingRef.current = true
+    cancelRequestedRef.current = true
     disposePresentationFlow()
-    setQuestion(null)
-    setActiveRepair(null)
-    setStatus('idle')
+    const generation = generationRef.current
+    setStatus('stopping')
+    setCanContinue(false)
+    try {
+      await source.cancel()
+      if (generation === generationRef.current) {
+        setQuestion(null)
+        setActiveRepair(null)
+        setStatus('stopped')
+      }
+      return true
+    } catch (error) {
+      if (generation === generationRef.current) {
+        setStatus('stop_failed')
+        setReasoning((previous) => [...previous, {
+          type: 'error', seq: -1, thread_id: threadRef.current ?? '', recoverable: false,
+          message: `Stop was not confirmed; the run may still be active. ${error instanceof Error ? error.message : 'Check your connection and retry Stop.'}`,
+        }])
+      }
+      return false
+    } finally {
+      cancelPendingRef.current = false
+    }
   }, [disposePresentationFlow])
 
   const continueRun = useCallback(() => {

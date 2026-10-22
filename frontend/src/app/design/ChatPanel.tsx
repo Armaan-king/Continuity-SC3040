@@ -216,6 +216,8 @@ export function ChatPanel({
   }
 
   const composerRunning = status === 'running'
+  const stopping = status === 'stopping'
+  const stopFailed = status === 'stop_failed'
   const awaitingAnswer = status === 'paused'
   const needsReview = Boolean(summary && ((summary.failures ?? 0) > 0 ||
     (summary.warnings ?? 0) > 0 || (summary.unchecked ?? 0) > 0 ||
@@ -226,25 +228,28 @@ export function ChatPanel({
     summary.unchecked ? `${summary.unchecked} unchecked` : '',
   ].filter(Boolean).join(', ') : ''
 
-  const statusIcon = composerRunning
+  const statusIcon = composerRunning || stopping
     ? 'progress_activity'
     : awaitingAnswer
       ? 'pause_circle'
-      : status === 'error'
+      : status === 'error' || stopFailed
         ? 'error'
         : status === 'done'
           ? needsReview ? 'info' : 'check_circle'
           : 'radio_button_unchecked'
-  const statusIconClassName = composerRunning
+  const statusIconClassName = composerRunning || stopping
     ? 'text-primary-container spinner'
     : awaitingAnswer
       ? 'text-tertiary-container'
-      : status === 'error'
+      : status === 'error' || stopFailed
         ? 'text-error'
         : status === 'done'
           ? needsReview ? 'text-tertiary-container' : 'text-[#4ade80]'
           : 'text-on-surface-variant'
-  const statusText = composerRunning
+  const statusText = stopping ? 'Stopping — waiting for server confirmation…'
+    : stopFailed ? 'Stop not confirmed. The run may still be active.'
+    : status === 'stopped' ? 'Stopped. You can start a new design.'
+    : composerRunning
     ? 'Running…'
     : awaitingAnswer
       ? 'Answer the question below to continue.'
@@ -288,13 +293,14 @@ export function ChatPanel({
               {statusText}
             </span>
           </div>
-          {composerRunning ? (
+          {composerRunning || awaitingAnswer || stopping || stopFailed ? (
             <button
               className="h-7 px-sm border border-outline-variant rounded font-data-tabular text-[11px] text-on-surface hover:bg-surface-variant hover:border-error transition-colors"
               onClick={onCancel}
+              disabled={stopping}
               type="button"
             >
-              Stop
+              {stopping ? 'Stopping…' : stopFailed ? 'Retry Stop' : 'Stop'}
             </button>
           ) : canContinue ? (
             <button
@@ -353,7 +359,7 @@ export function ChatPanel({
           )
         })}
 
-        {question ? (
+        {question && awaitingAnswer ? (
           /* flex-shrink-0 is load-bearing. Inside a flex column this block was being
              compressed into whatever space was left over, and its own overflow-hidden
              then clipped the buttons — leaving nothing for the container to scroll to,

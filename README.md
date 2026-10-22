@@ -60,7 +60,7 @@ Review the selected parts, prices, failures, and unchecked facts before exportin
 
 Reopen a saved project to restore its board, trace, and BOM. **Memory** connects parts, boards, and earlier findings; **Analytics** summarizes validation outcomes across your designs. The [project workflow video](docs/media/project-workflow.mp4) also follows these steps after export.
 
-Closing the browser does not cancel a server-side run. The event stream reconnects from its saved position, and eligible interrupted runs can recover from checkpoints. You can explicitly cancel a run when you want it to stop. Recovery behavior and its limits are covered in the [verification report](docs/ARCHITECTURE_VALIDATION.md).
+Closing the browser does not cancel a server-side run. The event stream reconnects from its saved position, and eligible interrupted runs can recover from checkpoints. Use **Stop** to cancel, and wait for **Stopped** before starting another design. **Stopping…** means confirmation is pending; **Retry Stop** means it failed and the run may still be active. Recovery behavior and its limits are covered in the [verification report](docs/ARCHITECTURE_VALIDATION.md), with [cancellation checks](docs/CANCELLATION_VALIDATION.md) documented separately.
 
 All four videos were captured against the local app with PostgreSQL and AI planning disabled. The evidence and revision clips use a reference board that retains its remaining failures and unknowns. [Recording details, chapters, and reproduction](docs/media/README.md).
 

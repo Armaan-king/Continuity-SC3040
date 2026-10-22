@@ -741,7 +741,8 @@ class Store(RevisionRepository):
             )
         return facts
 
-    async def claim_run(self, thread_id: str, user_id: str, token: str) -> bool:
+    async def claim_run(self, thread_id: str, user_id: str, token: str,
+                        *, allow_cancelled: bool = False) -> bool:
         """Serialize admission per account, then acquire a renewable execution lease."""
         async with self.pool.connection() as conn:
             async with conn.transaction():
@@ -757,8 +758,33 @@ class Store(RevisionRepository):
                                        status = 'running', updated_at = now()
                      WHERE id = %s AND user_id = %s AND status <> 'done'
                        AND (lease_until IS NULL OR lease_until <= now())
-                """, (token, thread_id, user_id))
-                return cursor.rowcount == 1
+                       AND (%s OR NOT EXISTS (
+                           SELECT 1 FROM run_inputs i WHERE i.thread_id = threads.id AND i.cancelled
+                       ))
+                """, (token, thread_id, user_id, allow_cancelled))
+                claimed = cursor.rowcount == 1
+                if claimed and allow_cancelled:
+                    await conn.execute("UPDATE run_inputs SET cancelled = false WHERE thread_id = %s", (thread_id,))
+                return claimed
+
+    async def cancel_run(self, thread_id: str, user_id: str) -> bool:
+        """Persist the stop and revoke its lease before acknowledging cancellation.
+
+        Use the admission lock so a recovery worker with an older selection cannot
+        restart this input after the user has stopped it.
+        """
+        async with self.pool.connection() as conn:
+            async with conn.transaction():
+                await conn.execute("SELECT id FROM users WHERE id = %s FOR UPDATE", (user_id,))
+                cursor = await conn.execute("SELECT id FROM threads WHERE id = %s AND user_id = %s",
+                                            (thread_id, user_id))
+                if await cursor.fetchone() is None:
+                    return False
+                await conn.execute("UPDATE run_inputs SET cancelled = true WHERE thread_id = %s", (thread_id,))
+                await conn.execute("""UPDATE threads SET run_token = NULL, lease_until = NULL,
+                        status = 'abandoned', updated_at = now()
+                    WHERE id = %s AND user_id = %s AND status IN ('running', 'awaiting')""", (thread_id, user_id))
+                return True
 
     async def renew_run(self, thread_id: str, token: str) -> bool:
         async with self.pool.connection() as conn:

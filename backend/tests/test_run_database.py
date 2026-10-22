@@ -54,3 +54,36 @@ def test_only_current_lease_can_write_and_replay_is_owner_scoped():
             await store.release_run("run", "new", "awaiting")
             assert (await store.thread_for_user("run", alice.id)).status == "awaiting"
     asyncio.run(go())
+
+
+def test_cancel_revokes_lease_and_fences_recovery_until_explicit_continuation():
+    async def go():
+        async with fresh() as store:
+            alice = await a_user(store)
+            bob = await a_user(store, "bob@example.com")
+            project = await store.create_project(alice.id, "A board")
+            await store.create_thread("old", project.id, alice.id, "sensor", run_kind="brief",
+                                      run_payload={"prompt": "sensor"})
+            assert await store.claim_run("old", alice.id, "worker")
+            assert not await store.cancel_run("old", bob.id)
+            assert await store.renew_run("old", "worker")
+            assert await store.cancel_run("old", alice.id)
+            assert await store.cancel_run("old", alice.id)
+            assert not await store.renew_run("old", "worker")
+            await store.release_run("old", "worker", "done")
+            assert (await store.thread_for_user("old", alice.id)).status == "abandoned"
+            # Even if recovery selected this row before Stop, admission must reject it.
+            assert not await store.claim_run("old", alice.id, "stale-recovery")
+            await store.create_thread("new", project.id, alice.id, "new sensor")
+            assert await store.claim_run("new", alice.id, "new-worker")
+            await store.release_run("new", "new-worker", "done")
+            assert await store.claim_run("old", alice.id, "manual", allow_cancelled=True)
+            assert not (await store.run_input("old", alice.id))["cancelled"]
+            await store.release_run("old", "manual", "awaiting")
+            assert await store.cancel_run("old", alice.id)
+            assert (await store.thread_for_user("old", alice.id)).status == "abandoned"
+            assert await store.claim_run("old", alice.id, "manual-again", allow_cancelled=True)
+            await store.release_run("old", "manual-again", "done")
+            assert await store.cancel_run("old", alice.id)
+            assert (await store.thread_for_user("old", alice.id)).status == "done"
+    asyncio.run(go())

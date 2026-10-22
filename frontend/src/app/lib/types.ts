@@ -65,7 +65,7 @@ export interface Edge {
   status: 'pending' | 'pass' | 'conflict' | 'unchecked'
 }
 
-export type SessionStatus = 'idle' | 'running' | 'paused' | 'done' | 'error'
+export type SessionStatus = 'idle' | 'running' | 'paused' | 'stopping' | 'stopped' | 'stop_failed' | 'done' | 'error'
 
 export interface Evidence {
   slot: string

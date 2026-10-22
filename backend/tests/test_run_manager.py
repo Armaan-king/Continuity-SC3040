@@ -102,3 +102,70 @@ def test_question_is_not_visible_until_producer_has_persisted_the_pause():
         await subscription.aclose()
         await manager.close()
     asyncio.run(go())
+
+
+@pytest.mark.parametrize("disconnect_first_request", [False, True])
+def test_repeated_stop_waits_for_cleanup_without_cancelling_it_again(disconnect_first_request):
+    async def go():
+        manager = RunManager()
+        entered = asyncio.Event()
+        cleaning = asyncio.Event()
+        finish = asyncio.Event()
+        cleaned = asyncio.Event()
+
+        async def produce():
+            try:
+                entered.set()
+                await asyncio.Event().wait()
+                yield ""
+            finally:
+                cleaning.set()
+                await finish.wait()
+                cleaned.set()
+
+        await manager.start("old", "owner", produce())
+        await entered.wait()
+        first = asyncio.create_task(manager.stop("old", "owner"))
+        await cleaning.wait()
+        if disconnect_first_request:
+            first.cancel()
+            await asyncio.gather(first, return_exceptions=True)
+        second = asyncio.create_task(manager.stop("old", "owner"))
+        await asyncio.sleep(0)
+        assert not second.done()
+        with pytest.raises(HTTPException):
+            manager.admit("owner")
+        finish.set()
+        assert await second
+        await asyncio.gather(first, return_exceptions=True)
+        assert cleaned.is_set()
+        assert manager.runs["old"].finished
+        manager.admit("owner")
+        assert await manager.stop("old", "owner")  # a retry is idempotent
+        await manager.close()
+    asyncio.run(go())
+
+
+def test_producer_close_failure_does_not_leave_account_occupied():
+    async def go():
+        manager = RunManager()
+        entered = asyncio.Event()
+
+        class Producer:
+            def __aiter__(self):
+                return self
+
+            async def __anext__(self):
+                entered.set()
+                await asyncio.Event().wait()
+
+            async def aclose(self):
+                raise RuntimeError("cleanup failure")
+
+        await manager.start("broken", "owner", Producer())
+        await entered.wait()
+        assert await manager.stop("broken", "owner")
+        assert manager.runs["broken"].finished
+        manager.admit("owner")
+        await manager.close()
+    asyncio.run(go())

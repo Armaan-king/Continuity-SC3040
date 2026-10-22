@@ -91,6 +91,40 @@ async def frames_of(http: httpx.AsyncClient, path: str, payload: dict) -> list[d
         ]
 
 
+def test_confirmed_stop_releases_account_for_next_design(monkeypatch):
+    from continuity.api.runs import RunManager
+
+    async def go():
+        manager = RunManager()
+        monkeypatch.setattr(app.state, "runs", manager)
+        async with a_store() as store, signed_in() as http:
+            user = await store.user_by_email("sparsh@example.com")
+            project = await store.create_project(user.id, "Stop regression")
+            await store.create_thread("stop-me", project.id, user.id, "old brief",
+                                      run_kind="brief", run_payload={"prompt": "old brief"})
+            entered = asyncio.Event()
+
+            async def producer():
+                entered.set()
+                await asyncio.Event().wait()
+                yield ""
+
+            try:
+                await manager.start("stop-me", user.id, producer(), store)
+                await entered.wait()
+                response = await http.post("/threads/stop-me/cancel")
+                assert response.status_code == 204, response.text
+                assert manager.runs["stop-me"].finished
+                assert (await store.thread_for_user("stop-me", user.id)).status == "abandoned"
+                assert (await store.run_input("stop-me", user.id))["cancelled"]
+                assert (await http.post("/threads/stop-me/cancel")).status_code == 204
+                frames = await frames_of(http, "/design", {"project_id": project.id, "prompt": UNRESOLVED})
+                assert any(event["type"] == "question" for event in frames)
+            finally:
+                await manager.close()
+    run(go())
+
+
 # ── the routes need an account ────────────────────────────────────────────────
 
 

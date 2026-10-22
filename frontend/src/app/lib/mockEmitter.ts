@@ -973,7 +973,7 @@ export const mockEmitter = {
     this.cancel()
     listener = null
   },
-  cancel() {
+  async cancel() {
     activeToken += 1
     clearTimers()
     resetAnswerWaiter(makeCancelledError())

@@ -72,6 +72,14 @@
     @apply bg-[#0B0C0E] border border-outline-variant rounded focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors duration-150;
   }
 
+  .review-field {
+    @apply h-9 min-w-0 px-3 py-2 font-body-sm text-body-sm;
+  }
+
+  .review-field[type='number'] {
+    @apply font-data-tabular text-data-tabular;
+  }
+
   .uppercase-label {
     @apply uppercase tracking-[0.05em];
   }

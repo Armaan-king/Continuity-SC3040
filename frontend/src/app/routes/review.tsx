@@ -9,6 +9,7 @@ const button = 'rounded border border-outline-variant bg-surface-container-high 
 const panel = 'border border-outline-variant bg-surface-container-low rounded-xl p-6'
 const label = (value: string) => value.replaceAll('_', ' ')
 const display = (value: unknown) => value === null || value === undefined ? 'Not specified' : Array.isArray(value) ? value.join(' to ') : String(value)
+const tabs = { report: 'Review', requirements: 'Requirements', history: 'Revision history' }
 
 export default function ReviewRoute() {
   const { projectId = '' } = useParams()
@@ -74,7 +75,7 @@ export default function ReviewRoute() {
       {revision && <div className="flex gap-sm"><a className={button} href={revisionExport(selected, 'report.json')}>Export report</a><a className={button} href={revisionExport(selected, 'bom.csv')}>Export BOM</a></div>}
     </header>
     <main className="max-w-[1200px] mx-auto px-4 py-8 md:px-8 flex flex-col gap-8 animate-page-enter">
-      <nav aria-label="Design review" className="flex gap-sm flex-wrap border-b border-outline-variant pb-4">{(['report', 'requirements', 'history'] as const).map(value => <button key={value} type="button" onClick={() => setTab(value)} className={`${button} ${tab === value ? 'text-primary-container border-primary-container' : ''}`}>{value === 'history' ? 'Revision history' : label(value)}</button>)}</nav>
+      <nav aria-label="Design review" className="flex gap-sm flex-wrap border-b border-outline-variant pb-4">{(['report', 'requirements', 'history'] as const).map(value => <button key={value} type="button" aria-pressed={tab === value} onClick={() => setTab(value)} className={`${button} ${tab === value ? 'text-primary-container border-primary-container' : ''}`}>{tabs[value]}</button>)}</nav>
       {error && <div role="alert" className="border border-error text-error p-md">{error} <button className="underline" onClick={() => { setError(''); load().catch(e => setError(e.message)) }}>Reload</button></div>}
       {!loaded && <p role="status">Loading saved designs…</p>}
       {loaded && history.length === 0 && <div className={panel}>This project has no versioned result yet. Its existing workspace and exports remain available. New completed runs include a validation report.</div>}

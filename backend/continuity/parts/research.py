@@ -143,7 +143,13 @@ async def read_documents(urls: list[str]) -> dict:
 
 
 def missing_fields(part) -> list[str]:
-    fields = [name for name in ("vmin", "vmax", "temp_max") if getattr(part, name, None) is None]
+    # Keep missing bus capabilities in the first four search questions. Otherwise
+    # an incomplete MCU record can consume its research budget without ever asking
+    # for the evidence needed to evaluate its peripherals.
+    fields = []
+    if getattr(part, "role", None) in {"master", "peripheral"} and not getattr(part, "interfaces", ()):
+        fields.append("supported communication interfaces (I2C, IIC, SPI, UART)")
+    fields.extend(name for name in ("vmin", "vmax", "temp_max") if getattr(part, name, None) is None)
     if getattr(part, "draw", None) is None:
         fields.append("operating current at intended voltage and mode")
     if getattr(part, "role", None) == "master" and getattr(part, "pins_available", None) is None:

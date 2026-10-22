@@ -68,13 +68,17 @@ Numeric model output must agree with an independent parser of explicit supplier 
 
 Declared signal nets separate controllers and protocols. Connections inferred from a BOM remain unconfirmed until reviewed; supported protocol alone is not physical connectivity. Passing current/thermal/energy checks based only on typical load current become unknown. New waivers bind rule, subject, scope and evidence/detail hash; earlier checkpoint pairs remain readable for compatibility. Requirement edits and restores do not carry waivers forward automatically.
 
-### Deterministic engine, ruleset `2026-10-engine-2`
+### Deterministic engine, ruleset `2026-10-interfaces-4`
 
 `engine/integrity.py` checks finite measurements, valid ranges and quantities, and power topology before arithmetic. It excludes invalid measurements from an evaluation copy while retaining the original evidence in the saved document. Duplicate consumers, missing sources, multiple supplies and power cycles produce explicit findings. Multi-output sources contribute all loads to upstream demand, but their individual output ratings remain unverified.
 
 `engine/draw.py` carries known partial loads through cascaded supplies, so an unknown load cannot erase an already provable overload. It converts switching-stage output power to input current and uses the declared component quantity once per load. An assumed conversion efficiency cannot by itself establish an input-current failure: the ideal-conversion lower bound must also exceed capacity. Otherwise the input budget is UNKNOWN. Typical-only load uncertainty propagates through upstream checks and battery estimates.
 
 `engine/signals.py` evaluates explicitly declared nets: controller presence, protocol capability, role mismatch, UART fan-out and GPIO demand per independent bus. Shared I²C devices share two signal pins; separate buses each consume two. Multiple controllers without assignments, unconfirmed nets, missing interface data and grouped component instances remain unchecked. Generated boards without declared signal nets retain the existing capability checks; those are not proof of physical wiring.
+
+The capability checks also keep missing controller interfaces unknown, including during candidate ranking. Missing supplier data cannot establish that a controller lacks I²C. The specification parser recognizes explicit IIC, I²C and TWI aliases using the engine's shared bus vocabulary, preserves the original parameter as evidence, and excludes negated or optional capabilities. Parser versions participate in both part-cache and durable normalization-stage identities.
+
+[Interface regression diagnosis and verification](INTERFACE_VALIDATION.md) records the manufacturer evidence, test results and deployment limits.
 
 `engine/repairs.py` derives voltage, output-current margin, temperature range and converter-direction constraints from the current board. The graph still fences AI and fallback proposals through the same repair policy. Constrained searches compare up to three candidates against all board checks before placement, prioritize hard failures and uncertainty ahead of commercial preferences, and retain previously tried identities across checkpoints. Exhausted options escalate for a user decision.
 
@@ -85,6 +89,8 @@ Slot quantities are explicit in new revision documents. Reading an older BOM rev
 Exa is an optional adapter in `parts/research.py`, configured with server-only `EXA_API_KEY`. It uses native `/search` (`auto`, highlights) for discovery and `/contents` (bounded text) to inspect source context. It does not invent domain/category filters. Public HTTPS URLs, per-URL retrieval statuses, response size and timeouts are checked. Retrieved text is untrusted and visibly unverified, with its retrieval time, content hash and source URL preserved.
 
 Missing-evidence research attaches reviewable documents. Alternative discovery asks the configured model for literal identifiers from the retrieved text, then resolves exact MPNs through the supplier catalogue and normalizes them before validation. At most three shortlisted candidates are checked against the same board; failures and unknowns precede cost, nominal body size or stock preferences. No Exa snippet or model-proposed number directly determines a rule result.
+
+Missing controller/peripheral interfaces are prioritized in research questions. Retrieval still requires the exact MPN in the document text or title, so a family datasheet without the full ordering code may be excluded. Automatically extracting facts from research would require a separate validation step for part/variant applicability, supporting passages, units, operating conditions and contradictory sources before updating specifications and rerunning rules. That extraction step is not implemented; documents remain labelled unverified.
 
 Request reservations and cached results are durable per run. Defaults allow six requests with a $0.12 estimated budget and a $0.02 reservation per request. Actual reported costs are recorded; provider pricing/account limits govern actual billing. Reservations survive a crash and are not blindly retried. Missing keys or retrieval failures preserve ordinary supplier/rules behavior. `/runtime` distinguishes configured research from the last actual request result.
 

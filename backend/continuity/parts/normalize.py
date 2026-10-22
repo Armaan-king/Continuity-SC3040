@@ -383,10 +383,11 @@ async def normalize(
 
     dossier_fields = await _dossier_fields(candidate, dossier_lookup or _dossier_lookup.get())
 
+    from .specifications import PARSER_VERSION
     fingerprint = hashlib.sha256(json.dumps({
         "manufacturer": candidate.manufacturer, "mpn": candidate.mpn,
         "package": candidate.package, "specs": dict(candidate.specs),
-        "parser": "verified-2", "prompt": _prompt_version(),
+        "parser": PARSER_VERSION, "prompt": _prompt_version(),
     }, sort_keys=True).encode()).hexdigest()
     cached = _load(candidate.mpn, fingerprint=fingerprint) if use_cache else None
     if cached is not None:
@@ -480,7 +481,7 @@ async def normalize(
             "fact_evidence": {
                 name: {"value": fields[name], "parameter": source,
                        "original": candidate.specs[source], "source": candidate.product_url,
-                       "method": "deterministic", "parser_version": "verified-2",
+                       "method": "deterministic", "parser_version": PARSER_VERSION,
                        "source_hash": fingerprint}
                 for name, source in verified_sources.items() if name in fields
             },

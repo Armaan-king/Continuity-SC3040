@@ -34,6 +34,8 @@ After a run completes, open **Review design**. The report shows a visual check s
 
 Questions ask for missing or unconfirmed requirements, such as battery capacity, runtime, operating temperature and current margin. Values already inferred by the planner are labelled as proposals to confirm. Supplier search cannot decide your intended operating conditions. Missing component measurements stay unknown until supported by evidence; a missing current is never presented as zero draw or 100% available headroom.
 
+Missing controller interface data also stays **UNKNOWN**, rather than becoming a claimed incompatibility. Explicit IIC, I²C and TWI specifications are recognized as I²C. When research is enabled, missing interfaces are included in the datasheet questions; a retrieved document still needs verification before its claims can become rule inputs.
+
 The engine checks measurement consistency and power topology before calculating electrical limits. It follows loads through cascaded rails, includes BOM quantities, checks converter direction, and budgets GPIO separately for declared signal nets. Missing measurements, ambiguous connections, and typical-only current figures stay visible as uncertainty. Repairs use the actual board requirements and compare replacements against the whole board, while avoiding components already tried in that run.
 
 When Exa research is enabled, supporting documents include source links, retrieved text, and verification labels. Read those alongside the report's validation limits. Under **Requirements**, confirm the power and signal connections against your circuit, then save to revalidate.

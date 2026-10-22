@@ -12,7 +12,7 @@ from ..planner import topology
 from ..planner.requirements import explicit_requirements
 
 SCHEMA_VERSION = 1
-RULESET_VERSION = "2026-10-review-3"
+RULESET_VERSION = "2026-10-interfaces-4"
 
 
 def digest(value: Any) -> str:

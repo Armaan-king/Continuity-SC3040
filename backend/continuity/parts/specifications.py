@@ -8,6 +8,9 @@ from __future__ import annotations
 
 import re
 from collections.abc import Mapping
+from ..engine.buses import listed_interfaces
+
+PARSER_VERSION = "verified-3"
 
 NUMBER = r"([+-]?(?:\d+(?:\.\d+)?|\.\d+))"
 SCALE = {"": 1.0, "m": 1e-3, "u": 1e-6, "µ": 1e-6, "μ": 1e-6, "n": 1e-9}
@@ -82,8 +85,8 @@ def parse(specs: Mapping[str, str]) -> tuple[dict, dict]:
             value = raw.strip().lower()
             if value in {"ldo", "linear", "buck", "boost", "buck-boost", "sepic", "switching"}:
                 put("topology", value, source)
-        elif name in {"interface", "interface type"}:
-            buses = tuple(dict.fromkeys(re.findall(r"\b(?:I2C|SPI|UART|CAN|USB|I2S)\b", raw.upper())))
+        elif name in {"interface", "interface type", "connectivity", "serial interface", "communication interface"}:
+            buses = listed_interfaces(raw)
             if buses:
                 put("interfaces", buses, source)
     return fields, provenance

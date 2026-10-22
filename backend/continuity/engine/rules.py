@@ -272,6 +272,15 @@ def interface_role_match(board: Board) -> list[Verdict]:
     incomplete = any(slot.part is None for slot in board.slots.values())
 
     verdicts.extend(_bus_contention(masters))
+    # An unspecified controller bus must remain visible even before peripherals
+    # are placed, so candidate ranking does not reward an empty specification.
+    for master_id, master in masters:
+        if not master.interfaces:
+            verdicts.append(Verdict(
+                "interface_role_match", "warn",
+                f"{master.mpn}'s controller interfaces are not stated in the available specifications; "
+                "verify its datasheet before checking signal compatibility.",
+                master_id, unchecked=True, evidence=master.cite(master_id, "interfaces")))
     for slot_id, part in peripherals:
         verdicts.append(_check_one_bus(slot_id, part, masters, incomplete))
     verdicts.extend(_chip_select_pressure(masters, peripherals))
@@ -420,6 +429,17 @@ def _check_one_bus(
                     involved=(slot_id, master_id),
                     evidence=evidence + master.cite(master_id, "interfaces"),
                 )
+
+    unknown_masters = [master.mpn for _, master in masters if not master.interfaces]
+    if unknown_masters:
+        return Verdict(
+            "interface_role_match", "warn",
+            f"{part.mpn} needs {fmt.listing(list(part.interfaces))}, but controller interface data "
+            f"is missing for {fmt.listing(unknown_masters)}. Compatibility is unknown; "
+            "missing data does not establish an interface mismatch.",
+            slot_id, involved=involved, unchecked=True,
+            evidence=evidence + tuple(r for m_id, m in masters for r in m.cite(m_id, "interfaces")),
+        )
 
     offered = fmt.listing(sorted({bus for _, m in masters for bus in m.interfaces}))
     return Verdict(

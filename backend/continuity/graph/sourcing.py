@@ -423,7 +423,8 @@ async def choose(candidate: Candidate) -> PartSpec:
     from ..designs.context import stage
     async def work():
         return asdict(await normalize.normalize(candidate, fetch_missing_theta_ja=missing_theta_ja, research_missing=False))
-    values = await stage("normalize_classified_v3", asdict(candidate), work)
+    from ..parts.specifications import PARSER_VERSION
+    values = await stage("normalize_classified_v3", {"candidate": asdict(candidate), "parser": PARSER_VERSION}, work)
     return PartSpec(**{**values, "interfaces": tuple(values.get("interfaces", ()))})
 
 

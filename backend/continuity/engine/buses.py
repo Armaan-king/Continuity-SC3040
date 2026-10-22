@@ -10,6 +10,8 @@ than a catalogue taxonomy, so it remains deterministic and imports no other modu
 
 from __future__ import annotations
 
+import re
+
 
 # payload spelling → engine's single protocol name
 _ALIASES: dict[str, str] = {
@@ -20,7 +22,32 @@ _ALIASES: dict[str, str] = {
     "TWI": "I2C",
     "IIC": "I2C",
     "I²C": "I2C",
+    "I²S": "I2S",
+    "1WIRE": "1-WIRE",
+    "1 WIRE": "1-WIRE",
+    "ONE WIRE": "1-WIRE",
+    "RS232": "RS-232",
+    "RS422": "RS-422",
+    "RS485": "RS-485",
 }
+
+_INTERFACE_TOKEN = re.compile(
+    r"(?<!\w)(?:I2C|IIC|I²C|TWI|I2S|I²S|SPI|UART|CAN|USB|SMBUS|LIN|"
+    r"1[- ]?WIRE|ONE[- ]?WIRE|SINGLE[ _]BUS|RS-?(?:232|422|485))(?!\w)", re.I)
+
+
+def listed_interfaces(value: str) -> tuple[str, ...]:
+    """Read explicit interface-list tokens using the engine's shared vocabulary.
+
+    Prose negating or qualifying a capability is not positive evidence. Unknown
+    names and generic phrases such as 'high-speed peripheral interface' stay unknown.
+    """
+    found = []
+    for segment in re.split(r"[,;、|/\n]", value):
+        if re.search(r"\b(?:no|not|without|unsupported|optional)\b", segment, re.I):
+            continue
+        found.extend(canonical_bus(match[0]) for match in _INTERFACE_TOKEN.finditer(segment))
+    return tuple(dict.fromkeys(found))
 
 
 def canonical_bus(bus: str) -> str:
